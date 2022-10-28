@@ -1,0 +1,13 @@
+<div bsModal #messageDetailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+aria-labelledby="messageDetailModal" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-body" *ngIf="isHtml" [innerHTML]="content">
+        </div>
+
+        <div class="modal-body" *ngIf="!isHtml">
+            {{content}}
+        </div>
+    </div>
+</div>
+</div>

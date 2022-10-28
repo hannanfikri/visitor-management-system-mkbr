@@ -1,3 +1,31 @@
+
+# AspNet
+In **.EntityFramework folder
+- dotnet ef database update --context OnlineAppDbContext
+
+For add new migration
+- dotnet ef migrations add AnyNameRelatedWithMigrations --context OnlineAppDbContext
+
+in **.Web.Host folder
+- dotnet restore
+- dotnet run / watch run
+
+# Angular
+In angular folder
+- yarn
+- npm run create-dynamic-bundles
+
+Goto folder angular/nswag
+- ../node_modules/nswag/bin/nswag.js run
+
+Back to folder angular
+- yarn start
+
+
+
+____________
+
+
 # ASP.NET ZERO
 
 This repository is configured and used for AspNet Zero Team's development. 

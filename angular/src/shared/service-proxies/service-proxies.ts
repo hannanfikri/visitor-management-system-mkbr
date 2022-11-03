@@ -1805,6 +1805,371 @@ export class CommonLookupServiceProxy {
 }
 
 @Injectable()
+export class CompaniesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param companyNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, companyNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetCompanyForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (companyNameFilter === null)
+            throw new Error("The parameter 'companyNameFilter' cannot be null.");
+        else if (companyNameFilter !== undefined)
+            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetCompanyForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetCompanyForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetCompanyForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetCompanyForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetCompanyForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCompanyForView(id: string | undefined): Observable<GetCompanyForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/GetCompanyForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCompanyForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCompanyForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetCompanyForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetCompanyForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCompanyForView(response: HttpResponseBase): Observable<GetCompanyForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCompanyForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetCompanyForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCompanyForEdit(id: string | undefined): Observable<GetCompanyForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/GetCompanyForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCompanyForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCompanyForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetCompanyForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetCompanyForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCompanyForEdit(response: HttpResponseBase): Observable<GetCompanyForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCompanyForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetCompanyForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditCompanyDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param companyNameFilter (optional) 
+     * @return Success
+     */
+    getCompaniesToExcel(filter: string | undefined, companyNameFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/GetCompaniesToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (companyNameFilter === null)
+            throw new Error("The parameter 'companyNameFilter' cannot be null.");
+        else if (companyNameFilter !== undefined)
+            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCompaniesToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCompaniesToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCompaniesToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class DashboardCustomizationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -16179,6 +16544,58 @@ export interface IComboboxItemDto {
     isSelected: boolean;
 }
 
+export class CompanyDto implements ICompanyDto {
+    companyName!: string | undefined;
+    companyEmail!: string | undefined;
+    officePhoneNumber!: string | undefined;
+    companyAddress!: string | undefined;
+    id!: string;
+
+    constructor(data?: ICompanyDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.companyName = _data["companyName"];
+            this.companyEmail = _data["companyEmail"];
+            this.officePhoneNumber = _data["officePhoneNumber"];
+            this.companyAddress = _data["companyAddress"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CompanyDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CompanyDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["companyName"] = this.companyName;
+        data["companyEmail"] = this.companyEmail;
+        data["officePhoneNumber"] = this.officePhoneNumber;
+        data["companyAddress"] = this.companyAddress;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICompanyDto {
+    companyName: string | undefined;
+    companyEmail: string | undefined;
+    officePhoneNumber: string | undefined;
+    companyAddress: string | undefined;
+    id: string;
+}
+
 export class CreateEditionDto implements ICreateEditionDto {
     edition!: EditionCreateDto;
     featureValues!: NameValueDto[];
@@ -16421,6 +16838,58 @@ export interface ICreateMassNotificationInput {
     userIds: number[] | undefined;
     organizationUnitIds: number[] | undefined;
     targetNotifiers: string[] | undefined;
+}
+
+export class CreateOrEditCompanyDto implements ICreateOrEditCompanyDto {
+    companyName!: string;
+    companyEmail!: string | undefined;
+    officePhoneNumber!: string | undefined;
+    companyAddress!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditCompanyDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.companyName = _data["companyName"];
+            this.companyEmail = _data["companyEmail"];
+            this.officePhoneNumber = _data["officePhoneNumber"];
+            this.companyAddress = _data["companyAddress"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditCompanyDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditCompanyDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["companyName"] = this.companyName;
+        data["companyEmail"] = this.companyEmail;
+        data["officePhoneNumber"] = this.officePhoneNumber;
+        data["companyAddress"] = this.companyAddress;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditCompanyDto {
+    companyName: string;
+    companyEmail: string | undefined;
+    officePhoneNumber: string | undefined;
+    companyAddress: string | undefined;
+    id: string | undefined;
 }
 
 export class CreateOrUpdateLanguageInput implements ICreateOrUpdateLanguageInput {
@@ -19454,6 +19923,78 @@ export interface IGetAllSubscriptionsOutput {
     isActive: boolean;
     webhooks: string[] | undefined;
     id: string;
+}
+
+export class GetCompanyForEditOutput implements IGetCompanyForEditOutput {
+    company!: CreateOrEditCompanyDto;
+
+    constructor(data?: IGetCompanyForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.company = _data["company"] ? CreateOrEditCompanyDto.fromJS(_data["company"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetCompanyForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetCompanyForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["company"] = this.company ? this.company.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetCompanyForEditOutput {
+    company: CreateOrEditCompanyDto;
+}
+
+export class GetCompanyForViewDto implements IGetCompanyForViewDto {
+    company!: CompanyDto;
+
+    constructor(data?: IGetCompanyForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.company = _data["company"] ? CompanyDto.fromJS(_data["company"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetCompanyForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetCompanyForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["company"] = this.company ? this.company.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetCompanyForViewDto {
+    company: CompanyDto;
 }
 
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
@@ -24101,6 +24642,54 @@ export class PagedResultDtoOfGetAllSendAttemptsOutput implements IPagedResultDto
 export interface IPagedResultDtoOfGetAllSendAttemptsOutput {
     totalCount: number;
     items: GetAllSendAttemptsOutput[] | undefined;
+}
+
+export class PagedResultDtoOfGetCompanyForViewDto implements IPagedResultDtoOfGetCompanyForViewDto {
+    totalCount!: number;
+    items!: GetCompanyForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetCompanyForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetCompanyForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetCompanyForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetCompanyForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetCompanyForViewDto {
+    totalCount: number;
+    items: GetCompanyForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfLanguageTextListDto implements IPagedResultDtoOfLanguageTextListDto {

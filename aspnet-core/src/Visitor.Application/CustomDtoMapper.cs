@@ -1,3 +1,5 @@
+﻿using Visitor.Company.Dtos;
+using Visitor.Company;
 using Abp.Application.Editions;
 using Abp.Application.Features;
 using Abp.Auditing;
@@ -48,6 +50,8 @@ namespace Visitor
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditCompanyDto, Company.CompanyEnt>().ReverseMap();
+            configuration.CreateMap<CompanyDto, Company.CompanyEnt>().ReverseMap();
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();
@@ -76,8 +80,6 @@ namespace Visitor
             configuration.CreateMap<Role, RoleListDto>();
             configuration.CreateMap<UserRole, UserListRoleDto>();
 
-            
-
             //Edition
             configuration.CreateMap<EditionEditDto, SubscribableEdition>().ReverseMap();
             configuration.CreateMap<EditionCreateDto, SubscribableEdition>();
@@ -90,7 +92,6 @@ namespace Visitor
             configuration.CreateMap<Edition, EditionEditDto>();
             configuration.CreateMap<Edition, SubscribableEdition>();
             configuration.CreateMap<Edition, EditionSelectDto>();
-
 
             //Payment
             configuration.CreateMap<SubscriptionPaymentDto, SubscriptionPayment>().ReverseMap();
@@ -159,7 +160,7 @@ namespace Visitor
             configuration.CreateMap<DynamicEntityPropertyDto, DynamicEntityProperty>();
 
             configuration.CreateMap<DynamicEntityPropertyValue, DynamicEntityPropertyValueDto>().ReverseMap();
-            
+
             //User Delegations
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 

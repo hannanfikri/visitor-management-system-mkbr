@@ -29,6 +29,12 @@ namespace Visitor.Authorization
             //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
+
+            var companies = pages.CreateChildPermission(AppPermissions.Pages_Companies, L("Companies"));
+            companies.CreateChildPermission(AppPermissions.Pages_Companies_Create, L("CreateNewCompany"));
+            companies.CreateChildPermission(AppPermissions.Pages_Companies_Edit, L("EditCompany"));
+            companies.CreateChildPermission(AppPermissions.Pages_Companies_Delete, L("DeleteCompany"));
+
             pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
@@ -53,7 +59,7 @@ namespace Visitor.Authorization
             languages.CreateChildPermission(AppPermissions.Pages_Administration_Languages_Delete, L("DeletingLanguages"), multiTenancySides: _isMultiTenancyEnabled ? MultiTenancySides.Host : MultiTenancySides.Tenant);
             languages.CreateChildPermission(AppPermissions.Pages_Administration_Languages_ChangeTexts, L("ChangingTexts"));
             languages.CreateChildPermission(AppPermissions.Pages_Administration_Languages_ChangeDefaultLanguage, L("ChangeDefaultLanguage"));
-            
+
             administration.CreateChildPermission(AppPermissions.Pages_Administration_AuditLogs, L("AuditLogs"));
 
             var organizationUnits = administration.CreateChildPermission(AppPermissions.Pages_Administration_OrganizationUnits, L("OrganizationUnits"));
@@ -93,7 +99,7 @@ namespace Visitor.Authorization
 
             var massNotification = administration.CreateChildPermission(AppPermissions.Pages_Administration_MassNotification, L("MassNotifications"));
             massNotification.CreateChildPermission(AppPermissions.Pages_Administration_MassNotification_Create, L("MassNotificationCreate"));
-            
+
             //TENANT-SPECIFIC PERMISSIONS
 
             pages.CreateChildPermission(AppPermissions.Pages_Tenant_Dashboard, L("Dashboard"), multiTenancySides: MultiTenancySides.Tenant);

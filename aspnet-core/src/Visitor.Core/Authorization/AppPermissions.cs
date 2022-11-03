@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Companies = "Pages.Companies";
+        public const string Pages_Companies_Create = "Pages.Companies.Create";
+        public const string Pages_Companies_Edit = "Pages.Companies.Edit"; 
+        public const string Pages_Companies_Delete = "Pages.Companies.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";
@@ -72,7 +77,7 @@
         public const string Pages_Administration_DynamicEntityPropertyValue_Create = "Pages.Administration.DynamicEntityPropertyValue.Create";
         public const string Pages_Administration_DynamicEntityPropertyValue_Edit = "Pages.Administration.DynamicEntityPropertyValue.Edit";
         public const string Pages_Administration_DynamicEntityPropertyValue_Delete = "Pages.Administration.DynamicEntityPropertyValue.Delete";
-        
+
         public const string Pages_Administration_MassNotification = "Pages.Administration.MassNotification";
         public const string Pages_Administration_MassNotification_Create = "Pages.Administration.MassNotification.Create";
 

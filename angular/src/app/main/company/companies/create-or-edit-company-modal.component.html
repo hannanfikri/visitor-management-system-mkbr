@@ -1,0 +1,100 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #companyForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="company.id">{{ l('EditCompany') }}</span>
+                        <span *ngIf="!company.id">{{ l('CreateNewCompany') }}</span>
+                    </h4>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="close()"
+                        aria-label="Close"
+                        [disabled]="saving"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Company_CompanyName">{{ l('CompanyName') }} *</label>
+                        <input
+                            type="text"
+                            #Company_CompanyName="ngModel"
+                            id="Company_CompanyName"
+                            class="form-control"
+                            [(ngModel)]="company.companyName"
+                            name="CompanyName"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Company_CompanyName"></validation-messages>
+                    </div>
+                    <div class="my-3">
+                        <label class="form-label" for="Company_CompanyEmail">{{ l('CompanyEmail') }} *</label>
+                        <input
+                            type="text"
+                            #Company_Email="ngModel"
+                            id="Company_Email"
+                            class="form-control"
+                            [(ngModel)]="company.companyEmail"
+                            name="CompanyEmail"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Company_OfficePhoneNumber"></validation-messages>
+                    </div>
+                    <div class="my-3">
+                        <label class="form-label" for="Company_OfficePhoneNumber">{{ l('OfficePhoneNumber') }} *</label>
+                        <input
+                            type="text"
+                            #Company_OfficePhoneNumber="ngModel"
+                            id="Company_OfficePhoneNumber"
+                            class="form-control"
+                            [(ngModel)]="company.officePhoneNumber"
+                            name="OfficePhoneNumber"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Company_OfficePhoneNumber"></validation-messages>
+                    </div>
+                    <div class="my-3">
+                        <label class="form-label" for="Company_CompanyAddress">{{ l('CompanyAddress') }} *</label>
+                        <input
+                            type="text"
+                            #Company_Address="ngModel"
+                            id="Company_Address"
+                            class="form-control"
+                            [(ngModel)]="company.companyAddress"
+                            name="CompanyAddress"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Company_Address"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary blue"
+                        [disabled]="!companyForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
+  <texts>    <text name="Company">Company</text>
+    <text name="Visitor.Company.Company">Company</text>
+    <text name="CompanyName">Company name</text>
+	<text name="CompanyEmail">Company's Email</text>
+	<text name="OfficePhoneNumber">Company's Office Phone Number</text>
+	<text name="CompanyAddress">Company's Address</text>
+    <text name="CompaniesHeaderInfo">Companies header info</text>
+    <text name="CreateNewCompany">Create new company</text>
+    <text name="EditCompany">Edit company</text>
+    <text name="DeleteCompany">Delete company</text>
+    <text name="Companies">Companies</text>
+    <text name="{0}IsRequired">{0} is required.</text>
+    <text name="View">View</text>
+    <text name="Details">Details</text>
+    <text name="Pick">Pick</text>
+    <text name="True">True</text>
+    <text name="False">False</text>
+    <text name="MinValue">Min</text>
+    <text name="MaxValue">Max</text>
+
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

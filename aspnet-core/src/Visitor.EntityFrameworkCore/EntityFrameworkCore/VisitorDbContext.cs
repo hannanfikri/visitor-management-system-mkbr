@@ -1,4 +1,5 @@
-﻿using Abp.IdentityServer4vNext;
+﻿using Visitor.Company;
+using Abp.IdentityServer4vNext;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Visitor.Authorization.Delegation;
@@ -16,6 +17,8 @@ namespace Visitor.EntityFrameworkCore
 {
     public class VisitorDbContext : AbpZeroDbContext<Tenant, Role, User, VisitorDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Company.CompanyEnt> Companies { get; set; }
+
         /* Define an IDbSet for each entity of the application */
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
@@ -35,7 +38,7 @@ namespace Visitor.EntityFrameworkCore
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
 
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
-        
+
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
 
         public VisitorDbContext(DbContextOptions<VisitorDbContext> options)

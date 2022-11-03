@@ -23,6 +23,7 @@ using Visitor.Authorization.Users.Delegation.Dto;
 using Visitor.Authorization.Users.Dto;
 using Visitor.Authorization.Users.Importing.Dto;
 using Visitor.Authorization.Users.Profile.Dto;
+using Visitor.Blacklist.Dtos;
 using Visitor.Chat;
 using Visitor.Chat.Dto;
 using Visitor.DynamicEntityProperties.Dto;
@@ -48,6 +49,10 @@ namespace Visitor
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            //Blacklist
+            configuration.CreateMap<CreateOrEditBlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
+            configuration.CreateMap<BlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
+
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();

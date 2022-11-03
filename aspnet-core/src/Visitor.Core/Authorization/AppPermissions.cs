@@ -13,6 +13,13 @@
         public const string Pages_DemoUiComponents = "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
 
+        //BLACLIST
+        public const string Pages_Blacklists = "Pages.Blacklists";
+        public const string Pages_Blacklists_Create = "Pages.Blacklists.Create";
+        public const string Pages_Blacklists_Edit = "Pages.Blacklists.Edit";
+        public const string Pages_Blacklists_Delete = "Pages.Blacklists.Delete";
+        //
+
         public const string Pages_Administration_Roles = "Pages.Administration.Roles";
         public const string Pages_Administration_Roles_Create = "Pages.Administration.Roles.Create";
         public const string Pages_Administration_Roles_Edit = "Pages.Administration.Roles.Edit";
@@ -102,6 +109,8 @@
         public const string Pages_Administration_Host_Maintenance = "Pages.Administration.Host.Maintenance";
         public const string Pages_Administration_Host_Settings = "Pages.Administration.Host.Settings";
         public const string Pages_Administration_Host_Dashboard = "Pages.Administration.Host.Dashboard";
+
+        
 
     }
 }

@@ -12,11 +12,14 @@ using Visitor.MultiTenancy.Accounting;
 using Visitor.MultiTenancy.Payments;
 using Visitor.Storage;
 
+
 namespace Visitor.EntityFrameworkCore
 {
     public class VisitorDbContext : AbpZeroDbContext<Tenant, Role, User, VisitorDbContext>, IAbpPersistedGrantDbContext
     {
         /* Define an IDbSet for each entity of the application */
+
+        public virtual DbSet<Appointment.AppointmentEnt> Appointments { get; set; }
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 

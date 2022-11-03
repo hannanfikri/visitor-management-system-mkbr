@@ -6,6 +6,12 @@
     /// </summary>
     public static class AppPermissions
     {
+
+        public const string Pages_Appointments = "Pages.Appointments";
+        public const string Pages_Appointments_Create = "Pages.Appointments.Create";
+        public const string Pages_Appointments_Edit = "Pages.Appointments.Edit";
+        public const string Pages_Appointments_Delete = "Pages.Appointments.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";
@@ -102,6 +108,8 @@
         public const string Pages_Administration_Host_Maintenance = "Pages.Administration.Host.Maintenance";
         public const string Pages_Administration_Host_Settings = "Pages.Administration.Host.Settings";
         public const string Pages_Administration_Host_Dashboard = "Pages.Administration.Host.Dashboard";
+
+
 
     }
 }

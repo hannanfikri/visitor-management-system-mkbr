@@ -16,6 +16,5 @@ namespace Visitor.Blacklist
         Task<GetBlacklistForEditOutput> GetblacklistForEdit(EntityDto<Guid> id);
         Task CreateOrEdit(CreateOrEditBlacklistDto input);
         Task Delete(EntityDto<Guid> id);
-        //Task<FileDto> GetBlacklistsToExcel(GetAllBlacklistsForExcelInput input);
     }
 }

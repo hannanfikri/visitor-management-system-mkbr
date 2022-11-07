@@ -15,6 +15,13 @@ using Abp.Collections.Extensions;
 using Visitor.Dto;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using NUglify.JavaScript.Syntax;
+using IdentityServer4.Validation;
+using Castle.Windsor.Installer;
+using Visitor.Migrations;
+using NPOI.POIFS.Storage;
+using PayPalCheckoutSdk.Orders;
+using Twilio.Types;
 
 namespace Visitor.Blacklist
 {
@@ -22,12 +29,11 @@ namespace Visitor.Blacklist
     public class BlacklistsAppService : VisitorAppServiceBase, IBlacklistsAppService
     {
         private readonly IRepository<BlacklistEnt, Guid> _blacklistRepository;
-        //private readonly IBlacklistsExcelExporter _BlacklistsExcelExporter;
 
-        public BlacklistsAppService(IRepository<BlacklistEnt, Guid> blacklistRepository)//, IBlacklistsExcelExporter BlacklistsExcelExporter)
+
+        public BlacklistsAppService(IRepository<BlacklistEnt, Guid> blacklistRepository)
         {
             _blacklistRepository = blacklistRepository;
-           // _BlacklistsExcelExporter = BlacklistsExcelExporter;
 
         }
 
@@ -35,21 +41,22 @@ namespace Visitor.Blacklist
         {
 
             var filteredBlacklists = _blacklistRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.BlacklistFullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.BlacklistFullName == input.FullNameFilter);
 
             var pagedAndFilteredBlacklists = filteredBlacklists
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
             var blacklists = from o in pagedAndFilteredBlacklists
-                            select new
-                            {
-                                Id = o.Id,
-                                o.FullName,
-                                o.PhoneNumber,
-                                o.Remarks
-                            };
+                             select new
+                             {
+                                 Id = o.Id,
+                                 o.BlacklistFullName,
+                                 o.BlacklistIdentityCard,
+                                 o.BlacklistPhoneNumber,
+                                 o.BlacklistRemarks
+                             };
 
             var totalCount = await filteredBlacklists.CountAsync();
 
@@ -63,9 +70,10 @@ namespace Visitor.Blacklist
                     Blacklist = new Dtos.BlacklistDto()
                     {
 
-                        FullName = o.FullName,
-                        PhoneNumber = o.PhoneNumber,
-                        Remarks = o.Remarks,
+                        BlacklistFullName = o.BlacklistFullName,
+                        BlacklistIdentityCard = o.BlacklistIdentityCard,
+                        BlacklistPhoneNumber = o.BlacklistPhoneNumber,
+                        BlacklistRemarks = o.BlacklistRemarks,
                         Id = o.Id,
                     }
                 };
@@ -134,27 +142,18 @@ namespace Visitor.Blacklist
             await _blacklistRepository.DeleteAsync(input.Id);
         }
 
-        /*public async Task<FileDto> GetBlacklistsToExcel(GetAllBlacklistsForExcelInput input)
+        public bool IsExisted(GetAllBlacklistsInput input)
         {
+            var bl = _blacklistRepository.GetAll().Where(c => input.FullNameFilter == c.BlacklistIdentityCard);
+            if (bl.Any())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
-            var filteredBlacklists = _blacklistRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
-
-            var query = (from o in filteredBlacklists
-                         select new GetBlacklistForViewDto()
-                         {
-                             Blacklist = new Dtos.BlacklistDto  
-                             {
-                                 FullName = o.FullName,
-                                 Id = o.Id
-                             }
-                         });
-
-            var blacklistListDtos = await query.ToListAsync();
-
-            return _BlacklistsExcelExporter.ExportToFile(blacklistListDtos);
-        }*/
-
+        }
     }
 }

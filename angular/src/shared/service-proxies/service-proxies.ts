@@ -1588,6 +1588,62 @@ export class BlacklistsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    isExisted(body: GetAllBlacklistsInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/Blacklists/IsExisted";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processIsExisted(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processIsExisted(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processIsExisted(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
 }
 
 @Injectable()
@@ -16080,9 +16136,10 @@ export interface IAuthenticateResultModel {
 }
 
 export class BlacklistDto implements IBlacklistDto {
-    fullName!: string | undefined;
-    phoneNumber!: string | undefined;
-    remarks!: string | undefined;
+    blacklistFullName!: string | undefined;
+    blacklistIdentityCard!: string | undefined;
+    blacklistPhoneNumber!: string | undefined;
+    blacklistRemarks!: string | undefined;
     id!: string;
 
     constructor(data?: IBlacklistDto) {
@@ -16096,9 +16153,10 @@ export class BlacklistDto implements IBlacklistDto {
 
     init(_data?: any) {
         if (_data) {
-            this.fullName = _data["fullName"];
-            this.phoneNumber = _data["phoneNumber"];
-            this.remarks = _data["remarks"];
+            this.blacklistFullName = _data["blacklistFullName"];
+            this.blacklistIdentityCard = _data["blacklistIdentityCard"];
+            this.blacklistPhoneNumber = _data["blacklistPhoneNumber"];
+            this.blacklistRemarks = _data["blacklistRemarks"];
             this.id = _data["id"];
         }
     }
@@ -16112,18 +16170,20 @@ export class BlacklistDto implements IBlacklistDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["fullName"] = this.fullName;
-        data["phoneNumber"] = this.phoneNumber;
-        data["remarks"] = this.remarks;
+        data["blacklistFullName"] = this.blacklistFullName;
+        data["blacklistIdentityCard"] = this.blacklistIdentityCard;
+        data["blacklistPhoneNumber"] = this.blacklistPhoneNumber;
+        data["blacklistRemarks"] = this.blacklistRemarks;
         data["id"] = this.id;
         return data; 
     }
 }
 
 export interface IBlacklistDto {
-    fullName: string | undefined;
-    phoneNumber: string | undefined;
-    remarks: string | undefined;
+    blacklistFullName: string | undefined;
+    blacklistIdentityCard: string | undefined;
+    blacklistPhoneNumber: string | undefined;
+    blacklistRemarks: string | undefined;
     id: string;
 }
 
@@ -16776,9 +16836,10 @@ export interface ICreateMassNotificationInput {
 }
 
 export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
-    fullName!: string;
-    phoneNumber!: string | undefined;
-    remarks!: string | undefined;
+    blacklistFullName!: string;
+    blacklistIdentityCard!: string | undefined;
+    blacklistPhoneNumber!: string | undefined;
+    blacklistRemarks!: string | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditBlacklistDto) {
@@ -16792,9 +16853,10 @@ export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
 
     init(_data?: any) {
         if (_data) {
-            this.fullName = _data["fullName"];
-            this.phoneNumber = _data["phoneNumber"];
-            this.remarks = _data["remarks"];
+            this.blacklistFullName = _data["blacklistFullName"];
+            this.blacklistIdentityCard = _data["blacklistIdentityCard"];
+            this.blacklistPhoneNumber = _data["blacklistPhoneNumber"];
+            this.blacklistRemarks = _data["blacklistRemarks"];
             this.id = _data["id"];
         }
     }
@@ -16808,18 +16870,20 @@ export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["fullName"] = this.fullName;
-        data["phoneNumber"] = this.phoneNumber;
-        data["remarks"] = this.remarks;
+        data["blacklistFullName"] = this.blacklistFullName;
+        data["blacklistIdentityCard"] = this.blacklistIdentityCard;
+        data["blacklistPhoneNumber"] = this.blacklistPhoneNumber;
+        data["blacklistRemarks"] = this.blacklistRemarks;
         data["id"] = this.id;
         return data; 
     }
 }
 
 export interface ICreateOrEditBlacklistDto {
-    fullName: string;
-    phoneNumber: string | undefined;
-    remarks: string | undefined;
+    blacklistFullName: string;
+    blacklistIdentityCard: string | undefined;
+    blacklistPhoneNumber: string | undefined;
+    blacklistRemarks: string | undefined;
     id: string | undefined;
 }
 
@@ -19530,6 +19594,58 @@ export interface IGetAllAvailableWebhooksOutput {
     name: string | undefined;
     displayName: string | undefined;
     description: string | undefined;
+}
+
+export class GetAllBlacklistsInput implements IGetAllBlacklistsInput {
+    filter!: string | undefined;
+    fullNameFilter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetAllBlacklistsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.filter = _data["filter"];
+            this.fullNameFilter = _data["fullNameFilter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetAllBlacklistsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetAllBlacklistsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filter"] = this.filter;
+        data["fullNameFilter"] = this.fullNameFilter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetAllBlacklistsInput {
+    filter: string | undefined;
+    fullNameFilter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
 }
 
 export class GetAllDynamicEntityPropertyValuesOutput implements IGetAllDynamicEntityPropertyValuesOutput {

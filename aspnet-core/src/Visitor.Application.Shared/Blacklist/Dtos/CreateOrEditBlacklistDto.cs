@@ -11,8 +11,9 @@ namespace Visitor.Blacklist.Dtos
     public class CreateOrEditBlacklistDto : EntityDto<Guid?>
     {
         [Required]
-        public virtual string FullName { get; set; }
-        public virtual string PhoneNumber { get; set; }
-        public virtual string Remarks { get; set; }
+        public string BlacklistFullName { get; set; }
+        public string BlacklistIdentityCard { get; set; }
+        public string BlacklistPhoneNumber { get; set; }
+        public string BlacklistRemarks { get; set; }
     }
 }

@@ -4,9 +4,10 @@
 
     <text name="Blacklist">Blacklist</text>
     <text name="Visitor.Blacklist.Blacklist">Blacklist</text>
-    <text name="FullName">Blacklist full name</text>
-    <text name="PhoneNumber">Blacklist Phone Number</text>
-    <text name="Remarks">Blacklist Remarks</text>
+    <text name="BlacklistFullName">Blacklist full name</text>
+    <text name="BlacklistIdentityCard">Blacklist identity card</text>
+    <text name="BlacklistPhoneNumber">Blacklist phone number</text>
+    <text name="BlacklistRemarks">Blacklist remarks</text>
     <text name="BlacklistsHeaderInfo">Blacklists header info</text>
     <text name="CreateNewBlacklist">Create new blacklist</text>
     <text name="EditBlacklist">Edit blacklist</text>

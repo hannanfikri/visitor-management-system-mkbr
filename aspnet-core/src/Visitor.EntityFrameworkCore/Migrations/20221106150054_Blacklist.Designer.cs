@@ -12,7 +12,7 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    [Migration("20221102015505_Blacklist")]
+    [Migration("20221106150054_Blacklist")]
     partial class Blacklist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1727,13 +1727,16 @@ namespace Visitor.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("BlacklistFullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("BlacklistIdentityCard")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Remarks")
+                    b.Property<string>("BlacklistPhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlacklistRemarks")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

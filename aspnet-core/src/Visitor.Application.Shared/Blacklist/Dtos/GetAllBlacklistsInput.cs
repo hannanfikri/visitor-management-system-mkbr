@@ -10,5 +10,6 @@ namespace Visitor.Blacklist.Dtos
         public string Filter { get; set; }
         public string FullNameFilter { get; set; }
 
+
     }
 }

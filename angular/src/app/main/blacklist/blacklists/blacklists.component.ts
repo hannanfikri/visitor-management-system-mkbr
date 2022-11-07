@@ -122,9 +122,4 @@ export class BlacklistsComponent extends AppComponentBase {
         });
     }
 
-    // exportToExcel(): void {
-    //     this._blacklistsServiceProxy.getBlacklistsToExcel(this.filterText, this.blacklistNameFilter).subscribe((result) => {
-    //         this._fileDownloadService.downloadTempFile(result);
-    //     });
-    // }
 }

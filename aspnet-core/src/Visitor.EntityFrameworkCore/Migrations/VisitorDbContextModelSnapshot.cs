@@ -1725,13 +1725,16 @@ namespace Visitor.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("BlacklistFullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("BlacklistIdentityCard")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Remarks")
+                    b.Property<string>("BlacklistPhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlacklistRemarks")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

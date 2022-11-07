@@ -2,14 +2,6 @@
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'Blacklists' | localize" [description]="'BlacklistsHeaderInfo' | localize">
             <div role="actions">
-                <!-- <button
-                    (click)="exportToExcel()"
-                    class="btn btn-outline btn-outline-success btn-active-light-success me-1"
-                >
-                    <i class="fa fa-file-excel"></i>
-                    {{ l('ExportToExcel') }}
-                </button> -->
-
                 <button
                     *ngIf="isGranted('Pages.Blacklists.Create')"
                     (click)="createBlacklist()"
@@ -107,17 +99,21 @@
                                         >
                                             {{ l('Actions') }}
                                         </th>
-                                        <th style="width: 150px" pSortableColumn="FullName">
+                                        <th style="width: 150px" pSortableColumn="blacklistFullName">
                                             {{ l('FullName') }}
-                                            <p-sortIcon field="blacklist.fullName"></p-sortIcon>
+                                            <p-sortIcon field="blacklist.blacklistFullName"></p-sortIcon>
                                         </th>
-                                        <th style="width: 150px" pSortableColumn="phoneNumber">
-                                            {{ l('Phone Number') }}
-                                            <p-sortIcon field="blacklist.phoneNumber"></p-sortIcon>
+                                        <th style="width: 150px" pSortableColumn="blacklistIdentityCard">
+                                            {{ l('Identity Card') }}
+                                            <p-sortIcon field="blacklist.blacklistIdentityCard"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="blacklistPhoneNumber">
+                                            {{ l('Phoene Number') }}
+                                            <p-sortIcon field="blacklist.blacklistPhoneNumber"></p-sortIcon>
                                         </th>
                                         <th style="width: 150px" pSortableColumn="remarks">
                                             {{ l('Remarks') }}
-                                            <p-sortIcon field="blacklist.remarks"></p-sortIcon>
+                                            <p-sortIcon field="blacklist.blacklistRemarks"></p-sortIcon>
                                         </th>
                                     </tr>
                                 </ng-template>
@@ -178,15 +174,19 @@
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('FullName') }}</span>
-                                            {{record.blacklist.fullName }}
+                                            {{record.blacklist.blacklistFullName }}
                                         </td>
                                         <td style="width: 150px">
-                                            <span class="p-column-title">{{ l('PhoneNumber') }}</span>
-                                            {{ record.blacklist.phoneNumber }}
+                                            <span class="p-column-title">{{ l('Identity Card') }}</span>
+                                            {{ record.blacklist.blacklistIdentityCard }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Phone Number') }}</span>
+                                            {{ record.blacklist.blacklistPhoneNumber }}
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Remarks') }}</span>
-                                            {{ record.blacklist.remarks}}
+                                            {{ record.blacklist.blacklistRemarks}}
                                         </td>
                                     </tr>
                                 </ng-template>

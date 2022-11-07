@@ -33,11 +33,26 @@
                             #Blacklist_FullName="ngModel"
                             id="Blacklist_FullName"
                             class="form-control"
-                            [(ngModel)]="blacklist.fullName"
+                            [(ngModel)]="blacklist.blacklistFullName"
                             name="FullName"
                             required
                         />
-                        <validation-messages [formCtrl]="Blacklist_FullName"></validation-messages>
+                        <validation-messages [formCtrl]="Blacklist_BlacklistName"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Blacklist_PhoneNumber">{{ l('Identity Card') }} *</label>
+                        <input
+                            type="text"
+                            #Blacklist_IdentityCard="ngModel"
+                            id="Blacklist_IdentityCard"
+                            class="form-control"
+                            [(ngModel)]="blacklist.blacklistIdentityCard"
+                            name="IdentityCard"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Blacklist_PhoneNumber"></validation-messages>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -48,7 +63,7 @@
                             #Blacklist_PhoneNumber="ngModel"
                             id="Blacklist_PhoneNumber"
                             class="form-control"
-                            [(ngModel)]="blacklist.phoneNumber"
+                            [(ngModel)]="blacklist.blacklistPhoneNumber"
                             name="PhoneNumber"
                             required
                         />
@@ -63,7 +78,7 @@
                             #Blacklist_BlacklistName="ngModel"
                             id="Blacklist_Remarks"
                             class="form-control"
-                            [(ngModel)]="blacklist.remarks"
+                            [(ngModel)]="blacklist.blacklistRemarks"
                             name="Remarks"
                             required
                         />

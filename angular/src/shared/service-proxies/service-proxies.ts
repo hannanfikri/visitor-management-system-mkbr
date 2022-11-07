@@ -684,6 +684,310 @@ export class AccountServiceProxy {
 }
 
 @Injectable()
+export class AppointmentsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param fullNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, fullNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (fullNameFilter === null)
+            throw new Error("The parameter 'fullNameFilter' cannot be null.");
+        else if (fullNameFilter !== undefined)
+            url_ += "FullNameFilter=" + encodeURIComponent("" + fullNameFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetAppointmentForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetAppointmentForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetAppointmentForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetAppointmentForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getAppointmentForView(id: string | undefined): Observable<GetAppointmentForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetAppointmentForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppointmentForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppointmentForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetAppointmentForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetAppointmentForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppointmentForView(response: HttpResponseBase): Observable<GetAppointmentForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetAppointmentForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetAppointmentForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getAppointmentForEdit(id: string | undefined): Observable<GetAppointmentForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetAppointmentForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppointmentForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppointmentForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetAppointmentForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetAppointmentForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppointmentForEdit(response: HttpResponseBase): Observable<GetAppointmentForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetAppointmentForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetAppointmentForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class AuditLogServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -15531,6 +15835,102 @@ export interface IApplicationLanguageListDto {
     id: number;
 }
 
+export class AppointmentDto implements IAppointmentDto {
+    identityCard!: string | undefined;
+    fullName!: string | undefined;
+    phoneNo!: string | undefined;
+    email!: string | undefined;
+    title!: string | undefined;
+    companyName!: string | undefined;
+    officerToMeet!: string | undefined;
+    purposeOfVisit!: string | undefined;
+    department!: string | undefined;
+    tower!: number;
+    level!: number;
+    appDateTime!: DateTime;
+    faceVerify!: string | undefined;
+    regDateTime!: DateTime;
+    status!: string | undefined;
+    id!: string;
+
+    constructor(data?: IAppointmentDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.identityCard = _data["identityCard"];
+            this.fullName = _data["fullName"];
+            this.phoneNo = _data["phoneNo"];
+            this.email = _data["email"];
+            this.title = _data["title"];
+            this.companyName = _data["companyName"];
+            this.officerToMeet = _data["officerToMeet"];
+            this.purposeOfVisit = _data["purposeOfVisit"];
+            this.department = _data["department"];
+            this.tower = _data["tower"];
+            this.level = _data["level"];
+            this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
+            this.faceVerify = _data["faceVerify"];
+            this.regDateTime = _data["regDateTime"] ? DateTime.fromISO(_data["regDateTime"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): AppointmentDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AppointmentDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["identityCard"] = this.identityCard;
+        data["fullName"] = this.fullName;
+        data["phoneNo"] = this.phoneNo;
+        data["email"] = this.email;
+        data["title"] = this.title;
+        data["companyName"] = this.companyName;
+        data["officerToMeet"] = this.officerToMeet;
+        data["purposeOfVisit"] = this.purposeOfVisit;
+        data["department"] = this.department;
+        data["tower"] = this.tower;
+        data["level"] = this.level;
+        data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
+        data["faceVerify"] = this.faceVerify;
+        data["regDateTime"] = this.regDateTime ? this.regDateTime.toString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IAppointmentDto {
+    identityCard: string | undefined;
+    fullName: string | undefined;
+    phoneNo: string | undefined;
+    email: string | undefined;
+    title: string | undefined;
+    companyName: string | undefined;
+    officerToMeet: string | undefined;
+    purposeOfVisit: string | undefined;
+    department: string | undefined;
+    tower: number;
+    level: number;
+    appDateTime: DateTime;
+    faceVerify: string | undefined;
+    regDateTime: DateTime;
+    status: string | undefined;
+    id: string;
+}
+
 export class AuditLogListDto implements IAuditLogListDto {
     userId!: number | undefined;
     userName!: string | undefined;
@@ -16421,6 +16821,102 @@ export interface ICreateMassNotificationInput {
     userIds: number[] | undefined;
     organizationUnitIds: number[] | undefined;
     targetNotifiers: string[] | undefined;
+}
+
+export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
+    identityCard!: string | undefined;
+    fullName!: string | undefined;
+    phoneNo!: string | undefined;
+    officerToMeet!: string | undefined;
+    purposeOfVisit!: string | undefined;
+    email!: string | undefined;
+    title!: string | undefined;
+    companyName!: string | undefined;
+    department!: string | undefined;
+    tower!: number | undefined;
+    level!: number | undefined;
+    appDateTime!: DateTime;
+    faceVerify!: string;
+    regDateTime!: DateTime;
+    status!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditAppointmentDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.identityCard = _data["identityCard"];
+            this.fullName = _data["fullName"];
+            this.phoneNo = _data["phoneNo"];
+            this.officerToMeet = _data["officerToMeet"];
+            this.purposeOfVisit = _data["purposeOfVisit"];
+            this.email = _data["email"];
+            this.title = _data["title"];
+            this.companyName = _data["companyName"];
+            this.department = _data["department"];
+            this.tower = _data["tower"];
+            this.level = _data["level"];
+            this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
+            this.faceVerify = _data["faceVerify"];
+            this.regDateTime = _data["regDateTime"] ? DateTime.fromISO(_data["regDateTime"].toString()) : <any>undefined;
+            this.status = _data["status"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditAppointmentDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditAppointmentDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["identityCard"] = this.identityCard;
+        data["fullName"] = this.fullName;
+        data["phoneNo"] = this.phoneNo;
+        data["officerToMeet"] = this.officerToMeet;
+        data["purposeOfVisit"] = this.purposeOfVisit;
+        data["email"] = this.email;
+        data["title"] = this.title;
+        data["companyName"] = this.companyName;
+        data["department"] = this.department;
+        data["tower"] = this.tower;
+        data["level"] = this.level;
+        data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
+        data["faceVerify"] = this.faceVerify;
+        data["regDateTime"] = this.regDateTime ? this.regDateTime.toString() : <any>undefined;
+        data["status"] = this.status;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditAppointmentDto {
+    identityCard: string | undefined;
+    fullName: string | undefined;
+    phoneNo: string | undefined;
+    officerToMeet: string | undefined;
+    purposeOfVisit: string | undefined;
+    email: string | undefined;
+    title: string | undefined;
+    companyName: string | undefined;
+    department: string | undefined;
+    tower: number | undefined;
+    level: number | undefined;
+    appDateTime: DateTime;
+    faceVerify: string;
+    regDateTime: DateTime;
+    status: string | undefined;
+    id: string | undefined;
 }
 
 export class CreateOrUpdateLanguageInput implements ICreateOrUpdateLanguageInput {
@@ -19454,6 +19950,78 @@ export interface IGetAllSubscriptionsOutput {
     isActive: boolean;
     webhooks: string[] | undefined;
     id: string;
+}
+
+export class GetAppointmentForEditOutput implements IGetAppointmentForEditOutput {
+    appointment!: CreateOrEditAppointmentDto;
+
+    constructor(data?: IGetAppointmentForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.appointment = _data["appointment"] ? CreateOrEditAppointmentDto.fromJS(_data["appointment"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetAppointmentForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetAppointmentForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["appointment"] = this.appointment ? this.appointment.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetAppointmentForEditOutput {
+    appointment: CreateOrEditAppointmentDto;
+}
+
+export class GetAppointmentForViewDto implements IGetAppointmentForViewDto {
+    appointment!: AppointmentDto;
+
+    constructor(data?: IGetAppointmentForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.appointment = _data["appointment"] ? AppointmentDto.fromJS(_data["appointment"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetAppointmentForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetAppointmentForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["appointment"] = this.appointment ? this.appointment.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetAppointmentForViewDto {
+    appointment: AppointmentDto;
 }
 
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
@@ -24101,6 +24669,54 @@ export class PagedResultDtoOfGetAllSendAttemptsOutput implements IPagedResultDto
 export interface IPagedResultDtoOfGetAllSendAttemptsOutput {
     totalCount: number;
     items: GetAllSendAttemptsOutput[] | undefined;
+}
+
+export class PagedResultDtoOfGetAppointmentForViewDto implements IPagedResultDtoOfGetAppointmentForViewDto {
+    totalCount!: number;
+    items!: GetAppointmentForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetAppointmentForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetAppointmentForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetAppointmentForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetAppointmentForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetAppointmentForViewDto {
+    totalCount: number;
+    items: GetAppointmentForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfLanguageTextListDto implements IPagedResultDtoOfLanguageTextListDto {

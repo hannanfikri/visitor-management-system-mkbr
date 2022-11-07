@@ -24,4 +24,9 @@
     <ProjectReference Include="..\Visitor.Core\Visitor.Core.csproj" />
     <ProjectReference Include="..\Visitor.EntityFrameworkCore\Visitor.EntityFrameworkCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="NewFolder2\" />
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
 </Project>

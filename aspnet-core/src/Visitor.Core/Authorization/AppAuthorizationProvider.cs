@@ -27,9 +27,21 @@ namespace Visitor.Authorization
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
             //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
+            
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
             pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
+
+            var appointments = pages.CreateChildPermission(AppPermissions.Pages_Appointments, L("Appointments"));
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Create, L("CreateNewAppointment"));
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Delete, L("DeleteAppointment"));
+
+            //Blacklist
+            var towers = pages.CreateChildPermission(AppPermissions.Pages_Towers, L("Towers"));
+            towers.CreateChildPermission(AppPermissions.Pages_Towers_Create, L("CreateNewBlacklist"));
+            towers.CreateChildPermission(AppPermissions.Pages_Towers_Edit, L("EditBlacklist"));
+            towers.CreateChildPermission(AppPermissions.Pages_Towers_Delete, L("DeleteBlacklist"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 

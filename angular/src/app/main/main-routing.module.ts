@@ -8,6 +8,17 @@ import { RouterModule } from '@angular/router';
                 path: '',
                 children: [
                     {
+                        path: 'tower/towers',
+                        loadChildren: () => import('./tower/towers/tower.module').then((m) => m.TowerModule),
+                        data: { permission: 'Pages.Towers' },
+                    },
+                    {
+                        path: 'appointment/appointments',
+                        loadChildren: () => import('./appointment/appointments/appointment.module').then((m) => m.AppointmentModule),
+                        data: { permission: 'Pages.Appointments' },
+                    },
+
+                    {
                         path: 'dashboard',
                         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
                         data: { permission: 'Pages.Tenant.Dashboard' },

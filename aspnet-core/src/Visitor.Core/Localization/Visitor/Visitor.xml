@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    
+    <text name="Tower">Tower</text>
+    <text name="Visitor.Tower.Tower">Tower</text>
+    <text name="TowerBankRakyat">Tower</text>
+    <text name="TowersHeaderInfo">Towers header info</text>
+    <text name="CreateNewTower">Create new tower</text>
+    <text name="EditTower">Edit tower</text>
+    <text name="DeleteTower">Delete tower</text>
+    <text name="Towers">Towers</text>
+    
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

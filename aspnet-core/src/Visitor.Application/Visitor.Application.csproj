@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\common.props"></Import>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -23,5 +23,10 @@
     <ProjectReference Include="..\Visitor.Application.Shared\Visitor.Application.Shared.csproj" />
     <ProjectReference Include="..\Visitor.Core\Visitor.Core.csproj" />
     <ProjectReference Include="..\Visitor.EntityFrameworkCore\Visitor.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="NewFolder2\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 </Project>

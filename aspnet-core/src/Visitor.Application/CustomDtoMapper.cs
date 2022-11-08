@@ -43,6 +43,7 @@ using Visitor.Sessions.Dto;
 using Visitor.WebHooks.Dto;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Visitor.Appointment;
+using Visitor.Departments.Dtos;
 
 namespace Visitor
 {
@@ -50,8 +51,13 @@ namespace Visitor
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            //Appointment
             configuration.CreateMap<CreateOrEditAppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
             configuration.CreateMap<AppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
+
+            //Department
+            configuration.CreateMap<CreateOrEditDepartmentDto, Departments.Department>().ReverseMap();
+            configuration.CreateMap<DepartmentDto, Departments.Department>().ReverseMap();
 
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();

@@ -20,6 +20,7 @@ namespace Visitor.EntityFrameworkCore
         /* Define an IDbSet for each entity of the application */
 
         public virtual DbSet<Appointment.AppointmentEnt> Appointments { get; set; }
+        public virtual DbSet<Departments.Department> Departments { get; set; }
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 

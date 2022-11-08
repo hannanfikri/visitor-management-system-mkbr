@@ -15,6 +15,12 @@ import { RouterModule } from '@angular/router';
                     },
 
                     {
+                        path: 'department/departments',
+                        loadChildren: () => import('./department/departments/department.module').then((m) => m.DepartmentModule),
+                        data: { permission: 'Pages.Departments' },
+                    },
+
+                    {
                         path: 'dashboard',
                         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
                         data: { permission: 'Pages.Tenant.Dashboard' },

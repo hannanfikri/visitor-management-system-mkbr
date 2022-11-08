@@ -22,8 +22,18 @@ export class AppNavigationService {
             ),
             new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
-            new AppMenuItem('Appointments', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment/appointments'),
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+            new AppMenuItem(
+                'Visitor Maintenance',
+                '',
+                'flaticon-interface-8',
+                '',
+                [],
+                [
+                    new AppMenuItem('Appointments', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment/appointments'),
+                    new AppMenuItem('Departments', 'Pages.Departments', 'flaticon-list-3', '/app/main/department/departments'),
+                ]
+            ),
             new AppMenuItem(
                 'Administration',
                 '',

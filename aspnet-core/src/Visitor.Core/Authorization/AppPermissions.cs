@@ -6,11 +6,19 @@
     /// </summary>
     public static class AppPermissions
     {
+        // PERMISSION FOR APPOINTMENTS
 
         public const string Pages_Appointments = "Pages.Appointments";
         public const string Pages_Appointments_Create = "Pages.Appointments.Create";
         public const string Pages_Appointments_Edit = "Pages.Appointments.Edit";
         public const string Pages_Appointments_Delete = "Pages.Appointments.Delete";
+
+        // PERMISSION FOR DEPARTMENTS
+
+        public const string Pages_Departments = "Pages.Departments";
+        public const string Pages_Departments_Create = "Pages.Departments.Create";
+        public const string Pages_Departments_Edit = "Pages.Departments.Edit";
+        public const string Pages_Departments_Delete = "Pages.Departments.Delete";
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 

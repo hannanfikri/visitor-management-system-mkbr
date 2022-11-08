@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+	  <text name="Appointment">Appointment</text>
+	  <text name="Visitor.Appointment.Appointment">Appointment</text>
+	  <text name="AppointmentName">Appointment name</text>
+	  <text name="AppointmentsHeaderInfo">Appointments header info</text>
+	  <text name="CreateNewAppointment">Create new appointment</text>
+	  <text name="EditAppointment">Edit appointment</text>
+	  <text name="DeleteAppointment">Delete appointment</text>
+	  <text name="Appointments">Appointments</text>
+	  <text name="Department">Department</text>
+	  <text name="Visitor.Department.Department">Department</text>
+	  <text name="DepartmentName">Department name</text>
+	  <text name="DepartmentsHeaderInfo">Departments header info</text>
+	  <text name="CreateNewDepartment">Create new department</text>
+	  <text name="EditDepartment">Edit department</text>
+	  <text name="DeleteDepartment">Delete department</text>
+	  <text name="Departments">Departments</text>
+	  <text name="{0}IsRequired">{0} is required.</text>
+	  <text name="View">View</text>
+	  <text name="Details">Details</text>
+	  <text name="Pick">Pick</text>
+	  <text name="True">True</text>
+	  <text name="False">False</text>
+	  <text name="MinValue">Min</text>
+	  <text name="MaxValue">Max</text>
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

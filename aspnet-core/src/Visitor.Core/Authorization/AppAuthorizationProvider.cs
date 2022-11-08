@@ -37,11 +37,17 @@ namespace Visitor.Authorization
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Delete, L("DeleteAppointment"));
 
-            //Blacklist
+            //Tower
             var towers = pages.CreateChildPermission(AppPermissions.Pages_Towers, L("Towers"));
-            towers.CreateChildPermission(AppPermissions.Pages_Towers_Create, L("CreateNewBlacklist"));
-            towers.CreateChildPermission(AppPermissions.Pages_Towers_Edit, L("EditBlacklist"));
-            towers.CreateChildPermission(AppPermissions.Pages_Towers_Delete, L("DeleteBlacklist"));
+            towers.CreateChildPermission(AppPermissions.Pages_Towers_Create, L("CreateNewTower"));
+            towers.CreateChildPermission(AppPermissions.Pages_Towers_Edit, L("EditTower"));
+            towers.CreateChildPermission(AppPermissions.Pages_Towers_Delete, L("DeleteTower"));
+
+            //PurposeOfVisit
+            var purposeOfVisits = pages.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits, L("PurposeOfVisits"));
+            purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Create, L("CreateNewPurposeOfVisit"));
+            purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Edit, L("EditPurposeOfVisit"));
+            purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Delete, L("DeletePurposeOfVisitt"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 

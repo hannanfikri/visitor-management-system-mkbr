@@ -11,6 +11,15 @@
     <text name="DeleteTower">Delete tower</text>
     <text name="Towers">Towers</text>
     
+    <text name="PurposeOfVisit">Purpose of visit</text>
+    <text name="Visitor.PurposeOfVisit.PurposeOfVisit">Purpose of visit</text>
+    <text name="PurposeOfVisitApp">Purpose of visit</text>
+    <text name="PurposeOfVisitsHeaderInfo">Purpose of visit header info</text>
+    <text name="CreateNewPurposeOfVisit">Create new purpose of visit</text>
+    <text name="EditPurposeOfVisit">Edit purpose of visit</text>
+    <text name="DeletePurposeOfVisit">Delete purpose of visit</text>
+    <text name="PurposeOfVisits">Purpose of visits</text>
+    
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

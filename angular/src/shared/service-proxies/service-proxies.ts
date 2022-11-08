@@ -10010,6 +10010,310 @@ export class ProfileServiceProxy {
 }
 
 @Injectable()
+export class PurposeOfVisitsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param pOFFilter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, pOFFilter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfGetPurposeOfVisitForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/PurposeOfVisits/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (pOFFilter === null)
+            throw new Error("The parameter 'pOFFilter' cannot be null.");
+        else if (pOFFilter !== undefined)
+            url_ += "POFFilter=" + encodeURIComponent("" + pOFFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetPurposeOfVisitForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetPurposeOfVisitForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetPurposeOfVisitForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetPurposeOfVisitForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetPurposeOfVisitForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPurposeOfVisitForView(id: string | undefined): Observable<GetPurposeOfVisitForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/PurposeOfVisits/GetPurposeOfVisitForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPurposeOfVisitForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPurposeOfVisitForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPurposeOfVisitForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPurposeOfVisitForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPurposeOfVisitForView(response: HttpResponseBase): Observable<GetPurposeOfVisitForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetPurposeOfVisitForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPurposeOfVisitForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getpurposeOfVisitForEdit(id: string | undefined): Observable<GetPurposeOfVisitForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PurposeOfVisits/GetpurposeOfVisitForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetpurposeOfVisitForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetpurposeOfVisitForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPurposeOfVisitForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPurposeOfVisitForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetpurposeOfVisitForEdit(response: HttpResponseBase): Observable<GetPurposeOfVisitForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetPurposeOfVisitForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPurposeOfVisitForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditPurposeOfVisitDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PurposeOfVisits/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PurposeOfVisits/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class RoleServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -17223,6 +17527,46 @@ export interface ICreateOrEditAppointmentDto {
     id: string | undefined;
 }
 
+export class CreateOrEditPurposeOfVisitDto implements ICreateOrEditPurposeOfVisitDto {
+    purposeOfVisitApp!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditPurposeOfVisitDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purposeOfVisitApp = _data["purposeOfVisitApp"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditPurposeOfVisitDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditPurposeOfVisitDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purposeOfVisitApp"] = this.purposeOfVisitApp;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditPurposeOfVisitDto {
+    purposeOfVisitApp: string | undefined;
+    id: string | undefined;
+}
+
 export class CreateOrEditTowerDto implements ICreateOrEditTowerDto {
     towerBankRakyat!: string | undefined;
     id!: string | undefined;
@@ -21384,6 +21728,78 @@ export interface IGetPublishedNotificationsOutput {
     items: GetNotificationsCreatedByUserOutput[] | undefined;
 }
 
+export class GetPurposeOfVisitForEditOutput implements IGetPurposeOfVisitForEditOutput {
+    purposeOfVisit!: CreateOrEditPurposeOfVisitDto;
+
+    constructor(data?: IGetPurposeOfVisitForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purposeOfVisit = _data["purposeOfVisit"] ? CreateOrEditPurposeOfVisitDto.fromJS(_data["purposeOfVisit"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetPurposeOfVisitForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPurposeOfVisitForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purposeOfVisit"] = this.purposeOfVisit ? this.purposeOfVisit.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetPurposeOfVisitForEditOutput {
+    purposeOfVisit: CreateOrEditPurposeOfVisitDto;
+}
+
+export class GetPurposeOfVisitForViewDto implements IGetPurposeOfVisitForViewDto {
+    purposeOfVisit!: PurposeOfVisitDto;
+
+    constructor(data?: IGetPurposeOfVisitForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purposeOfVisit = _data["purposeOfVisit"] ? PurposeOfVisitDto.fromJS(_data["purposeOfVisit"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetPurposeOfVisitForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPurposeOfVisitForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purposeOfVisit"] = this.purposeOfVisit ? this.purposeOfVisit.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetPurposeOfVisitForViewDto {
+    purposeOfVisit: PurposeOfVisitDto;
+}
+
 export class GetRecentTenantsOutput implements IGetRecentTenantsOutput {
     recentTenantsDayCount!: number;
     maxRecentTenantsShownCount!: number;
@@ -25135,6 +25551,54 @@ export interface IPagedResultDtoOfGetAppointmentForViewDto {
     items: GetAppointmentForViewDto[] | undefined;
 }
 
+export class PagedResultDtoOfGetPurposeOfVisitForViewDto implements IPagedResultDtoOfGetPurposeOfVisitForViewDto {
+    totalCount!: number;
+    items!: GetPurposeOfVisitForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetPurposeOfVisitForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetPurposeOfVisitForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetPurposeOfVisitForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetPurposeOfVisitForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetPurposeOfVisitForViewDto {
+    totalCount: number;
+    items: GetPurposeOfVisitForViewDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetTowerForViewDto implements IPagedResultDtoOfGetTowerForViewDto {
     totalCount!: number;
     items!: GetTowerForViewDto[] | undefined;
@@ -25956,6 +26420,46 @@ export enum PaymentPeriodType {
     Weekly = 7,
     Monthly = 30,
     Annual = 365,
+}
+
+export class PurposeOfVisitDto implements IPurposeOfVisitDto {
+    purposeOfVisitApp!: string | undefined;
+    id!: string;
+
+    constructor(data?: IPurposeOfVisitDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purposeOfVisitApp = _data["purposeOfVisitApp"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): PurposeOfVisitDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PurposeOfVisitDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purposeOfVisitApp"] = this.purposeOfVisitApp;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPurposeOfVisitDto {
+    purposeOfVisitApp: string | undefined;
+    id: string;
 }
 
 export class RecentTenant implements IRecentTenant {

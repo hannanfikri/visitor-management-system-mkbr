@@ -7,7 +7,7 @@ namespace Visitor.Tower.Dtos
 {
     public class GetAllTowersInput:PagedSortedAndFilteredInputDto
     {
-        public string Filter { get; set; }
-        public string TowerFilter { get; set; }
+            public string Filter { get; set; }
+            public string TowerFilter { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+<<<<<<< HEAD
     
     <text name="Tower">Tower</text>
     <text name="Visitor.Tower.Tower">Tower</text>
@@ -36,6 +37,29 @@
     <text name="EditTitle">Edit title</text>
     <text name="Deletetitle">Delete title</text>
     <text name="Titles">Title</text>
+=======
+
+    <text name="Blacklist">Blacklist</text>
+    <text name="Visitor.Blacklist.Blacklist">Blacklist</text>
+    <text name="BlacklistFullName">Blacklist full name</text>
+    <text name="BlacklistIdentityCard">Blacklist identity card</text>
+    <text name="BlacklistPhoneNumber">Blacklist phone number</text>
+    <text name="BlacklistRemarks">Blacklist remarks</text>
+    <text name="BlacklistsHeaderInfo">Blacklists header info</text>
+    <text name="CreateNewBlacklist">Create new blacklist</text>
+    <text name="EditBlacklist">Edit blacklist</text>
+    <text name="DeleteBlacklist">Delete blacklist</text>
+    <text name="Blacklists">Blacklists</text>
+    <text name="{0}IsRequired">{0} is required.</text>
+    <text name="View">View</text>
+    <text name="Details">Details</text>
+    <text name="Pick">Pick</text>
+    <text name="True">True</text>
+    <text name="False">False</text>
+    <text name="MinValue">Min</text>
+    <text name="MaxValue">Max</text>
+    
+>>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
     
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>

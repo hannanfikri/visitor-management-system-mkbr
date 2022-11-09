@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
                 path: '',
                 children: [
                     {
+<<<<<<< HEAD
                         path: 'title/titles',
                         loadChildren: () => import('./title/titles/title.module').then((m) => m.TitleModule),
                         data: { permission: 'Pages.Titles' },
@@ -34,6 +35,13 @@ import { RouterModule } from '@angular/router';
                     },
 
                     {
+=======
+                        path: 'blacklist/blacklists',
+                        loadChildren: () => import('./blacklist/blacklists/blacklist.module').then((m) => m.BlacklistModule),
+                        data: { permission: 'Pages.Blacklists' },
+                    },
+                    {
+>>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
                         path: 'dashboard',
                         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
                         data: { permission: 'Pages.Tenant.Dashboard' },
@@ -46,4 +54,4 @@ import { RouterModule } from '@angular/router';
     ],
     exports: [RouterModule],
 })
-export class MainRoutingModule {}
+export class MainRoutingModule { }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Visitor.Authorization.Delegation;
 using Visitor.Authorization.Roles;
 using Visitor.Authorization.Users;
+using Visitor.Blacklist;
 using Visitor.Chat;
 using Visitor.Editions;
 using Visitor.Friendships;
@@ -44,6 +45,7 @@ namespace Visitor.EntityFrameworkCore
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
         
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
+        public virtual DbSet<BlacklistEnt> Blacklist { get; set; }
 
         public VisitorDbContext(DbContextOptions<VisitorDbContext> options)
             : base(options)

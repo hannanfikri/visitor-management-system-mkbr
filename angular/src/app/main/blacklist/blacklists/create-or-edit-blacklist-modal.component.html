@@ -1,0 +1,106 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #blacklistForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="blacklist.id">{{ l('EditBlacklist') }}</span>
+                        <span *ngIf="!blacklist.id">{{ l('CreateNewBlacklist') }}</span>
+                    </h4>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="close()"
+                        aria-label="Close"
+                        [disabled]="saving"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Blacklist_FullName">{{ l('FullName') }} *</label>
+                        <input
+                            type="text"
+                            #Blacklist_FullName="ngModel"
+                            id="Blacklist_FullName"
+                            class="form-control"
+                            [(ngModel)]="blacklist.blacklistFullName"
+                            name="FullName"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Blacklist_BlacklistName"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Blacklist_PhoneNumber">{{ l('Identity Card') }} *</label>
+                        <input
+                            type="text"
+                            #Blacklist_IdentityCard="ngModel"
+                            id="Blacklist_IdentityCard"
+                            class="form-control"
+                            [(ngModel)]="blacklist.blacklistIdentityCard"
+                            name="IdentityCard"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Blacklist_PhoneNumber"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Blacklist_PhoneNumber">{{ l('PhoneNumber') }} *</label>
+                        <input
+                            type="text"
+                            #Blacklist_PhoneNumber="ngModel"
+                            id="Blacklist_PhoneNumber"
+                            class="form-control"
+                            [(ngModel)]="blacklist.blacklistPhoneNumber"
+                            name="PhoneNumber"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Blacklist_PhoneNumber"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Blacklist_BlacklistName">{{ l('Remarks') }} *</label>
+                        <input
+                            type="text"
+                            #Blacklist_BlacklistName="ngModel"
+                            id="Blacklist_Remarks"
+                            class="form-control"
+                            [(ngModel)]="blacklist.blacklistRemarks"
+                            name="Remarks"
+                            required
+                        />
+                        <validation-messages [formCtrl]="Blacklist_BlacklistName"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary blue"
+                        [disabled]="!blacklistForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

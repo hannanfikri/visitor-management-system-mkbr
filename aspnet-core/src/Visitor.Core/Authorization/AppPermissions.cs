@@ -27,6 +27,12 @@
         public const string Pages_Statuses_Create = "Pages.Statuses.Create";
         public const string Pages_Statuses_Edit = "Pages.Statuses.Edit";
         public const string Pages_Statuses_Delete = "Pages.Statuses.Delete";
+        //VISITOR TITLE
+        public const string Pages_Titles= "Pages.Titles";
+        public const string Pages_Titles_Create = "Pages.Titles.Create";
+        public const string Pages_Titles_Edit = "Pages.Titles.Edit";
+        public const string Pages_Titles_Delete = "Pages.Titles.Delete";
+
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 

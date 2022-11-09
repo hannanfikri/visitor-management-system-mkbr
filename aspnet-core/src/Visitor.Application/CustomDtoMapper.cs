@@ -46,6 +46,7 @@ using Visitor.Appointment;
 using Visitor.Tower.Dtos;
 using Visitor.PurposeOfVisit.Dtos;
 using Visitor.Status.Dtos;
+using Visitor.Title.Dtos;
 
 namespace Visitor
 {
@@ -62,9 +63,13 @@ namespace Visitor
             //PurposeOfVisit
             configuration.CreateMap<CreateOrEditPurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
             configuration.CreateMap<PurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
-            //PurposeOfVisit
+            //Status
             configuration.CreateMap<CreateOrEditStatusDto, Status.StatusEnt>().ReverseMap();
             configuration.CreateMap<StatusDto, Status.StatusEnt>().ReverseMap();
+            //Title
+            configuration.CreateMap<CreateOrEditTitleDto, Title.TitleEnt>().ReverseMap();
+            configuration.CreateMap<TitleDto, Title.TitleEnt>().ReverseMap();
+
 
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();

@@ -8,6 +8,11 @@ import { RouterModule } from '@angular/router';
                 path: '',
                 children: [
                     {
+                        path: 'title/titles',
+                        loadChildren: () => import('./title/titles/title.module').then((m) => m.TitleModule),
+                        data: { permission: 'Pages.Titles' },
+                    },
+                    {
                         path: 'status/statuses',
                         loadChildren: () => import('./status/statuses/status.module').then((m) => m.StatusModule),
                         data: { permission: 'Pages.Statuses' },

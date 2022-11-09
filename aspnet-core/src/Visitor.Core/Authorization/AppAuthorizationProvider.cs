@@ -52,6 +52,11 @@ namespace Visitor.Authorization
             Statuses.CreateChildPermission(AppPermissions.Pages_Statuses_Create, L("CreateNewStatus"));
             Statuses.CreateChildPermission(AppPermissions.Pages_Statuses_Edit, L("EditStatus"));
             Statuses.CreateChildPermission(AppPermissions.Pages_Statuses_Delete, L("DeleteStatus"));
+            //Visitor Title
+            var Titles = pages.CreateChildPermission(AppPermissions.Pages_Titles, L("Title"));
+            Titles.CreateChildPermission(AppPermissions.Pages_Titles_Create, L("CreateNewTitle"));
+            Titles.CreateChildPermission(AppPermissions.Pages_Titles_Edit, L("EdiTitle"));
+            Titles.CreateChildPermission(AppPermissions.Pages_Titles_Delete, L("DeleteTitle"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 

@@ -34,6 +34,7 @@ export class AppNavigationService {
                     new AppMenuItem('Towers', 'Pages.Towers', 'flaticon-list-3', '/app/main/tower/towers'),
                     new AppMenuItem('PurposeOfVisits', 'Pages.PurposeOfVisits', 'flaticon-list-3', '/app/main/purposeOfVisit/purposeOfVisits'),
                     new AppMenuItem('Status', 'Pages.Statuses', 'flaticon-list-3', '/app/main/status/statuses'),
+                    new AppMenuItem('Title', 'Pages.Titles', 'flaticon-list-3', '/app/main/title/titles'),
                 
                 ]
             ),

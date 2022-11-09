@@ -19,6 +19,15 @@
     <text name="EditPurposeOfVisit">Edit purpose of visit</text>
     <text name="DeletePurposeOfVisit">Delete purpose of visit</text>
     <text name="PurposeOfVisits">Purpose of visits</text>
+
+    <text name="Status">Status appointment</text>
+    <text name="Visitor.Status.Status">Status appointment</text>
+    <text name="StatusApp">Status appointment</text>
+    <text name="StatusessHeaderInfo">Status header info</text>
+    <text name="CreateNewStatus">Create new status</text>
+    <text name="EditStatus">Edit status</text>
+    <text name="Deletestatus">Delete statust</text>
+    <text name="Statuses">Status</text>
     
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>

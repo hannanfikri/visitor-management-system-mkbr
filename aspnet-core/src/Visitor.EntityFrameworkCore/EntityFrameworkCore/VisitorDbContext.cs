@@ -22,6 +22,7 @@ namespace Visitor.EntityFrameworkCore
         public virtual DbSet<Appointment.AppointmentEnt> Appointments { get; set; }
         public virtual DbSet<Tower.TowerEnt> Towers { get; set; }
         public virtual DbSet<PurposeOfVisit.PurposeOfVisitEnt> PurposeOfVisitAppointments { get; set; }
+        public virtual DbSet<Status.StatusEnt> StatusAppointments { get; set; }
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 

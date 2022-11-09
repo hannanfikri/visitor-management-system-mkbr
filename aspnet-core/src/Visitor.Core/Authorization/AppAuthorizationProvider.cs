@@ -42,12 +42,16 @@ namespace Visitor.Authorization
             towers.CreateChildPermission(AppPermissions.Pages_Towers_Create, L("CreateNewTower"));
             towers.CreateChildPermission(AppPermissions.Pages_Towers_Edit, L("EditTower"));
             towers.CreateChildPermission(AppPermissions.Pages_Towers_Delete, L("DeleteTower"));
-
             //PurposeOfVisit
             var purposeOfVisits = pages.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits, L("PurposeOfVisits"));
             purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Create, L("CreateNewPurposeOfVisit"));
             purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Edit, L("EditPurposeOfVisit"));
-            purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Delete, L("DeletePurposeOfVisitt"));
+            purposeOfVisits.CreateChildPermission(AppPermissions.Pages_PurposeOfVisits_Delete, L("DeletePurposeOfVisit"));
+            //Status Appointment
+            var Statuses = pages.CreateChildPermission(AppPermissions.Pages_Statuses, L("Status"));
+            Statuses.CreateChildPermission(AppPermissions.Pages_Statuses_Create, L("CreateNewStatus"));
+            Statuses.CreateChildPermission(AppPermissions.Pages_Statuses_Edit, L("EditStatus"));
+            Statuses.CreateChildPermission(AppPermissions.Pages_Statuses_Delete, L("DeleteStatus"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 

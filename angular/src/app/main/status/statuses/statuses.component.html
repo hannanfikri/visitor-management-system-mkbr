@@ -1,0 +1,140 @@
+﻿<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Status' | localize" [description]="'StatusesHeaderInfo' | localize">
+            <div role="actions">            
+                <button
+                    *ngIf="isGranted('Pages.Statuses.Create')"
+                    (click)="createStatus()"
+                    class="btn btn-primary blue"
+                >
+                    <i class="fa fa-plus"></i>
+                    {{ l('CreateNewStatus') }}
+                </button>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form class="form" autocomplete="off">
+                        
+                    </form>
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container col-12" [busyIf]="primengTableHelper.isLoading">
+                            <p-table
+                                #dataTable
+                                (onLazyLoad)="getStatuses($event)"
+                                [value]="primengTableHelper.records"
+                                rows="{{ primengTableHelper.defaultRecordsCountPerPage }}"
+                                [paginator]="false"
+                                [lazy]="true"
+                                [scrollable]="true"
+                                ScrollWidth="100%"
+                                [responsive]="primengTableHelper.isResponsive"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            style="width: 130px"
+                                            [hidden]="!isGrantedAny('Pages.Statuses.Edit', 'Pages.Statuses.Delete')"
+                                        >
+                                            {{ l('Actions') }}
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="status">
+                                            {{ l('status') }}
+                                            <p-sortIcon field="status.statusApp"></p-sortIcon>
+                                        </th>                                        
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
+                                    <tr>
+                                        <td
+                                            style="width: 130px"
+                                            [hidden]="!isGrantedAny('Pages.Statuses.Edit', 'Pages.Statuses.Delete')"
+                                        >
+                                            <div class="btn-group dropdown" dropdown container="body">
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span>
+                                                    {{ l('Actions') }}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li>
+                                                        <a
+                                                            href="javascript:;"
+                                                            class="dropdown-item"
+                                                            (click)="viewStatusModal.show(record)"
+                                                        >
+                                                            {{ l('View') }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            href="javascript:;"
+                                                            *ngIf="permission.isGranted('Pages.Statuses.Edit')"
+                                                            class="dropdown-item"
+                                                            (click)="createOrEditStatusModal.show(record.status.id)"
+                                                        >
+                                                            {{ l('Edit') }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="dropdown-item"
+                                                            href="javascript:;"
+                                                            *ngIf="permission.isGranted('Pages.Statuses.Delete')"
+                                                            (click)="deleteStatus(record.status)"
+                                                        >
+                                                            {{ l('Delete') }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            href="javascript:;"
+                                                            *ngIf="entityHistoryEnabled"
+                                                            class="dropdown-item"
+                                                            (click)="showHistory(record.status)"
+                                                        >
+                                                            {{ l('History') }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('status') }}</span>
+                                            {{ record.status.statusApp }}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                                {{ l('NoData') }}
+                            </div>
+                            <div class="primeng-paging-container">
+                                <p-paginator
+                                    [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                    #paginator
+                                    (onPageChange)="getStatuses($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                                    [showCurrentPageReport]="true"
+                                    [currentPageReportTemplate]="
+                                        'TotalRecordsCount' | localize: primengTableHelper.totalRecordsCount
+                                    "
+                                ></p-paginator>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <createOrEditStatusModal #createOrEditStatusModal (modalSave)="getStatuses()"></createOrEditStatusModal>
+        <viewStatusModal #viewStatusModal></viewStatusModal>
+        <entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>
+    </div>
+</div>

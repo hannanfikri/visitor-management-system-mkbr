@@ -22,6 +22,11 @@
         public const string Pages_PurposeOfVisits_Create = "Pages.PurposeOfVisits.Create";
         public const string Pages_PurposeOfVisits_Edit = "Pages.PurposeOfVisits.Edit";
         public const string Pages_PurposeOfVisits_Delete = "Pages.PurposeOfVisits.Delete";
+        //STATUS APPOINTMENT
+        public const string Pages_Statuses = "Pages.Statuses";
+        public const string Pages_Statuses_Create = "Pages.Statuses.Create";
+        public const string Pages_Statuses_Edit = "Pages.Statuses.Edit";
+        public const string Pages_Statuses_Delete = "Pages.Statuses.Delete";
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 

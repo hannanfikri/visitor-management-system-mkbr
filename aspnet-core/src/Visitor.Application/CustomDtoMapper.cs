@@ -45,6 +45,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Visitor.Appointment;
 using Visitor.Tower.Dtos;
 using Visitor.PurposeOfVisit.Dtos;
+using Visitor.Status.Dtos;
 
 namespace Visitor
 {
@@ -61,6 +62,9 @@ namespace Visitor
             //PurposeOfVisit
             configuration.CreateMap<CreateOrEditPurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
             configuration.CreateMap<PurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
+            //PurposeOfVisit
+            configuration.CreateMap<CreateOrEditStatusDto, Status.StatusEnt>().ReverseMap();
+            configuration.CreateMap<StatusDto, Status.StatusEnt>().ReverseMap();
 
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();

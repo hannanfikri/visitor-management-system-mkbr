@@ -18451,7 +18451,6 @@ export interface ICreateMassNotificationInput {
     targetNotifiers: string[] | undefined;
 }
 
-<<<<<<< HEAD
 export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     identityCard!: string | undefined;
     fullName!: string | undefined;
@@ -18471,16 +18470,6 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditAppointmentDto) {
-=======
-export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
-    blacklistFullName!: string;
-    blacklistIdentityCard!: string | undefined;
-    blacklistPhoneNumber!: string | undefined;
-    blacklistRemarks!: string | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditBlacklistDto) {
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -18491,7 +18480,6 @@ export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
 
     init(_data?: any) {
         if (_data) {
-<<<<<<< HEAD
             this.identityCard = _data["identityCard"];
             this.fullName = _data["fullName"];
             this.phoneNo = _data["phoneNo"];
@@ -18507,32 +18495,19 @@ export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
             this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"] ? DateTime.fromISO(_data["regDateTime"].toString()) : <any>undefined;
             this.status = _data["status"];
-=======
-            this.blacklistFullName = _data["blacklistFullName"];
-            this.blacklistIdentityCard = _data["blacklistIdentityCard"];
-            this.blacklistPhoneNumber = _data["blacklistPhoneNumber"];
-            this.blacklistRemarks = _data["blacklistRemarks"];
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
             this.id = _data["id"];
         }
     }
 
-<<<<<<< HEAD
     static fromJS(data: any): CreateOrEditAppointmentDto {
         data = typeof data === 'object' ? data : {};
         let result = new CreateOrEditAppointmentDto();
-=======
-    static fromJS(data: any): CreateOrEditBlacklistDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditBlacklistDto();
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-<<<<<<< HEAD
         data["identityCard"] = this.identityCard;
         data["fullName"] = this.fullName;
         data["phoneNo"] = this.phoneNo;
@@ -18548,18 +18523,11 @@ export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
         data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime ? this.regDateTime.toString() : <any>undefined;
         data["status"] = this.status;
-=======
-        data["blacklistFullName"] = this.blacklistFullName;
-        data["blacklistIdentityCard"] = this.blacklistIdentityCard;
-        data["blacklistPhoneNumber"] = this.blacklistPhoneNumber;
-        data["blacklistRemarks"] = this.blacklistRemarks;
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         data["id"] = this.id;
         return data; 
     }
 }
 
-<<<<<<< HEAD
 export interface ICreateOrEditAppointmentDto {
     identityCard: string | undefined;
     fullName: string | undefined;
@@ -18576,6 +18544,58 @@ export interface ICreateOrEditAppointmentDto {
     faceVerify: string;
     regDateTime: DateTime;
     status: string | undefined;
+    id: string | undefined;
+}
+
+export class CreateOrEditBlacklistDto implements ICreateOrEditBlacklistDto {
+    blacklistFullName!: string;
+    blacklistIdentityCard!: string | undefined;
+    blacklistPhoneNumber!: string | undefined;
+    blacklistRemarks!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditBlacklistDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.blacklistFullName = _data["blacklistFullName"];
+            this.blacklistIdentityCard = _data["blacklistIdentityCard"];
+            this.blacklistPhoneNumber = _data["blacklistPhoneNumber"];
+            this.blacklistRemarks = _data["blacklistRemarks"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditBlacklistDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditBlacklistDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["blacklistFullName"] = this.blacklistFullName;
+        data["blacklistIdentityCard"] = this.blacklistIdentityCard;
+        data["blacklistPhoneNumber"] = this.blacklistPhoneNumber;
+        data["blacklistRemarks"] = this.blacklistRemarks;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditBlacklistDto {
+    blacklistFullName: string;
+    blacklistIdentityCard: string | undefined;
+    blacklistPhoneNumber: string | undefined;
+    blacklistRemarks: string | undefined;
     id: string | undefined;
 }
 
@@ -18736,13 +18756,6 @@ export class CreateOrEditTowerDto implements ICreateOrEditTowerDto {
 
 export interface ICreateOrEditTowerDto {
     towerBankRakyat: string | undefined;
-=======
-export interface ICreateOrEditBlacklistDto {
-    blacklistFullName: string;
-    blacklistIdentityCard: string | undefined;
-    blacklistPhoneNumber: string | undefined;
-    blacklistRemarks: string | undefined;
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
     id: string | undefined;
 }
 
@@ -21831,17 +21844,10 @@ export interface IGetAllSubscriptionsOutput {
     id: string;
 }
 
-<<<<<<< HEAD
 export class GetAppointmentForEditOutput implements IGetAppointmentForEditOutput {
     appointment!: CreateOrEditAppointmentDto;
 
     constructor(data?: IGetAppointmentForEditOutput) {
-=======
-export class GetBlacklistForEditOutput implements IGetBlacklistForEditOutput {
-    blacklist!: CreateOrEditBlacklistDto;
-
-    constructor(data?: IGetBlacklistForEditOutput) {
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -21852,7 +21858,6 @@ export class GetBlacklistForEditOutput implements IGetBlacklistForEditOutput {
 
     init(_data?: any) {
         if (_data) {
-<<<<<<< HEAD
             this.appointment = _data["appointment"] ? CreateOrEditAppointmentDto.fromJS(_data["appointment"]) : <any>undefined;
         }
     }
@@ -21860,31 +21865,17 @@ export class GetBlacklistForEditOutput implements IGetBlacklistForEditOutput {
     static fromJS(data: any): GetAppointmentForEditOutput {
         data = typeof data === 'object' ? data : {};
         let result = new GetAppointmentForEditOutput();
-=======
-            this.blacklist = _data["blacklist"] ? CreateOrEditBlacklistDto.fromJS(_data["blacklist"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetBlacklistForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetBlacklistForEditOutput();
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-<<<<<<< HEAD
         data["appointment"] = this.appointment ? this.appointment.toJSON() : <any>undefined;
-=======
-        data["blacklist"] = this.blacklist ? this.blacklist.toJSON() : <any>undefined;
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         return data; 
     }
 }
 
-<<<<<<< HEAD
 export interface IGetAppointmentForEditOutput {
     appointment: CreateOrEditAppointmentDto;
 }
@@ -21893,16 +21884,6 @@ export class GetAppointmentForViewDto implements IGetAppointmentForViewDto {
     appointment!: AppointmentDto;
 
     constructor(data?: IGetAppointmentForViewDto) {
-=======
-export interface IGetBlacklistForEditOutput {
-    blacklist: CreateOrEditBlacklistDto;
-}
-
-export class GetBlacklistForViewDto implements IGetBlacklistForViewDto {
-    blacklist!: BlacklistDto;
-
-    constructor(data?: IGetBlacklistForViewDto) {
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -21913,7 +21894,6 @@ export class GetBlacklistForViewDto implements IGetBlacklistForViewDto {
 
     init(_data?: any) {
         if (_data) {
-<<<<<<< HEAD
             this.appointment = _data["appointment"] ? AppointmentDto.fromJS(_data["appointment"]) : <any>undefined;
         }
     }
@@ -21921,7 +21901,71 @@ export class GetBlacklistForViewDto implements IGetBlacklistForViewDto {
     static fromJS(data: any): GetAppointmentForViewDto {
         data = typeof data === 'object' ? data : {};
         let result = new GetAppointmentForViewDto();
-=======
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["appointment"] = this.appointment ? this.appointment.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetAppointmentForViewDto {
+    appointment: AppointmentDto;
+}
+
+export class GetBlacklistForEditOutput implements IGetBlacklistForEditOutput {
+    blacklist!: CreateOrEditBlacklistDto;
+
+    constructor(data?: IGetBlacklistForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.blacklist = _data["blacklist"] ? CreateOrEditBlacklistDto.fromJS(_data["blacklist"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetBlacklistForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetBlacklistForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["blacklist"] = this.blacklist ? this.blacklist.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetBlacklistForEditOutput {
+    blacklist: CreateOrEditBlacklistDto;
+}
+
+export class GetBlacklistForViewDto implements IGetBlacklistForViewDto {
+    blacklist!: BlacklistDto;
+
+    constructor(data?: IGetBlacklistForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
             this.blacklist = _data["blacklist"] ? BlacklistDto.fromJS(_data["blacklist"]) : <any>undefined;
         }
     }
@@ -21929,29 +21973,19 @@ export class GetBlacklistForViewDto implements IGetBlacklistForViewDto {
     static fromJS(data: any): GetBlacklistForViewDto {
         data = typeof data === 'object' ? data : {};
         let result = new GetBlacklistForViewDto();
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-<<<<<<< HEAD
-        data["appointment"] = this.appointment ? this.appointment.toJSON() : <any>undefined;
-=======
         data["blacklist"] = this.blacklist ? this.blacklist.toJSON() : <any>undefined;
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         return data; 
     }
 }
 
-<<<<<<< HEAD
-export interface IGetAppointmentForViewDto {
-    appointment: AppointmentDto;
-=======
 export interface IGetBlacklistForViewDto {
     blacklist: BlacklistDto;
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
 }
 
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
@@ -26889,19 +26923,11 @@ export interface IPagedResultDtoOfGetAllSendAttemptsOutput {
     items: GetAllSendAttemptsOutput[] | undefined;
 }
 
-<<<<<<< HEAD
 export class PagedResultDtoOfGetAppointmentForViewDto implements IPagedResultDtoOfGetAppointmentForViewDto {
     totalCount!: number;
     items!: GetAppointmentForViewDto[] | undefined;
 
     constructor(data?: IPagedResultDtoOfGetAppointmentForViewDto) {
-=======
-export class PagedResultDtoOfGetBlacklistForViewDto implements IPagedResultDtoOfGetBlacklistForViewDto {
-    totalCount!: number;
-    items!: GetBlacklistForViewDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfGetBlacklistForViewDto) {
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -26916,24 +26942,14 @@ export class PagedResultDtoOfGetBlacklistForViewDto implements IPagedResultDtoOf
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-<<<<<<< HEAD
                     this.items!.push(GetAppointmentForViewDto.fromJS(item));
-=======
-                    this.items!.push(GetBlacklistForViewDto.fromJS(item));
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
             }
         }
     }
 
-<<<<<<< HEAD
     static fromJS(data: any): PagedResultDtoOfGetAppointmentForViewDto {
         data = typeof data === 'object' ? data : {};
         let result = new PagedResultDtoOfGetAppointmentForViewDto();
-=======
-    static fromJS(data: any): PagedResultDtoOfGetBlacklistForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfGetBlacklistForViewDto();
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
         result.init(data);
         return result;
     }
@@ -26950,10 +26966,57 @@ export class PagedResultDtoOfGetBlacklistForViewDto implements IPagedResultDtoOf
     }
 }
 
-<<<<<<< HEAD
 export interface IPagedResultDtoOfGetAppointmentForViewDto {
     totalCount: number;
     items: GetAppointmentForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetBlacklistForViewDto implements IPagedResultDtoOfGetBlacklistForViewDto {
+    totalCount!: number;
+    items!: GetBlacklistForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetBlacklistForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetBlacklistForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetBlacklistForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetBlacklistForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetBlacklistForViewDto {
+    totalCount: number;
+    items: GetBlacklistForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetPurposeOfVisitForViewDto implements IPagedResultDtoOfGetPurposeOfVisitForViewDto {
@@ -27146,11 +27209,6 @@ export class PagedResultDtoOfGetTowerForViewDto implements IPagedResultDtoOfGetT
 export interface IPagedResultDtoOfGetTowerForViewDto {
     totalCount: number;
     items: GetTowerForViewDto[] | undefined;
-=======
-export interface IPagedResultDtoOfGetBlacklistForViewDto {
-    totalCount: number;
-    items: GetBlacklistForViewDto[] | undefined;
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
 }
 
 export class PagedResultDtoOfLanguageTextListDto implements IPagedResultDtoOfLanguageTextListDto {

@@ -138,11 +138,5 @@
         public const string Pages_Administration_Host_Settings = "Pages.Administration.Host.Settings";
         public const string Pages_Administration_Host_Dashboard = "Pages.Administration.Host.Dashboard";
 
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
-
     }
 }

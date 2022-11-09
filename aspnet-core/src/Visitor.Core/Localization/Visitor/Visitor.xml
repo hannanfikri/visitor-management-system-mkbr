@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
-<<<<<<< HEAD
     
     <text name="Tower">Tower</text>
     <text name="Visitor.Tower.Tower">Tower</text>
@@ -37,7 +36,6 @@
     <text name="EditTitle">Edit title</text>
     <text name="Deletetitle">Delete title</text>
     <text name="Titles">Title</text>
-=======
 
     <text name="Blacklist">Blacklist</text>
     <text name="Visitor.Blacklist.Blacklist">Blacklist</text>
@@ -59,7 +57,6 @@
     <text name="MinValue">Min</text>
     <text name="MaxValue">Max</text>
     
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
     
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>

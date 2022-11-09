@@ -55,7 +55,6 @@ namespace Visitor
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
-<<<<<<< HEAD
             configuration.CreateMap<CreateOrEditAppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
             configuration.CreateMap<AppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
 
@@ -72,11 +71,9 @@ namespace Visitor
             configuration.CreateMap<CreateOrEditTitleDto, Title.TitleEnt>().ReverseMap();
             configuration.CreateMap<TitleDto, Title.TitleEnt>().ReverseMap();
 
-=======
             //Blacklist
             configuration.CreateMap<CreateOrEditBlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
             configuration.CreateMap<BlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
->>>>>>> de0af422a85ccc249969f9363ade1ab179686a4d
 
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();

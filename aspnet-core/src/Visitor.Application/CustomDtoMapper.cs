@@ -48,6 +48,7 @@ using Visitor.Tower.Dtos;
 using Visitor.PurposeOfVisit.Dtos;
 using Visitor.Status.Dtos;
 using Visitor.Title.Dtos;
+using Visitor.Level.Dtos;
 
 namespace Visitor
 {
@@ -70,6 +71,12 @@ namespace Visitor
             //Title
             configuration.CreateMap<CreateOrEditTitleDto, Title.TitleEnt>().ReverseMap();
             configuration.CreateMap<TitleDto, Title.TitleEnt>().ReverseMap();
+
+
+
+            //Level
+            configuration.CreateMap<CreateOrEditLevelDto, Level.LevelEnt>().ReverseMap();
+            configuration.CreateMap<LevelDto, Level.LevelEnt>().ReverseMap();
 
             //Blacklist
             configuration.CreateMap<CreateOrEditBlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();

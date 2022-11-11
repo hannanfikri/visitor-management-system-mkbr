@@ -1,9 +1,11 @@
 ﻿using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Visitor.PurposeOfVisit;
 
 namespace Visitor.Appointment
 {
@@ -31,6 +33,8 @@ namespace Visitor.Appointment
         public byte[] FaceVerify { get; set; }//match datatype for file
         public DateTime RegDateTime { get; set; }
         public string Status { get; set; }
+
+       // [ForeignKey(<PurposeOfVisitEnt> )]
 
 
         private AppointmentEnt() { }//empty constructor

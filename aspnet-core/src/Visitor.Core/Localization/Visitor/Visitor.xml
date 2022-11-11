@@ -56,6 +56,15 @@
     <text name="False">False</text>
     <text name="MinValue">Min</text>
     <text name="MaxValue">Max</text>
+
+    <text name="Level">Level Bank Rakyat</text>
+    <text name="Visitor.Level.Level">Level Bank Rakyat</text>
+    <text name="LevelApp">Level Bank Rakyat</text>
+    <text name="LevelsHeaderInfo">Level header info</text>
+    <text name="CreateNewLevel">Create new level</text>
+    <text name="EditLevel">Edit level</text>
+    <text name="Deletelevel">Delete level</text>
+    <text name="Levels">Levels</text>
     
     
     <text name="HomePage">Home page</text>

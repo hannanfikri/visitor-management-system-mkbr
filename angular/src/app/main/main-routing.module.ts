@@ -32,6 +32,12 @@ import { RouterModule } from '@angular/router';
                         loadChildren: () => import('./tower/towers/tower.module').then((m) => m.TowerModule),
                         data: { permission: 'Pages.Towers' },
                     },
+
+                    {
+                        path: 'level/levels',
+                        loadChildren: () => import('./level/levels/level.module').then((m) => m.LevelModule),
+                        data: { permission: 'Pages.Levels' },
+                    },
                     {
                         path: 'appointment/appointments',
                         loadChildren: () => import('./appointment/appointments/appointment.module').then((m) => m.AppointmentModule),

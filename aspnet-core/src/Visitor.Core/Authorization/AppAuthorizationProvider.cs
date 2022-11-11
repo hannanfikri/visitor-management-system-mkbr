@@ -58,6 +58,12 @@ namespace Visitor.Authorization
             Titles.CreateChildPermission(AppPermissions.Pages_Titles_Edit, L("EdiTitle"));
             Titles.CreateChildPermission(AppPermissions.Pages_Titles_Delete, L("DeleteTitle"));
 
+            //Visitor Level
+            var Levels = pages.CreateChildPermission(AppPermissions.Pages_Levels, L("Level"));
+            Levels.CreateChildPermission(AppPermissions.Pages_Levels_Create, L("CreateNewLevel"));
+            Levels.CreateChildPermission(AppPermissions.Pages_Levels_Edit, L("EdiLevel"));
+            Levels.CreateChildPermission(AppPermissions.Pages_Levels_Delete, L("DeleteLevel"));
+
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 
             //Blacklist

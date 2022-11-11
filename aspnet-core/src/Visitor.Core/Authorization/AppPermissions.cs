@@ -33,6 +33,12 @@
         public const string Pages_Titles_Edit = "Pages.Titles.Edit";
         public const string Pages_Titles_Delete = "Pages.Titles.Delete";
 
+        //VISITOR LEVEL
+        public const string Pages_Levels = "Pages.Levels";
+        public const string Pages_Levels_Create = "Pages.Levels.Create";
+        public const string Pages_Levels_Edit = "Pages.Levels.Edit";
+        public const string Pages_Levels_Delete = "Pages.Levels.Delete";
+
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 

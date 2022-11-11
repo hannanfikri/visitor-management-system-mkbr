@@ -22,7 +22,6 @@ export class AppNavigationService {
             ),
             
             new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
-            new AppMenuItem('Blacklists', 'Pages.Blacklists', 'flaticon-more', '/app/main/blacklist/blacklists'),
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
             new AppMenuItem(
@@ -37,9 +36,11 @@ export class AppNavigationService {
                     new AppMenuItem('PurposeOfVisits', 'Pages.PurposeOfVisits', 'flaticon-list-3', '/app/main/purposeOfVisit/purposeOfVisits'),
                     new AppMenuItem('Status', 'Pages.Statuses', 'flaticon-list-3', '/app/main/status/statuses'),
                     new AppMenuItem('Title', 'Pages.Titles', 'flaticon-list-3', '/app/main/title/titles'),
+                    new AppMenuItem('Level', 'Pages.Levels', 'flaticon-list-3', '/app/main/level/levels'),
                 
                 ]
             ),
+            new AppMenuItem('Blacklists', 'Pages.Blacklists', 'flaticon-more', '/app/main/blacklist/blacklists'),
             new AppMenuItem(
                 'Administration',
                 '',

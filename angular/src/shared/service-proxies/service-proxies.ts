@@ -18094,7 +18094,7 @@ export class AppointmentDto implements IAppointmentDto {
     level!: number;
     appDateTime!: DateTime;
     faceVerify!: string | undefined;
-    regDateTime!: DateTime;
+    regDateTime!: IHasCreationTime;
     status!: string | undefined;
     id!: string;
 
@@ -18122,7 +18122,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
             this.faceVerify = _data["faceVerify"];
-            this.regDateTime = _data["regDateTime"] ? DateTime.fromISO(_data["regDateTime"].toString()) : <any>undefined;
+            this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
             this.status = _data["status"];
             this.id = _data["id"];
         }
@@ -18150,7 +18150,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
         data["faceVerify"] = this.faceVerify;
-        data["regDateTime"] = this.regDateTime ? this.regDateTime.toString() : <any>undefined;
+        data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
         data["status"] = this.status;
         data["id"] = this.id;
         return data; 
@@ -18171,7 +18171,7 @@ export interface IAppointmentDto {
     level: number;
     appDateTime: DateTime;
     faceVerify: string | undefined;
-    regDateTime: DateTime;
+    regDateTime: IHasCreationTime;
     status: string | undefined;
     id: string;
 }
@@ -19186,8 +19186,14 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     level!: number | undefined;
     appDateTime!: DateTime;
     faceVerify!: string;
-    regDateTime!: DateTime;
     status!: string | undefined;
+    isDeleted!: boolean;
+    deleterUserId!: number | undefined;
+    deletionTime!: DateTime | undefined;
+    lastModificationTime!: DateTime | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: DateTime;
+    creatorUserId!: number | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditAppointmentDto) {
@@ -19214,8 +19220,14 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
             this.faceVerify = _data["faceVerify"];
-            this.regDateTime = _data["regDateTime"] ? DateTime.fromISO(_data["regDateTime"].toString()) : <any>undefined;
             this.status = _data["status"];
+            this.isDeleted = _data["isDeleted"];
+            this.deleterUserId = _data["deleterUserId"];
+            this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? DateTime.fromISO(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? DateTime.fromISO(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
             this.id = _data["id"];
         }
     }
@@ -19242,8 +19254,14 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
         data["faceVerify"] = this.faceVerify;
-        data["regDateTime"] = this.regDateTime ? this.regDateTime.toString() : <any>undefined;
         data["status"] = this.status;
+        data["isDeleted"] = this.isDeleted;
+        data["deleterUserId"] = this.deleterUserId;
+        data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
         data["id"] = this.id;
         return data; 
     }
@@ -19263,8 +19281,14 @@ export interface ICreateOrEditAppointmentDto {
     level: number | undefined;
     appDateTime: DateTime;
     faceVerify: string;
-    regDateTime: DateTime;
     status: string | undefined;
+    isDeleted: boolean;
+    deleterUserId: number | undefined;
+    deletionTime: DateTime | undefined;
+    lastModificationTime: DateTime | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: DateTime;
+    creatorUserId: number | undefined;
     id: string | undefined;
 }
 
@@ -25154,6 +25178,42 @@ export enum HttpStatusCode {
     ServiceUnavailable = 508,
     GatewayTimeout = 510,
     HttpVersionNotSupported = 511,
+}
+
+export class IHasCreationTime implements IIHasCreationTime {
+    creationTime!: DateTime;
+
+    constructor(data?: IIHasCreationTime) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.creationTime = _data["creationTime"] ? DateTime.fromISO(_data["creationTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): IHasCreationTime {
+        data = typeof data === 'object' ? data : {};
+        let result = new IHasCreationTime();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["creationTime"] = this.creationTime ? this.creationTime.toString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IIHasCreationTime {
+    creationTime: DateTime;
 }
 
 export class IInputType implements IIInputType {

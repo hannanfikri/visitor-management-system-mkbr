@@ -108,7 +108,7 @@
 
 <div class="modal-body">
     <div class="my-3">
-        <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }} *</label>
+        <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }} </label>
         <input
             type="text"
             #Appointment_FullName="ngModel"
@@ -121,7 +121,7 @@
 </div>
 <div class="modal-body">
     <div class="my-3">
-        <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }} *</label>
+        <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }} </label>
         <input
             type="text"
             #Appointment_OfficerToMeet="ngModel"
@@ -150,7 +150,7 @@
 </div>
 <div class="modal-body">
     <div class="my-3">
-        <label class="form-label" for="Appointment_Department">{{ l('Department') }} *</label>
+        <label class="form-label" for="Appointment_Department">{{ l('Department') }} </label>
         <input
             type="text"
             #Appointment_FullName="ngModel"
@@ -163,7 +163,7 @@
 </div>
 <div class="modal-body">
     <div class="my-3">
-        <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} *</label>
+        <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
         <input
             type="text"
             #Appointment_FullName="ngModel"
@@ -176,7 +176,7 @@
 </div>
 <div class="modal-body">
     <div class="my-3">
-        <label class="form-label" for="Appointment_Level">{{ l('Level') }} *</label>
+        <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
         <input
             type="text"
             #Appointment_FullName="ngModel"
@@ -201,23 +201,6 @@
             required
         />
         <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
-    </div>
-</div>
-
-
-<div class="modal-body">
-    <div class="my-3">
-        <label class="form-label" for="Appointment_RegDateTime">{{ l('RegDateTime') }} *</label>
-        <input
-            type="datetime-local"
-            #Appointment_RegDateTime="ngModel"
-            id="Appointment_RegDateTime"
-            class="form-control"
-            [(ngModel)]="appointment.regDateTime"
-            name="RegDateTime"
-            required
-        />
-        <validation-messages [formCtrl]="Appointment_RegDateTime"></validation-messages>
     </div>
 </div>
 

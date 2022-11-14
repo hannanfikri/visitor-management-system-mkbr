@@ -115,6 +115,38 @@
                                             {{ l('Email') }}
                                             <p-sortIcon field="appointment.email"></p-sortIcon>
                                         </th>
+                                        <th style="width: 150px" pSortableColumn="PurposeOfVisit">
+                                            {{ l('PurposeOfVisit') }}
+                                            <p-sortIcon field="appointment.purposeOfVisit"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="CompanyName">
+                                            {{ l('CompanyName') }}
+                                            <p-sortIcon field="appointment.companyName"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="OfficerToMeet">
+                                            {{ l('OfficerToMeet') }}
+                                            <p-sortIcon field="appointment.officerToMeet"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="Department">
+                                            {{ l('Department') }}
+                                            <p-sortIcon field="appointment.department"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="Tower">
+                                            {{ l('Tower') }}
+                                            <p-sortIcon field="appointment.tower"></p-sortIcon>
+                                        </th>   
+                                        <th style="width: 150px" pSortableColumn="Level">
+                                            {{ l('Level') }}
+                                            <p-sortIcon field="appointment.level"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="AppDateTime">
+                                            {{ l('AppDateTime') }}
+                                            <p-sortIcon field="appointment.appDateTime"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="RegDateTime">
+                                            {{ l('RegDateTime') }}
+                                            <p-sortIcon field="appointment.regDateTime"></p-sortIcon>
+                                        </th>
                                         <th style="width: 150px" pSortableColumn="Status">
                                             {{ l('Status') }}
                                             <p-sortIcon field="appointment.status"></p-sortIcon>
@@ -191,6 +223,38 @@
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Email') }}</span>
                                             {{ record.appointment.email }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('PurposeOfVisit') }}</span>
+                                            {{ record.appointment.purposeOfVisit }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('CompanyName') }}</span>
+                                            {{ record.appointment.companyName }}
+                                        </td>                                        
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('OfficerToMeet') }}</span>
+                                            {{ record.appointment.officerToMeet }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Department') }}</span>
+                                            {{ record.appointment.department }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Tower') }}</span>
+                                            {{ record.appointment.tower }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Level') }}</span>
+                                            {{ record.appointment.level }}
+                                        </td>                   
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('AppDateTime') }}</span>
+                                            {{ record.appointment.appDateTime }}
+                                        </td>                
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('RegDateTime') }}</span>
+                                            {{ record.appointment.regDateTime }}
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Status') }}</span>

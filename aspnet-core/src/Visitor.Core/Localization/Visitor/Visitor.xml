@@ -69,15 +69,28 @@
     <text name="MinValue">Min</text>
     <text name="MaxValue">Max</text>
 
-    <text name="Level">Level Bank Rakyat</text>
-    <text name="Visitor.Level.Level">Level Bank Rakyat</text>
-    <text name="LevelApp">Level Bank Rakyat</text>
+    <text name="Level">Level</text>
+    <text name="Visitor.Level.Level">Level</text>
+    <text name="LevelApp">Level</text>
     <text name="LevelsHeaderInfo">Level header info</text>
     <text name="CreateNewLevel">Create new level</text>
     <text name="EditLevel">Edit level</text>
     <text name="Deletelevel">Delete level</text>
     <text name="Levels">Levels</text>
     
+    <text name="Appointment">Appointment</text>
+    <text name="Visitor.Appointment.Appointment">Appointment</text>
+    <text name="AppointmentsHeaderInfo">Appointment header info</text>
+    <text name="CreateNewAppointment">Create new appointment</text>
+    <text name="EditAppointment">Edit appointment</text>
+    <text name="DeleteAppointment">Delete appointment</text>
+    <text name="Appointments">Appointments</text>
+    <text name="IdentityCard">Visitor's identity card</text>
+    <text name="PhoneNo">Visitor's phone number</text>
+    <text name="OfficerToMeet">Visitor's officer to meet</text>
+    <text name="AppDateTime">Appointment's date and time</text>
+    <text name="RegDateTime">Register's date and time</text>
+    <text name="FaceVerify">Visitor's face</text>
     
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>

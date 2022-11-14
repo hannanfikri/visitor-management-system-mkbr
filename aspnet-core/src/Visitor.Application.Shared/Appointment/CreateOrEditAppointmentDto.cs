@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Domain.Entities;
 using Abp.Application.Services.Dto;
 using Abp.MultiTenancy;
-
+using Abp.Domain.Entities.Auditing;
 
 namespace Visitor.Appointment
 {
-    public class CreateOrEditAppointmentDto : EntityDto<Guid?>
+    public class CreateOrEditAppointmentDto : FullAuditedEntityDto<Guid?> ,IHasCreationTime
     {
         //[Required]
         //[StringLength(AppointmentEnt.MaxIdentityCardLength)]
@@ -44,13 +44,6 @@ namespace Visitor.Appointment
         public virtual DateTime AppDateTime { get; set; }
         [Required]
         public virtual byte[] FaceVerify { get; set; }
-        [Required]
-        public virtual DateTime RegDateTime { get; set; }
         public virtual string Status { get; set; }
-
-        //[StringLength(AbpAppointmentBase.MaxConnectionStringLength)]
-        //public string ConnectionString { get; set; }
-
-        //public bool IsActive { get; set; }
     }
 }

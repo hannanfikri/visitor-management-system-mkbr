@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +10,7 @@ using Visitor.PurposeOfVisit;
 
 namespace Visitor.Appointment
 {
-    public class AppointmentEnt : Entity<Guid>//derive from class entity
+    public class AppointmentEnt :  FullAuditedEntity<Guid>,IHasCreationTime//derive from class entity
     {
         public const int MaxIdentityCardLength = 12;
         public const int MaxFullNameLength = 255;
@@ -31,7 +32,9 @@ namespace Visitor.Appointment
         public Nullable<int> Level { get; set; }
         public DateTime AppDateTime { get; set; }
         public byte[] FaceVerify { get; set; }//match datatype for file
-        public DateTime RegDateTime { get; set; }
+
+        [NotMapped]
+        public IHasCreationTime RegDateTime { get; set; }
         public string Status { get; set; }
 
        // [ForeignKey(<PurposeOfVisitEnt> )]
@@ -39,7 +42,7 @@ namespace Visitor.Appointment
 
         private AppointmentEnt() { }//empty constructor
 
-        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, string department, Nullable<int> tower, Nullable<int> level, DateTime appDateTime, byte[] faceVerify, DateTime regDateTime, string status)
+        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, string department, Nullable<int> tower, Nullable<int> level, DateTime appDateTime, byte[] faceVerify, IHasCreationTime regDateTime, string status)
         {
             IdentityCard = identityCard;
             FullName = fullName;

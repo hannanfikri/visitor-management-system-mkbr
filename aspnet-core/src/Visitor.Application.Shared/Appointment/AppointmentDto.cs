@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Visitor.Appointment
             public int Level { get; set; }
             public DateTime AppDateTime { get; set; }
             public byte[] FaceVerify { get; set; }
-            public DateTime RegDateTime { get; set; }
+            public IHasCreationTime RegDateTime { get; set; }
             public string Status { get; set; }
 
         

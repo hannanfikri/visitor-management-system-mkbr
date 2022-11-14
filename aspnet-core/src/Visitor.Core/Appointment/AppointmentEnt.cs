@@ -25,8 +25,8 @@ namespace Visitor.Appointment
         public string Title { get; set; }
         public string CompanyName { get; set; }
         public string OfficerToMeet { get; set; }
-        public string? PurposeOfVisit { get; set; }
-        public string? Department { get; set; }
+        public string PurposeOfVisit { get; set; }
+        public string Department { get; set; }
         public Nullable<int> Tower { get; set; }
         public Nullable<int> Level { get; set; }
         public DateTime AppDateTime { get; set; }

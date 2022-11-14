@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Visitor.Company;
+using System;
 using System.Linq;
 using Abp.Organizations;
 using Visitor.Authorization.Roles;

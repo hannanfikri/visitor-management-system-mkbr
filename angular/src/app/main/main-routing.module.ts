@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -7,6 +7,13 @@ import { RouterModule } from '@angular/router';
             {
                 path: '',
                 children: [
+                    
+                    {
+                        path: 'company/companies',
+                        loadChildren: () => import('./company/companies/company.module').then(m => m.CompanyModule),
+                        data: { permission: 'Pages.Companies' }
+                    },
+                
                     {
                         path: 'blacklist/blacklists',
                         loadChildren: () => import('./blacklist/blacklists/blacklist.module').then((m) => m.BlacklistModule),

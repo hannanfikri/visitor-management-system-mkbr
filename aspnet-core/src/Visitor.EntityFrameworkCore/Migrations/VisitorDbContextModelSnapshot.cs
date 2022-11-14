@@ -1851,6 +1851,30 @@ namespace Visitor.Migrations
                     b.ToTable("AppChatMessages");
                 });
 
+            modelBuilder.Entity("Visitor.Company.CompanyEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompanyAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficePhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("companies");
+                });
+
             modelBuilder.Entity("Visitor.Friendships.Friendship", b =>
                 {
                     b.Property<long>("Id")

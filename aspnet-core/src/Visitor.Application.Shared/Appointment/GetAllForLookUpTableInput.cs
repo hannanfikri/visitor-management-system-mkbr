@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Visitor.Appointment
 {
-    internal class GetAllForLookUpTableInput : PagedAndSortedResultRequestDto
+    public class GetAllForLookUpTableInput : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
+        //public  DateTime Today { get; set; }
     }
 }

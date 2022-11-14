@@ -41,6 +41,20 @@
                     </div>
                 </div>
 
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_Title">{{ l('Tiltle') }} *</label>
+                        <input
+                            type="text"
+                            #Appointment_FullName="ngModel"
+                            id="Appointment_Title"
+                            class="form-control"
+                            [(ngModel)]="appointment.title"
+                            name="Title"                            
+                        />
+                    </div>
+                </div>
+
             
             <div class="modal-body">
                 <div class="my-3">
@@ -92,6 +106,32 @@
     </div>
 </div>
 
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }} *</label>
+        <input
+            type="text"
+            #Appointment_FullName="ngModel"
+            id="Appointment_PurposeOfVisit"
+            class="form-control"
+            [(ngModel)]="appointment.purposeOfVisit"
+            name="PurposeOfVisit"                            
+        />
+    </div>
+</div>
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }} *</label>
+        <input
+            type="text"
+            #Appointment_OfficerToMeet="ngModel"
+            id="Appointment_CompanyName"
+            class="form-control"
+            [(ngModel)]="appointment.companyName"
+            name="CompanyName"
+        />
+    </div>
+</div>
 
 <div class="modal-body">
     <div class="my-3">
@@ -108,7 +148,45 @@
         <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
     </div>
 </div>
-
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_Department">{{ l('Department') }} *</label>
+        <input
+            type="text"
+            #Appointment_FullName="ngModel"
+            id="Appointment_Department"
+            class="form-control"
+            [(ngModel)]="appointment.department"
+            name="Department"                            
+        />
+    </div>
+</div>
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} *</label>
+        <input
+            type="text"
+            #Appointment_FullName="ngModel"
+            id="Appointment_Tower"
+            class="form-control"
+            [(ngModel)]="appointment.tower"
+            name="Tower"                            
+        />
+    </div>
+</div>
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_Level">{{ l('Level') }} *</label>
+        <input
+            type="text"
+            #Appointment_FullName="ngModel"
+            id="Appointment_Level"
+            class="form-control"
+            [(ngModel)]="appointment.level"
+            name="Level"                            
+        />
+    </div>
+</div>
 
 <div class="modal-body">
     <div class="my-3">

@@ -14,23 +14,23 @@ using Abp.Linq.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Abp.Linq.Extensions;
 using System.Linq.Dynamic.Core;
+using NPOI.SS.Formula.Functions;
 
 
 namespace Visitor.Appointment
 {
-    public class AppointmentsAppService :VisitorAppServiceBase, IAppointmentsAppService
+    public class AppointmentsAppService : VisitorAppServiceBase, IAppointmentsAppService
     {
-        private readonly IRepository<AppointmentEnt, Guid> _appointmentRepository;
-        //private readonly IAppointmentsExcelExporter _appointmentsExcelExporter;
+        private readonly IRepository<AppointmentEnt,Guid> _appointmentRepository;
 
-        public AppointmentsAppService(IRepository<AppointmentEnt, Guid> appointmentRepository) //IAppointmentsExcelExporter appointmentsExcelExporter
+        public AppointmentsAppService(IRepository<AppointmentEnt, Guid> appointmentRepository)
         {
             _appointmentRepository = appointmentRepository;
-           // _appointmentsExcelExporter = appointmentsExcelExporter;
+           
 
         }
 
-        public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
+         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
 
             var filteredAppointments = _appointmentRepository.GetAll()
@@ -81,6 +81,7 @@ namespace Visitor.Appointment
 
         }
 
+        
         public async Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id)
         {
             var appointment = await _appointmentRepository.GetAsync(id);
@@ -134,28 +135,6 @@ namespace Visitor.Appointment
         {
             await _appointmentRepository.DeleteAsync(input.Id);
         }
-
-        /*public async Task<FileDto> GetAppointmentsToExcel(GetAllAppointmentsForExcelInput input)
-        {
-
-            var filteredAppointments = _appointmentRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
-
-            var query = (from o in filteredAppointments
-                         select new GetAppointmentForViewDto()
-                         {
-                             Appointment = new AppointmentDto
-                             {
-                                 FullName = o.FullName,
-                                 Id = o.Id
-                             }
-                         });
-
-            var appointmentListDtos = await query.ToListAsync();
-
-            //return _appointmentsExcelExporter.ExportToFile(appointmentListDtos);
-        }*/
     }
     
 }

@@ -120,10 +120,4 @@ export class AppointmentsComponent extends AppComponentBase {
             }
         });
     }
-
-    exportToExcel(): void {
-        //this._appointmentsServiceProxy.getAppointmentsToExcel(this.filterText, this.appointmentNameFilter).subscribe((result) => {
-            //this._fileDownloadService.downloadTempFile(result);
-        //});
-    }
 }

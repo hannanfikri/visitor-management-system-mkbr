@@ -1,6 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+
+    <text name="Company">Company</text>
+    <text name="Visitor.Company.Company">Company</text>
+    <text name="CompanyName">Company name</text>
+    <text name="CompanyEmail">Company's Email</text>
+    <text name="OfficePhoneNumber">Company's Office Phone Number</text>
+    <text name="CompanyAddress">Company's Address</text>
+    <text name="CompaniesHeaderInfo">Companies header info</text>
+    <text name="CreateNewCompany">Create new company</text>
+    <text name="EditCompany">Edit company</text>
+    <text name="DeleteCompany">Delete company</text>
+    <text name="Companies">Companies</text>
     
     <text name="Tower">Tower</text>
     <text name="Visitor.Tower.Tower">Tower</text>

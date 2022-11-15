@@ -26,6 +26,9 @@ namespace Visitor.Appointment
         public string Title { get; set; }
         public string CompanyName { get; set; }
         public string OfficerToMeet { get; set; }
+
+        [ForeignKey("PurposeOfVisitEnt")]
+        public Guid PovId { get; set; }
         public string PurposeOfVisit { get; set; }
         public string Department { get; set; }
         public Nullable<int> Tower { get; set; }
@@ -37,12 +40,24 @@ namespace Visitor.Appointment
         public IHasCreationTime RegDateTime { get; set; }
         public string Status { get; set; }
 
-       // [ForeignKey(<PurposeOfVisitEnt> )]
+        [ForeignKey("TitleEnt")]
+        public Guid TitleId { get; set; }
+
+        [ForeignKey("LevelEnt")]
+        public Guid LevelId { get; set; }
+
+        [ForeignKey("TowerEnt")]
+        public Guid TowerId { get; set; }
 
 
-        private AppointmentEnt() { }//empty constructor
 
-        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, string department, Nullable<int> tower, Nullable<int> level, DateTime appDateTime, byte[] faceVerify, IHasCreationTime regDateTime, string status)
+        /*public AppointmentEnt
+            (string identityCard, string fullName, string phoneNo, string email, 
+            string title, string companyName, string officerToMeet, string purposeOfVisit, 
+            string department, Nullable<int> tower, Nullable<int> level, DateTime appDateTime,
+            byte[] faceVerify, IHasCreationTime regDateTime, string status, Guid povId,
+            Guid titleId,Guid levelId,Guid towerId
+            )
         {
             IdentityCard = identityCard;
             FullName = fullName;
@@ -59,6 +74,10 @@ namespace Visitor.Appointment
             FaceVerify = faceVerify;
             RegDateTime = regDateTime;
             Status = status;// constructor
-        }
+            PovId = povId;
+            TitleId = titleId;
+            LevelId = levelId;
+            TowerId = towerId;
+        }*/
     }
 }

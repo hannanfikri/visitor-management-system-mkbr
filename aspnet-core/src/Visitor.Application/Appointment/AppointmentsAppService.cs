@@ -15,18 +15,42 @@ using Microsoft.EntityFrameworkCore;
 using Abp.Linq.Extensions;
 using System.Linq.Dynamic.Core;
 using NPOI.SS.Formula.Functions;
-
+using Visitor.PurposeOfVisit.Dtos;
+using Visitor.PurposeOfVisit;
+using Visitor.Title;
+using Visitor.Tower;
+using Visitor.Company;
+using Visitor.Company.Exporting;
+using Visitor.Title.Dtos;
+using Visitor.Tower.Dtos;
+using Visitor.Level;
+using Visitor.Level.Dtos;
+using Visitor.Company.Dtos;
 
 namespace Visitor.Appointment
 {
     public class AppointmentsAppService : VisitorAppServiceBase, IAppointmentsAppService
     {
         private readonly IRepository<AppointmentEnt,Guid> _appointmentRepository;
+        private readonly IRepository<PurposeOfVisitEnt, Guid> _purposeOfVisitRepository;
+        private readonly IRepository<TitleEnt, Guid> _titleRepository;
+        private readonly IRepository<TowerEnt, Guid> _towerRepository;
+        private readonly IRepository<LevelEnt, Guid> _levelRepository;
 
-        public AppointmentsAppService(IRepository<AppointmentEnt, Guid> appointmentRepository)
+        public AppointmentsAppService
+
+            (IRepository<AppointmentEnt, Guid> appointmentRepository,
+            IRepository<PurposeOfVisitEnt, Guid> purposeOfVisitRepository,
+            IRepository<TitleEnt, Guid> titleRepository,
+            IRepository<TowerEnt, Guid> towerRepository,
+            IRepository<LevelEnt, Guid> levelRepository
+            )
         {
             _appointmentRepository = appointmentRepository;
-           
+            _purposeOfVisitRepository = purposeOfVisitRepository;
+            _titleRepository = titleRepository;
+            _towerRepository = towerRepository;
+            _levelRepository = levelRepository;
 
         }
 
@@ -48,7 +72,17 @@ namespace Visitor.Appointment
                                 o.FullName,
                                 o.Email,
                                 o.PhoneNo,
-                                o.IdentityCard
+                                o.IdentityCard,
+                                o.PurposeOfVisit,
+                                o.CompanyName,
+                                o.OfficerToMeet,
+                                o.Department,
+                                o.Tower,
+                                o.Level,
+                                o.AppDateTime,
+                                o.RegDateTime,
+                                o.Status
+                                
                             };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -67,6 +101,15 @@ namespace Visitor.Appointment
                         Email = o.Email,
                         PhoneNo = o.PhoneNo,
                         IdentityCard = o.IdentityCard,
+                        PurposeOfVisit = o.PurposeOfVisit,
+                        CompanyName = o.CompanyName,
+                        OfficerToMeet = o.OfficerToMeet,
+                        Department = o.Department,
+                        Tower = o.Tower,
+                        Level = o.Level,
+                        AppDateTime = o.AppDateTime,
+                        RegDateTime = o.RegDateTime,
+                        Status = o.Status,
                         Id = o.Id,
                     }
                 };
@@ -135,6 +178,144 @@ namespace Visitor.Appointment
         {
             await _appointmentRepository.DeleteAsync(input.Id);
         }
+
+        public List<GetPurposeOfVisitForViewDto> GetPurposeOfVisit()
+        {
+            var query = _purposeOfVisitRepository.GetAll();
+            var queryPOV = from a in query
+                           select new
+                           {
+                               Id = a.Id,
+                               a.PurposeOfVisitApp
+                           };
+            var dblist = queryPOV.ToList();
+            var results = new List<GetPurposeOfVisitForViewDto>();
+            foreach (var db in dblist)
+            {
+                var res = new GetPurposeOfVisitForViewDto()
+                {
+                    PurposeOfVisit = new PurposeOfVisitDto
+                    {
+                        Id = db.Id,
+                        PurposeOfVisitApp = db.PurposeOfVisitApp,
+                    }
+                };
+                results.Add(res);
+            } 
+
+            return new List<GetPurposeOfVisitForViewDto> (results);
+        }
+
+        public List<GetTitleForViewDto> GetTitle()
+        {
+            var query = _titleRepository.GetAll();
+            var qTitle = from a in query
+                           select new
+                           {
+                               Id = a.Id,
+                               a.VisitorTitle
+                           };
+            var dblist = qTitle.ToList();
+            var results = new List<GetTitleForViewDto>();
+            foreach (var db in dblist)
+            {
+                var res = new GetTitleForViewDto()
+                {
+                    Title = new TitleDto
+                    {
+                        Id = db.Id,
+                        VisitorTitle = db.VisitorTitle,
+                    }
+                };
+                results.Add(res);
+            }
+
+            return new List<GetTitleForViewDto>(results);
+        }
+        public List<GetTowerForViewDto> GetTower()
+        {
+            var query = _towerRepository.GetAll();
+            var qTower = from a in query
+                           select new
+                           {
+                               Id = a.Id,
+                               a.TowerBankRakyat
+                           };
+            var dblist = qTower.ToList();
+            var results = new List<GetTowerForViewDto>();
+            foreach (var db in dblist)
+            {
+                var res = new GetTowerForViewDto()
+                {
+                    Tower = new TowerDto
+                    {
+                        Id = db.Id,
+                        TowerBankRakyat = db.TowerBankRakyat,
+                    }
+                };
+                results.Add(res);
+            }
+
+            return new List<GetTowerForViewDto>(results);
+        }
+        public List<GetLevelForViewDto> GetLevel()
+        {
+            var query = _levelRepository.GetAll();
+            var qLevel = from a in query
+                         select new
+                         {
+                             Id = a.Id,
+                             a.LevelBankRakyat
+                         };
+            var dblist = qLevel.ToList();
+            var results = new List<GetLevelForViewDto>();
+            foreach (var db in dblist)
+            {
+                var res = new GetLevelForViewDto()
+                {
+                    Level = new LevelDto
+                    {
+                        Id = db.Id,
+                        LevelBankRakyat = db.LevelBankRakyat
+                    }
+                };
+                results.Add(res);
+            }
+
+            return new List<GetLevelForViewDto>(results);
+        }
+        /*public List<GetCompanyForViewDto> GetCompanyName()
+        {
+            var query = _companyRepository.GetAll();
+            var qCompany = from a in query
+                         select new
+                         {
+                             Id = a.Id,
+                             a.CompanyName,
+                             a.OfficePhoneNumber,
+                             a.CompanyEmail,
+                             a.CompanyAddress
+                         };
+            var dblist = qCompany.ToList();
+            var results = new List<GetCompanyForViewDto>();
+            foreach (var db in dblist)
+            {
+                var res = new GetCompanyForViewDto()
+                {
+                    Company = new CompanyDto
+                    {
+                        Id = db.Id,
+                        CompanyName = db.CompanyName,
+                        OfficePhoneNumber = db.OfficePhoneNumber,
+                        CompanyEmail = db.CompanyEmail,
+                        CompanyAddress = db.CompanyAddress
+                    }
+                };
+                results.Add(res);
+            }
+
+            return new List<GetCompanyForViewDto>(results);
+        }*/
     }
     
 }

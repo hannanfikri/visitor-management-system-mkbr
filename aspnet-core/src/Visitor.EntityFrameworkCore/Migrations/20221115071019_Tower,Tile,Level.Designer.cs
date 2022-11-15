@@ -12,8 +12,8 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    [Migration("20221114064814_IhasCreation Appointment")]
-    partial class IhasCreationAppointment
+    [Migration("20221115071019_Tower,Tile,Level")]
+    partial class TowerTileLevel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1478,11 +1478,17 @@ namespace Visitor.Migrations
                     b.Property<int?>("Level")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("LevelId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("OfficerToMeet")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PovId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PurposeOfVisit")
                         .HasColumnType("nvarchar(max)");
@@ -1493,8 +1499,14 @@ namespace Visitor.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("TitleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("Tower")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("TowerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

@@ -13,8 +13,8 @@
             <form *ngIf="active" #titleForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <span *ngIf="title.id">{{ l('Edittitle') }}</span>
-                        <span *ngIf="!title.id">{{ l('CreateNewtitle') }}</span>
+                        <span *ngIf="title.id">{{ l('EditTitle') }}</span>
+                        <span *ngIf="!title.id">{{ l('CreateNewTitle') }}</span>
                     </h4>
 
                     <button

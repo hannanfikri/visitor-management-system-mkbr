@@ -6,6 +6,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
 
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
+import { result } from 'lodash-es';
 
 @Component({
     selector: 'createOrEditAppointmentModal',
@@ -20,6 +21,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     saving = false;
 
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
+    arrPOV:  Array<any> = [];
+    arrTitle:  Array<any> = [];
+    arrTower:  Array<any> = [];
+    arrLevel:  Array<any> = [];
+    
 
     constructor(
         injector: Injector,
@@ -31,9 +37,14 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     show(appointmentId?: string): void {
         if (!appointmentId) {
+            
+            this.getPOVArray();
+            this.getLevelArray();
+            this.getTitleArray();
+            this.getTowerArray();
+
             this.appointment = new CreateOrEditAppointmentDto();
             this.appointment.id = appointmentId;
-
             this.active = true;
             this.modal.show();
         } else {
@@ -67,6 +78,32 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.active = false;
         this.modal.hide();
     }
+    setDate(): void {
+        let date: Date = new Date();  
+        console.log("Date = " + date);
+            
+    }
 
     ngOnInit(): void {}
+
+    //ListPurposeOfVisit
+    getPOVArray():void{
+        this._appointmentsServiceProxy.getPurposeOfVisit().subscribe((result) =>
+        { this.arrPOV.push(result);})
+    }
+    //List title
+    getTitleArray():void{
+        this._appointmentsServiceProxy.getTitle().subscribe((result) =>
+        { this.arrTitle.push(result);})
+    }
+    //List tower
+    getTowerArray():void{
+        this._appointmentsServiceProxy.getTower().subscribe((result) =>
+        { this.arrTower.push(result);})
+    }
+    //List level
+    getLevelArray():void{
+        this._appointmentsServiceProxy.getLevel().subscribe((result) =>
+        { this.arrLevel.push(result);})
+    }
 }

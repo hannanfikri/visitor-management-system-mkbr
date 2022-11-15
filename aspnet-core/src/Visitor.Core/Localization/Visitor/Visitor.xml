@@ -28,8 +28,11 @@
     <text name="PurposeOfVisitApp">Purpose of visit</text>
     <text name="PurposeOfVisitsHeaderInfo">Purpose of visit header info</text>
     <text name="CreateNewPurposeOfVisit">Create new purpose of visit</text>
+    <text name="CreateNewpurposeOfVisit">Create new purpose of visit</text>
     <text name="EditPurposeOfVisit">Edit purpose of visit</text>
+    <text name="EditpurposeOfVisit">Edit purpose of visit</text>
     <text name="DeletePurposeOfVisit">Delete purpose of visit</text>
+    <text name="purposeOfVisit">Purpose of visit</text>
     <text name="PurposeOfVisits">Purpose of visits</text>
     
     <text name="Visitor.Status.Status">Status appointment</text>

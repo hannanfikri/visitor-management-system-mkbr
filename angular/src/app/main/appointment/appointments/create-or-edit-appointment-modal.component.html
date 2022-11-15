@@ -44,14 +44,13 @@
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Title">{{ l('Tiltle') }} *</label>
-                        <input
-                            type="text"
-                            #Appointment_FullName="ngModel"
-                            id="Appointment_Title"
-                            class="form-control"
-                            [(ngModel)]="appointment.title"
-                            name="Title"                            
-                        />
+                        <select #Appointment_Title="ngModel" id="Appointment_Title"
+                            [(ngModel)]="appointment.title" name="Title" class="form-control">
+                            <ng-container *ngFor="let t of arrTitle">
+                                <option name="Title" *ngFor="let title of t"
+                                    [ngValue]="title.title.visitorTitle">{{title.title.visitorTitle}}</option>
+                            </ng-container>
+                        </select>
                     </div>
                 </div>
 
@@ -109,14 +108,13 @@
 <div class="modal-body">
     <div class="my-3">
         <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }} </label>
-        <input
-            type="text"
-            #Appointment_FullName="ngModel"
-            id="Appointment_PurposeOfVisit"
-            class="form-control"
-            [(ngModel)]="appointment.purposeOfVisit"
-            name="PurposeOfVisit"                            
-        />
+        <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
+                            [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control">
+                            <ng-container *ngFor="let p of arrPOV">
+                                <option name="PurposeOfVisit" *ngFor="let POV of p"
+                                    [ngValue]="POV.purposeOfVisit.purposeOfVisitApp">{{POV.purposeOfVisit.purposeOfVisitApp}}</option>
+                            </ng-container>
+                        </select>
     </div>
 </div>
 <div class="modal-body">
@@ -164,27 +162,25 @@
 <div class="modal-body">
     <div class="my-3">
         <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
-        <input
-            type="text"
-            #Appointment_FullName="ngModel"
-            id="Appointment_Tower"
-            class="form-control"
-            [(ngModel)]="appointment.tower"
-            name="Tower"                            
-        />
+        <select #Appointment_Tower="ngModel" id="Appointment_Tower"
+                            [(ngModel)]="appointment.tower" name="Tower" class="form-control">
+                            <ng-container *ngFor="let t of arrTower">
+                                <option name="Tower" *ngFor="let tower of t"
+                                    [ngValue]="tower.tower.towerBankRakyat">{{tower.tower.towerBankRakyat}}</option>
+                            </ng-container>
+                        </select>
     </div>
 </div>
 <div class="modal-body">
     <div class="my-3">
         <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
-        <input
-            type="text"
-            #Appointment_FullName="ngModel"
-            id="Appointment_Level"
-            class="form-control"
-            [(ngModel)]="appointment.level"
-            name="Level"                            
-        />
+        <select #Appointment_Level="ngModel" id="Appointment_Level"
+                            [(ngModel)]="appointment.level" name="Level" class="form-control">
+                            <ng-container *ngFor="let l of arrLevel">
+                                <option name="Level" *ngFor="let level of l"
+                                    [ngValue]="level.level.levelBankRakyat">{{level.level.levelBankRakyat}}</option>
+                            </ng-container>
+                        </select>
     </div>
 </div>
 

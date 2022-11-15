@@ -13,7 +13,7 @@
             <form *ngIf="active" #levelForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <span *ngIf="level.id">{{ l('Editlevel') }}</span>
+                        <span *ngIf="level.id">{{ l('EditLevel') }}</span>
                         <span *ngIf="!level.id">{{ l('CreateNewLevel') }}</span>
                     </h4>
 

@@ -26,6 +26,8 @@ using Visitor.Tower.Dtos;
 using Visitor.Level;
 using Visitor.Level.Dtos;
 using Visitor.Company.Dtos;
+using Visitor.Departments;
+using Visitor.Departments.Dtos;
 
 namespace Visitor.Appointment
 {
@@ -37,6 +39,7 @@ namespace Visitor.Appointment
         private readonly IRepository<TowerEnt, Guid> _towerRepository;
         private readonly IRepository<LevelEnt, Guid> _levelRepository;
         private readonly IRepository<CompanyEnt, Guid> _companyRepository;
+        private readonly IRepository<Department, Guid> _departmentRepository;
 
         public AppointmentsAppService
 
@@ -45,7 +48,8 @@ namespace Visitor.Appointment
             IRepository<TitleEnt, Guid> titleRepository,
             IRepository<TowerEnt, Guid> towerRepository,
             IRepository<LevelEnt, Guid> levelRepository,
-            IRepository<CompanyEnt,Guid> companyRepository
+            IRepository<CompanyEnt,Guid> companyRepository,
+            IRepository<Department, Guid> departmentRepository
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -54,6 +58,7 @@ namespace Visitor.Appointment
             _towerRepository = towerRepository;
             _levelRepository = levelRepository;
             _companyRepository = companyRepository;
+            _departmentRepository = departmentRepository;
 
         }
 
@@ -71,7 +76,7 @@ namespace Visitor.Appointment
             var appointments = from o in pagedAndFilteredAppointments
                                select new
                                {
-                                   Id = o.Id,
+                                   o.Id,
                                    o.FullName,
                                    o.Email,
                                    o.PhoneNo,
@@ -85,7 +90,6 @@ namespace Visitor.Appointment
                                    o.AppDateTime,
                                    o.CreationTime,
                                    o.Status
-
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -112,8 +116,7 @@ namespace Visitor.Appointment
                         Level = o.Level,
                         AppDateTime = o.AppDateTime,
                         CreationTime = o.CreationTime,
-                        Status = o.Status,
-                        Id = o.Id,
+                        Status = o.Status
                     }
                 };
 
@@ -126,8 +129,6 @@ namespace Visitor.Appointment
             );
 
         }
-
-
         public async Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id)
         {
             var appointment = await _appointmentRepository.GetAsync(id);
@@ -186,11 +187,11 @@ namespace Visitor.Appointment
         {
             var query = _purposeOfVisitRepository.GetAll();
             var queryPOV = from a in query
-                           select new
-                           {
-                               Id = a.Id,
+                                   select new
+                                   {
+                                       Id = a.Id,
                                a.PurposeOfVisitApp
-                           };
+                                   };
             var dblist = queryPOV.ToList();
             var results = new List<GetPurposeOfVisitForViewDto>();
             foreach (var db in dblist)
@@ -225,7 +226,7 @@ namespace Visitor.Appointment
                 var res = new GetTitleForViewDto()
                 {
                     Title = new TitleDto
-                    {
+        {
                         Id = db.Id,
                         VisitorTitle = db.VisitorTitle,
                     }
@@ -275,7 +276,7 @@ namespace Visitor.Appointment
             foreach (var db in dblist)
             {
                 var res = new GetLevelForViewDto()
-                {
+               {
                     Level = new LevelDto
                     {
                         Id = db.Id,
@@ -284,7 +285,6 @@ namespace Visitor.Appointment
                 };
                 results.Add(res);
             }
-
             return new List<GetLevelForViewDto>(results);
         }
         public List<GetCompanyForViewDto> GetCompanyName()
@@ -319,6 +319,31 @@ namespace Visitor.Appointment
 
             return new List<GetCompanyForViewDto>(results);
         }
+        public List<GetDepartmentForViewDto> GetDepartmentName()
+        {
+            var query = _departmentRepository.GetAll();
+            var qDepartment = from a in query
+                         select new
+                         {
+                             Id = a.Id,
+                             a.DepartmentName                            
+                         };
+            var dblist = qDepartment.ToList();
+            var results = new List<GetDepartmentForViewDto>();
+            foreach (var db in dblist)
+            {
+                var res = new GetDepartmentForViewDto()
+                {
+                    Department = new DepartmentDto
+                    {
+                        Id = db.Id,
+                        DepartmentName = db.DepartmentName,
+                    }
+                };
+                results.Add(res);
+            }
+            return new List<GetDepartmentForViewDto>(results);
+        }
     }
-
+    
 }

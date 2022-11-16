@@ -26,6 +26,22 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
+                        <h6>{{ l('Status') }} :</h6>
+                        {{ item.appointment.status}}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Title') }} :</h6>
+                        {{ item.appointment.title }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
                         <h6>{{ l('FullName') }} :</h6>
                         {{ item.appointment.fullName }}
                     </div>
@@ -35,7 +51,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <h6>{{ l('FullName') }} :</h6>
+                        <h6>{{ l('IdentityCard') }} :</h6>
                         {{ item.appointment.identityCard }}
                     </div>
                 </div>
@@ -44,7 +60,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <h6>{{ l('FullName') }} :</h6>
+                        <h6>{{ l('PhoneNo') }} :</h6>
                         {{ item.appointment.phoneNo }}
                     </div>
                 </div>
@@ -53,17 +69,64 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <h6>{{ l('FullName') }} :</h6>
+                        <h6>{{ l('Email') }} :</h6>
                         {{ item.appointment.email }}
                     </div>
                 </div>
             </div>
-
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <h6>{{ l('FullName') }} :</h6>
-                        {{ item.appointment.status}}
+                        <h6>{{ l('PurposeOfVisit') }} :</h6>
+                        {{ item.appointment.purposeOfVisit }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CompanyName') }} :</h6>
+                        {{ item.appointment.companyName }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('OfficerToMeet') }} :</h6>
+                        {{ item.appointment.officerToMeet }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Tower') }} :</h6>
+                        {{ item.appointment.tower }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Level') }} :</h6>
+                        {{ item.appointment.level }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('AppDateTime') }} :</h6>
+                        {{ item.appointment.appDateTime }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('RegDateTime') }} :</h6>
+                        {{ item.appointment.creationTime }}
                     </div>
                 </div>
             </div>

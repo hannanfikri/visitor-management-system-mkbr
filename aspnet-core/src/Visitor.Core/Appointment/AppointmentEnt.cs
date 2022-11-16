@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Visitor.PurposeOfVisit;
 
 namespace Visitor.Appointment
 {
@@ -38,6 +37,7 @@ namespace Visitor.Appointment
         public string Status { get; set; }
 
 
+        private AppointmentEnt() { }//empty constructor
 
         /*public AppointmentEnt
             (string identityCard, string fullName, string phoneNo, string email, 

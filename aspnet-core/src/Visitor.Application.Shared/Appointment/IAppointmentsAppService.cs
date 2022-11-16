@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
+using Visitor.Departments.Dtos;
 using Visitor.Dto;
 
 namespace Visitor.Appointment
@@ -19,6 +20,7 @@ namespace Visitor.Appointment
         Task CreateOrEdit(CreateOrEditAppointmentDto input);
 
         Task Delete (EntityDto<Guid> input);
+        List<GetDepartmentForViewDto> GetDepartmentName();
 
         //Task<FileDto> GetAppointmentsToExcel(GetAllAppointmentsForExcelInput input);
     }

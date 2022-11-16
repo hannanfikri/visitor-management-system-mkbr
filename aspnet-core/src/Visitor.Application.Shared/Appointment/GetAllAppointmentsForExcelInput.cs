@@ -1,12 +1,12 @@
-﻿using Abp.Application.Services.Dto;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Visitor.Appointment
 {
-    public class GetAllForLookUpTableInput : PagedAndSortedResultRequestDto
+    public class GetAllAppointmentsForExcelInput
     {
         public string Filter { get; set; }
+        public string FullNameFilter { get; set; }
     }
 }

@@ -38,6 +38,7 @@ namespace Visitor.Authorization
 
             pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
 
+            //Appointments
             var appointments = pages.CreateChildPermission(AppPermissions.Pages_Appointments, L("Appointments"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Create, L("CreateNewAppointment"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
@@ -69,6 +70,12 @@ namespace Visitor.Authorization
             Levels.CreateChildPermission(AppPermissions.Pages_Levels_Create, L("CreateNewLevel"));
             Levels.CreateChildPermission(AppPermissions.Pages_Levels_Edit, L("EdiLevel"));
             Levels.CreateChildPermission(AppPermissions.Pages_Levels_Delete, L("DeleteLevel"));
+
+            //Departments
+            var departments = pages.CreateChildPermission(AppPermissions.Pages_Departments, L("Departments"));
+            departments.CreateChildPermission(AppPermissions.Pages_Departments_Create, L("CreateNewDepartments"));
+            departments.CreateChildPermission(AppPermissions.Pages_Departments_Edit, L("EditDepartments"));
+            departments.CreateChildPermission(AppPermissions.Pages_Departments_Delete, L("DeleteDepartments"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 

@@ -6,12 +6,6 @@
     /// </summary>
     public static class AppPermissions
     {
-
-        public const string Pages_Appointments = "Pages.Appointments";
-        public const string Pages_Appointments_Create = "Pages.Appointments.Create";
-        public const string Pages_Appointments_Edit = "Pages.Appointments.Edit";
-        public const string Pages_Appointments_Delete = "Pages.Appointments.Delete";
-
         //TOWER
         public const string Pages_Towers = "Pages.Towers";
         public const string Pages_Towers_Create = "Pages.Towers.Create";
@@ -39,11 +33,25 @@
         public const string Pages_Levels_Edit = "Pages.Levels.Edit";
         public const string Pages_Levels_Delete = "Pages.Levels.Delete";
 
-
+        //Company
         public const string Pages_Companies = "Pages.Companies";
         public const string Pages_Companies_Create = "Pages.Companies.Create";
         public const string Pages_Companies_Edit = "Pages.Companies.Edit"; 
         public const string Pages_Companies_Delete = "Pages.Companies.Delete";
+
+        // PERMISSION FOR APPOINTMENTS
+
+        public const string Pages_Appointments = "Pages.Appointments";
+        public const string Pages_Appointments_Create = "Pages.Appointments.Create";
+        public const string Pages_Appointments_Edit = "Pages.Appointments.Edit";
+        public const string Pages_Appointments_Delete = "Pages.Appointments.Delete";
+
+        // PERMISSION FOR DEPARTMENTS
+
+        public const string Pages_Departments = "Pages.Departments";
+        public const string Pages_Departments_Create = "Pages.Departments.Create";
+        public const string Pages_Departments_Edit = "Pages.Departments.Edit";
+        public const string Pages_Departments_Delete = "Pages.Departments.Delete";
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
@@ -148,6 +156,8 @@
         public const string Pages_Administration_Host_Maintenance = "Pages.Administration.Host.Maintenance";
         public const string Pages_Administration_Host_Settings = "Pages.Administration.Host.Settings";
         public const string Pages_Administration_Host_Dashboard = "Pages.Administration.Host.Dashboard";
+
+
 
     }
 }

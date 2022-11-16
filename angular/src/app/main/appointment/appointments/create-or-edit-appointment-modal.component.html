@@ -148,14 +148,13 @@
 <div class="modal-body">
     <div class="my-3">
         <label class="form-label" for="Appointment_Department">{{ l('Department') }} </label>
-        <input
-            type="text"
-            #Appointment_FullName="ngModel"
-            id="Appointment_Department"
-            class="form-control"
-            [(ngModel)]="appointment.department"
-            name="Department"                            
-        />
+        <select #Appointment_Department="ngModel" id="Appointment_Department"
+                            [(ngModel)]="appointment.department" name="Department" class="form-control">
+                            <ng-container *ngFor="let d of arrDepartment">
+                                <option name="Department" *ngFor="let dep of d"
+                                    [ngValue]="dep.department.departmentName">{{dep.department.departmentName}}</option>
+                            </ng-container>
+                        </select>
     </div>
 </div>
 <div class="modal-body">

@@ -6,6 +6,8 @@ using Abp.Domain.Entities;
 using Abp.Application.Services.Dto;
 using Abp.MultiTenancy;
 using Abp.Domain.Entities.Auditing;
+using Visitor.Departments.Dtos;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Visitor.Appointment
 {
@@ -44,6 +46,8 @@ namespace Visitor.Appointment
         public virtual DateTime AppDateTime { get; set; }
         [Required]
         public virtual byte[] FaceVerify { get; set; }
+        [NotMapped]
+        public virtual IHasCreationTime RegDateTime { get; set; }
         public virtual string Status { get; set; }
     }
 }

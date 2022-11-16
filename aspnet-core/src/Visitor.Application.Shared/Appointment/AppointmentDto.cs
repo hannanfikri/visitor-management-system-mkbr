@@ -1,7 +1,9 @@
 ﻿using Abp.Application.Services.Dto;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Visitor.Departments.Dtos;
 
 namespace Visitor.Appointment
 {
@@ -18,7 +20,9 @@ namespace Visitor.Appointment
             public string CompanyName { get; set; }
             public string OfficerToMeet { get; set; }
             public string PurposeOfVisit { get; set; }
-            public string Department { get; set; }
+            [ForeignKey("Department")]
+            public Guid DepartmentId { get; set; }
+            public DepartmentDto Department { get; set; }
             public int Tower { get; set; }
             public int Level { get; set; }
             public DateTime AppDateTime { get; set; }

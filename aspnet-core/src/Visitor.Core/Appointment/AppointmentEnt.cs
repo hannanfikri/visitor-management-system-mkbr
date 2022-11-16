@@ -1,9 +1,11 @@
 ﻿using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Visitor.Departments;
 
 namespace Visitor.Appointment
 {
@@ -24,7 +26,9 @@ namespace Visitor.Appointment
         public string CompanyName { get; set; }
         public string OfficerToMeet { get; set; }
         public string? PurposeOfVisit { get; set; }
-        public string? Department { get; set; }
+        [ForeignKey("Department")]
+        public Guid DepartmentId { get; set; }
+        public string Department { get; set; }
         public Nullable<int> Tower { get; set; }
         public Nullable<int> Level { get; set; }
         public DateTime AppDateTime { get; set; }
@@ -35,7 +39,7 @@ namespace Visitor.Appointment
 
         private AppointmentEnt() { }//empty constructor
 
-        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, string department, Nullable<int> tower, Nullable<int> level, DateTime appDateTime, byte[] faceVerify, DateTime regDateTime, string status)
+        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, Guid departmentId, string department, int? tower, int? level, DateTime appDateTime, byte[] faceVerify, DateTime regDateTime, string status)
         {
             IdentityCard = identityCard;
             FullName = fullName;
@@ -45,13 +49,14 @@ namespace Visitor.Appointment
             CompanyName = companyName;
             OfficerToMeet = officerToMeet;
             PurposeOfVisit = purposeOfVisit;
+            DepartmentId = departmentId;
             Department = department;
             Tower = tower;
             Level = level;
             AppDateTime = appDateTime;
             FaceVerify = faceVerify;
             RegDateTime = regDateTime;
-            Status = status;// constructor
+            Status = status;
         }
     }
 }

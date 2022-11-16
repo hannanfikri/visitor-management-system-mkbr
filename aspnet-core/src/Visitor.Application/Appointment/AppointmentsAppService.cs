@@ -12,26 +12,31 @@ using Visitor.Authorization;
 using Visitor.Dto;
 using Abp.Linq.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Abp.Linq.Extensions;
 using System.Linq.Dynamic.Core;
-
+using Visitor.Departments;
+using Visitor.Departments.Dtos;
 
 namespace Visitor.Appointment
 {
     public class AppointmentsAppService :VisitorAppServiceBase, IAppointmentsAppService
     {
         private readonly IRepository<AppointmentEnt, Guid> _appointmentRepository;
+        private readonly IRepository<Department, Guid> _departmentRepository;
         //private readonly IAppointmentsExcelExporter _appointmentsExcelExporter;
 
-        public AppointmentsAppService(IRepository<AppointmentEnt, Guid> appointmentRepository) //IAppointmentsExcelExporter appointmentsExcelExporter
+        public AppointmentsAppService(IRepository<AppointmentEnt, Guid> appointmentRepository, IRepository<Department, Guid> departmentRepository) //IAppointmentsExcelExporter appointmentsExcelExporter
         {
             _appointmentRepository = appointmentRepository;
+            _departmentRepository = departmentRepository;
            // _appointmentsExcelExporter = appointmentsExcelExporter;
 
         }
 
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
+            var getDepartments = _departmentRepository.GetAll();
+            var dbListDepartments = getDepartments.ToList();
+            var resultDepartment = dbListDepartments.AsEnumerable();
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
@@ -48,37 +53,44 @@ namespace Visitor.Appointment
                                 o.FullName,
                                 o.Email,
                                 o.PhoneNo,
-                                o.IdentityCard
+                                o.IdentityCard,
+                                o.Department,
                             };
 
             var totalCount = await filteredAppointments.CountAsync();
 
-            var dbList = await appointments.ToListAsync();
+            var dbListAppointment = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
 
-            foreach (var o in dbList)
+            foreach (var o in dbListAppointment)
             {
-                var res = new GetAppointmentForViewDto()
-                {
-                    Appointment = new AppointmentDto
+                foreach (var d in resultDepartment)
+                { 
+                    var res = new GetAppointmentForViewDto()
                     {
-
-                        FullName = o.FullName,
-                        Email = o.Email,
-                        PhoneNo = o.PhoneNo,
-                        IdentityCard = o.IdentityCard,
-                        Id = o.Id,
-                    }
-                };
-
-                results.Add(res);
+                        Appointment = new AppointmentDto
+                        {
+                            FullName = o.FullName,
+                            Email = o.Email,
+                            PhoneNo = o.PhoneNo,
+                            IdentityCard = o.IdentityCard,
+                            Id = o.Id,
+                            DepartmentId = d.Id,
+                            Department = new DepartmentDto
+                            {
+                                Id = d.Id,
+                                DepartmentName = d.DepartmentName,
+                            },
+                        }
+                    };
+                    results.Add(res);
+                }
             }
 
             return new PagedResultDto<GetAppointmentForViewDto>(
                 totalCount,
                 results
             );
-
         }
 
         public async Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id)
@@ -126,13 +138,37 @@ namespace Visitor.Appointment
         {
             var appointment = await _appointmentRepository.FirstOrDefaultAsync((Guid)input.Id);
             ObjectMapper.Map(input, appointment);
-
         }
 
         [AbpAuthorize(AppPermissions.Pages_Appointments_Delete)]
         public async Task Delete(EntityDto<Guid> input)
         {
             await _appointmentRepository.DeleteAsync(input.Id);
+        }
+        public List<GetDepartmentForViewDto> GetDepartmentName()
+        {
+            var query = _departmentRepository.GetAll();
+            var queryDepartments = from a in query
+                                   select new
+                                   {
+                                       Id = a.Id,
+                                       a.DepartmentName,
+                                   };
+            var dbList = queryDepartments.ToList();
+            var results = new List<GetDepartmentForViewDto>();
+            foreach (var d in dbList)
+            {
+                var res = new GetDepartmentForViewDto()
+                {
+                    Department = new DepartmentDto
+                    {
+                        Id = d.Id,
+                        DepartmentName = d.DepartmentName
+                    }
+                };
+                results.Add(res);
+            }
+            return new List<GetDepartmentForViewDto>(results);
         }
 
         /*public async Task<FileDto> GetAppointmentsToExcel(GetAllAppointmentsForExcelInput input)

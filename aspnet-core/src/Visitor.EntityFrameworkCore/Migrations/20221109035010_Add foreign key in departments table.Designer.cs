@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Visitor.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    partial class VisitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221109035010_Add foreign key in departments table")]
+    partial class Addforeignkeyindepartmentstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1437,10 +1439,7 @@ namespace Visitor.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("DepartmentId")
+                    b.Property<Guid?>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -1480,6 +1479,8 @@ namespace Visitor.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Appointments");
                 });
@@ -1835,6 +1836,9 @@ namespace Visitor.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppointmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DepartmentName")
@@ -2358,6 +2362,15 @@ namespace Visitor.Migrations
                         .IsRequired();
 
                     b.Navigation("WebhookEvent");
+                });
+
+            modelBuilder.Entity("Visitor.Appointment.AppointmentEnt", b =>
+                {
+                    b.HasOne("Visitor.Departments.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Visitor.Authorization.Roles.Role", b =>

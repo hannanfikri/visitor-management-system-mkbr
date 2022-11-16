@@ -985,6 +985,64 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    getDepartmentName(): Observable<GetDepartmentForViewDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetDepartmentName";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDepartmentName(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDepartmentName(<any>response_);
+                } catch (e) {
+                    return <Observable<GetDepartmentForViewDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetDepartmentForViewDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDepartmentName(response: HttpResponseBase): Observable<GetDepartmentForViewDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetDepartmentForViewDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetDepartmentForViewDto[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -16148,7 +16206,8 @@ export class AppointmentDto implements IAppointmentDto {
     companyName!: string | undefined;
     officerToMeet!: string | undefined;
     purposeOfVisit!: string | undefined;
-    department!: string | undefined;
+    departmentId!: string;
+    department!: DepartmentDto;
     tower!: number;
     level!: number;
     appDateTime!: DateTime;
@@ -16176,7 +16235,8 @@ export class AppointmentDto implements IAppointmentDto {
             this.companyName = _data["companyName"];
             this.officerToMeet = _data["officerToMeet"];
             this.purposeOfVisit = _data["purposeOfVisit"];
-            this.department = _data["department"];
+            this.departmentId = _data["departmentId"];
+            this.department = _data["department"] ? DepartmentDto.fromJS(_data["department"]) : <any>undefined;
             this.tower = _data["tower"];
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
@@ -16204,7 +16264,8 @@ export class AppointmentDto implements IAppointmentDto {
         data["companyName"] = this.companyName;
         data["officerToMeet"] = this.officerToMeet;
         data["purposeOfVisit"] = this.purposeOfVisit;
-        data["department"] = this.department;
+        data["departmentId"] = this.departmentId;
+        data["department"] = this.department ? this.department.toJSON() : <any>undefined;
         data["tower"] = this.tower;
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
@@ -16225,7 +16286,8 @@ export interface IAppointmentDto {
     companyName: string | undefined;
     officerToMeet: string | undefined;
     purposeOfVisit: string | undefined;
-    department: string | undefined;
+    departmentId: string;
+    department: DepartmentDto;
     tower: number;
     level: number;
     appDateTime: DateTime;
@@ -17140,7 +17202,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     tower!: number | undefined;
     level!: number | undefined;
     appDateTime!: DateTime;
-    faceVerify!: string;
+    faceVerify!: string | undefined;
     regDateTime!: DateTime;
     status!: string | undefined;
     id!: string | undefined;
@@ -17217,7 +17279,7 @@ export interface ICreateOrEditAppointmentDto {
     tower: number | undefined;
     level: number | undefined;
     appDateTime: DateTime;
-    faceVerify: string;
+    faceVerify: string | undefined;
     regDateTime: DateTime;
     status: string | undefined;
     id: string | undefined;

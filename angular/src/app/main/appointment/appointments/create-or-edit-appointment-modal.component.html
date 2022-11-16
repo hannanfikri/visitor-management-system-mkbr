@@ -1,13 +1,5 @@
-﻿<div
-    bsModal
-    #createOrEditModal="bs-modal"
-    class="modal fade"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="createOrEditModal"
-    aria-hidden="true"
-    [config]="{ backdrop: 'static' }"
->
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{ backdrop: 'static' }">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #appointmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
@@ -17,13 +9,8 @@
                         <span *ngIf="!appointment.id">{{ l('CreateNewAppointment') }}</span>
                     </h4>
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        (click)="close()"
-                        aria-label="Close"
-                        [disabled]="saving"
-                    ></button>
+                    <button type="button" class="btn-close" (click)="close()" aria-label="Close"
+                        [disabled]="saving"></button>
                 </div>
                 <div class="modal-body">
                     <div class="my-3">
@@ -110,54 +97,45 @@
 </div>
 
 
-<div class="modal-body">
-    <div class="my-3">
-        <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }} *</label>
-        <input
-            type="datetime-local"
-            #Appointment_AppDateTime="ngModel"
-            id="Appointment_AppDateTime"
-            class="form-control"
-            [(ngModel)]="appointment.appDateTime"
-            name="AppDateTime"
-            required
-        />
-        <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
-    </div>
-</div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }} *</label>
+                        <input type="datetime-local" #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime"
+                            class="form-control" [(ngModel)]="appointment.appDateTime" name="AppDateTime" required />
+                        <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+                    </div>
+                </div>
 
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_Department">{{ l('Department') }} *</label>
+                        <select #Appointment_Department="ngModel" id="Appointment_Department"
+                            [(ngModel)]="appointment.department" name="Department" class="form-control">
+                            <ng-container *ngFor="let d of arrDepartment">
+                                <option name="Department" *ngFor="let dep of d"
+                                    [value]="dep.department.departmentName">  {{dep.department.departmentName}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
 
-<div class="modal-body">
-    <div class="my-3">
-        <label class="form-label" for="Appointment_RegDateTime">{{ l('RegDateTime') }} *</label>
-        <input
-            type="datetime-local"
-            #Appointment_RegDateTime="ngModel"
-            id="Appointment_RegDateTime"
-            class="form-control"
-            [(ngModel)]="appointment.regDateTime"
-            name="RegDateTime"
-            required
-        />
-        <validation-messages [formCtrl]="Appointment_RegDateTime"></validation-messages>
-    </div>
-</div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_RegDateTime">{{ l('RegDateTime') }} *</label>
+                        <input type="datetime-local" #Appointment_RegDateTime="ngModel" id="Appointment_RegDateTime"
+                            class="form-control" [(ngModel)]="appointment.regDateTime" name="RegDateTime" required />
+                        <validation-messages [formCtrl]="Appointment_RegDateTime"></validation-messages>
+                    </div>
+                </div>
 
-<div class="modal-body">
-    <div class="my-3">
-        <label class="form-label" for="Appointment_FaceVerify">{{ l('FaceVerify') }} *</label>
-        <input
-            type="text"
-            #Appointment_FaceVerify="ngModel"
-            id="Appointment_FaceVerify"
-            class="form-control"
-            [(ngModel)]="appointment.faceVerify"
-            name="FaceVerify"
-            required
-        />
-        <validation-messages [formCtrl]="Appointment_FaceVerify"></validation-messages>
-    </div>
-</div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_FaceVerify">{{ l('FaceVerify') }} *</label>
+                        <input type="text" #Appointment_FaceVerify="ngModel" id="Appointment_FaceVerify"
+                            class="form-control" [(ngModel)]="appointment.faceVerify" name="FaceVerify" required />
+                        <validation-messages [formCtrl]="Appointment_FaceVerify"></validation-messages>
+                    </div>
+                </div>
 
 
 
@@ -166,13 +144,8 @@
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
                         {{ l('Cancel') }}
                     </button>
-                    <button
-                        type="submit"
-                        class="btn btn-primary blue"
-                        [disabled]="!appointmentForm.form.valid"
-                        [buttonBusy]="saving"
-                        [busyText]="l('SavingWithThreeDot')"
-                    >
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!appointmentForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
                         <i class="fa fa-save"></i>
                         <span>{{ l('Save') }}</span>
                     </button>

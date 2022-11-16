@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Visitor.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    partial class VisitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221109115925_Add department name attribute")]
+    partial class Adddepartmentnameattribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1437,12 +1439,6 @@ namespace Visitor.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -1837,10 +1833,17 @@ namespace Visitor.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AppointmentEnt")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("DepartmentName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentEnt")
+                        .IsUnique()
+                        .HasFilter("[AppointmentEnt] IS NOT NULL");
 
                     b.ToTable("Departments");
                 });
@@ -2402,6 +2405,15 @@ namespace Visitor.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("Visitor.Departments.Department", b =>
+                {
+                    b.HasOne("Visitor.Appointment.AppointmentEnt", "AppointmentId")
+                        .WithOne("Department")
+                        .HasForeignKey("Visitor.Departments.Department", "AppointmentEnt");
+
+                    b.Navigation("AppointmentId");
+                });
+
             modelBuilder.Entity("Visitor.MultiTenancy.Payments.SubscriptionPayment", b =>
                 {
                     b.HasOne("Abp.Application.Editions.Edition", "Edition")
@@ -2487,6 +2499,11 @@ namespace Visitor.Migrations
             modelBuilder.Entity("Abp.Organizations.OrganizationUnit", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("Visitor.Appointment.AppointmentEnt", b =>
+                {
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Visitor.Authorization.Roles.Role", b =>

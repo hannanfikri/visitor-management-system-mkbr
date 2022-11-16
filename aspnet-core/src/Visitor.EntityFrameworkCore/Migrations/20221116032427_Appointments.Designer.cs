@@ -12,8 +12,8 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    [Migration("20221114033801_Appointmnet IhasCreationTime")]
-    partial class AppointmnetIhasCreationTime
+    [Migration("20221116032427_Appointments")]
+    partial class Appointments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

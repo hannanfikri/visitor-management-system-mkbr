@@ -10,14 +10,14 @@ using Visitor.PurposeOfVisit;
 
 namespace Visitor.Appointment
 {
-    public class AppointmentEnt :  FullAuditedEntity<Guid>,IHasCreationTime//derive from class entity
+    public class AppointmentEnt : FullAuditedEntity<Guid>, IHasCreationTime
     {
         public const int MaxIdentityCardLength = 12;
         public const int MaxFullNameLength = 255;
         public const int MaxPhoneNoLength = 11;
         public const int MaxEmailLength = 50;
         public const int MaxOfficerToMeetLength = 255;
-        public const int MaxPurposeOfVisitLength = 250;//text
+        public const int MaxPurposeOfVisitLength = 250;
 
         public string IdentityCard { get; set; }
         public string FullName { get; set; }
@@ -26,28 +26,16 @@ namespace Visitor.Appointment
         public string Title { get; set; }
         public string CompanyName { get; set; }
         public string OfficerToMeet { get; set; }
-
-        [ForeignKey("PurposeOfVisitEnt")]
-        public Guid PovId { get; set; }
         public string PurposeOfVisit { get; set; }
         public string Department { get; set; }
         public Nullable<int> Tower { get; set; }
         public Nullable<int> Level { get; set; }
         public DateTime AppDateTime { get; set; }
-        public byte[] FaceVerify { get; set; }//match datatype for file
+        public byte[] FaceVerify { get; set; }
 
         [NotMapped]
         public IHasCreationTime RegDateTime { get; set; }
         public string Status { get; set; }
-
-        [ForeignKey("TitleEnt")]
-        public Guid TitleId { get; set; }
-
-        [ForeignKey("LevelEnt")]
-        public Guid LevelId { get; set; }
-
-        [ForeignKey("TowerEnt")]
-        public Guid TowerId { get; set; }
 
 
 

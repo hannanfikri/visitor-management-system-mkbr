@@ -21,10 +21,16 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     saving = false;
 
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
+
+
+
+
+
     arrPOV:  Array<any> = [];
     arrTitle:  Array<any> = [];
     arrTower:  Array<any> = [];
     arrLevel:  Array<any> = [];
+    arrCompany:  Array<any> = [];
     
 
     constructor(
@@ -42,6 +48,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             this.getLevelArray();
             this.getTitleArray();
             this.getTowerArray();
+            this.getCompanyArray();
 
             this.appointment = new CreateOrEditAppointmentDto();
             this.appointment.id = appointmentId;
@@ -105,5 +112,10 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     getLevelArray():void{
         this._appointmentsServiceProxy.getLevel().subscribe((result) =>
         { this.arrLevel.push(result);})
+    }
+    //List company name
+    getCompanyArray():void{
+        this._appointmentsServiceProxy.getCompanyName().subscribe((result) =>
+        { this.arrCompany.push(result);})
     }
 }

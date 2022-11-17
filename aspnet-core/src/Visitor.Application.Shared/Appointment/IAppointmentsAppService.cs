@@ -21,7 +21,5 @@ namespace Visitor.Appointment
 
         Task Delete (EntityDto<Guid> input);
         List<GetDepartmentForViewDto> GetDepartmentName();
-
-        //Task<FileDto> GetAppointmentsToExcel(GetAllAppointmentsForExcelInput input);
     }
 }

@@ -4,6 +4,7 @@ import { finalize } from 'rxjs/operators';
 import { AppointmentsServiceProxy, CreateOrEditAppointmentDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
+import { DatePipe } from '@angular/common'
 
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { result } from 'lodash-es';
@@ -21,11 +22,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     saving = false;
 
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
-
-
-
-
-
     arrPOV:  Array<any> = [];
     arrTitle:  Array<any> = [];
     arrTower:  Array<any> = [];
@@ -37,7 +33,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
-        private _dateTimeService: DateTimeService
+        private _dateTimeService: DateTimeService,
+        //public datepipe: DatePipe
     ) {
         super(injector);
     }
@@ -59,6 +56,12 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         } else {
             this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => {
                 this.appointment = result.appointment;
+                this.getPOVArray();
+                this.getLevelArray();
+                this.getTitleArray();
+                this.getTowerArray();
+                this.getCompanyArray();
+                this.getDepartmentArray();
 
                 this.active = true;
                 this.modal.show();
@@ -98,31 +101,49 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     //ListPurposeOfVisit
     getPOVArray():void{
         this._appointmentsServiceProxy.getPurposeOfVisit().subscribe((result) =>
-        { this.arrPOV.push(result);})
+        { 
+            this.arrPOV = [];
+            this.arrPOV.push(result);
+        })
     }
     //List title
     getTitleArray():void{
         this._appointmentsServiceProxy.getTitle().subscribe((result) =>
-        { this.arrTitle.push(result);})
+        {
+            this.arrTitle = [];
+            this.arrTitle.push(result);
+        })
     }
     //List tower
     getTowerArray():void{
         this._appointmentsServiceProxy.getTower().subscribe((result) =>
-        { this.arrTower.push(result);})
+        { 
+            this.arrTower = [];
+            this.arrTower.push(result);
+        })
     }
     //List level
     getLevelArray():void{
         this._appointmentsServiceProxy.getLevel().subscribe((result) =>
-        { this.arrLevel.push(result);})
+        { 
+            this.arrLevel = [];
+            this.arrLevel.push(result);
+        })
     }
     //List company name
     getCompanyArray():void{
         this._appointmentsServiceProxy.getCompanyName().subscribe((result) =>
-        { this.arrCompany.push(result);})
+        { 
+            this.arrCompany=[];
+            this.arrCompany.push(result);
+        })
     }
     //List Department Name
     getDepartmentArray():void{
         this._appointmentsServiceProxy.getDepartmentName().subscribe((result) =>
-        {this.arrDepartment.push(result)})
+        {
+            this.arrDepartment = [];
+            this.arrDepartment.push(result)
+        })
     }
 }

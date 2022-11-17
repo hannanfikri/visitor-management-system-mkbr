@@ -47,8 +47,8 @@
                         <select #Appointment_Title="ngModel" id="Appointment_Title"
                             [(ngModel)]="appointment.title" name="Title" class="form-control">
                             <ng-container *ngFor="let t of arrTitle">
-                                <option name="Title" *ngFor="let title of t"
-                                    [ngValue]="title.title.visitorTitle">{{title.title.visitorTitle}}</option>
+                                <option name="Title" *ngFor="let tit of t"
+                                    [ngValue]="tit.title.visitorTitle">{{tit.title.visitorTitle}}</option>
                             </ng-container>
                         </select>
                     </div>
@@ -164,7 +164,7 @@
                             [(ngModel)]="appointment.tower" name="Tower" class="form-control">
                             <ng-container *ngFor="let t of arrTower">
                                 <option name="Tower" *ngFor="let tower of t"
-                                    [ngValue]="tower.tower.towerBankRakyat">{{tower.tower.towerBankRakyat}}</option>
+                                    [value]="tower.tower.towerBankRakyat">{{tower.tower.towerBankRakyat}}</option>
                             </ng-container>
                         </select>
     </div>
@@ -176,7 +176,7 @@
                             [(ngModel)]="appointment.level" name="Level" class="form-control">
                             <ng-container *ngFor="let l of arrLevel">
                                 <option name="Level" *ngFor="let level of l"
-                                    [ngValue]="level.level.levelBankRakyat">{{level.level.levelBankRakyat}}</option>
+                                    [value]="level.level.levelBankRakyat">{{level.level.levelBankRakyat}}</option>
                             </ng-container>
                         </select>
     </div>

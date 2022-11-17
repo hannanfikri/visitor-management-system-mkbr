@@ -103,7 +103,7 @@ namespace Visitor.Appointment
                 {
                     Appointment = new AppointmentDto
                     {
-
+                        Id = o.Id,
                         FullName = o.FullName,
                         Email = o.Email,
                         PhoneNo = o.PhoneNo,

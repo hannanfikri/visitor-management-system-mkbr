@@ -45,7 +45,7 @@ export class AppNavigationService {
                     
                     new AppMenuItem('Towers', 'Pages.Towers', 'flaticon-list-3', '/app/main/tower/towers'),
                     new AppMenuItem('PurposeOfVisits', 'Pages.PurposeOfVisits', 'flaticon-list-3', '/app/main/purposeOfVisit/purposeOfVisits'),
-                    new AppMenuItem('Status', 'Pages.Statuses', 'flaticon-list-3', '/app/main/status/statuses'),
+                    //new AppMenuItem('Status', 'Pages.Statuses', 'flaticon-list-3', '/app/main/status/statuses'),
                     new AppMenuItem('Title', 'Pages.Titles', 'flaticon-list-3', '/app/main/title/titles'),
                     new AppMenuItem('Level', 'Pages.Levels', 'flaticon-list-3', '/app/main/level/levels'),
                     new AppMenuItem('Companies', 'Pages.Companies', 'flaticon-more', '/app/main/company/companies'),                    

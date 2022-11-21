@@ -40,8 +40,8 @@ namespace Visitor.Appointment
         public virtual string Title { get; set; }
         public virtual string CompanyName { get; set; }
         public virtual string Department { get; set; }
-        public virtual Nullable<int> Tower { get; set; }
-        public virtual Nullable<int> Level { get; set; }
+        public virtual string Tower { get; set; }
+        public virtual string Level { get; set; }
         [Required]
         public virtual DateTime AppDateTime { get; set; }
         [Required]

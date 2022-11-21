@@ -18438,8 +18438,8 @@ export class AppointmentDto implements IAppointmentDto {
     officerToMeet!: string | undefined;
     purposeOfVisit!: string | undefined;
     department!: string | undefined;
-    tower!: number | undefined;
-    level!: number | undefined;
+    tower!: string | undefined;
+    level!: string | undefined;
     appDateTime!: DateTime;
     faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
@@ -18536,8 +18536,8 @@ export interface IAppointmentDto {
     officerToMeet: string | undefined;
     purposeOfVisit: string | undefined;
     department: string | undefined;
-    tower: number | undefined;
-    level: number | undefined;
+    tower: string | undefined;
+    level: string | undefined;
     appDateTime: DateTime;
     faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
@@ -19558,8 +19558,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     title!: string | undefined;
     companyName!: string | undefined;
     department!: string | undefined;
-    tower!: number | undefined;
-    level!: number | undefined;
+    tower!: string | undefined;
+    level!: string | undefined;
     appDateTime!: DateTime;
     faceVerify!: string;
     regDateTime!: IHasCreationTime;
@@ -19656,8 +19656,8 @@ export interface ICreateOrEditAppointmentDto {
     title: string | undefined;
     companyName: string | undefined;
     department: string | undefined;
-    tower: number | undefined;
-    level: number | undefined;
+    tower: string | undefined;
+    level: string | undefined;
     appDateTime: DateTime;
     faceVerify: string;
     regDateTime: IHasCreationTime;

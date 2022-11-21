@@ -27,8 +27,8 @@ namespace Visitor.Appointment
         public string OfficerToMeet { get; set; }
         public string PurposeOfVisit { get; set; }
         public string Department { get; set; }
-        public Nullable<int> Tower { get; set; }
-        public Nullable<int> Level { get; set; }
+        public string Tower { get; set; }
+        public string Level { get; set; }
         public DateTime AppDateTime { get; set; }
         public byte[] FaceVerify { get; set; }
 

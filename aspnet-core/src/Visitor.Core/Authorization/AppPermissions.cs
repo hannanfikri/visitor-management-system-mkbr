@@ -11,16 +11,13 @@
         public const string Pages_Towers_Create = "Pages.Towers.Create";
         public const string Pages_Towers_Edit = "Pages.Towers.Edit";
         public const string Pages_Towers_Delete = "Pages.Towers.Delete";
+
         //PURPOSE OF VISIT
         public const string Pages_PurposeOfVisits = "Pages.PurposeOfVisits";
         public const string Pages_PurposeOfVisits_Create = "Pages.PurposeOfVisits.Create";
         public const string Pages_PurposeOfVisits_Edit = "Pages.PurposeOfVisits.Edit";
         public const string Pages_PurposeOfVisits_Delete = "Pages.PurposeOfVisits.Delete";
-        //STATUS APPOINTMENT
-        public const string Pages_Statuses = "Pages.Statuses";
-        public const string Pages_Statuses_Create = "Pages.Statuses.Create";
-        public const string Pages_Statuses_Edit = "Pages.Statuses.Edit";
-        public const string Pages_Statuses_Delete = "Pages.Statuses.Delete";
+
         //VISITOR TITLE
         public const string Pages_Titles= "Pages.Titles";
         public const string Pages_Titles_Create = "Pages.Titles.Create";

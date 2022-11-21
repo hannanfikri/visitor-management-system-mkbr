@@ -48,7 +48,6 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Visitor.Appointment;
 using Visitor.Tower.Dtos;
 using Visitor.PurposeOfVisit.Dtos;
-using Visitor.Status.Dtos;
 using Visitor.Title.Dtos;
 using Visitor.Level.Dtos;
 using Visitor.Departments.Dtos;
@@ -59,40 +58,27 @@ namespace Visitor
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
-
+            //Apointment
             configuration.CreateMap<CreateOrEditAppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
             configuration.CreateMap<AppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
-
             //Tower
             configuration.CreateMap<CreateOrEditTowerDto, Tower.TowerEnt>().ReverseMap();
             configuration.CreateMap<TowerDto, Tower.TowerEnt>().ReverseMap();
             //PurposeOfVisit
             configuration.CreateMap<CreateOrEditPurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
             configuration.CreateMap<PurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
-            //Status
-            configuration.CreateMap<CreateOrEditStatusDto, Status.StatusEnt>().ReverseMap();
-            configuration.CreateMap<StatusDto, Status.StatusEnt>().ReverseMap();
             //Title
             configuration.CreateMap<CreateOrEditTitleDto, Title.TitleEnt>().ReverseMap();
             configuration.CreateMap<TitleDto, Title.TitleEnt>().ReverseMap();
-
-
-
             //Level
             configuration.CreateMap<CreateOrEditLevelDto, Level.LevelEnt>().ReverseMap();
             configuration.CreateMap<LevelDto, Level.LevelEnt>().ReverseMap();
-
             //Blacklist
             configuration.CreateMap<CreateOrEditBlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
             configuration.CreateMap<BlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
-
+            //Company
             configuration.CreateMap<CreateOrEditCompanyDto, Company.CompanyEnt>().ReverseMap();
             configuration.CreateMap<CompanyDto, Company.CompanyEnt>().ReverseMap();
-
-            //Appointment
-            configuration.CreateMap<CreateOrEditAppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
-            configuration.CreateMap<AppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
-
             //Department
             configuration.CreateMap<CreateOrEditDepartmentDto, Departments.Department>().ReverseMap();
             configuration.CreateMap<DepartmentDto, Departments.Department>().ReverseMap();

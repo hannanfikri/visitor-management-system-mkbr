@@ -57,7 +57,6 @@ import { ZeroTemplateHttpConfigurationService } from './zero-template-http-confi
         ApiServiceProxies.AppointmentsServiceProxy,
         ApiServiceProxies.TowersServiceProxy,
         ApiServiceProxies.PurposeOfVisitsServiceProxy,
-        ApiServiceProxies.StatusServiceProxy,
         ApiServiceProxies.TitlesServiceProxy,
         ApiServiceProxies.LevelsServiceProxy,
         ApiServiceProxies.CompaniesServiceProxy,

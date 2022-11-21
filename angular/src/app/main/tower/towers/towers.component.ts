@@ -35,7 +35,7 @@ export class TowersComponent extends AppComponentBase {
 
     advancedFiltersAreShown = false;
     filterText = '';
-    fullNameFilter = '';
+    towerNameFilter = '';
 
     _entityTypeFullName = 'Visitor.Tower.TowerEnt';
     entityHistoryEnabled = false;
@@ -82,11 +82,10 @@ export class TowersComponent extends AppComponentBase {
         this._towersServiceProxy
             .getAll(
                 this.filterText,
-                this.fullNameFilter,
+                this.towerNameFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
-                this.primengTableHelper.getMaxResultCount(this.paginator, event),
-                this.primengTableHelper.getSkipCount(this.paginator, event)
-                
+                this.primengTableHelper.getSkipCount(this.paginator, event),
+                this.primengTableHelper.getMaxResultCount(this.paginator, event)
             )
             .subscribe((result) => {
                 this.primengTableHelper.totalRecordsCount = result.totalCount;
@@ -121,5 +120,4 @@ export class TowersComponent extends AppComponentBase {
             }
         });
     }
-
 }

@@ -2,9 +2,9 @@
 import { AppSharedModule } from '@app/shared/app-shared.module';
 import { AdminSharedModule } from '@app/admin/shared/admin-shared.module';
 import { LevelRoutingModule } from './level-routing.module';
-import { LevelsComponent } from './Levels.component';
-import { CreateOrEditLevelModalComponent } from './create-or-edit-Level-modal.component';
-import { ViewLevelModalComponent } from './view-Level-modal.component';
+import { LevelsComponent } from './levels.component';
+import { CreateOrEditLevelModalComponent } from './create-or-edit-level-modal.component';
+import { ViewLevelModalComponent } from './view-level-modal.component';
 
 @NgModule({
     declarations: [LevelsComponent, CreateOrEditLevelModalComponent, ViewLevelModalComponent],

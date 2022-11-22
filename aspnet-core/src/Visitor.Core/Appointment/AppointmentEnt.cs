@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Visitor.Appointments;
 using Visitor.Departments;
 
 namespace Visitor.Appointment

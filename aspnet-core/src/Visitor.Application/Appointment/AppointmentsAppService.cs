@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using Visitor.Departments;
 using Visitor.Departments.Dtos;
+using Visitor.Appointments;
 
 namespace Visitor.Appointment
 {
@@ -55,6 +56,7 @@ namespace Visitor.Appointment
                                 o.PhoneNo,
                                 o.IdentityCard,
                                 o.Department,
+                                o.Status
                             };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -81,6 +83,7 @@ namespace Visitor.Appointment
                                 Id = d.Id,
                                 DepartmentName = d.DepartmentName,
                             },
+                            Status = o.Status,
                         }
                     };
                     results.Add(res);

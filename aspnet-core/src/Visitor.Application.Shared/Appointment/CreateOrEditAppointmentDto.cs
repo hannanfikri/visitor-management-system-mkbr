@@ -7,6 +7,7 @@ using Abp.Application.Services.Dto;
 using Abp.MultiTenancy;
 using Visitor.Departments.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
+using Visitor.Appointments;
 
 namespace Visitor.Appointment
 {
@@ -41,13 +42,13 @@ namespace Visitor.Appointment
         public virtual string Department { get; set; }
         public virtual Nullable<int> Tower { get; set; }
         public virtual Nullable<int> Level { get; set; }
-        
+
         public virtual DateTime AppDateTime { get; set; }
-        
+
         public virtual byte[] FaceVerify { get; set; }
-        
+
         public virtual DateTime RegDateTime { get; set; }
-        public virtual string Status { get; set; }
+        public virtual StatusType Status { get; set; }
 
         //[StringLength(AbpAppointmentBase.MaxConnectionStringLength)]
         //public string ConnectionString { get; set; }

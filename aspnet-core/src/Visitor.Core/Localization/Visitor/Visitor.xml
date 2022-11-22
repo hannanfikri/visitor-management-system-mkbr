@@ -25,6 +25,10 @@
 	  <text name="False">False</text>
 	  <text name="MinValue">Min</text>
 	  <text name="MaxValue">Max</text>
+	  <text name="Enum:StatusType:0">Registered</text>
+	  <text name="Enum:StatusType:1">In</text>
+	  <text name="Enum:StatusType:2">Out</text>
+	  <text name="Enum:StatusType:3">Overstayed</text>
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

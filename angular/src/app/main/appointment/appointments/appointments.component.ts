@@ -1,7 +1,7 @@
 ﻿import { AppConsts } from '@shared/AppConsts';
 import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppointmentsServiceProxy, AppointmentDto, GetDepartmentForViewDto } from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto, GetDepartmentForViewDto, GetAppointmentForViewDto, StatusType } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';

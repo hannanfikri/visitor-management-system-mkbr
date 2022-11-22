@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Visitor.Appointments;
 using Visitor.Departments.Dtos;
 
 namespace Visitor.Appointment
@@ -29,7 +30,5 @@ namespace Visitor.Appointment
             public byte[] FaceVerify { get; set; }
             public DateTime RegDateTime { get; set; }
             public string Status { get; set; }
-
-        
     }
 }

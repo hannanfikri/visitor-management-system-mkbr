@@ -60,81 +60,7 @@
                                         />
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-md-3">
-                                    <div class="my-3">
-                                        <label for="FullNameFilter">{{ l('IdentityCard') }}</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="FullNameFilter"
-                                            name="fullNameFilter"
-                                            [(ngModel)]="fullNameFilter"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="my-3">
-                                        <label for="FullNameFilter">{{ l('FullName') }}</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="FullNameFilter"
-                                            name="fullNameFilter"
-                                            [(ngModel)]="fullNameFilter"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="my-3">
-                                        <label for="FullNameFilter">{{ l('FullName') }}</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="FullNameFilter"
-                                            name="fullNameFilter"
-                                            [(ngModel)]="fullNameFilter"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="my-3">
-                                        <label for="FullNameFilter">{{ l('FullName') }}</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="FullNameFilter"
-                                            name="fullNameFilter"
-                                            [(ngModel)]="fullNameFilter"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="my-3">
-                                        <label for="FullNameFilter">{{ l('FullName') }}</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="FullNameFilter"
-                                            name="fullNameFilter"
-                                            [(ngModel)]="fullNameFilter"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="my-3">
-                                        <label for="FullNameFilter">{{ l('FullName') }}</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="FullNameFilter"
-                                            name="fullNameFilter"
-                                            [(ngModel)]="fullNameFilter"
-                                        />
-                                    </div>
-                                </div> -->
-
-
+                                
                             </div>
                             <div class="row my-4">
                                 <div class="col-sm-12">
@@ -275,6 +201,12 @@
                                             <span class="p-column-title">{{ l('Email') }}</span>
                                             {{ record.appointment.email }}
                                         </td>
+                                        <!-- <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Status') }}</span>
+                                                <ng-container>
+                                                    {{ l('Enum:StatusType:' + record.appointment.status) }}
+                                                </ng-container>
+                                        </td> -->
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Status') }}</span>
                                             {{ record.appointment.status }}

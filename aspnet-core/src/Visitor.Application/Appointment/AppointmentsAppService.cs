@@ -68,6 +68,7 @@ namespace Visitor.Appointment
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
+                        //.WhereIf(!string.IsNullOrWhiteSpace(input.Masa), Masa.Sort((x, y) => y.StoredDate.CompareTo(x.StoredDate)));
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -344,6 +345,15 @@ namespace Visitor.Appointment
             }
             return new List<GetDepartmentForViewDto>(results);
         }
+
+        public GetDateTime GetDateTime(DateTime date)
+        {
+            return new GetDateTime
+            {
+                Date = date,
+            };
+        }
+
     }
     
 }

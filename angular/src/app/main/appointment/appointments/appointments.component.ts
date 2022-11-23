@@ -37,6 +37,9 @@ export class AppointmentsComponent extends AppComponentBase {
     filterText = '';
     fullNameFilter = '';
 
+    sampleDateTime: DateTime;
+    dateFormat = 'dd-LL-yyyy HH:mm:ss';
+
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
 
@@ -119,5 +122,20 @@ export class AppointmentsComponent extends AppComponentBase {
                 });
             }
         });
+    }
+    //test
+    submitDateTime(): void {
+        this._appointmentsServiceProxy.getDateTime(this.sampleDateTime).subscribe((data) => {
+            var dateString = this.getDateString(data.date);
+            this.message.info(dateString, this.l('PostedValue'));
+        });
+    }
+    getDateString(date: DateTime): string {
+        var dateString = this._dateTimeService.formatDate(date, this.dateFormat);
+        if (abp.clock.provider.supportsMultipleTimezone) {
+            dateString += '(' + abp.timing.timeZoneInfo.iana.timeZoneId + ')';
+        }
+
+        return dateString;
     }
 }

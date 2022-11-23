@@ -44,7 +44,7 @@ namespace Visitor.Appointment
         public virtual string Level { get; set; }
         [Required]
         public virtual DateTime AppDateTime { get; set; }
-        [Required]
+        //[Required]
         public virtual byte[] FaceVerify { get; set; }
         [NotMapped]
         public virtual IHasCreationTime RegDateTime { get; set; }

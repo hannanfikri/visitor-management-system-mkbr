@@ -25,6 +25,11 @@
                         [disabled]="saving"
                     ></button>
                 </div>
+                <hr>
+                <div>
+                    <h3 style="text-align:center ;">Visitor Details</h3>
+                </div>
+                <hr>
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_FullName">{{ l('FullName') }} *</label>
@@ -104,7 +109,41 @@
         <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
     </div>
 </div>
-
+<hr>
+<div>
+    <h3 style="text-align:center ;">Appointment Details</h3>
+</div>
+<hr>
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }} *</label>
+        <input
+            type="text"
+            #Appointment_OfficerToMeet="ngModel"
+            id="Appointment_OfficerToMeet"
+            class="form-control"
+            [(ngModel)]="appointment.officerToMeet"
+            name="OfficerToMeet"
+            required
+        />
+        <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="my-3">
+        <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }} *</label>
+        <input
+            
+            #Appointment_AppDateTime="ngModel"
+            id="Appointment_AppDateTime"
+            class="form-control"
+            [(ngModel)]="appointment.appDateTime"
+            name="AppDateTime"
+            type="datetime-local"
+                />
+        <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+    </div>
+</div>
 <div class="modal-body">
     <div class="my-3">
         <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }} </label>
@@ -127,22 +166,6 @@
                                     [ngValue]="comp.company.companyName">{{comp.company.companyName}}</option>
                             </ng-container>
                         </select>
-    </div>
-</div>
-
-<div class="modal-body">
-    <div class="my-3">
-        <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }} *</label>
-        <input
-            type="text"
-            #Appointment_OfficerToMeet="ngModel"
-            id="Appointment_OfficerToMeet"
-            class="form-control"
-            [(ngModel)]="appointment.officerToMeet"
-            name="OfficerToMeet"
-            required
-        />
-        <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
     </div>
 </div>
 <div class="modal-body">
@@ -182,23 +205,9 @@
     </div>
 </div>
 
-<div class="modal-body">
-    <div class="my-3">
-        <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }} *</label>
-        <input
-            type="datetime-local"
-            #Appointment_AppDateTime="ngModel"
-            id="Appointment_AppDateTime"
-            class="form-control"
-            [(ngModel)]="appointment.appDateTime"
-            name="AppDateTime"
-            required
-        />
-        <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
-    </div>
-</div>
 
-<div class="modal-body">
+
+<!-- <div class="modal-body">
     <div class="my-3">
         <label class="form-label" for="Appointment_FaceVerify">{{ l('FaceVerify') }} *</label>
         <input
@@ -208,11 +217,13 @@
             class="form-control"
             [(ngModel)]="appointment.faceVerify"
             name="FaceVerify"
-            required
+            [value]="fv"
+            forceNativeScrolling
+            
         />
         <validation-messages [formCtrl]="Appointment_FaceVerify"></validation-messages>
     </div>
-</div>
+</div> -->
 
 
 

@@ -1333,6 +1333,62 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<GetDepartmentForViewDto[]>(<any>null);
     }
+
+    /**
+     * @param date (optional) 
+     * @return Success
+     */
+    getDateTime(date: DateTime | undefined): Observable<GetDateTime> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetDateTime?";
+        if (date === null)
+            throw new Error("The parameter 'date' cannot be null.");
+        else if (date !== undefined)
+            url_ += "date=" + encodeURIComponent(date ? "" + date.toJSON() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDateTime(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDateTime(<any>response_);
+                } catch (e) {
+                    return <Observable<GetDateTime>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetDateTime>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDateTime(response: HttpResponseBase): Observable<GetDateTime> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetDateTime.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetDateTime>(<any>null);
+    }
 }
 
 @Injectable()
@@ -19561,7 +19617,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     tower!: string | undefined;
     level!: string | undefined;
     appDateTime!: DateTime;
-    faceVerify!: string;
+    faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
     status!: string | undefined;
     isDeleted!: boolean;
@@ -19659,7 +19715,7 @@ export interface ICreateOrEditAppointmentDto {
     tower: string | undefined;
     level: string | undefined;
     appDateTime: DateTime;
-    faceVerify: string;
+    faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
     status: string | undefined;
     isDeleted: boolean;
@@ -23527,6 +23583,42 @@ export interface IGetDashboardDataOutput {
     bouncePercent: number;
     dailySales: number[] | undefined;
     profitShares: number[] | undefined;
+}
+
+export class GetDateTime implements IGetDateTime {
+    date!: DateTime;
+
+    constructor(data?: IGetDateTime) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.date = _data["date"] ? DateTime.fromISO(_data["date"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetDateTime {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDateTime();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["date"] = this.date ? this.date.toString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetDateTime {
+    date: DateTime;
 }
 
 export class GetDefaultEditionNameOutput implements IGetDefaultEditionNameOutput {

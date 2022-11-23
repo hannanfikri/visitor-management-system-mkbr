@@ -28,6 +28,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     arrLevel:  Array<any> = [];
     arrCompany:  Array<any> = [];
     arrDepartment: Array<any> = [];
+    fv: string = "0x0A";
+    myDefaultValue: number = 1;
+
+    sampleDateTime: DateTime;
+    dateFormat = 'dd-LL-yyyy HH:mm:ss';
     
 
     constructor(
@@ -41,13 +46,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     show(appointmentId?: string): void {
         if (!appointmentId) {
-            
-            this.getPOVArray();
-            this.getLevelArray();
-            this.getTitleArray();
-            this.getTowerArray();
-            this.getCompanyArray();
-            this.getDepartmentArray();
 
             this.appointment = new CreateOrEditAppointmentDto();
             this.appointment.id = appointmentId;
@@ -62,6 +60,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.getTowerArray();
                 this.getCompanyArray();
                 this.getDepartmentArray();
+                this.GetEmptyArray();
 
                 this.active = true;
                 this.modal.show();
@@ -145,5 +144,34 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             this.arrDepartment = [];
             this.arrDepartment.push(result)
         })
+    }
+    GetEmptyArray():void{
+        this._appointmentsServiceProxy.getDepartmentName().subscribe((result) =>
+        {
+            this.arrDepartment = [];
+            this.arrDepartment.push(result)
+        })
+        this._appointmentsServiceProxy.getTower().subscribe((result) =>
+        { 
+            this.arrTower = [];
+            this.arrTower.push(result);
+        })
+    }
+
+    //test
+    submitDateTime(): void {
+        this._appointmentsServiceProxy.getLevel().subscribe((result) =>
+        { 
+            this.arrLevel = [];
+            this.arrLevel.push(result);
+        })
+    }
+    getDateString(date: DateTime): string {
+        var dateString = this._dateTimeService.formatDate(date, this.dateFormat);
+        if (abp.clock.provider.supportsMultipleTimezone) {
+            dateString += '(' + abp.timing.timeZoneInfo.iana.timeZoneId + ')';
+        }
+
+        return dateString;
     }
 }

@@ -1,4 +1,28 @@
-﻿<div [@routerTransition]>
+﻿<form role="form" class="form">
+    <div class="mb-5 row">
+        <label for="SampleDateTimePicker" class="col-md-12 form-label">Default date time picker</label>
+        <div class="col-lg-10 col-md-9 col-sm-8">
+            <input
+                id="SampleDateTimePicker"
+                type="text"
+                #SampleDatePicker
+                name="SampleDateTimePicker"
+                class="form-control"
+                bsDatepicker
+                datePickerLuxonModifier
+                [(date)]="sampleDateTime"
+                [withTimepicker]="true"
+                [bsConfig]="{ withTimepicker: true, rangeInputFormat : 'DD-MM-YYYY HH:mm', dateInputFormat: 'DD-MM-YYYY HH:mm', adaptivePosition: true }"
+            />
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-4">
+            <button class="btn btn-primary" type="button" (click)="submitDateTime()">
+                {{ 'Submit' | localize }}
+            </button>
+        </div>
+    </div>
+</form>
+<div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'Appointments' | localize" [description]="'AppointmentsHeaderInfo' | localize">
             <div role="actions">

@@ -46,6 +46,15 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     show(appointmentId?: string): void {
         if (!appointmentId) {
+            this.GetEmptyArray();
+            this.getPOVArray();
+                
+                this.getTitleArray();
+                this.getTowerArray();
+                this.getCompanyArray();
+                this.getDepartmentArray();
+                
+                this.getLevelArray();
 
             this.appointment = new CreateOrEditAppointmentDto();
             this.appointment.id = appointmentId;
@@ -146,25 +155,20 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         })
     }
     GetEmptyArray():void{
-        this._appointmentsServiceProxy.getDepartmentName().subscribe((result) =>
-        {
-            this.arrDepartment = [];
-            this.arrDepartment.push(result)
-        })
-        this._appointmentsServiceProxy.getTower().subscribe((result) =>
-        { 
-            this.arrTower = [];
-            this.arrTower.push(result);
-        })
+        this.arrDepartment = [];
+        this.arrCompany=[];
+        this.arrLevel = [];
+        this.arrTower = [];
+        this.arrTitle = [];
+        this.arrPOV = [];
     }
 
     //test
     submitDateTime(): void {
-        this._appointmentsServiceProxy.getLevel().subscribe((result) =>
-        { 
-            this.arrLevel = [];
-            this.arrLevel.push(result);
-        })
+        this._appointmentsServiceProxy.getDateTime(this.sampleDateTime).subscribe((data) => {
+            var dateString = this.getDateString(data.date);
+            this.message.info(dateString, this.l('PostedValue'));
+        });
     }
     getDateString(date: DateTime): string {
         var dateString = this._dateTimeService.formatDate(date, this.dateFormat);

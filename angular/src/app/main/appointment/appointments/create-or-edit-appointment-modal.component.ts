@@ -25,6 +25,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
+    // statusenum = StatusType;
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     arrPOV: Array<any> = [];
     arrTitle: Array<any> = [];
@@ -37,6 +38,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
+    r: any;
 
 
     constructor(
@@ -54,7 +56,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             if (isNaN(Number(s))) {
                 this.statusType.push(s);
             }
-        }
+        };
+        // this.statusType = [];
+        // for(let s in this.keys){
+        //     this.statusType.push(s);
+        // }
     }
 
     // Subscribe from an observable and push into array

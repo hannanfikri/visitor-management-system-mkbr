@@ -252,6 +252,11 @@
                                             {{ record.appointment.email }}
                                         </td>
                                         <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Status') }}</span>
+                                                <ng-container>
+                                                    {{ l('Enum:StatusType:' + record.appointment.status) }}
+                                                </ng-container>
+                                        <td style="width: 150px">
                                             <span class="p-column-title">{{ l('PurposeOfVisit') }}</span>
                                             {{ record.appointment.purposeOfVisit }}
                                         </td>

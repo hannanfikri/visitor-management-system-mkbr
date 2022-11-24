@@ -8,7 +8,7 @@ using System.Text;
 namespace Visitor.Appointment
 {
     public class AppointmentDto : FullAuditedEntityDto<Guid>,IHasCreationTime
-    {
+    { 
         public string IdentityCard { get; set; }
         public string FullName { get; set; }
         public string PhoneNo { get; set; }

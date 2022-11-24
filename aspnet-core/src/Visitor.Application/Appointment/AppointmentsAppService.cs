@@ -28,6 +28,7 @@ using Visitor.Level.Dtos;
 using Visitor.Company.Dtos;
 using Visitor.Departments;
 using Visitor.Departments.Dtos;
+using Visitor.Appointments;
 
 namespace Visitor.Appointment
 {

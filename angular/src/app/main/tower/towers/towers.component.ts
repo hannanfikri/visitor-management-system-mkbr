@@ -35,7 +35,7 @@ export class TowersComponent extends AppComponentBase {
 
     advancedFiltersAreShown = false;
     filterText = '';
-    towerNameFilter = '';
+    towerFilter = '';
 
     _entityTypeFullName = 'Visitor.Tower.TowerEnt';
     entityHistoryEnabled = false;
@@ -82,10 +82,11 @@ export class TowersComponent extends AppComponentBase {
         this._towersServiceProxy
             .getAll(
                 this.filterText,
-                this.towerNameFilter,
+                this.towerFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
-                this.primengTableHelper.getSkipCount(this.paginator, event),
-                this.primengTableHelper.getMaxResultCount(this.paginator, event)
+                this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                this.primengTableHelper.getSkipCount(this.paginator, event)
+                
             )
             .subscribe((result) => {
                 this.primengTableHelper.totalRecordsCount = result.totalCount;
@@ -119,5 +120,11 @@ export class TowersComponent extends AppComponentBase {
                 });
             }
         });
+    }
+
+    exportToExcel(): void {
+        // this._towersServiceProxy.getTowersToExcel(this.filterText, this.towerNameFilter).subscribe((result) => {
+        //     this._fileDownloadService.downloadTempFile(result);
+        // });
     }
 }

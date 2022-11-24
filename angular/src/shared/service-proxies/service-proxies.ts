@@ -19619,7 +19619,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     appDateTime!: DateTime;
     faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
-    status!: string | undefined;
+    status!: StatusType;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19717,7 +19717,7 @@ export interface ICreateOrEditAppointmentDto {
     appDateTime: DateTime;
     faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
-    status: string | undefined;
+    status: StatusType;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -30898,6 +30898,13 @@ export enum SettingScopes {
     Tenant = 2,
     User = 4,
     All = 7,
+}
+
+export enum StatusType {
+    Registered = 0,
+    In = 1,
+    Out = 2,
+    Overstayed = 3,
 }
 
 export class StringOutput implements IStringOutput {

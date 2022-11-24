@@ -8,5 +8,6 @@ namespace Visitor.Tower.Dtos
     public class GetAllForLookupTableInput :PagedAndSortedInputDto
     {
         public string filter { get; set; }  
+
     }
 }

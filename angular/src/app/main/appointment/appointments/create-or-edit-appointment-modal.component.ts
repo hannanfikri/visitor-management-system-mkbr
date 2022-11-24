@@ -50,30 +50,9 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         super(injector);
     }
 
-    getStatusEnum(): void {
-        this.statusType = [];
-        for (let s in StatusType) {
-            if (isNaN(Number(s))) {
-                this.statusType.push(s);
-            }
-        };
-        // this.statusType = [];
-        // for(let s in this.keys){
-        //     this.statusType.push(s);
-        // }
-    }
-
-    // Subscribe from an observable and push into array
-    getDepartmentNameArray(): void {
-        this._appointmentsServiceProxy.getDepartmentName().subscribe((result) => {
-            this.arrDepartment = [];
-            this.arrDepartment.push(result);
-        })
-    }
+    
 
     show(appointmentId?: string): void {
-        this.getDepartmentNameArray();
-        this.getStatusEnum();
         if (!appointmentId) {
             this.GetEmptyArray();
             this.getPOVArray();
@@ -82,8 +61,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             this.getTowerArray();
             this.getCompanyArray();
             this.getDepartmentArray();
-
             this.getLevelArray();
+            this.getStatusEnum();
 
             this.appointment = new CreateOrEditAppointmentDto();
             this.appointment.id = appointmentId;
@@ -98,6 +77,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.getTowerArray();
                 this.getCompanyArray();
                 this.getDepartmentArray();
+                this.getStatusEnum();
                 this.GetEmptyArray();
 
                 this.active = true;
@@ -183,6 +163,18 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.arrTower = [];
         this.arrTitle = [];
         this.arrPOV = [];
+    }
+    getStatusEnum(): void {
+        this.statusType = [];
+        for (let s in StatusType) {
+            if (isNaN(Number(s))) {
+                this.statusType.push(s);
+            }
+        };
+        // this.statusType = [];
+        // for(let s in this.keys){
+        //     this.statusType.push(s);
+        // }
     }
 
     //test

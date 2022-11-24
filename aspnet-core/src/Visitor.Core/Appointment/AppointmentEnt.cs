@@ -35,12 +35,12 @@ namespace Visitor.Appointment
         public DateTime AppDateTime { get; set; }
         public byte[] FaceVerify { get; set; }//match datatype for file
         public DateTime RegDateTime { get; set; }
-        public string Status { get; set; }
+        public StatusType Status { get; set; }
 
 
         private AppointmentEnt() { }//empty constructor
 
-        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, Guid departmentId, string department, int? tower, int? level, DateTime appDateTime, byte[] faceVerify, DateTime regDateTime, string status)
+        public AppointmentEnt(string identityCard, string fullName, string phoneNo, string email, string title, string companyName, string officerToMeet, string purposeOfVisit, Guid departmentId, string department, int? tower, int? level, DateTime appDateTime, byte[] faceVerify, DateTime regDateTime, StatusType status)
         {
             IdentityCard = identityCard;
             FullName = fullName;
@@ -57,7 +57,7 @@ namespace Visitor.Appointment
             AppDateTime = appDateTime;
             FaceVerify = faceVerify;
             RegDateTime = regDateTime;
-            Status = status;
+            Status = status = StatusType.Registered;
         }
     }
 }

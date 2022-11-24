@@ -29,6 +29,6 @@ namespace Visitor.Appointment
             public DateTime AppDateTime { get; set; }
             public byte[] FaceVerify { get; set; }
             public DateTime RegDateTime { get; set; }
-            public string Status { get; set; }
+            public StatusType Status { get; set; }
     }
 }

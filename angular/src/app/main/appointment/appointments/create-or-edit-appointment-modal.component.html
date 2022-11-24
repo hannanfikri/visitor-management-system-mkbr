@@ -90,8 +90,8 @@
                         <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
                         <select #Appointment_Status="ngModel" id="Appointment_Status" [(ngModel)]="appointment.status"
                             name="Status" class="form-control">
-                            <option name="Status" *ngFor="let stat of statusType | keyvalue" [ngValue]="stat.value">
-                                {{ stat.value }}</option>
+                            <option [ngValue]="stat" *ngFor="let stat of statusType">
+                               {{ stat }}</option>
                         </select>
                     </div>
                 </div>

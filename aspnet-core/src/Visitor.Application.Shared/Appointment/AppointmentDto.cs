@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Visitor.Appointments;
 
 namespace Visitor.Appointment
 {
@@ -23,6 +24,6 @@ namespace Visitor.Appointment
         public DateTime AppDateTime { get; set; }
         public byte[] FaceVerify { get; set; }
         public IHasCreationTime RegDateTime { get; set; }
-        public string Status { get; set; }
+        public StatusType Status { get; set; }
     }
 }

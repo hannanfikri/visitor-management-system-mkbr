@@ -91,7 +91,8 @@ namespace Visitor.Appointment
                                    o.Level,
                                    o.AppDateTime,
                                    o.CreationTime,
-                                   o.Status
+                                   o.Status,
+                                   o.Title
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -118,7 +119,8 @@ namespace Visitor.Appointment
                         Level = o.Level,
                         AppDateTime = o.AppDateTime,
                         CreationTime = o.CreationTime,
-                        Status = o.Status
+                        Status = o.Status,
+                        Title = o.Title
                     }
                 };
 

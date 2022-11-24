@@ -12,22 +12,26 @@
                     <button type="button" class="btn-close" (click)="close()" aria-label="Close"
                         [disabled]="saving"></button>
                 </div>
-                
-                <hr>
+
+                <div class="modal-body">
+                    <hr>
+                </div>
                 <div>
                     <h3 style="text-align:center ;">Visitor Details</h3>
                 </div>
-                <hr>
-                
-                    <div class="modal-body">
-                        <div class="my-3">
-                            <label class="form-label" for="Appointment_FullName">{{ l('FullName') }} *</label>
-                            <input type="text" #Appointment_FullName="ngModel" id="Appointment_FullName"
-                                class="form-control" [(ngModel)]="appointment.fullName" name="FullName" required />
-                            <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
-                        </div>
+                <div class="modal-body">
+                    <hr>
+                </div>
+
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_FullName">{{ l('FullName') }} *</label>
+                        <input type="text" #Appointment_FullName="ngModel" id="Appointment_FullName"
+                            class="form-control" [(ngModel)]="appointment.fullName" name="FullName" required />
+                        <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
                     </div>
-                
+                </div>
+
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Title">{{ l('Tiltle') }} *</label>
@@ -68,11 +72,15 @@
                         <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
                     </div>
                 </div>
-                <hr>
+                <div class="modal-body">
+                    <hr>
+                </div>
                 <div>
                     <h3 style="text-align:center ;">Appointment Details</h3>
                 </div>
-                <hr>
+                <div class="modal-body">
+                    <hr>
+                </div>
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }}
@@ -173,8 +181,8 @@
                         <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
                         <select #Appointment_Status="ngModel" id="Appointment_Status" [(ngModel)]="appointment.status"
                             name="Status" class="form-control">
-                            <option [ngValue]="stat" *ngFor="let stat of statusType">
-                               {{ stat }}</option>
+                            <option [value]="stat" *ngFor="let stat of statusType">
+                                {{ stat }}</option>
                         </select>
                     </div>
                 </div>

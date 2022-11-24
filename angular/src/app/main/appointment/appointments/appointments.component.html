@@ -237,7 +237,7 @@
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('FullName') }}</span>
-                                            {{ record.appointment.fullName }}
+                                            {{ record.appointment.title + ' ' + record.appointment.fullName }}
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('IdentityCard') }}</span>
@@ -251,11 +251,6 @@
                                             <span class="p-column-title">{{ l('Email') }}</span>
                                             {{ record.appointment.email }}
                                         </td>
-                                        <td style="width: 150px">
-                                            <span class="p-column-title">{{ l('Status') }}</span>
-                                                <ng-container>
-                                                    {{ l('Enum:StatusType:' + record.appointment.status) }}
-                                                </ng-container>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('PurposeOfVisit') }}</span>
                                             {{ record.appointment.purposeOfVisit }}
@@ -290,7 +285,9 @@
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Status') }}</span>
-                                            {{ record.appointment.status }}
+                                                <ng-container>
+                                                    {{ l('Enum:StatusType:' + record.appointment.status ) }}
+                                                </ng-container>
                                         </td>
                                     </tr>
                                 </ng-template>

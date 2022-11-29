@@ -29,6 +29,22 @@ using Visitor.Company.Dtos;
 using Visitor.Departments;
 using Visitor.Departments.Dtos;
 using Visitor.Appointments;
+using Abp.Runtime.Session;
+using Abp.Configuration;
+using Abp.UI;
+using SixLabors.ImageSharp.Formats;
+using System.IO;
+using Visitor.Configuration;
+using Visitor.Storage;
+using Abp.Auditing;
+using Visitor.Authorization.Users.Profile;
+using Abp;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using Visitor.Authorization.Users;
+using Visitor.Appointment.Dto;
+using Abp.Extensions;
+using Abp.Collections.Extensions;
 
 namespace Visitor.Appointment
 {
@@ -41,6 +57,9 @@ namespace Visitor.Appointment
         private readonly IRepository<LevelEnt, Guid> _levelRepository;
         private readonly IRepository<CompanyEnt, Guid> _companyRepository;
         private readonly IRepository<Department, Guid> _departmentRepository;
+        private readonly ITempFileCacheManager _tempFileCacheManager;
+        private readonly IBinaryObjectManager _binaryObjectManager;
+        private readonly ProfileImageServiceFactory _profileImageServiceFactory;
 
         public AppointmentsAppService
 
@@ -50,7 +69,10 @@ namespace Visitor.Appointment
             IRepository<TowerEnt, Guid> towerRepository,
             IRepository<LevelEnt, Guid> levelRepository,
             IRepository<CompanyEnt,Guid> companyRepository,
-            IRepository<Department, Guid> departmentRepository
+            IRepository<Department, Guid> departmentRepository,
+            ITempFileCacheManager tempFileCacheManager,
+            IBinaryObjectManager binaryObjectManager,
+            ProfileImageServiceFactory profileImageServiceFactory
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -60,22 +82,38 @@ namespace Visitor.Appointment
             _levelRepository = levelRepository;
             _companyRepository = companyRepository;
             _departmentRepository = departmentRepository;
+            _tempFileCacheManager = tempFileCacheManager;
+            _binaryObjectManager = binaryObjectManager;
+            _profileImageServiceFactory = profileImageServiceFactory;
 
         }
-
+       /* public DateTime GetToday() { return DateTime.Now; }
+        public DateTime GetTomorrow()
+        {
+            return DateTime.Now.AddDays(1);
+        }
+        public DateTime GetYesterday()
+        {
+            return DateTime.Now.AddDays(-1);
+        }*/
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
+            /*int r;
+            DateTime d1 = GetToday();
+            DateTime d2 = GetToday().AddDays(1);
+            DateTime d3 = GetToday().AddDays(-1);*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
-                        //.WhereIf(!string.IsNullOrWhiteSpace(input.Masa), Masa.Sort((x, y) => y.StoredDate.CompareTo(x.StoredDate)));
+                        /*.Where(DateTime.Compare(input.Masa, d1)) ;*/
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
             var appointments = from o in pagedAndFilteredAppointments
+                               //where o.app
                                select new
                                {
                                    o.Id,
@@ -355,6 +393,94 @@ namespace Visitor.Appointment
             {
                 Date = date,
             };
+        }
+
+        //test upload file
+        public async Task UpdateProfilePicture(UpdateProfilePictureInputs input)
+        {
+            var userId = AbpSession.GetUserId();
+
+            await UpdateProfilePictureForUser(userId,input);
+        }
+        private async Task UpdateProfilePictureForUser( long userId,UpdateProfilePictureInputs input)
+        {
+            var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
+            /*var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
+            var allowToUseGravatar = await SettingManager.GetSettingValueForUserAsync<bool>(
+                AppSettings.UserManagement.AllowUsingGravatarProfilePicture,
+                user: userIdentifier
+            );
+
+            if (!allowToUseGravatar)
+            {
+                input.UseGravatarProfilePicture = false;
+            }
+
+            await SettingManager.ChangeSettingForUserAsync(
+                userIdentifier,
+                AppSettings.UserManagement.UseGravatarProfilePicture,
+                input.UseGravatarProfilePicture.ToString().ToLowerInvariant()
+            );*/
+
+            if (input.UseGravatarProfilePicture)
+            {
+                return;
+            }
+
+            byte[] byteArray;
+
+            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            /*if (imageBytes == null)
+            {
+                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
+            }*/
+
+            using (var image = Image.Load(imageBytes, out IImageFormat format))
+            {
+                var width = (input.Width == 0 || input.Width > image.Width) ? image.Width : input.Width;
+                var height = (input.Height == 0 || input.Height > image.Height) ? image.Height : input.Height;
+
+                var bmCrop = image.Clone(i =>
+                    i.Crop(new Rectangle(input.X, input.Y, width, height))
+                );
+
+                await using (var stream = new MemoryStream())
+                {
+                    await bmCrop.SaveAsync(stream, format);
+                    byteArray = stream.ToArray();
+                }
+            }
+
+            /*if (byteArray.Length > MaxProfilPictureBytes)
+            {
+                throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
+                    AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
+            }*/
+
+            var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
+
+            if (user.ProfilePictureId.HasValue)
+            {
+                await _binaryObjectManager.DeleteAsync(user.ProfilePictureId.Value);
+            }
+
+            var storedFile = new BinaryObject(userIdentifier.TenantId, byteArray, $"Profile picture of user {userIdentifier.UserId}. {DateTime.UtcNow}");
+            await _binaryObjectManager.SaveAsync(storedFile);
+
+            user.ProfilePictureId = storedFile.Id;
+        }
+        [DisableAuditing]
+        public async Task<GetProfilePictureOutputs> GetProfilePicture()
+        {
+            using (var profileImageService = await _profileImageServiceFactory.Get(AbpSession.ToUserIdentifier()))
+            {
+                var profilePictureContent = await profileImageService.Object.GetProfilePictureContentForUser(
+                    AbpSession.ToUserIdentifier()
+                );
+
+                return new GetProfilePictureOutputs(profilePictureContent);
+            }
         }
 
     }

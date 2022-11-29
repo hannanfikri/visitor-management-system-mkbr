@@ -12,6 +12,6 @@ namespace Visitor.Appointment
     {
         public string Filter { get; set; }
         public string FullNameFilter { get; set; }
-        //public string Masa { get; set; }
+        //public DateTime Masa { get; set; }
     }
 }

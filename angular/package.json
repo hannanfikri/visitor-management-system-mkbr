@@ -48,6 +48,7 @@
     "cookieconsent": "^3.1.1",
     "core-js": "^3.18.1",
     "core-util-is": "^1.0.3",
+    "dateformat": "^5.0.3",
     "eslint-plugin-import": "^2.26.0",
     "famfamfam-flags": "^1.0.0",
     "js-cookie": "^3.0.1",

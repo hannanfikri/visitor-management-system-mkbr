@@ -11,8 +11,10 @@
       "path": "./src/tsconfig.app.json"
     },
     {
-      "path": "./src/tsconfig.spec.json"
+      "path": "./src/tsconfig.spec.json" 
     }
+    
   ],
   "include": ["src/**/*.ts"],
 }
+

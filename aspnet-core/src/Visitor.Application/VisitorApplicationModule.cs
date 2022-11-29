@@ -1,6 +1,8 @@
 ﻿using Abp.AutoMapper;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
+using System.ComponentModel;
+using Visitor.Appointment;
 using Visitor.Authorization;
 
 namespace Visitor
@@ -26,6 +28,8 @@ namespace Visitor
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(VisitorApplicationModule).GetAssembly());
+            /*IocManager.IocContainer.Register(Component.For(typeof(IAppointmentRepository))
+                .ImplementedBy(typeof(IAppointmentRepository)).LifestyleTransient());*/
         }
     }
 }

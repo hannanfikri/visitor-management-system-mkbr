@@ -6,12 +6,63 @@
     /// </summary>
     public static class AppPermissions
     {
+        //TOWER
+        public const string Pages_Towers = "Pages.Towers";
+        public const string Pages_Towers_Create = "Pages.Towers.Create";
+        public const string Pages_Towers_Edit = "Pages.Towers.Edit";
+        public const string Pages_Towers_Delete = "Pages.Towers.Delete";
+
+        //PURPOSE OF VISIT
+        public const string Pages_PurposeOfVisits = "Pages.PurposeOfVisits";
+        public const string Pages_PurposeOfVisits_Create = "Pages.PurposeOfVisits.Create";
+        public const string Pages_PurposeOfVisits_Edit = "Pages.PurposeOfVisits.Edit";
+        public const string Pages_PurposeOfVisits_Delete = "Pages.PurposeOfVisits.Delete";
+
+        //VISITOR TITLE
+        public const string Pages_Titles= "Pages.Titles";
+        public const string Pages_Titles_Create = "Pages.Titles.Create";
+        public const string Pages_Titles_Edit = "Pages.Titles.Edit";
+        public const string Pages_Titles_Delete = "Pages.Titles.Delete";
+
+        //VISITOR LEVEL
+        public const string Pages_Levels = "Pages.Levels";
+        public const string Pages_Levels_Create = "Pages.Levels.Create";
+        public const string Pages_Levels_Edit = "Pages.Levels.Edit";
+        public const string Pages_Levels_Delete = "Pages.Levels.Delete";
+
+        //Company
+        public const string Pages_Companies = "Pages.Companies";
+        public const string Pages_Companies_Create = "Pages.Companies.Create";
+        public const string Pages_Companies_Edit = "Pages.Companies.Edit"; 
+        public const string Pages_Companies_Delete = "Pages.Companies.Delete";
+
+        // PERMISSION FOR APPOINTMENTS
+
+        public const string Pages_Appointments = "Pages.Appointments";
+        public const string Pages_Appointments_Create = "Pages.Appointments.Create";
+        public const string Pages_Appointments_Edit = "Pages.Appointments.Edit";
+        public const string Pages_Appointments_Delete = "Pages.Appointments.Delete";
+
+        // PERMISSION FOR DEPARTMENTS
+
+        public const string Pages_Departments = "Pages.Departments";
+        public const string Pages_Departments_Create = "Pages.Departments.Create";
+        public const string Pages_Departments_Edit = "Pages.Departments.Edit";
+        public const string Pages_Departments_Delete = "Pages.Departments.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";
 
         public const string Pages_DemoUiComponents = "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
+
+        //BLACLIST
+        public const string Pages_Blacklists = "Pages.Blacklists";
+        public const string Pages_Blacklists_Create = "Pages.Blacklists.Create";
+        public const string Pages_Blacklists_Edit = "Pages.Blacklists.Edit";
+        public const string Pages_Blacklists_Delete = "Pages.Blacklists.Delete";
+        //
 
         public const string Pages_Administration_Roles = "Pages.Administration.Roles";
         public const string Pages_Administration_Roles_Create = "Pages.Administration.Roles.Create";
@@ -72,7 +123,7 @@
         public const string Pages_Administration_DynamicEntityPropertyValue_Create = "Pages.Administration.DynamicEntityPropertyValue.Create";
         public const string Pages_Administration_DynamicEntityPropertyValue_Edit = "Pages.Administration.DynamicEntityPropertyValue.Edit";
         public const string Pages_Administration_DynamicEntityPropertyValue_Delete = "Pages.Administration.DynamicEntityPropertyValue.Delete";
-        
+
         public const string Pages_Administration_MassNotification = "Pages.Administration.MassNotification";
         public const string Pages_Administration_MassNotification_Create = "Pages.Administration.MassNotification.Create";
 
@@ -102,6 +153,8 @@
         public const string Pages_Administration_Host_Maintenance = "Pages.Administration.Host.Maintenance";
         public const string Pages_Administration_Host_Settings = "Pages.Administration.Host.Settings";
         public const string Pages_Administration_Host_Dashboard = "Pages.Administration.Host.Dashboard";
+
+
 
     }
 }

@@ -87,33 +87,31 @@ namespace Visitor.Appointment
             _profileImageServiceFactory = profileImageServiceFactory;
 
         }
-       /* public DateTime GetToday() { return DateTime.Now; }
-        public DateTime GetTomorrow()
+        protected DateTime GetToday() 
         {
-            return DateTime.Now.AddDays(1);
+            return DateTime.Now.Date;
+            /*DateOnly testTimeOnly = DateOnly.FromDateTime(now);
+            return testTimeOnly; */
         }
-        public DateTime GetYesterday()
+        protected DateTime GetTomorrow()
         {
-            return DateTime.Now.AddDays(-1);
-        }*/
+            return DateTime.Now.AddDays(1).Date;
+        }
+        protected DateTime GetYesterday()
+        {
+            return DateTime.Now.AddDays(-1).Date;
+        }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
-            /*int r;
-            DateTime d1 = GetToday();
-            DateTime d2 = GetToday().AddDays(1);
-            DateTime d3 = GetToday().AddDays(-1);*/
-
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
-                        /*.Where(DateTime.Compare(input.Masa, d1)) ;*/
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
             var appointments = from o in pagedAndFilteredAppointments
-                               //where o.app
                                select new
                                {
                                    o.Id,
@@ -171,6 +169,220 @@ namespace Visitor.Appointment
             );
 
         }
+        public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllToday(GetAllAppointmentsInput input)
+        {
+            DateTime d1 = GetToday();
+
+            var filteredAppointments = _appointmentRepository.GetAll()
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
+                        .Where(e => e.AppDateTime.Date == d1);
+
+            var pagedAndFilteredAppointments = filteredAppointments
+                .OrderBy(input.Sorting ?? "id asc")
+                .PageBy(input);
+
+            var appointments = from o in pagedAndFilteredAppointments
+                               select new
+                               {
+                                   o.Id,
+                                   o.FullName,
+                                   o.Email,
+                                   o.PhoneNo,
+                                   o.IdentityCard,
+                                   o.PurposeOfVisit,
+                                   o.CompanyName,
+                                   o.OfficerToMeet,
+                                   o.Department,
+                                   o.Tower,
+                                   o.Level,
+                                   o.AppDateTime,
+                                   o.CreationTime,
+                                   o.Status,
+                                   o.Title
+                               };
+
+            var totalCount = await filteredAppointments.CountAsync();
+
+            var dbList = await appointments.ToListAsync();
+            var results = new List<GetAppointmentForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetAppointmentForViewDto()
+                {
+                    Appointment = new AppointmentDto
+                    {
+                        Id = o.Id,
+                        FullName = o.FullName,
+                        Email = o.Email,
+                        PhoneNo = o.PhoneNo,
+                        IdentityCard = o.IdentityCard,
+                        PurposeOfVisit = o.PurposeOfVisit,
+                        CompanyName = o.CompanyName,
+                        OfficerToMeet = o.OfficerToMeet,
+                        Department = o.Department,
+                        Tower = o.Tower,
+                        Level = o.Level,
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
+                        Status = o.Status,
+                        Title = o.Title
+                    }
+                };
+
+                results.Add(res);
+            }
+
+            return new PagedResultDto<GetAppointmentForViewDto>(
+                totalCount,
+                results
+            );
+
+        }
+        public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllTomorrow(GetAllAppointmentsInput input)
+        {
+            DateTime d2 = GetTomorrow();
+
+            var filteredAppointments = _appointmentRepository.GetAll()
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
+                        .Where(e => e.AppDateTime.Date == d2);
+
+            var pagedAndFilteredAppointments = filteredAppointments
+                .OrderBy(input.Sorting ?? "id asc")
+                .PageBy(input);
+
+            var appointments = from o in pagedAndFilteredAppointments
+                               select new
+                               {
+                                   o.Id,
+                                   o.FullName,
+                                   o.Email,
+                                   o.PhoneNo,
+                                   o.IdentityCard,
+                                   o.PurposeOfVisit,
+                                   o.CompanyName,
+                                   o.OfficerToMeet,
+                                   o.Department,
+                                   o.Tower,
+                                   o.Level,
+                                   o.AppDateTime,
+                                   o.CreationTime,
+                                   o.Status,
+                                   o.Title
+                               };
+
+            var totalCount = await filteredAppointments.CountAsync();
+
+            var dbList = await appointments.ToListAsync();
+            var results = new List<GetAppointmentForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetAppointmentForViewDto()
+                {
+                    Appointment = new AppointmentDto
+                    {
+                        Id = o.Id,
+                        FullName = o.FullName,
+                        Email = o.Email,
+                        PhoneNo = o.PhoneNo,
+                        IdentityCard = o.IdentityCard,
+                        PurposeOfVisit = o.PurposeOfVisit,
+                        CompanyName = o.CompanyName,
+                        OfficerToMeet = o.OfficerToMeet,
+                        Department = o.Department,
+                        Tower = o.Tower,
+                        Level = o.Level,
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
+                        Status = o.Status,
+                        Title = o.Title
+                    }
+                };
+
+                results.Add(res);
+            }
+
+            return new PagedResultDto<GetAppointmentForViewDto>(
+                totalCount,
+                results
+            );
+
+        }
+        public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllYesterday(GetAllAppointmentsInput input)
+        {
+            DateTime d3 = GetYesterday();
+
+            var filteredAppointments = _appointmentRepository.GetAll()
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
+                        .Where(e => e.AppDateTime.Date == d3);
+
+            var pagedAndFilteredAppointments = filteredAppointments
+                .OrderBy(input.Sorting ?? "id asc")
+                .PageBy(input);
+
+            var appointments = from o in pagedAndFilteredAppointments
+                               select new
+                               {
+                                   o.Id,
+                                   o.FullName,
+                                   o.Email,
+                                   o.PhoneNo,
+                                   o.IdentityCard,
+                                   o.PurposeOfVisit,
+                                   o.CompanyName,
+                                   o.OfficerToMeet,
+                                   o.Department,
+                                   o.Tower,
+                                   o.Level,
+                                   o.AppDateTime,
+                                   o.CreationTime,
+                                   o.Status,
+                                   o.Title
+                               };
+
+            var totalCount = await filteredAppointments.CountAsync();
+
+            var dbList = await appointments.ToListAsync();
+            var results = new List<GetAppointmentForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetAppointmentForViewDto()
+                {
+                    Appointment = new AppointmentDto
+                    {
+                        Id = o.Id,
+                        FullName = o.FullName,
+                        Email = o.Email,
+                        PhoneNo = o.PhoneNo,
+                        IdentityCard = o.IdentityCard,
+                        PurposeOfVisit = o.PurposeOfVisit,
+                        CompanyName = o.CompanyName,
+                        OfficerToMeet = o.OfficerToMeet,
+                        Department = o.Department,
+                        Tower = o.Tower,
+                        Level = o.Level,
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
+                        Status = o.Status,
+                        Title = o.Title
+                    }
+                };
+
+                results.Add(res);
+            }
+
+            return new PagedResultDto<GetAppointmentForViewDto>(
+                totalCount,
+                results
+            );
+
+        }
+
         public async Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id)
         {
             var appointment = await _appointmentRepository.GetAsync(id);

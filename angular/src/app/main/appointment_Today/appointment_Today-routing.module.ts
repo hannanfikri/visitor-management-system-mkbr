@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppointmentsComponent } from './appointments.component';
+import { AppointmentsComponent } from './appointment_Todays.component';
+
 const routes: Routes = [
     {
         path: '',

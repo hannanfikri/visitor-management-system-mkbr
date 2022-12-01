@@ -13,7 +13,21 @@ import { RouterModule } from '@angular/router';
                         loadChildren: () => import('./appointment/appointments/appointment.module').then((m) => m.AppointmentModule),
                         data: { permission: 'Pages.Appointments' },
                     },
-
+                    {
+                        path: 'appointment_Today',
+                        loadChildren: () => import('./appointment_Today/appointment_Today.module').then((m) => m.AppointmentTodayModule),
+                        data: { permission: 'Pages.Appointments' },
+                    },
+                    {
+                        path: 'appointment_Tomorrow',
+                        loadChildren: () => import('./appointment_Tomorrow/appointment_Tomorrow.module').then((m) => m.AppointmentTomorrowModule),
+                        data: { permission: 'Pages.Appointments' },
+                    },
+                    {
+                        path: 'appointment_Yesterday',
+                        loadChildren: () => import('./appointment_Yesterday/appointment_Yesterday.module').then((m) => m.AppointmentYesterdayModule),
+                        data: { permission: 'Pages.Appointments' },
+                    },
                     {
                         path: 'department/departments',
                         loadChildren: () => import('./department/departments/department.module').then((m) => m.DepartmentModule),

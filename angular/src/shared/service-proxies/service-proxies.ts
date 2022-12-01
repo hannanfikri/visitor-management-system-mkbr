@@ -18827,7 +18827,7 @@ export class AppointmentDto implements IAppointmentDto {
     department!: string | undefined;
     tower!: string | undefined;
     level!: string | undefined;
-    appDateTime!: DateTime;
+    appDateTime!: string | undefined;
     faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
     status!: StatusType;
@@ -18862,7 +18862,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.department = _data["department"];
             this.tower = _data["tower"];
             this.level = _data["level"];
-            this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
+            this.appDateTime = _data["appDateTime"];
             this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
             this.status = _data["status"];
@@ -18897,7 +18897,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["department"] = this.department;
         data["tower"] = this.tower;
         data["level"] = this.level;
-        data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
+        data["appDateTime"] = this.appDateTime;
         data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
         data["status"] = this.status;
@@ -18925,7 +18925,7 @@ export interface IAppointmentDto {
     department: string | undefined;
     tower: string | undefined;
     level: string | undefined;
-    appDateTime: DateTime;
+    appDateTime: string | undefined;
     faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
     status: StatusType;

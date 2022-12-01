@@ -45,6 +45,7 @@ using Visitor.Authorization.Users;
 using Visitor.Appointment.Dto;
 using Abp.Extensions;
 using Abp.Collections.Extensions;
+using System.Globalization;
 
 namespace Visitor.Appointment
 {
@@ -103,6 +104,7 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
+  
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
@@ -153,7 +155,7 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title
@@ -224,7 +226,7 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title
@@ -277,6 +279,7 @@ namespace Visitor.Appointment
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            IFormatProvider culture = new System.Globalization.CultureInfo("fr-FR", true);
 
             foreach (var o in dbList)
             {
@@ -295,7 +298,7 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title
@@ -355,6 +358,7 @@ namespace Visitor.Appointment
                 {
                     Appointment = new AppointmentDto
                     {
+                        
                         Id = o.Id,
                         FullName = o.FullName,
                         Email = o.Email,
@@ -366,7 +370,7 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title

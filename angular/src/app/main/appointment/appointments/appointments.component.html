@@ -164,9 +164,9 @@
                                             {{ l('Level') }}
                                             <p-sortIcon field="appointment.level"></p-sortIcon>
                                         </th>
-                                        <th style="width: 150px" pSortableColumn="AppDateTime">
+                                        <th style="width: 250px" pSortableColumn="AppDateTime">
                                             {{ l('AppDateTime') }}
-                                            <p-sortIcon field="appointment.appDateTime"></p-sortIcon>
+                                            <p-sortIcon field="appointment.appDateTime" ate-date-format="DD MMMM YYYY"></p-sortIcon>
                                         </th>
                                         <th style="width: 150px" pSortableColumn="RegDateTime">
                                             {{ l('RegDateTime') }}
@@ -273,7 +273,7 @@
                                             <span class="p-column-title">{{ l('Level') }}</span>
                                             {{ record.appointment.level }}
                                         </td>                   
-                                        <td style="width: 150px">
+                                        <td style="width: 250px">
                                             <span class="p-column-title">{{ l('AppDateTime') }}</span>
                                             {{ record.appointment.appDateTime }}
                                         </td>                

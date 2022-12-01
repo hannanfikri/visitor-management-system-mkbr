@@ -11,6 +11,10 @@ namespace Visitor.Appointment
     public interface IAppointmentsAppService : IApplicationService
     {
         Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input);
+        Task<PagedResultDto<GetAppointmentForViewDto>> GetAllToday(GetAllAppointmentsInput input);
+        Task<PagedResultDto<GetAppointmentForViewDto>> GetAllTomorrow(GetAllAppointmentsInput input);
+        Task<PagedResultDto<GetAppointmentForViewDto>> GetAllYesterday(GetAllAppointmentsInput input);
+
         Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id);
 
         Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input);

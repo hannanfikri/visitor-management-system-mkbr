@@ -32,7 +32,10 @@ export class AppNavigationService {
                 [],
                 [
                     
-                    new AppMenuItem('Appointments', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment/appointments'),
+                    new AppMenuItem('All Appointments', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment/appointments'),
+                    new AppMenuItem('Appointments Today', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment_Today'),
+                    new AppMenuItem('Appointments Tomorrow', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment_Tomorrow'),
+                    new AppMenuItem('Appointments Yesterday', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment_Yesterday'),
                 ]
             ),
             new AppMenuItem(

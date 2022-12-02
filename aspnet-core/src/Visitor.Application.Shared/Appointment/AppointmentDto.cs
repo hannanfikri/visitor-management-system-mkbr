@@ -23,7 +23,7 @@ namespace Visitor.Appointment
         public string Level { get; set; }
         public string AppDateTime { get; set; }
         public byte[] FaceVerify { get; set; }
-        public IHasCreationTime RegDateTime { get; set; }
+        public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
     }
 }

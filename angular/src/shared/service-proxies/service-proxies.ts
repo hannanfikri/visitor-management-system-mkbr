@@ -18829,7 +18829,7 @@ export class AppointmentDto implements IAppointmentDto {
     level!: string | undefined;
     appDateTime!: string | undefined;
     faceVerify!: string | undefined;
-    regDateTime!: IHasCreationTime;
+    regDateTime!: string | undefined;
     status!: StatusType;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -18864,7 +18864,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"];
             this.faceVerify = _data["faceVerify"];
-            this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
+            this.regDateTime = _data["regDateTime"];
             this.status = _data["status"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
@@ -18899,7 +18899,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime;
         data["faceVerify"] = this.faceVerify;
-        data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
+        data["regDateTime"] = this.regDateTime;
         data["status"] = this.status;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
@@ -18927,7 +18927,7 @@ export interface IAppointmentDto {
     level: string | undefined;
     appDateTime: string | undefined;
     faceVerify: string | undefined;
-    regDateTime: IHasCreationTime;
+    regDateTime: string | undefined;
     status: StatusType;
     isDeleted: boolean;
     deleterUserId: number | undefined;

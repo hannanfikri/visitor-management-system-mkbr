@@ -156,7 +156,7 @@ namespace Visitor.Appointment
                         Tower = o.Tower,
                         Level = o.Level,
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CreationTime = o.CreationTime,
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -227,7 +227,7 @@ namespace Visitor.Appointment
                         Tower = o.Tower,
                         Level = o.Level,
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CreationTime = o.CreationTime,
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -299,7 +299,7 @@ namespace Visitor.Appointment
                         Tower = o.Tower,
                         Level = o.Level,
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CreationTime = o.CreationTime,
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -371,7 +371,7 @@ namespace Visitor.Appointment
                         Tower = o.Tower,
                         Level = o.Level,
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CreationTime = o.CreationTime,
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }

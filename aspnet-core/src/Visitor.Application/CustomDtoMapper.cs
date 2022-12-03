@@ -25,6 +25,7 @@ using Visitor.Authorization.Users.Delegation.Dto;
 using Visitor.Authorization.Users.Dto;
 using Visitor.Authorization.Users.Importing.Dto;
 using Visitor.Authorization.Users.Profile.Dto;
+using Visitor.Blacklist.Dtos;
 using Visitor.Chat;
 using Visitor.Chat.Dto;
 using Visitor.DynamicEntityProperties.Dto;
@@ -43,6 +44,13 @@ using Visitor.Notifications.Dto;
 using Visitor.Organizations.Dto;
 using Visitor.Sessions.Dto;
 using Visitor.WebHooks.Dto;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Visitor.Appointment;
+using Visitor.Tower.Dtos;
+using Visitor.PurposeOfVisit.Dtos;
+using Visitor.Title.Dtos;
+using Visitor.Level.Dtos;
+using Visitor.Departments.Dtos;
 
 namespace Visitor
 {
@@ -50,8 +58,31 @@ namespace Visitor
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            //Apointment
+            configuration.CreateMap<CreateOrEditAppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
+            configuration.CreateMap<AppointmentDto, Appointment.AppointmentEnt>().ReverseMap();
+            //Tower
+            configuration.CreateMap<CreateOrEditTowerDto, Tower.TowerEnt>().ReverseMap();
+            configuration.CreateMap<TowerDto, Tower.TowerEnt>().ReverseMap();
+            //PurposeOfVisit
+            configuration.CreateMap<CreateOrEditPurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
+            configuration.CreateMap<PurposeOfVisitDto, PurposeOfVisit.PurposeOfVisitEnt>().ReverseMap();
+            //Title
+            configuration.CreateMap<CreateOrEditTitleDto, Title.TitleEnt>().ReverseMap();
+            configuration.CreateMap<TitleDto, Title.TitleEnt>().ReverseMap();
+            //Level
+            configuration.CreateMap<CreateOrEditLevelDto, Level.LevelEnt>().ReverseMap();
+            configuration.CreateMap<LevelDto, Level.LevelEnt>().ReverseMap();
+            //Blacklist
+            configuration.CreateMap<CreateOrEditBlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
+            configuration.CreateMap<BlacklistDto, Blacklist.BlacklistEnt>().ReverseMap();
+            //Company
             configuration.CreateMap<CreateOrEditCompanyDto, Company.CompanyEnt>().ReverseMap();
             configuration.CreateMap<CompanyDto, Company.CompanyEnt>().ReverseMap();
+            //Department
+            configuration.CreateMap<CreateOrEditDepartmentDto, Departments.Department>().ReverseMap();
+            configuration.CreateMap<DepartmentDto, Departments.Department>().ReverseMap();
+
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();

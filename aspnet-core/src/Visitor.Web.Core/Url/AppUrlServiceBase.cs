@@ -5,7 +5,7 @@ using Visitor.Url;
 
 namespace Visitor.Web.Url
 {
-    public abstract class AppUrlServiceBase : IAppUrlService, ITransientDependency
+    public abstract class AppUrlServiceBase : ITransientDependency //IAppUrlService
     {
         public abstract string EmailActivationRoute { get; }
 

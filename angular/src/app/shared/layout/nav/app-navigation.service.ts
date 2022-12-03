@@ -20,11 +20,42 @@ export class AppNavigationService {
                 'flaticon-line-graph',
                 '/app/admin/hostDashboard'
             ),
+            
             new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
-           
-            new AppMenuItem('Companies', 'Pages.Companies', 'flaticon-more', '/app/main/company/companies'),
              new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+            new AppMenuItem(
+                'Visitor Appointments',
+                '',
+                'flaticon-interface-8',
+                '',
+                [],
+                [
+                    
+                    new AppMenuItem('All Appointments', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment/appointments'),
+                    new AppMenuItem('Appointments Today', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment_Today'),
+                    new AppMenuItem('Appointments Tomorrow', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment_Tomorrow'),
+                    new AppMenuItem('Appointments Yesterday', 'Pages.Appointments', 'flaticon-list-3', '/app/main/appointment_Yesterday'),
+                ]
+            ),
+            new AppMenuItem(
+                'Visitor Maintainance',
+                '',
+                'flaticon-interface-8',
+                '',
+                [],
+                [
+                    
+                    new AppMenuItem('Towers', 'Pages.Towers', 'flaticon-list-3', '/app/main/tower/towers'),
+                    new AppMenuItem('PurposeOfVisits', 'Pages.PurposeOfVisits', 'flaticon-list-3', '/app/main/purposeOfVisit/purposeOfVisits'),
+                    //new AppMenuItem('Status', 'Pages.Statuses', 'flaticon-list-3', '/app/main/status/statuses'),
+                    new AppMenuItem('Title', 'Pages.Titles', 'flaticon-list-3', '/app/main/title/titles'),
+                    new AppMenuItem('Level', 'Pages.Levels', 'flaticon-list-3', '/app/main/level/levels'),
+                    new AppMenuItem('Companies', 'Pages.Companies', 'flaticon-more', '/app/main/company/companies'),                    
+                    new AppMenuItem('Departments', 'Pages.Departments', 'flaticon-list-3', '/app/main/department/departments'),
+                ]
+            ),
+            new AppMenuItem('Blacklists', 'Pages.Blacklists', 'flaticon-more', '/app/main/blacklist/blacklists'),
             new AppMenuItem(
                 'Administration',
                 '',

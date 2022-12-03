@@ -1,25 +1,112 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Company">Company</text>
+  <texts>
+
+    <text name="Company">Company</text>
     <text name="Visitor.Company.Company">Company</text>
     <text name="CompanyName">Company name</text>
-	<text name="CompanyEmail">Company's Email</text>
-	<text name="OfficePhoneNumber">Company's Office Phone Number</text>
-	<text name="CompanyAddress">Company's Address</text>
+    <text name="CompanyEmail">Company's Email</text>
+    <text name="OfficePhoneNumber">Company's Office Phone Number</text>
+    <text name="CompanyAddress">Company's Address</text>
     <text name="CompaniesHeaderInfo">Companies header info</text>
     <text name="CreateNewCompany">Create new company</text>
     <text name="EditCompany">Edit company</text>
     <text name="DeleteCompany">Delete company</text>
     <text name="Companies">Companies</text>
-    <text name="{0}IsRequired">{0} is required.</text>
-    <text name="View">View</text>
-    <text name="Details">Details</text>
-    <text name="Pick">Pick</text>
-    <text name="True">True</text>
-    <text name="False">False</text>
-    <text name="MinValue">Min</text>
-    <text name="MaxValue">Max</text>
+    
+    <text name="Tower">Tower</text>
+    <text name="Visitor.Tower.Tower">Tower</text>
+    <text name="TowerBankRakyat">Tower</text>
+    <text name="TowersHeaderInfo">Towers header info</text>
+    <text name="CreateNewTower">Create new tower</text>
+    <text name="EditTower">Edit tower</text>
+    <text name="DeleteTower">Delete tower</text>
+    <text name="Towers">Towers</text>
+    
+    <text name="PurposeOfVisit">Purpose of visit</text>
+    <text name="Visitor.PurposeOfVisit.PurposeOfVisit">Purpose of visit</text>
+    <text name="PurposeOfVisitApp">Purpose of visit</text>
+    <text name="PurposeOfVisitsHeaderInfo">Purpose of visit header info</text>
+    <text name="CreateNewPurposeOfVisit">Create new purpose of visit</text>
+    <text name="CreateNewpurposeOfVisit">Create new purpose of visit</text>
+    <text name="EditPurposeOfVisit">Edit purpose of visit</text>
+    <text name="EditpurposeOfVisit">Edit purpose of visit</text>
+    <text name="DeletePurposeOfVisit">Delete purpose of visit</text>
+    <text name="purposeOfVisit">Purpose of visit</text>
+    <text name="PurposeOfVisits">Purpose of visits</text>
+    
+    <text name="Visitor.Status.Status">Status appointment</text>
+    <text name="StatusApp">Status appointment</text>
+    <text name="StatusesHeaderInfo">Status header info</text>
+    <text name="CreateNewStatus">Create new status</text>
+    <text name="EditStatus">Edit status</text>
+    <text name="Deletestatus">Delete status</text>
+    <text name="Statuses">Status</text>
 
+    <text name="Title">Visitor Title</text>
+    <text name="Visitor.Title.Title">Visitor Title</text>
+    <text name="TitleApp">Visitor Title</text>
+    <text name="TitlesHeaderInfo">Title header info</text>
+    <text name="CreateNewTitle">Create new title</text>
+    <text name="EditTitle">Edit title</text>
+    <text name="Deletetitle">Delete title</text>
+    <text name="Titles">Title</text>
+
+    <text name="Blacklist">Blacklist</text>
+    <text name="Visitor.Blacklist.Blacklist">Blacklist</text>
+    <text name="BlacklistFullName">Blacklist full name</text>
+    <text name="BlacklistIdentityCard">Blacklist identity card</text>
+    <text name="BlacklistPhoneNumber">Blacklist phone number</text>
+    <text name="BlacklistRemarks">Blacklist remarks</text>
+    <text name="BlacklistsHeaderInfo">Blacklists header info</text>
+    <text name="CreateNewBlacklist">Create new blacklist</text>
+    <text name="EditBlacklist">Edit blacklist</text>
+    <text name="DeleteBlacklist">Delete blacklist</text>
+    <text name="Blacklists">Blacklists</text>
+
+    <text name="Level">Level</text>
+    <text name="Visitor.Level.Level">Level</text>
+    <text name="LevelApp">Level</text>
+    <text name="LevelsHeaderInfo">Level header info</text>
+    <text name="CreateNewLevel">Create new level</text>
+    <text name="EditLevel">Edit level</text>
+    <text name="Deletelevel">Delete level</text>
+    <text name="Levels">Levels</text>
+    
+    <text name="Appointment">Appointment</text>
+    <text name="Visitor.Appointment.Appointment">Appointment</text>
+    <text name="AppointmentsHeaderInfo">Appointment header info</text>
+    <text name="CreateNewAppointment">Create new appointment</text>
+    <text name="EditAppointment">Edit appointment</text>
+    <text name="DeleteAppointment">Delete appointment</text>
+    <text name="Appointments">Appointments</text>
+    <text name="IdentityCard">Visitor's identity card</text>
+    <text name="PhoneNo">Visitor's phone number</text>
+    <text name="OfficerToMeet">Officer to meet</text>
+    <text name="AppDateTime">Appointment's date and time</text>
+    <text name="RegDateTime">Register's date and time</text>
+    <text name="FaceVerify">Visitor's face</text>
+
+	  <text name="Department">Department</text>
+	  <text name="Visitor.Department.Department">Department</text>
+	  <text name="DepartmentName">Department name</text>
+	  <text name="DepartmentsHeaderInfo">Departments header info</text>
+	  <text name="CreateNewDepartment">Create new department</text>
+	  <text name="EditDepartment">Edit department</text>
+	  <text name="DeleteDepartment">Delete department</text>
+	  <text name="Departments">Departments</text>
+	  <text name="{0}IsRequired">{0} is required.</text>
+	  <text name="View">View</text>
+	  <text name="Details">Details</text>
+	  <text name="Pick">Pick</text>
+	  <text name="True">True</text>
+	  <text name="False">False</text>
+	  <text name="MinValue">Min</text>
+	  <text name="MaxValue">Max</text>
+	  <text name="Enum:StatusType:0">Registered</text>
+	  <text name="Enum:StatusType:1">In</text>
+	  <text name="Enum:StatusType:2">Out</text>
+	  <text name="Enum:StatusType:3">Overstayed</text>
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

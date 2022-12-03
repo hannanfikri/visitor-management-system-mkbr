@@ -1425,6 +1425,83 @@ namespace Visitor.Migrations
                     b.ToTable("AbpWebhookSubscriptions", (string)null);
                 });
 
+            modelBuilder.Entity("Visitor.Appointment.AppointmentEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AppDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FaceVerify")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentityCard")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficerToMeet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurposeOfVisit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tower")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments", (string)null);
+                });
+
             modelBuilder.Entity("Visitor.Authorization.Delegation.UserDelegation", b =>
                 {
                     b.Property<long>("Id")
@@ -1719,6 +1796,29 @@ namespace Visitor.Migrations
                     b.ToTable("AbpUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Visitor.Blacklist.BlacklistEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BlacklistFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlacklistIdentityCard")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlacklistPhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlacklistRemarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Blacklist");
+                });
+
             modelBuilder.Entity("Visitor.Chat.ChatMessage", b =>
                 {
                     b.Property<long>("Id")
@@ -1796,6 +1896,20 @@ namespace Visitor.Migrations
                     b.ToTable("companies", (string)null);
                 });
 
+            modelBuilder.Entity("Visitor.Departments.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments", (string)null);
+                });
+
             modelBuilder.Entity("Visitor.Friendships.Friendship", b =>
                 {
                     b.Property<long>("Id")
@@ -1844,6 +1958,20 @@ namespace Visitor.Migrations
                     b.HasIndex("TenantId", "UserId");
 
                     b.ToTable("AppFriendships", (string)null);
+                });
+
+            modelBuilder.Entity("Visitor.Level.LevelEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LevelBankRakyat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LevelAppointments");
                 });
 
             modelBuilder.Entity("Visitor.MultiTenancy.Accounting.Invoice", b =>
@@ -2072,6 +2200,20 @@ namespace Visitor.Migrations
                     b.ToTable("AbpTenants", (string)null);
                 });
 
+            modelBuilder.Entity("Visitor.PurposeOfVisit.PurposeOfVisitEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PurposeOfVisitApp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurposeOfVisitAppointments");
+                });
+
             modelBuilder.Entity("Visitor.Storage.BinaryObject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2094,6 +2236,34 @@ namespace Visitor.Migrations
                     b.HasIndex("TenantId");
 
                     b.ToTable("AppBinaryObjects", (string)null);
+                });
+
+            modelBuilder.Entity("Visitor.Title.TitleEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("VisitorTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisitorTitles");
+                });
+
+            modelBuilder.Entity("Visitor.Tower.TowerEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TowerBankRakyat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Towers");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>

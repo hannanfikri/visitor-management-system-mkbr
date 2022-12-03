@@ -1,0 +1,220 @@
+﻿<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Blacklists' | localize" [description]="'BlacklistsHeaderInfo' | localize">
+            <div role="actions">
+                <button
+                    *ngIf="isGranted('Pages.Blacklists.Create')"
+                    (click)="createBlacklist()"
+                    class="btn btn-primary blue"
+                >
+                    <i class="fa fa-plus"></i>
+                    {{ l('CreateNewBlacklist') }}
+                </button>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form class="form" autocomplete="off">
+                        <div>
+                            <div class="row align-items-center">
+                                <div class="col-xl-12">
+                                    <div class="my-3">
+                                        <div class="input-group mb-3">
+                                            <input
+                                                [(ngModel)]="filterText"
+                                                name="filterText"
+                                                autoFocus
+                                                type="text"
+                                                class="form-control"
+                                                [placeholder]="l('SearchWithThreeDot')"
+                                            />
+                                            <button class="btn btn-primary" type="submit" (click)="getBlacklists()">
+                                                <i class="flaticon-search-1"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" [hidden]="!advancedFiltersAreShown">
+                                <div class="col-md-12"></div>
+
+                                <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="fullNameFilter">{{ l('fullNameFilter') }}</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="fullNameFilter"
+                                            name="blacklist.fullNameFilter"
+                                            [(ngModel)]="fullNameFilter"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-sm-12">
+                                    <span
+                                        class="clickable-item text-muted"
+                                        *ngIf="!advancedFiltersAreShown"
+                                        (click)="advancedFiltersAreShown = !advancedFiltersAreShown"
+                                    >
+                                        <i class="fa fa-angle-down"></i>
+                                        {{ l('ShowAdvancedFilters') }}
+                                    </span>
+                                    <span
+                                        class="clickable-item text-muted"
+                                        *ngIf="advancedFiltersAreShown"
+                                        (click)="advancedFiltersAreShown = !advancedFiltersAreShown"
+                                    >
+                                        <i class="fa fa-angle-up"></i>
+                                        {{ l('HideAdvancedFilters') }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container col-12" [busyIf]="primengTableHelper.isLoading">
+                            <p-table
+                                #dataTable
+                                (onLazyLoad)="getBlacklists($event)"
+                                [value]="primengTableHelper.records"
+                                rows="{{ primengTableHelper.defaultRecordsCountPerPage }}"
+                                [paginator]="false"
+                                [lazy]="true"
+                                [scrollable]="true"
+                                ScrollWidth="100%"
+                                [responsive]="primengTableHelper.isResponsive"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            style="width: 130px"
+                                            [hidden]="!isGrantedAny('Pages.Blacklists.Edit', 'Pages.Blacklists.Delete')"
+                                        >
+                                            {{ l('Actions') }}
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="blacklistFullName">
+                                            {{ l('FullName') }}
+                                            <p-sortIcon field="blacklist.blacklistFullName"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="blacklistIdentityCard">
+                                            {{ l('Identity Card') }}
+                                            <p-sortIcon field="blacklist.blacklistIdentityCard"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="blacklistPhoneNumber">
+                                            {{ l('Phoene Number') }}
+                                            <p-sortIcon field="blacklist.blacklistPhoneNumber"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="remarks">
+                                            {{ l('Remarks') }}
+                                            <p-sortIcon field="blacklist.blacklistRemarks"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
+                                    <tr>
+                                        <td
+                                            style="width: 130px"
+                                            [hidden]="!isGrantedAny('Pages.Blacklists.Edit', 'Pages.Blacklists.Delete')"
+                                        >
+                                            <div class="btn-group dropdown" dropdown container="body">
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span>
+                                                    {{ l('Actions') }}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li>
+                                                        <a
+                                                            href="javascript:;"
+                                                            class="dropdown-item"
+                                                            (click)="viewBlacklistModal.show(record)"
+                                                        >
+                                                            {{ l('View') }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            href="javascript:;"
+                                                            *ngIf="permission.isGranted('Pages.Blacklists.Edit')"
+                                                            class="dropdown-item"
+                                                            (click)="createOrEditBlacklistModal.show(record.blacklist.id)"
+                                                        >
+                                                            {{ l('Edit') }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="dropdown-item"
+                                                            href="javascript:;"
+                                                            *ngIf="permission.isGranted('Pages.Blacklists.Delete')"
+                                                            (click)="deleteBlacklist(record.blacklist)"
+                                                        >
+                                                            {{ l('Delete') }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            href="javascript:;"
+                                                            *ngIf="entityHistoryEnabled"
+                                                            class="dropdown-item"
+                                                            (click)="showHistory(record.blacklist)"
+                                                        >
+                                                            {{ l('History') }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('FullName') }}</span>
+                                            {{record.blacklist.blacklistFullName }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Identity Card') }}</span>
+                                            {{ record.blacklist.blacklistIdentityCard }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Phone Number') }}</span>
+                                            {{ record.blacklist.blacklistPhoneNumber }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('Remarks') }}</span>
+                                            {{ record.blacklist.blacklistRemarks}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                                {{ l('NoData') }}
+                            </div>
+                            <div class="primeng-paging-container">
+                                <p-paginator
+                                    [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                    #paginator
+                                    (onPageChange)="getBlacklists($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                                    [showCurrentPageReport]="true"
+                                    [currentPageReportTemplate]="
+                                        'TotalRecordsCount' | localize: primengTableHelper.totalRecordsCount
+                                    "
+                                ></p-paginator>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <createOrEditBlacklistModal #createOrEditBlacklistModal (modalSave)="getBlacklists()"></createOrEditBlacklistModal>
+        <viewBlacklistModal #viewBlacklistModal></viewBlacklistModal>
+        <entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>
+    </div>
+</div>

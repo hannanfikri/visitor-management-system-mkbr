@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Visitor.Authorization.Delegation;
 using Visitor.Authorization.Roles;
 using Visitor.Authorization.Users;
+using Visitor.Blacklist;
 using Visitor.Chat;
 using Visitor.Editions;
 using Visitor.Friendships;
@@ -13,6 +14,7 @@ using Visitor.MultiTenancy.Accounting;
 using Visitor.MultiTenancy.Payments;
 using Visitor.Storage;
 
+
 namespace Visitor.EntityFrameworkCore
 {
     public class VisitorDbContext : AbpZeroDbContext<Tenant, Role, User, VisitorDbContext>, IAbpPersistedGrantDbContext
@@ -20,6 +22,13 @@ namespace Visitor.EntityFrameworkCore
         public virtual DbSet<Company.CompanyEnt> Companies { get; set; }
 
         /* Define an IDbSet for each entity of the application */
+
+        public virtual DbSet<Appointment.AppointmentEnt> Appointments { get; set; }
+        public virtual DbSet<Title.TitleEnt> VisitorTitles { get; set; }
+        public virtual DbSet<Tower.TowerEnt> Towers { get; set; }
+        public virtual DbSet<PurposeOfVisit.PurposeOfVisitEnt> PurposeOfVisitAppointments { get; set; }
+        public virtual DbSet<Level.LevelEnt> LevelAppointments { get; set; }
+        public virtual DbSet<Departments.Department> Departments { get; set; }
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 
@@ -40,6 +49,7 @@ namespace Visitor.EntityFrameworkCore
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
 
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
+        public virtual DbSet<BlacklistEnt> Blacklist { get; set; }
 
         public VisitorDbContext(DbContextOptions<VisitorDbContext> options)
             : base(options)

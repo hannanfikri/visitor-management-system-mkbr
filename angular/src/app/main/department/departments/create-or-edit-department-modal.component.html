@@ -1,0 +1,37 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #departmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="department.id">{{ l('EditDepartment') }}</span>
+                        <span *ngIf="!department.id">{{ l('CreateNewDepartment') }}</span>
+                    </h4>
+
+                    <button type="button" class="btn-close" (click)="close()" aria-label="Close"
+                        [disabled]="saving"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Department_DepartmentName">{{ l('DepartmentName') }} *</label>
+                        <input type="text" #Department_DepartmentName="ngModel" id="Department_DepartmentName"
+                            class="form-control" [(ngModel)]="department.departmentName" name="DepartmentName"
+                            required />
+                        <validation-messages [formCtrl]="Department_DepartmentName"></validation-messages>
+                    </div>
+                    <div class="modal-footer">
+                        <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                            {{ l('Cancel') }}
+                        </button>
+                        <button type="submit" class="btn btn-primary blue" [disabled]="!departmentForm.form.valid"
+                            [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                            <i class="fa fa-save"></i>
+                            <span>{{ l('Save') }}</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

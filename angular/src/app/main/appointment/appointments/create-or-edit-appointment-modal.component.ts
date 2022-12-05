@@ -99,7 +99,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.getCompanyArray();
                 this.getDepartmentArray();
                 this.getStatusEnum();
-                this.GetEmptyArray();
 
                 this.active = true;
                 this.modal.show();

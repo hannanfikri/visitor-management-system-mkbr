@@ -22,7 +22,5 @@ namespace Visitor.Appointment
 
         Task Delete (EntityDto<Guid> input);
         List<GetDepartmentForViewDto> GetDepartmentName();
-
-        GetDateTime GetDateTime(DateTime date);
     }
 }

@@ -32,9 +32,6 @@ namespace Visitor.Appointment
         public string Level { get; set; }
         public DateTime AppDateTime { get; set; }
         public byte[] FaceVerify { get; set; }
-
-        [NotMapped]
-        public IHasCreationTime RegDateTime { get; set; }
         public StatusType Status { get; set; }
         public string passNumber { get; set; }
 

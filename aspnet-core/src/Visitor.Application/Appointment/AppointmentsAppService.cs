@@ -44,7 +44,6 @@ using SixLabors.ImageSharp.Processing;
 using Visitor.Authorization.Users;
 using Abp.Extensions;
 using Abp.Collections.Extensions;
-using System.Globalization;
 
 namespace Visitor.Appointment
 {
@@ -68,7 +67,7 @@ namespace Visitor.Appointment
             IRepository<TitleEnt, Guid> titleRepository,
             IRepository<TowerEnt, Guid> towerRepository,
             IRepository<LevelEnt, Guid> levelRepository,
-            IRepository<CompanyEnt,Guid> companyRepository,
+            IRepository<CompanyEnt, Guid> companyRepository,
             IRepository<Department, Guid> departmentRepository,
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
@@ -87,7 +86,7 @@ namespace Visitor.Appointment
             _profileImageServiceFactory = profileImageServiceFactory;
 
         }
-        protected DateTime GetToday() 
+        protected DateTime GetToday()
         {
             return DateTime.Now.Date;
             /*DateOnly testTimeOnly = DateOnly.FromDateTime(now);
@@ -103,7 +102,6 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
-  
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter);
@@ -278,7 +276,6 @@ namespace Visitor.Appointment
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
-            IFormatProvider culture = new System.Globalization.CultureInfo("fr-FR", true);
 
             foreach (var o in dbList)
             {
@@ -357,7 +354,6 @@ namespace Visitor.Appointment
                 {
                     Appointment = new AppointmentDto
                     {
-                        
                         Id = o.Id,
                         FullName = o.FullName,
                         Email = o.Email,
@@ -444,11 +440,11 @@ namespace Visitor.Appointment
         {
             var query = _purposeOfVisitRepository.GetAll();
             var queryPOV = from a in query
-                                   select new
-                                   {
-                                       Id = a.Id,
+                           select new
+                           {
+                               Id = a.Id,
                                a.PurposeOfVisitApp
-                                   };
+                           };
             var dblist = queryPOV.ToList();
             var results = new List<GetPurposeOfVisitForViewDto>();
             foreach (var db in dblist)
@@ -483,7 +479,7 @@ namespace Visitor.Appointment
                 var res = new GetTitleForViewDto()
                 {
                     Title = new TitleDto
-        {
+                    {
                         Id = db.Id,
                         VisitorTitle = db.VisitorTitle,
                     }
@@ -533,7 +529,7 @@ namespace Visitor.Appointment
             foreach (var db in dblist)
             {
                 var res = new GetLevelForViewDto()
-               {
+                {
                     Level = new LevelDto
                     {
                         Id = db.Id,
@@ -580,11 +576,11 @@ namespace Visitor.Appointment
         {
             var query = _departmentRepository.GetAll();
             var qDepartment = from a in query
-                         select new
-                         {
-                             Id = a.Id,
-                             a.DepartmentName                            
-                         };
+                              select new
+                              {
+                                  Id = a.Id,
+                                  a.DepartmentName
+                              };
             var dblist = qDepartment.ToList();
             var results = new List<GetDepartmentForViewDto>();
             foreach (var db in dblist)
@@ -600,14 +596,6 @@ namespace Visitor.Appointment
                 results.Add(res);
             }
             return new List<GetDepartmentForViewDto>(results);
-        }
-
-        public GetDateTime GetDateTime(DateTime date)
-        {
-            return new GetDateTime
-            {
-                Date = date,
-            };
         }
     }
     

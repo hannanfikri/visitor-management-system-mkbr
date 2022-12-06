@@ -1561,165 +1561,6 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<GetDepartmentForViewDto[]>(<any>null);
     }
-
-    /**
-     * @param date (optional) 
-     * @return Success
-     */
-    getDateTime(date: DateTime | undefined): Observable<GetDateTime> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/GetDateTime?";
-        if (date === null)
-            throw new Error("The parameter 'date' cannot be null.");
-        else if (date !== undefined)
-            url_ += "date=" + encodeURIComponent(date ? "" + date.toJSON() : "") + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetDateTime(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetDateTime(<any>response_);
-                } catch (e) {
-                    return <Observable<GetDateTime>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<GetDateTime>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetDateTime(response: HttpResponseBase): Observable<GetDateTime> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetDateTime.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<GetDateTime>(<any>null);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    updateProfilePicture(body: UpdateProfilePictureInputs | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/UpdateProfilePicture";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateProfilePicture(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateProfilePicture(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdateProfilePicture(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getProfilePicture(): Observable<GetProfilePictureOutputs> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/GetProfilePicture";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetProfilePicture(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetProfilePicture(<any>response_);
-                } catch (e) {
-                    return <Observable<GetProfilePictureOutputs>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<GetProfilePictureOutputs>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetProfilePicture(response: HttpResponseBase): Observable<GetProfilePictureOutputs> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetProfilePictureOutputs.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<GetProfilePictureOutputs>(<any>null);
-    }
 }
 
 @Injectable()
@@ -3507,45 +3348,40 @@ export class CompaniesServiceProxy {
     }
 
     /**
-     * @param filter (optional) 
-     * @param companyNameFilter (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    getCompaniesToExcel(filter: string | undefined, companyNameFilter: string | undefined): Observable<FileDto> {
-        let url_ = this.baseUrl + "/api/services/app/Companies/GetCompaniesToExcel?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (companyNameFilter === null)
-            throw new Error("The parameter 'companyNameFilter' cannot be null.");
-        else if (companyNameFilter !== undefined)
-            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+    isExisted(body: GetAllCompaniesInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/Companies/IsExisted";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetCompaniesToExcel(response_);
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processIsExisted(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetCompaniesToExcel(<any>response_);
+                    return this.processIsExisted(<any>response_);
                 } catch (e) {
-                    return <Observable<FileDto>><any>_observableThrow(e);
+                    return <Observable<boolean>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FileDto>><any>_observableThrow(response_);
+                return <Observable<boolean>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetCompaniesToExcel(response: HttpResponseBase): Observable<FileDto> {
+    protected processIsExisted(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3556,7 +3392,7 @@ export class CompaniesServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FileDto.fromJS(resultData200);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -3564,7 +3400,7 @@ export class CompaniesServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FileDto>(<any>null);
+        return _observableOf<boolean>(<any>null);
     }
 }
 
@@ -23164,6 +23000,58 @@ export interface IGetAllBlacklistsInput {
     skipCount: number;
 }
 
+export class GetAllCompaniesInput implements IGetAllCompaniesInput {
+    filter!: string | undefined;
+    companyNameFilter!: string | undefined;
+    sorting!: string | undefined;
+    skipCount!: number;
+    maxResultCount!: number;
+
+    constructor(data?: IGetAllCompaniesInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.filter = _data["filter"];
+            this.companyNameFilter = _data["companyNameFilter"];
+            this.sorting = _data["sorting"];
+            this.skipCount = _data["skipCount"];
+            this.maxResultCount = _data["maxResultCount"];
+        }
+    }
+
+    static fromJS(data: any): GetAllCompaniesInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetAllCompaniesInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filter"] = this.filter;
+        data["companyNameFilter"] = this.companyNameFilter;
+        data["sorting"] = this.sorting;
+        data["skipCount"] = this.skipCount;
+        data["maxResultCount"] = this.maxResultCount;
+        return data; 
+    }
+}
+
+export interface IGetAllCompaniesInput {
+    filter: string | undefined;
+    companyNameFilter: string | undefined;
+    sorting: string | undefined;
+    skipCount: number;
+    maxResultCount: number;
+}
+
 export class GetAllDynamicEntityPropertyValuesOutput implements IGetAllDynamicEntityPropertyValuesOutput {
     items!: GetAllDynamicEntityPropertyValuesOutputItem[] | undefined;
 
@@ -23914,42 +23802,6 @@ export interface IGetDashboardDataOutput {
     bouncePercent: number;
     dailySales: number[] | undefined;
     profitShares: number[] | undefined;
-}
-
-export class GetDateTime implements IGetDateTime {
-    date!: DateTime;
-
-    constructor(data?: IGetDateTime) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.date = _data["date"] ? DateTime.fromISO(_data["date"].toString()) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetDateTime {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetDateTime();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["date"] = this.date ? this.date.toString() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface IGetDateTime {
-    date: DateTime;
 }
 
 export class GetDefaultEditionNameOutput implements IGetDefaultEditionNameOutput {
@@ -24805,42 +24657,6 @@ export class GetProfilePictureOutput implements IGetProfilePictureOutput {
 }
 
 export interface IGetProfilePictureOutput {
-    profilePicture: string | undefined;
-}
-
-export class GetProfilePictureOutputs implements IGetProfilePictureOutputs {
-    profilePicture!: string | undefined;
-
-    constructor(data?: IGetProfilePictureOutputs) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.profilePicture = _data["profilePicture"];
-        }
-    }
-
-    static fromJS(data: any): GetProfilePictureOutputs {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetProfilePictureOutputs();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["profilePicture"] = this.profilePicture;
-        return data; 
-    }
-}
-
-export interface IGetProfilePictureOutputs {
     profilePicture: string | undefined;
 }
 
@@ -33536,66 +33352,6 @@ export class UpdateProfilePictureInput implements IUpdateProfilePictureInput {
 }
 
 export interface IUpdateProfilePictureInput {
-    fileToken: string | undefined;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    useGravatarProfilePicture: boolean;
-    userId: number | undefined;
-}
-
-export class UpdateProfilePictureInputs implements IUpdateProfilePictureInputs {
-    fileToken!: string | undefined;
-    x!: number;
-    y!: number;
-    width!: number;
-    height!: number;
-    useGravatarProfilePicture!: boolean;
-    userId!: number | undefined;
-
-    constructor(data?: IUpdateProfilePictureInputs) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.fileToken = _data["fileToken"];
-            this.x = _data["x"];
-            this.y = _data["y"];
-            this.width = _data["width"];
-            this.height = _data["height"];
-            this.useGravatarProfilePicture = _data["useGravatarProfilePicture"];
-            this.userId = _data["userId"];
-        }
-    }
-
-    static fromJS(data: any): UpdateProfilePictureInputs {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdateProfilePictureInputs();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fileToken"] = this.fileToken;
-        data["x"] = this.x;
-        data["y"] = this.y;
-        data["width"] = this.width;
-        data["height"] = this.height;
-        data["useGravatarProfilePicture"] = this.useGravatarProfilePicture;
-        data["userId"] = this.userId;
-        return data; 
-    }
-}
-
-export interface IUpdateProfilePictureInputs {
     fileToken: string | undefined;
     x: number;
     y: number;

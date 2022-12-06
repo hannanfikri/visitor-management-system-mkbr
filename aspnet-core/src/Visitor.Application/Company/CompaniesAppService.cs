@@ -15,34 +15,34 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Visitor.Storage;
+using Microsoft.AspNetCore.Http;
 
 namespace Visitor.Company
 {
-    [AbpAuthorize(AppPermissions.Pages_Companies)]
+    [AbpAuthorize(AppPermissions.Pages_Companies)] // Authorization
     public class CompaniesAppService : VisitorAppServiceBase, ICompaniesAppService
     {
-        private readonly IRepository<CompanyEnt, Guid> _companyRepository;
+        private readonly IRepository<CompanyEnt, Guid> _companyRepository; // Declaration
         private readonly ICompaniesExcelExporter _companiesExcelExporter;
 
-        public CompaniesAppService(IRepository<CompanyEnt, Guid> companyRepository, ICompaniesExcelExporter companiesExcelExporter)
+        public CompaniesAppService(IRepository<CompanyEnt, Guid> companyRepository, ICompaniesExcelExporter companiesExcelExporter) // Initialization
         {
             _companyRepository = companyRepository;
             _companiesExcelExporter = companiesExcelExporter;
-
         }
 
-        public async Task<PagedResultDto<GetCompanyForViewDto>> GetAll(GetAllCompaniesInput input)
+        public async Task<PagedResultDto<GetCompanyForViewDto>> GetAll(GetAllCompaniesInput input) // Filter and search list of companies
         {
 
             var filteredCompanies = _companyRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.CompanyName.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter); // Filter condition usign depricate or lambda expression
 
-            var pagedAndFilteredCompanies = filteredCompanies
+            var pagedAndFilteredCompanies = filteredCompanies // Query to orderby and pageby
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
-            var companies = from o in pagedAndFilteredCompanies
+            var companies = from o in pagedAndFilteredCompanies // Initialize value
                             select new
                             {
                                 Id = o.Id,
@@ -52,12 +52,12 @@ namespace Visitor.Company
                                 o.CompanyAddress
                             };
 
-            var totalCount = await filteredCompanies.CountAsync();
+            var totalCount = await filteredCompanies.CountAsync(); // To count
 
-            var dbList = await companies.ToListAsync();
+            var dbList = await companies.ToListAsync(); // Convert to list
             var results = new List<GetCompanyForViewDto>();
 
-            foreach (var o in dbList)
+            foreach (var o in dbList) // Loop list companies
             {
                 var res = new GetCompanyForViewDto()
                 {
@@ -101,7 +101,7 @@ namespace Visitor.Company
             return output;
         }
 
-        public async Task CreateOrEdit(CreateOrEditCompanyDto input)
+        public async Task CreateOrEdit(CreateOrEditCompanyDto input) // Service for checking id is null or not
         {
             if (input.Id == null)
             {
@@ -114,7 +114,7 @@ namespace Visitor.Company
         }
 
         [AbpAuthorize(AppPermissions.Pages_Companies_Create)]
-        protected virtual async Task Create(CreateOrEditCompanyDto input)
+        protected virtual async Task Create(CreateOrEditCompanyDto input) // Service for creating
         {
             var company = ObjectMapper.Map<CompanyEnt>(input);
 
@@ -123,7 +123,7 @@ namespace Visitor.Company
         }
 
         [AbpAuthorize(AppPermissions.Pages_Companies_Edit)]
-        protected virtual async Task Update(CreateOrEditCompanyDto input)
+        protected virtual async Task Update(CreateOrEditCompanyDto input) //Service for updating
         {
             var company = await _companyRepository.FirstOrDefaultAsync((Guid)input.Id);
             ObjectMapper.Map(input, company);
@@ -131,32 +131,36 @@ namespace Visitor.Company
         }
 
         [AbpAuthorize(AppPermissions.Pages_Companies_Delete)]
-        public async Task Delete(EntityDto<Guid> input)
+        public async Task Delete(EntityDto<Guid> input) // Service for deleting
         {
             await _companyRepository.DeleteAsync(input.Id);
         }
 
-        public async Task<FileDto> GetCompaniesToExcel(GetAllCompaniesForExcelInput input)
+        public bool IsExisted(GetAllCompaniesInput input)
         {
-
-            var filteredCompanies = _companyRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.CompanyName.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter);
-
-            var query = (from o in filteredCompanies
-                         select new GetCompanyForViewDto()
-                         {
-                             Company = new CompanyDto
-                             {
-                                 CompanyName = o.CompanyName,
-                                 Id = o.Id
-                             }
-                         });
-
-            var companyListDtos = await query.ToListAsync();
-
-            return _companiesExcelExporter.ExportToFile(companyListDtos);
+            var query = _companyRepository.GetAll().Where(c => input.CompanyNameFilter == c.OfficePhoneNumber);
+            if (query.Any())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
+        /*public async Task<GetCompanyForViewDto> GetCompanyExisted(GetAllCompaniesInput ph)
+        {
+            var company = await _companyRepository.GetAll().Any(p => p.);
 
+            var output = new GetCompanyForViewDto { Company = ObjectMapper.Map<CompanyDto>(company) };
+
+            return output;
+        }*/
+        /*public Task<PagedResultDto<GetCompanyForViewDto>> GetAllExisted(GetAllCompaniesInput input)
+        {
+            var filteredCompanies = _companyRepository.GetAll()
+                       .Where(c => c.OfficePhoneNumber == input.CompanyNameFilter);
+        }*/
     }
 }

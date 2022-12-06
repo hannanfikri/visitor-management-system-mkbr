@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
-import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, DepartmentDto, GetDepartmentForViewDto, StatusType, UpdateProfilePictureInputs } from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, DepartmentDto, GetDepartmentForViewDto, StatusType } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
 import { DatePipe } from '@angular/common'
@@ -9,10 +9,6 @@ import { DatePipe } from '@angular/common'
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { result } from 'lodash-es';
 import { key } from 'localforage';
-
-import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload';
-import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
-import { IAjaxResponse, TokenService } from 'abp-ng2-module';
 import { AppConsts } from '@shared/AppConsts';
 
 @Component({
@@ -29,6 +25,10 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     active = false;
     saving = false;
+
+    uploadUrl: string;
+    uploadedFiles: any[] = [];
+
     //statusenum : Array<any> = []
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
@@ -48,32 +48,20 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
 
-    //file upload
-    public uploader: FileUploader;
-    public temporaryPictureUrl: string;
-    public maxProfilPictureBytesUserFriendlyValue = 5;
-    public useGravatarProfilePicture = false;
-    imageChangedEvent: any = '';
-    userId: number = null;
-    private _uploaderOptions: FileUploaderOptions = {};
-
-
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
         //public datepipe: DatePipe
-        private _tokenService:TokenService
     ) {
         super(injector);
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
     }
 
-    
+
 
     show(appointmentId?: string): void {
-        this.initializeModal();
-     this.modal.show();
-         this.userId = this.userId;
+        this.modal.show();
         if (!appointmentId) {
             this.GetEmptyArray();
             this.getPOVArray();
@@ -107,7 +95,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     save(): void {
-        this.uploader.uploadAll();
         this.saving = true;
         this._appointmentsServiceProxy
             .createOrEdit(this.appointment)
@@ -124,11 +111,9 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     close(): void {
+        this.uploadedFiles = [];
         this.active = false;
         this.modal.hide();
-        this.imageChangedEvent = '';
-             this.uploader.clearQueue();
-             this.modal.hide();
     }
     setDate(): void {
         let date: Date = new Date();
@@ -201,157 +186,13 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         // }
     }
 
-    //test
-    submitDateTime(): void {
-        this._appointmentsServiceProxy.getDateTime(this.sampleDateTime).subscribe((data) => {
-            var dateString = this.getDateString(data.date);
-            this.message.info(dateString, this.l('PostedValue'));
-        });
-    }
-    getDateString(date: DateTime): string {
-        var dateString = this._dateTimeService.formatDate(date, this.dateFormat);
-        if (abp.clock.provider.supportsMultipleTimezone) {
-            dateString += '(' + abp.timing.timeZoneInfo.iana.timeZoneId + ')';
+    onUpload(event): void {
+        for (const file of event.files) {
+            this.uploadedFiles.push(file);
         }
-
-        return dateString;
-    }
-    //test for image upload
-    initializeModal(): void {
-        this.active = true;
-        this.temporaryPictureUrl = '';
-        this.useGravatarProfilePicture = this.setting.getBoolean('App.UserManagement.UseGravatarProfilePicture');
-        if (!this.canUseGravatar()) {
-            this.useGravatarProfilePicture = false;
-        }
-        this.initFileUploader();
     }
 
-    // show(userId?: number): void {
-    //     this.initializeModal();
-    //     this.modal.show();
-    //     this.userId = userId;
-    // }
-
-    // close(): void {
-    //     this.active = false;
-    //     this.imageChangedEvent = '';
-    //     this.uploader.clearQueue();
-    //     this.modal.hide();
-    // }
-
-    fileChangeEvent(event: any): void {
-        if (event.target.files[0].size > 5242880) {
-            //5MB
-            this.message.warn(this.l('ProfilePicture_Warn_SizeLimit', this.maxProfilPictureBytesUserFriendlyValue));
-            return;
-        }
-
-        this.uploadProfilePictureInputLabel.nativeElement.innerText = event.target.files[0].name;
-
-        this.imageChangedEvent = event;
-    }
-
-    imageCroppedFile(event: ImageCroppedEvent) {
-        this.uploader.clearQueue();
-        this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
-    }
-
-    initFileUploader(): void {
-        this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + '/Profile/UploadProfilePicture' });
-        this._uploaderOptions.autoUpload = false;
-        this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
-        this._uploaderOptions.removeAfterUpload = true;
-        this.uploader.onAfterAddingFile = (file) => {
-            file.withCredentials = false;
-        };
-
-        this.uploader.onBuildItemForm = (fileItem: FileItem, form: any) => {
-            form.append('FileType', fileItem.file.type);
-            form.append('FileName', 'ProfilePicture');
-            form.append('FileToken', this.guid());
-        };
-
-        this.uploader.onSuccessItem = (item, response, status) => {
-            const resp = <IAjaxResponse>JSON.parse(response);
-            if (resp.success) {
-                this.updateProfilePicture(resp.result.fileToken);
-            } else {
-                this.message.error(resp.error.message);
-            }
-        };
-
-        this.uploader.setOptions(this._uploaderOptions);
-    }
-
-    updateProfilePicture(fileToken: string): void {
-        const input = new UpdateProfilePictureInputs();
-        input.fileToken = fileToken;
-        input.x = 0;
-        input.y = 0;
-        input.width = 0;
-        input.height = 0;
-
-        if (this.userId) {
-            input.userId = this.userId;
-        }
-
-        this.saving = true;
-        this._appointmentsServiceProxy
-            .updateProfilePicture(input)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe(() => {
-                abp.setting.values['App.UserManagement.UseGravatarProfilePicture'] =
-                    this.useGravatarProfilePicture.toString();
-                abp.event.trigger('profilePictureChanged');
-                this.modalSave.emit(this.userId);
-                this.close();
-            });
-    }
-
-    updateProfilePictureToUseGravatar(): void {
-        const input = new UpdateProfilePictureInputs();
-        input.useGravatarProfilePicture = this.useGravatarProfilePicture;
-
-        this.saving = true;
-        this._appointmentsServiceProxy
-            .updateProfilePicture(input)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe(() => {
-                abp.setting.values['App.UserManagement.UseGravatarProfilePicture'] =
-                    this.useGravatarProfilePicture.toString();
-                abp.event.trigger('profilePictureChanged');
-                this.close();
-            });
-    }
-
-    guid(): string {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    }
-
-    // save(): void {
-    //     if (this.useGravatarProfilePicture) {
-    //         this.updateProfilePictureToUseGravatar();
-    //     } else {
-    //         this.uploader.uploadAll();
-    //     }
-    // }
-
-    canUseGravatar(): boolean {
-        return this.setting.getBoolean('App.UserManagement.AllowUsingGravatarProfilePicture');
+    onBeforeSend(event): void {
+        event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
     }
 }

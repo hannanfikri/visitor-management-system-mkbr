@@ -9,9 +9,8 @@ namespace Visitor.Company
 {
     [Table("companies")]
     [Audited]
-    public class CompanyEnt : Entity<Guid>
+    public class CompanyEnt : Entity<Guid> 
     {
-
         [Required]
         public virtual string CompanyName { get; set; }
         public virtual string CompanyAddress { get; set; }

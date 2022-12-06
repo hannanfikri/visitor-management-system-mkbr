@@ -3,7 +3,6 @@ using Abp.Application.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Visitor.Appointment.Dto;
 using Visitor.Departments.Dtos;
 
 namespace Visitor.Appointment
@@ -23,10 +22,5 @@ namespace Visitor.Appointment
 
         Task Delete (EntityDto<Guid> input);
         List<GetDepartmentForViewDto> GetDepartmentName();
-
-        GetDateTime GetDateTime(DateTime date);
-
-        Task UpdateProfilePicture(UpdateProfilePictureInputs input);
-        Task<GetProfilePictureOutputs> GetProfilePicture();
     }
 }

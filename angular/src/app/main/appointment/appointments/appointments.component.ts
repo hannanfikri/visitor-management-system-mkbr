@@ -1,7 +1,7 @@
 ﻿import { AppConsts } from '@shared/AppConsts';
 import { Component, Injector, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppointmentsServiceProxy, AppointmentDto, GetDepartmentForViewDto, GetAppointmentForViewDto, StatusType, UpdateProfilePictureInput, UpdateProfilePictureInputs } from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto, GetDepartmentForViewDto, GetAppointmentForViewDto, StatusType} from '@shared/service-proxies/service-proxies';
 import { IAjaxResponse, NotifyService, TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -18,11 +18,6 @@ import { filter as _filter } from 'lodash-es';
 import { DateTime } from 'luxon';
 
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
-import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload';
-
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { finalize } from 'rxjs/operators';
-import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 
 @Component({
     templateUrl: './appointments.component.html',
@@ -38,42 +33,17 @@ export class AppointmentsComponent extends AppComponentBase {
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
-    //file upload
-    @ViewChild('changeProfilePictureModal', { static: true }) modal: ModalDirective;
-    @ViewChild('uploadProfilePictureInputLabel') uploadProfilePictureInputLabel: ElementRef;
-
-    @Output() modalSave: EventEmitter<number> = new EventEmitter<number>();
-
+    
     advancedFiltersAreShown = false;
     filterText = '';
     fullNameFilter = '';
 
-    sampleDateTime: DateTime;
-    dateFormat = 'dd-LL-yyyy HH:mm:ss';
-
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
-
-    //file upload
-    public active = false;
-    public uploader: FileUploader;
-    public temporaryPictureUrl: string;
-    public saving = false;
-    public maxProfilPictureBytesUserFriendlyValue = 5;
-    public useGravatarProfilePicture = false;
-
-    imageChangedEvent: any = '';
-    userId: number = null;
-
-    private _uploaderOptions: FileUploaderOptions = {};
 
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
-        private _notifyService: NotifyService,
-        private _tokenAuth: TokenAuthServiceProxy,
-        private _activatedRoute: ActivatedRoute,
-        private _fileDownloadService: FileDownloadService,
         private _dateTimeService: DateTimeService,
         private _tokenService:TokenService
     ) {
@@ -147,159 +117,5 @@ export class AppointmentsComponent extends AppComponentBase {
                 });
             }
         });
-    }
-    //test
-    submitDateTime(): void {
-        this._appointmentsServiceProxy.getDateTime(this.sampleDateTime).subscribe((data) => {
-            var dateString = this.getDateString(data.date);
-            this.message.info(dateString, this.l('PostedValue'));
-        });
-    }
-    getDateString(date: DateTime): string {
-        var dateString = this._dateTimeService.formatDate(date, this.dateFormat);
-        if (abp.clock.provider.supportsMultipleTimezone) {
-            dateString += '(' + abp.timing.timeZoneInfo.iana.timeZoneId + ')';
-        }
-
-        return dateString;
-    }
-
-    //test for image upload
-    initializeModal(): void {
-        this.active = true;
-        this.temporaryPictureUrl = '';
-        this.useGravatarProfilePicture = this.setting.getBoolean('App.UserManagement.UseGravatarProfilePicture');
-        if (!this.canUseGravatar()) {
-            this.useGravatarProfilePicture = false;
-        }
-        this.initFileUploader();
-    }
-
-    show(userId?: number): void {
-        this.initializeModal();
-        this.modal.show();
-        this.userId = userId;
-    }
-
-    close(): void {
-        this.active = false;
-        this.imageChangedEvent = '';
-        this.uploader.clearQueue();
-        this.modal.hide();
-    }
-
-    fileChangeEvent(event: any): void {
-        if (event.target.files[0].size > 5242880) {
-            //5MB
-            this.message.warn(this.l('ProfilePicture_Warn_SizeLimit', this.maxProfilPictureBytesUserFriendlyValue));
-            return;
-        }
-
-        this.uploadProfilePictureInputLabel.nativeElement.innerText = event.target.files[0].name;
-
-        this.imageChangedEvent = event;
-    }
-
-    imageCroppedFile(event: ImageCroppedEvent) {
-        this.uploader.clearQueue();
-        this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
-    }
-
-    initFileUploader(): void {
-        this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + '/Profile/UploadProfilePicture' });
-        this._uploaderOptions.autoUpload = false;
-        this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
-        this._uploaderOptions.removeAfterUpload = true;
-        this.uploader.onAfterAddingFile = (file) => {
-            file.withCredentials = false;
-        };
-
-        this.uploader.onBuildItemForm = (fileItem: FileItem, form: any) => {
-            form.append('FileType', fileItem.file.type);
-            form.append('FileName', 'ProfilePicture');
-            form.append('FileToken', this.guid());
-        };
-
-        this.uploader.onSuccessItem = (item, response, status) => {
-            const resp = <IAjaxResponse>JSON.parse(response);
-            if (resp.success) {
-                this.updateProfilePicture(resp.result.fileToken);
-            } else {
-                this.message.error(resp.error.message);
-            }
-        };
-
-        this.uploader.setOptions(this._uploaderOptions);
-    }
-
-    updateProfilePicture(fileToken: string): void {
-        const input = new UpdateProfilePictureInputs();
-        input.fileToken = fileToken;
-        input.x = 0;
-        input.y = 0;
-        input.width = 0;
-        input.height = 0;
-
-        if (this.userId) {
-            input.userId = this.userId;
-        }
-
-        this.saving = true;
-        this._appointmentsServiceProxy
-            .updateProfilePicture(input)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe(() => {
-                abp.setting.values['App.UserManagement.UseGravatarProfilePicture'] =
-                    this.useGravatarProfilePicture.toString();
-                abp.event.trigger('profilePictureChanged');
-                this.modalSave.emit(this.userId);
-                this.close();
-            });
-    }
-
-    updateProfilePictureToUseGravatar(): void {
-        const input = new UpdateProfilePictureInput();
-        input.useGravatarProfilePicture = this.useGravatarProfilePicture;
-
-        this.saving = true;
-        this._appointmentsServiceProxy
-            .updateProfilePicture(input)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe(() => {
-                abp.setting.values['App.UserManagement.UseGravatarProfilePicture'] =
-                    this.useGravatarProfilePicture.toString();
-                abp.event.trigger('profilePictureChanged');
-                this.close();
-            });
-    }
-
-    guid(): string {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    }
-
-    save(): void {
-        if (this.useGravatarProfilePicture) {
-            this.updateProfilePictureToUseGravatar();
-        } else {
-            this.uploader.uploadAll();
-        }
-    }
-
-    canUseGravatar(): boolean {
-        return this.setting.getBoolean('App.UserManagement.AllowUsingGravatarProfilePicture');
     }
 }

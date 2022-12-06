@@ -18,8 +18,5 @@ namespace Visitor.Company
         Task CreateOrEdit(CreateOrEditCompanyDto input);
 
         Task Delete(EntityDto<Guid> input);
-
-        Task<FileDto> GetCompaniesToExcel(GetAllCompaniesForExcelInput input);
-
     }
 }

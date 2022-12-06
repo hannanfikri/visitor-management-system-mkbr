@@ -34,7 +34,7 @@
 
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_Title">{{ l('Tiltle') }} *</label>
+                        <label class="form-label" for="Appointment_Title">{{ l('Title') }} *</label>
                         <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
                             name="Title" class="form-control">
                             <ng-container *ngFor="let t of arrTitle">
@@ -151,6 +151,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
@@ -165,16 +166,27 @@
                     </div>
                 </div>
 
-                <!-- <div class="modal-body">
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_FaceVerify">{{ l('FaceVerify') }} *</label>
-                                <input type="text" #Appointment_FaceVerify="ngModel" id="Appointment_FaceVerify"
-                                    class="form-control" [(ngModel)]="appointment.faceVerify" name="FaceVerify"
-                                    [value]="fv" forceNativeScrolling />
-                                <validation-messages [formCtrl]="Appointment_FaceVerify"></validation-messages>
-                            </div>
-                        </div>
-                    </div> -->
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="DefaultFileUploadFileInput">Default file uploader</label>
+                    <p-fileUpload
+                        multiple="multiple"
+                        id="DefaultFileUploadFileInput"
+                        name="DefaultFileUploadFileInput[]"
+                        [url]="uploadUrl"
+                        accept="image/*"
+                        maxFileSize="1000000"
+                        (onUpload)="onUpload($event)"
+                        (onBeforeSend)="onBeforeSend($event)"
+                    >
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                    </div>
+                </div>
 
                 <div class="modal-body">
                     <div class="my-3">
@@ -186,44 +198,6 @@
                         </select>
                     </div>
                 </div>
-                    <div class="modal-body">
-                        <div class="mb-5" *ngIf="canUseGravatar()">
-                            <label class="form-check form-check-custom form-check-solid py-1">
-                                <input
-                                    id="Profile_UseGravatarProfilePicture"
-                                    type="checkbox"
-                                    name="UseGravatarProfilePicture"
-                                    [(ngModel)]="useGravatarProfilePicture"
-                                    class="form-check-input"
-                                />
-                                <span class="form-check-label">
-                                    {{ 'UseGravatarProfilePicture' | localize }}
-                                </span>
-                            </label>
-                        </div>
-                        <div class="mb-5">
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input
-                                        type="file"
-                                        id="uploadProfilePicture"
-                                        (change)="fileChangeEvent($event)"
-                                        [disabled]="useGravatarProfilePicture"
-                                    />
-                                    <label
-                                        class="custom-file-label"
-                                        #uploadProfilePictureInputLabel
-                                        for="uploadProfilePicture"
-                                    >
-                                        {{ 'ChooseAFile' | localize }}
-                                    </label>
-                                </div>
-                                <span class="form-text text-muted col-lg-12" [hidden]="useGravatarProfilePicture">
-                                    {{ 'ProfilePicture_Change_Info' | localize: maxProfilPictureBytesUserFriendlyValue }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
                         {{ l('Cancel') }}

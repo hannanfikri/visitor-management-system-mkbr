@@ -7,6 +7,5 @@ namespace Visitor.Company.Dtos
     public class GetCompanyForEditOutput
     {
         public CreateOrEditCompanyDto Company { get; set; }
-
     }
 }

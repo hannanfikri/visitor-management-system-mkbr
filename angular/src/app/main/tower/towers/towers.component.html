@@ -50,12 +50,12 @@
 
                                 <div class="col-md-3">
                                     <div class="my-3">
-                                        <label for="TowerNameFilter">{{ l('TowerName') }}</label>
+                                        <label for="TowerBankRakyatFilter">{{ l('TowerBankRakyat') }}</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            id="TowerNameFilter"
-                                            name="towerNameFilter"
+                                            id="TowerBankRakyatFilter"
+                                            name="TowerBankRakyatFilter"
                                             [(ngModel)]="towerFilter"
                                         />
                                     </div>
@@ -107,9 +107,9 @@
                                         >
                                             {{ l('Actions') }}
                                         </th>
-                                        <th style="width: 150px" pSortableColumn="towerName">
-                                            {{ l('TowerName') }}
-                                            <p-sortIcon field="tower.towerName"></p-sortIcon>
+                                        <th style="width: 150px" pSortableColumn="TowerBankRakyat">
+                                            {{ l('TowerBankRakyat') }}
+                                            <p-sortIcon field="tower.TowerBankRakyat"></p-sortIcon>
                                         </th>
                                     </tr>
                                 </ng-template>
@@ -169,8 +169,7 @@
                                             </div>
                                         </td>
                                         <td style="width: 150px">
-                                            <span class="p-column-tower">{{ l('TowerName') }}</span>
-                                            {{ record.tower.towerName }}
+                                            {{ record.tower.towerBankRakyat }}
                                         </td>
                                     </tr>
                                 </ng-template>

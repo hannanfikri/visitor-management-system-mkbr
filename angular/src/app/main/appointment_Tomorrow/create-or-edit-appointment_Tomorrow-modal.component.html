@@ -186,44 +186,6 @@
                         </select>
                     </div>
                 </div>
-                    <div class="modal-body">
-                        <div class="mb-5" *ngIf="canUseGravatar()">
-                            <label class="form-check form-check-custom form-check-solid py-1">
-                                <input
-                                    id="Profile_UseGravatarProfilePicture"
-                                    type="checkbox"
-                                    name="UseGravatarProfilePicture"
-                                    [(ngModel)]="useGravatarProfilePicture"
-                                    class="form-check-input"
-                                />
-                                <span class="form-check-label">
-                                    {{ 'UseGravatarProfilePicture' | localize }}
-                                </span>
-                            </label>
-                        </div>
-                        <div class="mb-5">
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input
-                                        type="file"
-                                        id="uploadProfilePicture"
-                                        (change)="fileChangeEvent($event)"
-                                        [disabled]="useGravatarProfilePicture"
-                                    />
-                                    <label
-                                        class="custom-file-label"
-                                        #uploadProfilePictureInputLabel
-                                        for="uploadProfilePicture"
-                                    >
-                                        {{ 'ChooseAFile' | localize }}
-                                    </label>
-                                </div>
-                                <span class="form-text text-muted col-lg-12" [hidden]="useGravatarProfilePicture">
-                                    {{ 'ProfilePicture_Change_Info' | localize: maxProfilPictureBytesUserFriendlyValue }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
                         {{ l('Cancel') }}

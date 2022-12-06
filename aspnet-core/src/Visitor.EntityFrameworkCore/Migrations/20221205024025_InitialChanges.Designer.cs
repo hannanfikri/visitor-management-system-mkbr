@@ -12,8 +12,8 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    [Migration("20221116031428_Drop Table Appointments")]
-    partial class DropTableAppointments
+    [Migration("20221205024025_InitialChanges")]
+    partial class InitialChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1427,6 +1427,80 @@ namespace Visitor.Migrations
                     b.ToTable("AbpWebhookSubscriptions");
                 });
 
+            modelBuilder.Entity("Visitor.Appointment.AppointmentEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AppDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FaceVerify")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentityCard")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficerToMeet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurposeOfVisit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tower")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("Visitor.Authorization.Delegation.UserDelegation", b =>
                 {
                     b.Property<long>("Id")
@@ -1821,6 +1895,20 @@ namespace Visitor.Migrations
                     b.ToTable("companies");
                 });
 
+            modelBuilder.Entity("Visitor.Departments.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
             modelBuilder.Entity("Visitor.Friendships.Friendship", b =>
                 {
                     b.Property<long>("Id")
@@ -2123,20 +2211,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PurposeOfVisitAppointments");
-                });
-
-            modelBuilder.Entity("Visitor.Status.StatusEnt", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("StatusApp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StatusAppointments");
                 });
 
             modelBuilder.Entity("Visitor.Storage.BinaryObject", b =>

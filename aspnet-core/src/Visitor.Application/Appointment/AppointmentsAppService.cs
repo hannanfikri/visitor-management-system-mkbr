@@ -42,7 +42,6 @@ using Abp;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using Visitor.Authorization.Users;
-using Visitor.Appointment.Dto;
 using Abp.Extensions;
 using Abp.Collections.Extensions;
 
@@ -68,7 +67,7 @@ namespace Visitor.Appointment
             IRepository<TitleEnt, Guid> titleRepository,
             IRepository<TowerEnt, Guid> towerRepository,
             IRepository<LevelEnt, Guid> levelRepository,
-            IRepository<CompanyEnt,Guid> companyRepository,
+            IRepository<CompanyEnt, Guid> companyRepository,
             IRepository<Department, Guid> departmentRepository,
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
@@ -87,7 +86,7 @@ namespace Visitor.Appointment
             _profileImageServiceFactory = profileImageServiceFactory;
 
         }
-        protected DateTime GetToday() 
+        protected DateTime GetToday()
         {
             return DateTime.Now.Date;
             /*DateOnly testTimeOnly = DateOnly.FromDateTime(now);
@@ -153,8 +152,8 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
-                        CreationTime = o.CreationTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -224,8 +223,8 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
-                        CreationTime = o.CreationTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -295,8 +294,8 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
-                        CreationTime = o.CreationTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -366,8 +365,8 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime,
-                        CreationTime = o.CreationTime,
+                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title
                     }
@@ -441,11 +440,11 @@ namespace Visitor.Appointment
         {
             var query = _purposeOfVisitRepository.GetAll();
             var queryPOV = from a in query
-                                   select new
-                                   {
-                                       Id = a.Id,
+                           select new
+                           {
+                               Id = a.Id,
                                a.PurposeOfVisitApp
-                                   };
+                           };
             var dblist = queryPOV.ToList();
             var results = new List<GetPurposeOfVisitForViewDto>();
             foreach (var db in dblist)
@@ -480,7 +479,7 @@ namespace Visitor.Appointment
                 var res = new GetTitleForViewDto()
                 {
                     Title = new TitleDto
-        {
+                    {
                         Id = db.Id,
                         VisitorTitle = db.VisitorTitle,
                     }
@@ -530,7 +529,7 @@ namespace Visitor.Appointment
             foreach (var db in dblist)
             {
                 var res = new GetLevelForViewDto()
-               {
+                {
                     Level = new LevelDto
                     {
                         Id = db.Id,
@@ -577,11 +576,11 @@ namespace Visitor.Appointment
         {
             var query = _departmentRepository.GetAll();
             var qDepartment = from a in query
-                         select new
-                         {
-                             Id = a.Id,
-                             a.DepartmentName                            
-                         };
+                              select new
+                              {
+                                  Id = a.Id,
+                                  a.DepartmentName
+                              };
             var dblist = qDepartment.ToList();
             var results = new List<GetDepartmentForViewDto>();
             foreach (var db in dblist)
@@ -597,102 +596,6 @@ namespace Visitor.Appointment
                 results.Add(res);
             }
             return new List<GetDepartmentForViewDto>(results);
-        }
-
-        public GetDateTime GetDateTime(DateTime date)
-        {
-            return new GetDateTime
-            {
-                Date = date,
-            };
-        }
-
-        //test upload file
-        public async Task UpdateProfilePicture(UpdateProfilePictureInputs input)
-        {
-            var userId = AbpSession.GetUserId();
-
-            await UpdateProfilePictureForUser(userId,input);
-        }
-        private async Task UpdateProfilePictureForUser( long userId,UpdateProfilePictureInputs input)
-        {
-            var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
-            /*var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
-            var allowToUseGravatar = await SettingManager.GetSettingValueForUserAsync<bool>(
-                AppSettings.UserManagement.AllowUsingGravatarProfilePicture,
-                user: userIdentifier
-            );
-
-            if (!allowToUseGravatar)
-            {
-                input.UseGravatarProfilePicture = false;
-            }
-
-            await SettingManager.ChangeSettingForUserAsync(
-                userIdentifier,
-                AppSettings.UserManagement.UseGravatarProfilePicture,
-                input.UseGravatarProfilePicture.ToString().ToLowerInvariant()
-            );*/
-
-            if (input.UseGravatarProfilePicture)
-            {
-                return;
-            }
-
-            byte[] byteArray;
-
-            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
-
-            /*if (imageBytes == null)
-            {
-                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
-            }*/
-
-            using (var image = Image.Load(imageBytes, out IImageFormat format))
-            {
-                var width = (input.Width == 0 || input.Width > image.Width) ? image.Width : input.Width;
-                var height = (input.Height == 0 || input.Height > image.Height) ? image.Height : input.Height;
-
-                var bmCrop = image.Clone(i =>
-                    i.Crop(new Rectangle(input.X, input.Y, width, height))
-                );
-
-                await using (var stream = new MemoryStream())
-                {
-                    await bmCrop.SaveAsync(stream, format);
-                    byteArray = stream.ToArray();
-                }
-            }
-
-            /*if (byteArray.Length > MaxProfilPictureBytes)
-            {
-                throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
-                    AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
-            }*/
-
-            var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
-
-            if (user.ProfilePictureId.HasValue)
-            {
-                await _binaryObjectManager.DeleteAsync(user.ProfilePictureId.Value);
-            }
-
-            var storedFile = new BinaryObject(userIdentifier.TenantId, byteArray, $"Profile picture of user {userIdentifier.UserId}. {DateTime.UtcNow}");
-            await _binaryObjectManager.SaveAsync(storedFile);
-
-            user.ProfilePictureId = storedFile.Id;
-        }
-        [DisableAuditing]
-        public async Task<GetProfilePictureOutputs> GetProfilePicture()
-        {
-            using (var profileImageService = await _profileImageServiceFactory.Get(AbpSession.ToUserIdentifier()))
-            {
-                var profilePictureContent = await profileImageService.Object.GetProfilePictureContentForUser(
-                    AbpSession.ToUserIdentifier()
-                );
-
-                return new GetProfilePictureOutputs(profilePictureContent);
-            }
         }
 
     }

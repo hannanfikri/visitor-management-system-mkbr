@@ -42,7 +42,6 @@ using Abp;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using Visitor.Authorization.Users;
-using Visitor.Appointment.Dto;
 using Abp.Extensions;
 using Abp.Collections.Extensions;
 using System.Globalization;
@@ -610,95 +609,6 @@ namespace Visitor.Appointment
                 Date = date,
             };
         }
-
-        //test upload file
-        public async Task UpdateProfilePicture(UpdateProfilePictureInputs input)
-        {
-            var userId = AbpSession.GetUserId();
-
-            await UpdateProfilePictureForUser(userId,input);
-        }
-        private async Task UpdateProfilePictureForUser( long userId,UpdateProfilePictureInputs input)
-        {
-            var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
-            /*var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
-            var allowToUseGravatar = await SettingManager.GetSettingValueForUserAsync<bool>(
-                AppSettings.UserManagement.AllowUsingGravatarProfilePicture,
-                user: userIdentifier
-            );
-
-            if (!allowToUseGravatar)
-            {
-                input.UseGravatarProfilePicture = false;
-            }
-
-            await SettingManager.ChangeSettingForUserAsync(
-                userIdentifier,
-                AppSettings.UserManagement.UseGravatarProfilePicture,
-                input.UseGravatarProfilePicture.ToString().ToLowerInvariant()
-            );*/
-
-            if (input.UseGravatarProfilePicture)
-            {
-                return;
-            }
-
-            byte[] byteArray;
-
-            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
-
-            /*if (imageBytes == null)
-            {
-                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
-            }*/
-
-            using (var image = Image.Load(imageBytes, out IImageFormat format))
-            {
-                var width = (input.Width == 0 || input.Width > image.Width) ? image.Width : input.Width;
-                var height = (input.Height == 0 || input.Height > image.Height) ? image.Height : input.Height;
-
-                var bmCrop = image.Clone(i =>
-                    i.Crop(new Rectangle(input.X, input.Y, width, height))
-                );
-
-                await using (var stream = new MemoryStream())
-                {
-                    await bmCrop.SaveAsync(stream, format);
-                    byteArray = stream.ToArray();
-                }
-            }
-
-            /*if (byteArray.Length > MaxProfilPictureBytes)
-            {
-                throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
-                    AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
-            }*/
-
-            var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
-
-            if (user.ProfilePictureId.HasValue)
-            {
-                await _binaryObjectManager.DeleteAsync(user.ProfilePictureId.Value);
-            }
-
-            var storedFile = new BinaryObject(userIdentifier.TenantId, byteArray, $"Profile picture of user {userIdentifier.UserId}. {DateTime.UtcNow}");
-            await _binaryObjectManager.SaveAsync(storedFile);
-
-            user.ProfilePictureId = storedFile.Id;
-        }
-        [DisableAuditing]
-        public async Task<GetProfilePictureOutputs> GetProfilePicture()
-        {
-            using (var profileImageService = await _profileImageServiceFactory.Get(AbpSession.ToUserIdentifier()))
-            {
-                var profilePictureContent = await profileImageService.Object.GetProfilePictureContentForUser(
-                    AbpSession.ToUserIdentifier()
-                );
-
-                return new GetProfilePictureOutputs(profilePictureContent);
-            }
-        }
-
     }
     
 }

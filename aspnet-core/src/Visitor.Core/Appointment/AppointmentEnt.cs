@@ -36,6 +36,7 @@ namespace Visitor.Appointment
         [NotMapped]
         public IHasCreationTime RegDateTime { get; set; }
         public StatusType Status { get; set; }
+        public string passNumber { get; set; }
 
 
         private AppointmentEnt() { }//empty constructor

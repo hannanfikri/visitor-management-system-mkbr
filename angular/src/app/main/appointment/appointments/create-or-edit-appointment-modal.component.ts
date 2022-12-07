@@ -20,14 +20,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    //file upload
-    @ViewChild('uploadProfilePictureInputLabel') uploadProfilePictureInputLabel: ElementRef;
-
     active = false;
     saving = false;
 
     uploadUrl: string;
-    uploadedFiles: any[] = [];
+    uploadedFiles: any;
 
     //statusenum : Array<any> = []
     keys = Object.keys(StatusType);
@@ -114,14 +111,15 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     close(): void {
         this.active = false;
         this.modal.hide();
+        this.uploadedFiles = [];
     }
     setDate(): void {
         let date: Date = new Date();
         console.log("Date = " + date);
-
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+     }
 
     //ListPurposeOfVisit
     getPOVArray(): void {
@@ -180,16 +178,18 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.statusType.push(s);
             }
         };
-        // this.statusType = [];
-        // for(let s in this.keys){
-        //     this.statusType.push(s);
-        // }
     }
 
     onUpload(event): void {
-        for (const file of event.files) {
-            this.uploadedFiles.push(file);
+        // for (const file of event.files) {
+        //     this.uploadedFiles.push(file);
+        // }
+        this.uploadedFiles = event.files;
+        for (const files of event.originalEvent.body.result) {
+            this.appointment.imageId = files.id;
         }
+
+        //event.originalEvent.body.result[0].id (expression)
     }
 
     onBeforeSend(event): void {

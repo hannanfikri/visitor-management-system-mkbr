@@ -50,5 +50,6 @@ namespace Visitor.Appointment
         [NotMapped]
         public virtual IHasCreationTime RegDateTime { get; set; }
         public virtual StatusType Status { get; set; }
+        public virtual Guid ImageId { get; set; }
     }
 }

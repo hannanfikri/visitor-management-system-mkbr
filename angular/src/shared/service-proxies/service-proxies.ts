@@ -18664,7 +18664,6 @@ export class AppointmentDto implements IAppointmentDto {
     tower!: string | undefined;
     level!: string | undefined;
     appDateTime!: string | undefined;
-    faceVerify!: string | undefined;
     regDateTime!: string | undefined;
     status!: StatusType;
     isDeleted!: boolean;
@@ -18699,7 +18698,6 @@ export class AppointmentDto implements IAppointmentDto {
             this.tower = _data["tower"];
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"];
-            this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"];
             this.status = _data["status"];
             this.isDeleted = _data["isDeleted"];
@@ -18734,7 +18732,6 @@ export class AppointmentDto implements IAppointmentDto {
         data["tower"] = this.tower;
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime;
-        data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime;
         data["status"] = this.status;
         data["isDeleted"] = this.isDeleted;
@@ -18762,7 +18759,6 @@ export interface IAppointmentDto {
     tower: string | undefined;
     level: string | undefined;
     appDateTime: string | undefined;
-    faceVerify: string | undefined;
     regDateTime: string | undefined;
     status: StatusType;
     isDeleted: boolean;
@@ -19787,6 +19783,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
     status!: StatusType;
+    imageId!: string;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19822,6 +19819,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
             this.status = _data["status"];
+            this.imageId = _data["imageId"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -19857,6 +19855,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
         data["status"] = this.status;
+        data["imageId"] = this.imageId;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -19885,6 +19884,7 @@ export interface ICreateOrEditAppointmentDto {
     faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
     status: StatusType;
+    imageId: string;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;

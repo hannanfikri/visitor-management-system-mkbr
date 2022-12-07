@@ -22,8 +22,9 @@ namespace Visitor.Appointment
         public string Tower { get; set; }
         public string Level { get; set; }
         public string AppDateTime { get; set; }
-        public byte[] FaceVerify { get; set; }
+        //public byte[] FaceVerify { get; set; }
         public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
+        public virtual Guid ImageId { get; set; }
     }
 }

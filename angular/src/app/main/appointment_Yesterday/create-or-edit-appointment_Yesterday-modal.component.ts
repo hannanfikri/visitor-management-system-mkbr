@@ -108,6 +108,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     close(): void {
         this.active = false;
         this.modal.hide();
+        this.uploadedFiles = [];
     }
     setDate(): void {
         let date: Date = new Date();

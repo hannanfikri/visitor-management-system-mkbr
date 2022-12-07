@@ -165,16 +165,27 @@
                     </div>
                 </div>
 
-                <!-- <div class="modal-body">
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_FaceVerify">{{ l('FaceVerify') }} *</label>
-                                <input type="text" #Appointment_FaceVerify="ngModel" id="Appointment_FaceVerify"
-                                    class="form-control" [(ngModel)]="appointment.faceVerify" name="FaceVerify"
-                                    [value]="fv" forceNativeScrolling />
-                                <validation-messages [formCtrl]="Appointment_FaceVerify"></validation-messages>
-                            </div>
-                        </div>
-                    </div> -->
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="DefaultFileUploadFileInput">Default file uploader</label>
+                    <p-fileUpload
+                        multiple="multiple"
+                        id="DefaultFileUploadFileInput"
+                        name="DefaultFileUploadFileInput[]"
+                        [url]="uploadUrl"
+                        accept="image/*"
+                        maxFileSize="1000000"
+                        (onUpload)="onUpload($event)"
+                        (onBeforeSend)="onBeforeSend($event)"
+                    >
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                    </div>
+                </div>
 
                 <div class="modal-body">
                     <div class="my-3">

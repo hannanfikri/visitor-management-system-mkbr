@@ -26,8 +26,6 @@ namespace Visitor.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> UploadFiles()
         {
-
-
             try
             {
                 var files = Request.Form.Files;
@@ -68,6 +66,21 @@ namespace Visitor.Web.Controllers
             {
                 return Json(new AjaxResponse(new ErrorInfo(ex.Message)));
             }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetFiles(Guid id)
+        {
+            var file = await _binaryObjectManager.GetOrNullAsync(id);
+            return Json(new AjaxResponse(file));
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> DisplayImage(Guid id)
+        {
+            var file = await _binaryObjectManager.GetOrNullAsync(id);
+            string base64 = Convert.ToBase64String(file.Bytes);
+            return Json(new AjaxResponse(base64));
         }
     }
 }

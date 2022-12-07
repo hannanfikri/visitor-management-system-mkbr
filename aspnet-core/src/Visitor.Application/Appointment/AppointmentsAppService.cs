@@ -127,13 +127,15 @@ namespace Visitor.Appointment
                                    o.AppDateTime,
                                    o.CreationTime,
                                    o.Status,
-                                   o.Title
+                                   o.Title,
+                                   //o.ImageId,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            var image = new UploadPictureOutput();
 
             foreach (var o in dbList)
             {
@@ -155,7 +157,8 @@ namespace Visitor.Appointment
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
-                        Title = o.Title
+                        Title = o.Title,
+                        //ImageId = image.Id,
                     }
                 };
 
@@ -205,6 +208,7 @@ namespace Visitor.Appointment
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            var image = new UploadPictureOutput();
 
             foreach (var o in dbList)
             {

@@ -50,6 +50,6 @@ namespace Visitor.Appointment
         [NotMapped]
         public virtual IHasCreationTime RegDateTime { get; set; }
         public virtual StatusType Status { get; set; }
-        public virtual string passNumber { get; set; }
+        public virtual string PassNumber { get; set; }
     }
 }

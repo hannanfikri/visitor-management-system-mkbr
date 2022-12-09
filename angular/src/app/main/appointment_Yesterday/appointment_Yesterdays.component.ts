@@ -36,6 +36,16 @@ export class AppointmentsComponent extends AppComponentBase {
     advancedFiltersAreShown = false;
     filterText = '';
     fullNameFilter = '';
+    identityCardFilter = '';
+    phoneNoFilter = '';
+    emailFilter = '';
+    titleFilter = '';
+    companyNameFilter = '';
+    officerToMeetFilter = '';
+    purposeOfVisitFilter = '';
+    departmentFilter = '';
+    towerFilter = '';
+    levelFilter = '';
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
@@ -80,6 +90,16 @@ export class AppointmentsComponent extends AppComponentBase {
             .getAllYesterday(
                 this.filterText,
                 this.fullNameFilter,
+                this.identityCardFilter,
+                this.phoneNoFilter,
+                this.emailFilter,
+                this.titleFilter,
+                this.companyNameFilter,
+                this.officerToMeetFilter,
+                this.purposeOfVisitFilter,
+                this.departmentFilter,
+                this.towerFilter,
+                this.levelFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)

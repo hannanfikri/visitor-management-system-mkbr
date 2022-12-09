@@ -16,7 +16,6 @@ import { AppConsts } from '@shared/AppConsts';
     templateUrl: './create-or-edit-appointment-modal.component.html',
 })
 export class CreateOrEditAppointmentModalComponent extends AppComponentBase implements OnInit {
-    
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -49,14 +48,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
 
-    detailItems :any[] = [{title:'user01',name:"user01"},{title:'user02',name:'user02'}];
-//event for edit
-    public isEditing: boolean;
-	public pendingValue: string;
-	public value!: string;
-	public valueChangeEvents: EventEmitter<string>;
-    
-
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
@@ -65,11 +56,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     ) {
         super(injector);
         this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
-
-        //event for edit
-        this.isEditing = false;
-		this.pendingValue = "";
-		this.valueChangeEvents = new EventEmitter();
     }
 
 
@@ -209,45 +195,4 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     onBeforeSend(event): void {
         event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
     }
-
-    public cancel() : void {
-
-		this.isEditing = false;
-
-	}
-
-
-	// I enable the editing of the value.
-	public edit() : void {
-
-		this.pendingValue = this.value;
-		this.isEditing = true;
-
-	}
-
-
-	// I process changes to the pending value.
-	public processChanges() : void {
-
-		// If the value actually changed, emit the change but don't change the local
-		// value - we don't want to break unidirectional data-flow.
-		if ( this.pendingValue !== this.value ) {
-
-			this.valueChangeEvents.emit( this.pendingValue );
-
-		}
-
-		this.isEditing = false;
-
-	}
-
-    editDateTime(Appointment_AppDateTime){
-        Appointment_AppDateTime.tekan = true
-    }
-    setTitleEdit() {
-        this.isEditing = true;
-      }
-      public open(event: any, item: string) {
-        alert('Open ' + item);
-      }
 }

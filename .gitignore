@@ -22,4 +22,3 @@ aspnet-core/src/Visitor.Web.Mvc/healthchecksdb
 # Ingore excel backup of audit logs
 aspnet-core/src/Visitor.Web.Mvc/App_Data/AuditLogsBackups/*
 aspnet-core/src/Visitor.Web.Host/App_Data/AuditLogsBackups/*
-/aspnet-core/src/Visitor.EntityFrameworkCore/Migrations/20221208023707_entity.Designer.cs

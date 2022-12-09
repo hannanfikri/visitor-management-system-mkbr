@@ -35,8 +35,6 @@ namespace Visitor.Appointment
         public StatusType Status { get; set; }
         public string passNumber { get; set; }
 
-        public string test { get; set; }
-
 
         private AppointmentEnt() { }//empty constructor
 

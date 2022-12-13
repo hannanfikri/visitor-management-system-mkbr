@@ -160,6 +160,58 @@
                                         />
                                     </div>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="LevelFilter">{{ l('Level') }}</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="LevelFilter"
+                                            name="levelFilter"
+                                            [(ngModel)]="levelFilter"
+                                        />
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="MinAppDateTimeFilter">{{ l('Minimum Appointment Date Time') }}</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="MinAppDateTimeFilter"
+                                            name="minAppDateTimeFilter"
+                                            [(ngModel)]="minAppDateTimeFilter"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="MaxAppDateTimeFilter">{{ l('Maximum Appointment Date Time') }}</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="MaxAppDateTimeFilter"
+                                            name="maxAppDateTimeFilter"
+                                            [(ngModel)]="maxAppDateTimeFilter"
+                                        />
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="StatusFilter">{{ l('Status') }}</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="StatusFilter"
+                                            name="statusFilter"
+                                            [(ngModel)]="statusFilter"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <div class="row my-4">
                                 <div class="col-sm-12">
@@ -258,6 +310,11 @@
                                         <th style="width: 150px" pSortableColumn="Status">
                                             {{ l('Status') }}
                                             <p-sortIcon field="appointment.status"></p-sortIcon>
+                                        </th>
+
+                                        <th style="width: 150px" pSortableColumn="AppRefNo">
+                                            {{ l('AppRefNo') }}
+                                            <p-sortIcon field="appointment.appRefNo"></p-sortIcon>
                                         </th>
                                     </tr>
                                 </ng-template>
@@ -369,6 +426,11 @@
                                                 <ng-container>
                                                     {{ l('Enum:StatusType:' + record.appointment.status ) }}
                                                 </ng-container>
+                                        </td>
+
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('AppRefNo') }}</span>
+                                            {{ record.appointment.appRefNo }}
                                         </td>
                                     </tr>
                                 </ng-template>

@@ -83,6 +83,7 @@
     <text name="IdentityCard">Visitor's identity card</text>
     <text name="PhoneNo">Visitor's phone number</text>
     <text name="OfficerToMeet">Officer to meet</text>
+	<text name="AppRefNo">Visitor's Referral Number</text> 
     <text name="AppDateTime">Appointment's date and time</text>
     <text name="RegDateTime">Register's date and time</text>
     <text name="FaceVerify">Visitor's face</text>

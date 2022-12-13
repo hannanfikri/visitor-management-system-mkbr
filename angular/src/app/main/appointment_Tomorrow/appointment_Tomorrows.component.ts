@@ -47,6 +47,9 @@ export class AppointmentsComponent extends AppComponentBase {
     departmentFilter = '';
     towerFilter = '';
     levelFilter = '';
+    // minAppDateTimeFilter: DateTime;
+    // maxAppDateTimeFilter: DateTime;
+    statusFilter = -1;
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
@@ -103,6 +106,9 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.departmentFilter,
                 this.towerFilter,
                 this.levelFilter,
+                // this.minAppDateTimeFilter,
+                // this.maxAppDateTimeFilter,
+                this.statusFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)

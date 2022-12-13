@@ -47,6 +47,10 @@ export class AppointmentsComponent extends AppComponentBase {
     departmentFilter = '';
     towerFilter = '';
     levelFilter = '';
+    // minAppDateTimeFilter: DateTime;
+    // maxAppDateTimeFilter: DateTime;
+    statusFilter = -1;
+
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
@@ -101,6 +105,9 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.departmentFilter,
                 this.towerFilter,
                 this.levelFilter,
+                // this.maxAppDateTimeFilter,
+                // this.minAppDateTimeFilter,
+                this.statusFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -138,4 +145,5 @@ export class AppointmentsComponent extends AppComponentBase {
             }
         });
     }
+    getStatus():void{}
 }

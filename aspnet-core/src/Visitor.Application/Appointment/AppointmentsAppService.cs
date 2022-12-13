@@ -1,26 +1,19 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.Application.Services;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static Visitor.Appointment.AppointmentsAppService;
 using Visitor.Authorization;
-using Visitor.Dto;
 using Abp.Linq.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Abp.Linq.Extensions;
 using System.Linq.Dynamic.Core;
-using NPOI.SS.Formula.Functions;
 using Visitor.PurposeOfVisit.Dtos;
 using Visitor.PurposeOfVisit;
 using Visitor.Title;
 using Visitor.Tower;
 using Visitor.Company;
-using Visitor.Company.Exporting;
 using Visitor.Title.Dtos;
 using Visitor.Tower.Dtos;
 using Visitor.Level;
@@ -29,21 +22,13 @@ using Visitor.Company.Dtos;
 using Visitor.Departments;
 using Visitor.Departments.Dtos;
 using Visitor.Appointments;
-using Abp.Runtime.Session;
-using Abp.Configuration;
-using Abp.UI;
-using SixLabors.ImageSharp.Formats;
-using System.IO;
-using Visitor.Configuration;
 using Visitor.Storage;
-using Abp.Auditing;
 using Visitor.Authorization.Users.Profile;
-using Abp;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using Visitor.Authorization.Users;
-using Abp.Extensions;
 using Abp.Collections.Extensions;
+using Visitor.Common;
+using System.Threading;
+using Stripe;
+/*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
 {
@@ -59,6 +44,7 @@ namespace Visitor.Appointment
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly ProfileImageServiceFactory _profileImageServiceFactory;
+        
 
         public AppointmentsAppService
 
@@ -72,6 +58,7 @@ namespace Visitor.Appointment
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
             ProfileImageServiceFactory profileImageServiceFactory
+            
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -84,6 +71,7 @@ namespace Visitor.Appointment
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
+            
 
         }
         protected DateTime GetToday()
@@ -102,6 +90,30 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
+            var todaysDate = DateTime.Today;
+            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
+                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
+                        : default;*/
+
+            var statusEnumFilter = input.StatusFilter.HasValue
+                        ? (StatusType)input.StatusFilter
+                        : default;
+
+            var serviceType = 0;
+
+            /*var userId = AbpSession.UserId;
+            var objAdminUser = new AdminUserSetting();
+            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
+
+            if (objAdminUser != null)
+            {
+                serviceType = (int)objAdminUser.ServiceTypeId;
+            }*/
+
+            /*if (input.MinAppDateTimeFilter == null)
+            {
+                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
+            }*/
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
@@ -114,7 +126,11 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
+                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime >= input.MinAppDateTimeFilter)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime <= input.MaxAppDateTimeFilter)*/
+                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter); 
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -137,7 +153,8 @@ namespace Visitor.Appointment
                                    o.AppDateTime,
                                    o.CreationTime,
                                    o.Status,
-                                   o.Title
+                                   o.Title,
+                                   o.AppRefNo
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -165,7 +182,8 @@ namespace Visitor.Appointment
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
-                        Title = o.Title
+                        Title = o.Title,
+                        AppRefNo = o.AppRefNo
                     }
                 };
 
@@ -181,6 +199,30 @@ namespace Visitor.Appointment
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllToday(GetAllAppointmentsInput input)
         {
             DateTime d1 = GetToday();
+            var todaysDate = DateTime.Today;
+            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
+                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
+                        : default;*/
+
+            var statusEnumFilter = input.StatusFilter.HasValue
+                        ? (StatusType)input.StatusFilter
+                        : default;
+
+            var serviceType = 0;
+
+            /*var userId = AbpSession.UserId;
+            var objAdminUser = new AdminUserSetting();
+            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
+
+            if (objAdminUser != null)
+            {
+                serviceType = (int)objAdminUser.ServiceTypeId;
+            }*/
+
+           /* if (input.MinAppDateTimeFilter == null)
+            {
+                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
+            }*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
@@ -196,6 +238,9 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
+                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= input.MinAppDateTimeFilter)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= input.MaxAppDateTimeFilter)*/
+                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
 
             var pagedAndFilteredAppointments = filteredAppointments
@@ -219,7 +264,8 @@ namespace Visitor.Appointment
                                    o.AppDateTime,
                                    o.CreationTime,
                                    o.Status,
-                                   o.Title
+                                   o.Title,
+                                   o.AppRefNo
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -247,7 +293,8 @@ namespace Visitor.Appointment
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
-                        Title = o.Title
+                        Title = o.Title,
+                        AppRefNo = o.AppRefNo
                     }
                 };
 
@@ -264,6 +311,31 @@ namespace Visitor.Appointment
         {
             DateTime d2 = GetTomorrow();
 
+            var todaysDate = DateTime.Today;
+            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
+                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
+                        : default;*/
+
+            var statusEnumFilter = input.StatusFilter.HasValue
+                        ? (StatusType)input.StatusFilter
+                        : default;
+
+            var serviceType = 0;
+
+            /*var userId = AbpSession.UserId;
+            var objAdminUser = new AdminUserSetting();
+            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
+
+            if (objAdminUser != null)
+            {
+                serviceType = (int)objAdminUser.ServiceTypeId;
+            }*/
+
+            /*if (input.MinAppDateTimeFilter == null)
+            {
+                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
+            }*/
+
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
@@ -278,6 +350,9 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
+                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= input.MinAppDateTimeFilter)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= input.MaxAppDateTimeFilter)*/
+                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
 
             var pagedAndFilteredAppointments = filteredAppointments
@@ -301,7 +376,8 @@ namespace Visitor.Appointment
                                    o.AppDateTime,
                                    o.CreationTime,
                                    o.Status,
-                                   o.Title
+                                   o.Title,
+                                   o.AppRefNo
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -329,7 +405,8 @@ namespace Visitor.Appointment
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
-                        Title = o.Title
+                        Title = o.Title,
+                        AppRefNo = o.AppRefNo
                     }
                 };
 
@@ -346,6 +423,31 @@ namespace Visitor.Appointment
         {
             DateTime d3 = GetYesterday();
 
+            var todaysDate = DateTime.Today;
+            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
+                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
+                        : default;*/
+
+            var statusEnumFilter = input.StatusFilter.HasValue
+                        ? (StatusType)input.StatusFilter
+                        : default;
+
+            var serviceType = 0;
+
+            /*var userId = AbpSession.UserId;
+            var objAdminUser = new AdminUserSetting();
+            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
+
+            if (objAdminUser != null)
+            {
+                serviceType = (int)objAdminUser.ServiceTypeId;
+            }*/
+
+            /*if (input.MinAppDateTimeFilter == null)
+            {
+                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
+            }*/
+
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
@@ -360,6 +462,9 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
+                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= input.MinAppDateTimeFilter)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= input.MaxAppDateTimeFilter)*/
+                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
 
             var pagedAndFilteredAppointments = filteredAppointments
@@ -383,7 +488,8 @@ namespace Visitor.Appointment
                                    o.AppDateTime,
                                    o.CreationTime,
                                    o.Status,
-                                   o.Title
+                                   o.Title,
+                                   o.AppRefNo
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -411,7 +517,8 @@ namespace Visitor.Appointment
                         AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
-                        Title = o.Title
+                        Title = o.Title,
+                        AppRefNo = o.AppRefNo
                     }
                 };
 
@@ -459,9 +566,79 @@ namespace Visitor.Appointment
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
-            var appointment = ObjectMapper.Map<AppointmentEnt>(input);
+            /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
 
+            /*await _appointmentRepository.InsertAsync(appointment);*/
+
+
+
+
+            //input.MobileNumber = "+6" + input.MobileNumber;
+            var rand = new Random();
+            int num = rand.Next(1000);
+            var date = DateTime.Today.Date.ToString("yyMM");
+            var lang = Thread.CurrentThread.CurrentCulture;
+            input.Status = 0;
+            //input.AppointmentDate = input.AppointmentDate.ToShortDateString();
+            input.AppRefNo = "AR" + date + num + input.PhoneNo + input.IdentityCard;
+            /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
+
+            /*if (AbpSession.TenantId != null)
+            {
+                booking.TenantId = (int?)AbpSession.TenantId;
+            }*/
+
+            /*var service = await _lookup_serviceRepository.GetAllIncluding(p => p.Translations.Where(x => x.Language == lang.ToString())).FirstOrDefaultAsync(x => x.Id == input.IdentityCard.Value);
+            if (!service.IsQtyGold)
+                input.QtyGold = null;
+            if (!service.IsQtySag)
+                input.QtySAG = null;
+            input.ServiceTypeId = service.ServiceTypeId;*/
+
+            var checker = true;
+            while (checker)
+            {
+                var bookhCheck = _appointmentRepository.FirstOrDefault(e => e.AppRefNo == input.AppRefNo);
+                if (bookhCheck?.Id != null)
+                {
+                    //if duplicate booking ref no
+                    checker = true;
+                    num = rand.Next(1000);
+                    input.AppRefNo = "AR" + date + num + input.PhoneNo + input.IdentityCard;
+                }
+                else
+                {
+                    checker = false;
+                    break;
+                }
+            };
+
+            var appointment = ObjectMapper.Map<AppointmentEnt>(input);
             await _appointmentRepository.InsertAsync(appointment);
+            /*await UpdateSlot(input.BranchSlotSettingId, input.AppointmentSlot);*/
+            /*var bookingDetail = await _bookingRepository.InsertAsync(booking);
+            var branch = await _lookup_branchRepository.GetAsync(input.BranchId.Value);*/
+
+            /*if (input.Email != null)
+            {
+                try
+                {
+                    await _portalEmailer.SendEmailDetailBookingAsync(ObjectMapper.Map<Booking>(bookingDetail), branch, service);
+                }
+                catch
+                {
+                    //To do
+                }
+            }
+
+            try
+            {
+                await SendSms(input);
+            }
+            catch
+            {
+
+            }*/
 
         }
 

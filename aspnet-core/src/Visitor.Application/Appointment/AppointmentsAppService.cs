@@ -1,26 +1,19 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.Application.Services;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static Visitor.Appointment.AppointmentsAppService;
 using Visitor.Authorization;
-using Visitor.Dto;
 using Abp.Linq.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Abp.Linq.Extensions;
 using System.Linq.Dynamic.Core;
-using NPOI.SS.Formula.Functions;
 using Visitor.PurposeOfVisit.Dtos;
 using Visitor.PurposeOfVisit;
 using Visitor.Title;
 using Visitor.Tower;
 using Visitor.Company;
-using Visitor.Company.Exporting;
 using Visitor.Title.Dtos;
 using Visitor.Tower.Dtos;
 using Visitor.Level;
@@ -28,21 +21,8 @@ using Visitor.Level.Dtos;
 using Visitor.Company.Dtos;
 using Visitor.Departments;
 using Visitor.Departments.Dtos;
-using Visitor.Appointments;
-using Abp.Runtime.Session;
-using Abp.Configuration;
-using Abp.UI;
-using SixLabors.ImageSharp.Formats;
-using System.IO;
-using Visitor.Configuration;
 using Visitor.Storage;
-using Abp.Auditing;
 using Visitor.Authorization.Users.Profile;
-using Abp;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using Visitor.Authorization.Users;
-using Abp.Extensions;
 using Abp.Collections.Extensions;
 
 namespace Visitor.Appointment
@@ -56,9 +36,6 @@ namespace Visitor.Appointment
         private readonly IRepository<LevelEnt, Guid> _levelRepository;
         private readonly IRepository<CompanyEnt, Guid> _companyRepository;
         private readonly IRepository<Department, Guid> _departmentRepository;
-        private readonly ITempFileCacheManager _tempFileCacheManager;
-        private readonly IBinaryObjectManager _binaryObjectManager;
-        private readonly ProfileImageServiceFactory _profileImageServiceFactory;
 
         public AppointmentsAppService
 
@@ -68,10 +45,7 @@ namespace Visitor.Appointment
             IRepository<TowerEnt, Guid> towerRepository,
             IRepository<LevelEnt, Guid> levelRepository,
             IRepository<CompanyEnt, Guid> companyRepository,
-            IRepository<Department, Guid> departmentRepository,
-            ITempFileCacheManager tempFileCacheManager,
-            IBinaryObjectManager binaryObjectManager,
-            ProfileImageServiceFactory profileImageServiceFactory
+            IRepository<Department, Guid> departmentRepository
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -81,9 +55,6 @@ namespace Visitor.Appointment
             _levelRepository = levelRepository;
             _companyRepository = companyRepository;
             _departmentRepository = departmentRepository;
-            _tempFileCacheManager = tempFileCacheManager;
-            _binaryObjectManager = binaryObjectManager;
-            _profileImageServiceFactory = profileImageServiceFactory;
 
         }
         protected DateTime GetToday()

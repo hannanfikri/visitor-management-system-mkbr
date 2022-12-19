@@ -24,5 +24,16 @@ namespace Visitor.Appointment
         public string DepartmentFilter { get; set; }
         public string TowerFilter { get; set; }
         public string LevelFilter { get; set; }
+        public DateTime? MinAppDateTimeFilter { get; set; }
+        public DateTime? MaxAppDateTimeFilter { get; set; }
+        public DateTime? MinRegDateTimeFilter { get; set; }
+        public DateTime? MaxRegDateTimeFilter { get; set; }
+
+        public int? StatusFilter { get; set; }
+
+        public string AppRefNoFilter { get; set; }
+        /*public int? AppointmentSlotFilter { get; set; }*/
+
+        /*public string AppointmentTimeFilter { get; set; }*/
     }
 }

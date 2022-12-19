@@ -1,23 +1,23 @@
-<form  #appointmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off" >
-    <div class="container mt-5">
-        <div class="card card-custom gutter-b">
-            <div class="card-header">
-                <div class="card-title">
-                    <h3 class="card-label">{{l("CreateNewAppointment")}}</h3>
-                </div>
-            </div>
-            <div class="card-body">
+<form *ngIf="active" #appointmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span>{{ l('Details') }}</span>
+            </h4>
+        </div>
+        <div class="modal-body">
+            <hr>
+        </div>
+        <div>
+            <h3 style="text-align:center ;">Visitor Details</h3>
+        </div>
+        <div class="modal-body">
+            <hr>
+        </div>
                 <!--begin: Wizard -->
                 <form>
-                    <div class="modal-body">
-                        <hr>
-                    </div>
-                    <div>
-                        <h3 style="text-align:center ;">Visitor Details</h3>
-                    </div>
-                    <div class="modal-body">
-                        <hr>
-                    </div>
                     <div class="modal-body">
                         <div class="my-3">
                             <label class="form-label" for="Appointment_FullName">{{ l('FullName') }} *</label>
@@ -208,20 +208,30 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="cancel" class="btn btn-primary blue"  [disabled]="!appointmentForm.form.valid"
+                        <button type="cancel" class="btn btn-primary blue" 
                              (click)="cancel()">
                             <i class="fa fa-cancel"></i>
                             <span>{{ l('Cancel') }}</span>
                         </button>
-                        <button type="submit" class="btn btn-primary blue"  [disabled]="!appointmentForm.form.valid"
+                        <button type="submit" class="btn btn-primary blue "  [disabled]="!appointmentForm.form.valid"
                             [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" (click)="save()">
                             <i class="fa fa-save"></i>
                             <span>{{ l('Save') }}</span>
                         </button>
+                        <button type="submit" class="btn btn-primary blue"  (click)="viewDetails()"
+                            [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" >
+                            <i class="fa fa-save"></i>
+                            <span>{{ l('view') }}</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary blue" [disabled]="!appointmentForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
                     </div>
                 </form>
                 <!-- end: Wizard -->
+                
             </div>
         </div>
-    </div>
-</form>
+    </form>

@@ -36,6 +36,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { LocaleMappingService } from '@shared/locale-mapping.service';
 import { FormWizardComponent } from './Pages/appointment/form-wizard/form-wizard.component';
 import { CreateOrEditAppointmentDto, PortalsServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ViewDetailsComponent } from './Pages/appointment/view-details/view-details.component';
 
 
 export function getRecaptchaLanguage(): string {
@@ -73,8 +74,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         NgxCaptchaModule,
     ],
     declarations: [
-
+        
+        ViewDetailsComponent,
         FormWizardComponent,
+        
 
     ],
     providers: [

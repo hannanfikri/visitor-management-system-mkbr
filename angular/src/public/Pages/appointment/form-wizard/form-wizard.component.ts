@@ -9,6 +9,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { combineLatest } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ViewDetailsComponent } from '../view-details/view-details.component';
+
 
 
 
@@ -24,6 +26,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     //file upload
     @ViewChild('uploadProfilePictureInputLabel') uploadProfilePictureInputLabel: ElementRef;
+    @ViewChild('viewAppointmentModalComponent', { static: true }) viewAppointmentModal: ViewDetailsComponent;
 
     active = false;
     saving = false;
@@ -77,17 +80,14 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
 
     show(appointmentId?: string): void {
-        this.getPOVArray();
-        this.getTowerArray();
-        this.getCompanyArray();
-        this.getDepartmentArray();
-        this.getLevelArray();
 
         this.appointment = new CreateOrEditAppointmentDto();
         this.appointment.id = appointmentId;
-        this.active = true;
-        this.modal.show();
+        
 
+    }
+    test():void{
+        this.viewDetails();
     }
 
 
@@ -107,18 +107,9 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
 
     ngOnInit(appointmentId?: string): void {
-        //this.show();
-
-       // this.getPOVArray();
 
          this.getArray();
-        // this.getTowerArray();
-        // this.getCompanyArray();
-        // this.getDepartmentArray();
-        // this.getLevelArray();
-
-        //this.appointment = new CreateOrEditAppointmentDto();
-      //  this.appointment.id = appointmentId;
+         this.active = true;
 
 
     }
@@ -128,19 +119,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     ngOnDestroy() { }
 
     cancel() { }
-
-    //ListPurposeOfVisit
-    getPOVArray(): void {
-        this._portalAppService.getPurposeOfVisit().pipe().subscribe((result) => {
-            this.arrPOV = [];
-            this.arrPOV.push(result);
-        })
-
-        this._portalAppService.getTitle().pipe().subscribe((result) => {
-            this.arrTitle = [];
-            this.arrTitle.push(result);
-        })
-    }
+    
 
     getArray(): void {
         
@@ -159,45 +138,6 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                 this.arrDepartment.push(valueDepartment);
             })
     }
-    //List tower
-    getTowerArray(): void {
-        this._portalAppService.getTower().subscribe((result) => {
-            this.arrTower = [];
-            this.arrTower.push(result);
-        })
-    }
-    //List level
-    getLevelArray(): void {
-        this._portalAppService.getLevel().subscribe((result) => {
-            this.arrLevel = [];
-            this.arrLevel.push(result);
-        })
-    }
-    //List company name
-    getCompanyArray(): void {
-        this._portalAppService.getCompanyName()
-            .pipe(
-
-        ).subscribe((result) => {
-            this.arrCompany.push(result);
-        })
-    }
-    //List Department Name
-    getDepartmentArray(): void {
-        this._portalAppService.getDepartmentName().subscribe((result) => {
-            this.arrDepartment = [];
-            this.arrDepartment.push(result)
-        })
-    }
-
-    GetEmptyArray(): void {
-        this.arrDepartment = [];
-        this.arrCompany = [];
-        this.arrLevel = [];
-        this.arrTower = [];
-        this.arrTitle = [];
-        this.arrPOV = [];
-    }
 
     onUpload(event): void {
         for (const file of event.files) {
@@ -206,4 +146,8 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
 
     onBeforeSend(event): void { }
+
+    viewDetails() {
+        this._router.navigate(['/view-details']);
+      }
 }

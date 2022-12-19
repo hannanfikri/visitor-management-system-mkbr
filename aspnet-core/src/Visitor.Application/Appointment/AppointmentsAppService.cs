@@ -28,6 +28,8 @@ using Abp.Collections.Extensions;
 using Visitor.Common;
 using System.Threading;
 using Stripe;
+using Twilio.Types;
+using NPOI.SS.Formula.Functions;
 /*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
@@ -90,10 +92,30 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
+            DateTime minA = DateTime.Now;
+            DateTime maxA = DateTime.Now;
+            DateTime minR = DateTime.Now;
+            DateTime maxR = DateTime.Now;
+
+            if (input.MinAppDateTimeFilter != null)
+            {
+                 minA = (DateTime)input.MinAppDateTimeFilter;
+            }
+            if (input.MaxAppDateTimeFilter != null)
+            {
+                 maxA = (DateTime)input.MaxAppDateTimeFilter;
+            }
+            if (input.MinRegDateTimeFilter != null)
+            {
+                minR = (DateTime)input.MinRegDateTimeFilter;
+            }
+            if (input.MaxRegDateTimeFilter != null)
+            {
+                maxR = (DateTime)input.MaxRegDateTimeFilter;
+            }
+
+
             var todaysDate = DateTime.Today;
-            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
-                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
-                        : default;*/
 
             var statusEnumFilter = input.StatusFilter.HasValue
                         ? (StatusType)input.StatusFilter
@@ -101,19 +123,6 @@ namespace Visitor.Appointment
 
             var serviceType = 0;
 
-            /*var userId = AbpSession.UserId;
-            var objAdminUser = new AdminUserSetting();
-            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
-
-            if (objAdminUser != null)
-            {
-                serviceType = (int)objAdminUser.ServiceTypeId;
-            }*/
-
-            /*if (input.MinAppDateTimeFilter == null)
-            {
-                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
-            }*/
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
@@ -126,11 +135,18 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
-                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime >= input.MinAppDateTimeFilter)
-                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime <= input.MaxAppDateTimeFilter)*/
+
+                        .WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= minA.Date)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= maxA.Date)
+                        .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
+                        .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
+
                         .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter); 
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
+                        //.WhereIf(input.AppDateTimeFilter != null, e => e.AppDateTime == input.AppDateTimeFilter );
+
+
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -198,11 +214,32 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllToday(GetAllAppointmentsInput input)
         {
+
+            DateTime minA = DateTime.Now;
+            DateTime maxA = DateTime.Now;
+            DateTime minR = DateTime.Now;
+            DateTime maxR = DateTime.Now;
+
+            if (input.MinAppDateTimeFilter != null)
+            {
+                minA = (DateTime)input.MinAppDateTimeFilter;
+            }
+            if (input.MaxAppDateTimeFilter != null)
+            {
+                maxA = (DateTime)input.MaxAppDateTimeFilter;
+            }
+            if (input.MinRegDateTimeFilter != null)
+            {
+                minR = (DateTime)input.MinRegDateTimeFilter;
+            }
+            if (input.MaxRegDateTimeFilter != null)
+            {
+                maxR = (DateTime)input.MaxRegDateTimeFilter;
+            }
+
             DateTime d1 = GetToday();
             var todaysDate = DateTime.Today;
-            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
-                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
-                        : default;*/
+            
 
             var statusEnumFilter = input.StatusFilter.HasValue
                         ? (StatusType)input.StatusFilter
@@ -210,19 +247,6 @@ namespace Visitor.Appointment
 
             var serviceType = 0;
 
-            /*var userId = AbpSession.UserId;
-            var objAdminUser = new AdminUserSetting();
-            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
-
-            if (objAdminUser != null)
-            {
-                serviceType = (int)objAdminUser.ServiceTypeId;
-            }*/
-
-           /* if (input.MinAppDateTimeFilter == null)
-            {
-                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
-            }*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
@@ -238,10 +262,16 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
-                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= input.MinAppDateTimeFilter)
-                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= input.MaxAppDateTimeFilter)*/
+
+                        .WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= minA.Date)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= maxA.Date)
+                        .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
+                        .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
+
+
                         .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -309,32 +339,37 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllTomorrow(GetAllAppointmentsInput input)
         {
+            DateTime minA = DateTime.Now;
+            DateTime maxA = DateTime.Now;
+            DateTime minR = DateTime.Now;
+            DateTime maxR = DateTime.Now;
+
+            if (input.MinAppDateTimeFilter != null)
+            {
+                minA = (DateTime)input.MinAppDateTimeFilter;
+            }
+            if (input.MaxAppDateTimeFilter != null)
+            {
+                maxA = (DateTime)input.MaxAppDateTimeFilter;
+            }
+            if (input.MinRegDateTimeFilter != null)
+            {
+                minR = (DateTime)input.MinRegDateTimeFilter;
+            }
+            if (input.MaxRegDateTimeFilter != null)
+            {
+                maxR = (DateTime)input.MaxRegDateTimeFilter;
+            }
+
             DateTime d2 = GetTomorrow();
 
             var todaysDate = DateTime.Today;
-            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
-                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
-                        : default;*/
 
             var statusEnumFilter = input.StatusFilter.HasValue
                         ? (StatusType)input.StatusFilter
                         : default;
 
             var serviceType = 0;
-
-            /*var userId = AbpSession.UserId;
-            var objAdminUser = new AdminUserSetting();
-            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
-
-            if (objAdminUser != null)
-            {
-                serviceType = (int)objAdminUser.ServiceTypeId;
-            }*/
-
-            /*if (input.MinAppDateTimeFilter == null)
-            {
-                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
-            }*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
@@ -350,10 +385,15 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
-                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= input.MinAppDateTimeFilter)
-                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= input.MaxAppDateTimeFilter)*/
+
+                        .WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= minA.Date)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= maxA.Date)
+                        .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
+                        .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
+
                         .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -421,32 +461,37 @@ namespace Visitor.Appointment
         }
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAllYesterday(GetAllAppointmentsInput input)
         {
+            DateTime minA = DateTime.Now;
+            DateTime maxA = DateTime.Now;
+            DateTime minR = DateTime.Now;
+            DateTime maxR = DateTime.Now;
+
+            if (input.MinAppDateTimeFilter != null)
+            {
+                minA = (DateTime)input.MinAppDateTimeFilter;
+            }
+            if (input.MaxAppDateTimeFilter != null)
+            {
+                maxA = (DateTime)input.MaxAppDateTimeFilter;
+            }
+            if (input.MinRegDateTimeFilter != null)
+            {
+                minR = (DateTime)input.MinRegDateTimeFilter;
+            }
+            if (input.MaxRegDateTimeFilter != null)
+            {
+                maxR = (DateTime)input.MaxRegDateTimeFilter;
+            }
+
             DateTime d3 = GetYesterday();
 
             var todaysDate = DateTime.Today;
-            /*var appointmentSlotFilter = input.AppointmentSlotFilter.HasValue
-                        ? (AppointmentSlotEnum)input.AppointmentSlotFilter
-                        : default;*/
 
             var statusEnumFilter = input.StatusFilter.HasValue
                         ? (StatusType)input.StatusFilter
                         : default;
 
             var serviceType = 0;
-
-            /*var userId = AbpSession.UserId;
-            var objAdminUser = new AdminUserSetting();
-            objAdminUser = _adminUserSettingRepository.FirstOrDefault(e => e.UserId == userId);
-
-            if (objAdminUser != null)
-            {
-                serviceType = (int)objAdminUser.ServiceTypeId;
-            }*/
-
-            /*if (input.MinAppDateTimeFilter == null)
-            {
-                input.MinAppDateTimeFilter = todaysDate.Date.AddDays(-14);
-            }*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
@@ -462,10 +507,15 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
-                        /*.WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= input.MinAppDateTimeFilter)
-                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= input.MaxAppDateTimeFilter)*/
+
+                        .WhereIf(input.MinAppDateTimeFilter != null, e => e.AppDateTime.Date >= minA.Date)
+                        .WhereIf(input.MaxAppDateTimeFilter != null, e => e.AppDateTime.Date <= maxA.Date)
+                        .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
+                        .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
+
                         .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -566,34 +616,23 @@ namespace Visitor.Appointment
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
-            /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
 
-            /*await _appointmentRepository.InsertAsync(appointment);*/
-
-
-
-
+            var pn = input.PhoneNo;
+            var ic = input.IdentityCard;
             //input.MobileNumber = "+6" + input.MobileNumber;
             var rand = new Random();
             int num = rand.Next(1000);
-            var date = DateTime.Today.Date.ToString("yyMM");
+            var date = input.AppDateTime.Date.ToString("yyMMdd");
             var lang = Thread.CurrentThread.CurrentCulture;
             input.Status = 0;
+            string lastFourDigitsPN = pn.Substring(pn.Length - 4, 4);
+            string lastFourDigitsIC = ic.Substring(pn.Length - 2, 4);
             //input.AppointmentDate = input.AppointmentDate.ToShortDateString();
-            input.AppRefNo = "AR" + date + num + input.PhoneNo + input.IdentityCard;
+            input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
             /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
 
-            /*if (AbpSession.TenantId != null)
-            {
-                booking.TenantId = (int?)AbpSession.TenantId;
-            }*/
+            
 
-            /*var service = await _lookup_serviceRepository.GetAllIncluding(p => p.Translations.Where(x => x.Language == lang.ToString())).FirstOrDefaultAsync(x => x.Id == input.IdentityCard.Value);
-            if (!service.IsQtyGold)
-                input.QtyGold = null;
-            if (!service.IsQtySag)
-                input.QtySAG = null;
-            input.ServiceTypeId = service.ServiceTypeId;*/
 
             var checker = true;
             while (checker)
@@ -601,10 +640,14 @@ namespace Visitor.Appointment
                 var bookhCheck = _appointmentRepository.FirstOrDefault(e => e.AppRefNo == input.AppRefNo);
                 if (bookhCheck?.Id != null)
                 {
+                    /*string PhoneNo = "";*/
+
                     //if duplicate booking ref no
                     checker = true;
                     num = rand.Next(1000);
-                    input.AppRefNo = "AR" + date + num + input.PhoneNo + input.IdentityCard;
+                    /*string lastFourDigits = pn.Substring(pn.Length - 4, 4);*/
+                    input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+
                 }
                 else
                 {

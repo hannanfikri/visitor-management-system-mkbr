@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common'
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { result } from 'lodash-es';
 import { key } from 'localforage';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
     selector: 'createOrEditAppointmentModal',
@@ -25,6 +26,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
+
+    uploadUrl: string;
+    uploadedFiles: any[] = [];
+
+
     // statusenum = StatusType;
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     arrPOV: Array<any> = [];
@@ -40,6 +46,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
 
+     
+
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
@@ -47,6 +55,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         //public datepipe: DatePipe
     ) {
         super(injector);
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
     }
 
     
@@ -179,5 +188,16 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         // for(let s in this.keys){
         //     this.statusType.push(s);
         // }
+
+        
+    }
+    onUpload(event): void {
+        for (const file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+    }
+
+    onBeforeSend(event): void {
+        event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
     }
 }

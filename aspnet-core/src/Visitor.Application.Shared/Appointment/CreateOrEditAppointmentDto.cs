@@ -9,6 +9,7 @@ using Abp.Domain.Entities.Auditing;
 using Visitor.Departments.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
 using Visitor.Appointments;
+using Visitor.Common;
 
 namespace Visitor.Appointment
 {
@@ -51,5 +52,7 @@ namespace Visitor.Appointment
         public virtual IHasCreationTime RegDateTime { get; set; }
         public virtual StatusType Status { get; set; }
         public virtual string ImageId { get; set; }
+
+        public virtual string AppRefNo { get; set; }
     }
 }

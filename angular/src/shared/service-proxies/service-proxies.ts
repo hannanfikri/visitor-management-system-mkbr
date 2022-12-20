@@ -697,12 +697,28 @@ export class AppointmentsServiceProxy {
     /**
      * @param filter (optional) 
      * @param fullNameFilter (optional) 
+     * @param identityCardFilter (optional) 
+     * @param phoneNoFilter (optional) 
+     * @param emailFilter (optional) 
+     * @param titleFilter (optional) 
+     * @param companyNameFilter (optional) 
+     * @param officerToMeetFilter (optional) 
+     * @param purposeOfVisitFilter (optional) 
+     * @param departmentFilter (optional) 
+     * @param towerFilter (optional) 
+     * @param levelFilter (optional) 
+     * @param minAppDateTimeFilter (optional) 
+     * @param maxAppDateTimeFilter (optional) 
+     * @param minRegDateTimeFilter (optional) 
+     * @param maxRegDateTimeFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param appRefNoFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, fullNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAll(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -712,6 +728,70 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'fullNameFilter' cannot be null.");
         else if (fullNameFilter !== undefined)
             url_ += "FullNameFilter=" + encodeURIComponent("" + fullNameFilter) + "&";
+        if (identityCardFilter === null)
+            throw new Error("The parameter 'identityCardFilter' cannot be null.");
+        else if (identityCardFilter !== undefined)
+            url_ += "IdentityCardFilter=" + encodeURIComponent("" + identityCardFilter) + "&";
+        if (phoneNoFilter === null)
+            throw new Error("The parameter 'phoneNoFilter' cannot be null.");
+        else if (phoneNoFilter !== undefined)
+            url_ += "PhoneNoFilter=" + encodeURIComponent("" + phoneNoFilter) + "&";
+        if (emailFilter === null)
+            throw new Error("The parameter 'emailFilter' cannot be null.");
+        else if (emailFilter !== undefined)
+            url_ += "EmailFilter=" + encodeURIComponent("" + emailFilter) + "&";
+        if (titleFilter === null)
+            throw new Error("The parameter 'titleFilter' cannot be null.");
+        else if (titleFilter !== undefined)
+            url_ += "TitleFilter=" + encodeURIComponent("" + titleFilter) + "&";
+        if (companyNameFilter === null)
+            throw new Error("The parameter 'companyNameFilter' cannot be null.");
+        else if (companyNameFilter !== undefined)
+            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+        if (officerToMeetFilter === null)
+            throw new Error("The parameter 'officerToMeetFilter' cannot be null.");
+        else if (officerToMeetFilter !== undefined)
+            url_ += "OfficerToMeetFilter=" + encodeURIComponent("" + officerToMeetFilter) + "&";
+        if (purposeOfVisitFilter === null)
+            throw new Error("The parameter 'purposeOfVisitFilter' cannot be null.");
+        else if (purposeOfVisitFilter !== undefined)
+            url_ += "PurposeOfVisitFilter=" + encodeURIComponent("" + purposeOfVisitFilter) + "&";
+        if (departmentFilter === null)
+            throw new Error("The parameter 'departmentFilter' cannot be null.");
+        else if (departmentFilter !== undefined)
+            url_ += "DepartmentFilter=" + encodeURIComponent("" + departmentFilter) + "&";
+        if (towerFilter === null)
+            throw new Error("The parameter 'towerFilter' cannot be null.");
+        else if (towerFilter !== undefined)
+            url_ += "TowerFilter=" + encodeURIComponent("" + towerFilter) + "&";
+        if (levelFilter === null)
+            throw new Error("The parameter 'levelFilter' cannot be null.");
+        else if (levelFilter !== undefined)
+            url_ += "LevelFilter=" + encodeURIComponent("" + levelFilter) + "&";
+        if (minAppDateTimeFilter === null)
+            throw new Error("The parameter 'minAppDateTimeFilter' cannot be null.");
+        else if (minAppDateTimeFilter !== undefined)
+            url_ += "MinAppDateTimeFilter=" + encodeURIComponent(minAppDateTimeFilter ? "" + minAppDateTimeFilter.toJSON() : "") + "&";
+        if (maxAppDateTimeFilter === null)
+            throw new Error("The parameter 'maxAppDateTimeFilter' cannot be null.");
+        else if (maxAppDateTimeFilter !== undefined)
+            url_ += "MaxAppDateTimeFilter=" + encodeURIComponent(maxAppDateTimeFilter ? "" + maxAppDateTimeFilter.toJSON() : "") + "&";
+        if (minRegDateTimeFilter === null)
+            throw new Error("The parameter 'minRegDateTimeFilter' cannot be null.");
+        else if (minRegDateTimeFilter !== undefined)
+            url_ += "MinRegDateTimeFilter=" + encodeURIComponent(minRegDateTimeFilter ? "" + minRegDateTimeFilter.toJSON() : "") + "&";
+        if (maxRegDateTimeFilter === null)
+            throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
+        else if (maxRegDateTimeFilter !== undefined)
+            url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (statusFilter === null)
+            throw new Error("The parameter 'statusFilter' cannot be null.");
+        else if (statusFilter !== undefined)
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+        if (appRefNoFilter === null)
+            throw new Error("The parameter 'appRefNoFilter' cannot be null.");
+        else if (appRefNoFilter !== undefined)
+            url_ += "AppRefNoFilter=" + encodeURIComponent("" + appRefNoFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -773,12 +853,28 @@ export class AppointmentsServiceProxy {
     /**
      * @param filter (optional) 
      * @param fullNameFilter (optional) 
+     * @param identityCardFilter (optional) 
+     * @param phoneNoFilter (optional) 
+     * @param emailFilter (optional) 
+     * @param titleFilter (optional) 
+     * @param companyNameFilter (optional) 
+     * @param officerToMeetFilter (optional) 
+     * @param purposeOfVisitFilter (optional) 
+     * @param departmentFilter (optional) 
+     * @param towerFilter (optional) 
+     * @param levelFilter (optional) 
+     * @param minAppDateTimeFilter (optional) 
+     * @param maxAppDateTimeFilter (optional) 
+     * @param minRegDateTimeFilter (optional) 
+     * @param maxRegDateTimeFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param appRefNoFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllToday(filter: string | undefined, fullNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAllToday(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAllToday?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -788,6 +884,70 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'fullNameFilter' cannot be null.");
         else if (fullNameFilter !== undefined)
             url_ += "FullNameFilter=" + encodeURIComponent("" + fullNameFilter) + "&";
+        if (identityCardFilter === null)
+            throw new Error("The parameter 'identityCardFilter' cannot be null.");
+        else if (identityCardFilter !== undefined)
+            url_ += "IdentityCardFilter=" + encodeURIComponent("" + identityCardFilter) + "&";
+        if (phoneNoFilter === null)
+            throw new Error("The parameter 'phoneNoFilter' cannot be null.");
+        else if (phoneNoFilter !== undefined)
+            url_ += "PhoneNoFilter=" + encodeURIComponent("" + phoneNoFilter) + "&";
+        if (emailFilter === null)
+            throw new Error("The parameter 'emailFilter' cannot be null.");
+        else if (emailFilter !== undefined)
+            url_ += "EmailFilter=" + encodeURIComponent("" + emailFilter) + "&";
+        if (titleFilter === null)
+            throw new Error("The parameter 'titleFilter' cannot be null.");
+        else if (titleFilter !== undefined)
+            url_ += "TitleFilter=" + encodeURIComponent("" + titleFilter) + "&";
+        if (companyNameFilter === null)
+            throw new Error("The parameter 'companyNameFilter' cannot be null.");
+        else if (companyNameFilter !== undefined)
+            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+        if (officerToMeetFilter === null)
+            throw new Error("The parameter 'officerToMeetFilter' cannot be null.");
+        else if (officerToMeetFilter !== undefined)
+            url_ += "OfficerToMeetFilter=" + encodeURIComponent("" + officerToMeetFilter) + "&";
+        if (purposeOfVisitFilter === null)
+            throw new Error("The parameter 'purposeOfVisitFilter' cannot be null.");
+        else if (purposeOfVisitFilter !== undefined)
+            url_ += "PurposeOfVisitFilter=" + encodeURIComponent("" + purposeOfVisitFilter) + "&";
+        if (departmentFilter === null)
+            throw new Error("The parameter 'departmentFilter' cannot be null.");
+        else if (departmentFilter !== undefined)
+            url_ += "DepartmentFilter=" + encodeURIComponent("" + departmentFilter) + "&";
+        if (towerFilter === null)
+            throw new Error("The parameter 'towerFilter' cannot be null.");
+        else if (towerFilter !== undefined)
+            url_ += "TowerFilter=" + encodeURIComponent("" + towerFilter) + "&";
+        if (levelFilter === null)
+            throw new Error("The parameter 'levelFilter' cannot be null.");
+        else if (levelFilter !== undefined)
+            url_ += "LevelFilter=" + encodeURIComponent("" + levelFilter) + "&";
+        if (minAppDateTimeFilter === null)
+            throw new Error("The parameter 'minAppDateTimeFilter' cannot be null.");
+        else if (minAppDateTimeFilter !== undefined)
+            url_ += "MinAppDateTimeFilter=" + encodeURIComponent(minAppDateTimeFilter ? "" + minAppDateTimeFilter.toJSON() : "") + "&";
+        if (maxAppDateTimeFilter === null)
+            throw new Error("The parameter 'maxAppDateTimeFilter' cannot be null.");
+        else if (maxAppDateTimeFilter !== undefined)
+            url_ += "MaxAppDateTimeFilter=" + encodeURIComponent(maxAppDateTimeFilter ? "" + maxAppDateTimeFilter.toJSON() : "") + "&";
+        if (minRegDateTimeFilter === null)
+            throw new Error("The parameter 'minRegDateTimeFilter' cannot be null.");
+        else if (minRegDateTimeFilter !== undefined)
+            url_ += "MinRegDateTimeFilter=" + encodeURIComponent(minRegDateTimeFilter ? "" + minRegDateTimeFilter.toJSON() : "") + "&";
+        if (maxRegDateTimeFilter === null)
+            throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
+        else if (maxRegDateTimeFilter !== undefined)
+            url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (statusFilter === null)
+            throw new Error("The parameter 'statusFilter' cannot be null.");
+        else if (statusFilter !== undefined)
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+        if (appRefNoFilter === null)
+            throw new Error("The parameter 'appRefNoFilter' cannot be null.");
+        else if (appRefNoFilter !== undefined)
+            url_ += "AppRefNoFilter=" + encodeURIComponent("" + appRefNoFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -849,12 +1009,28 @@ export class AppointmentsServiceProxy {
     /**
      * @param filter (optional) 
      * @param fullNameFilter (optional) 
+     * @param identityCardFilter (optional) 
+     * @param phoneNoFilter (optional) 
+     * @param emailFilter (optional) 
+     * @param titleFilter (optional) 
+     * @param companyNameFilter (optional) 
+     * @param officerToMeetFilter (optional) 
+     * @param purposeOfVisitFilter (optional) 
+     * @param departmentFilter (optional) 
+     * @param towerFilter (optional) 
+     * @param levelFilter (optional) 
+     * @param minAppDateTimeFilter (optional) 
+     * @param maxAppDateTimeFilter (optional) 
+     * @param minRegDateTimeFilter (optional) 
+     * @param maxRegDateTimeFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param appRefNoFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllTomorrow(filter: string | undefined, fullNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAllTomorrow(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAllTomorrow?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -864,6 +1040,70 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'fullNameFilter' cannot be null.");
         else if (fullNameFilter !== undefined)
             url_ += "FullNameFilter=" + encodeURIComponent("" + fullNameFilter) + "&";
+        if (identityCardFilter === null)
+            throw new Error("The parameter 'identityCardFilter' cannot be null.");
+        else if (identityCardFilter !== undefined)
+            url_ += "IdentityCardFilter=" + encodeURIComponent("" + identityCardFilter) + "&";
+        if (phoneNoFilter === null)
+            throw new Error("The parameter 'phoneNoFilter' cannot be null.");
+        else if (phoneNoFilter !== undefined)
+            url_ += "PhoneNoFilter=" + encodeURIComponent("" + phoneNoFilter) + "&";
+        if (emailFilter === null)
+            throw new Error("The parameter 'emailFilter' cannot be null.");
+        else if (emailFilter !== undefined)
+            url_ += "EmailFilter=" + encodeURIComponent("" + emailFilter) + "&";
+        if (titleFilter === null)
+            throw new Error("The parameter 'titleFilter' cannot be null.");
+        else if (titleFilter !== undefined)
+            url_ += "TitleFilter=" + encodeURIComponent("" + titleFilter) + "&";
+        if (companyNameFilter === null)
+            throw new Error("The parameter 'companyNameFilter' cannot be null.");
+        else if (companyNameFilter !== undefined)
+            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+        if (officerToMeetFilter === null)
+            throw new Error("The parameter 'officerToMeetFilter' cannot be null.");
+        else if (officerToMeetFilter !== undefined)
+            url_ += "OfficerToMeetFilter=" + encodeURIComponent("" + officerToMeetFilter) + "&";
+        if (purposeOfVisitFilter === null)
+            throw new Error("The parameter 'purposeOfVisitFilter' cannot be null.");
+        else if (purposeOfVisitFilter !== undefined)
+            url_ += "PurposeOfVisitFilter=" + encodeURIComponent("" + purposeOfVisitFilter) + "&";
+        if (departmentFilter === null)
+            throw new Error("The parameter 'departmentFilter' cannot be null.");
+        else if (departmentFilter !== undefined)
+            url_ += "DepartmentFilter=" + encodeURIComponent("" + departmentFilter) + "&";
+        if (towerFilter === null)
+            throw new Error("The parameter 'towerFilter' cannot be null.");
+        else if (towerFilter !== undefined)
+            url_ += "TowerFilter=" + encodeURIComponent("" + towerFilter) + "&";
+        if (levelFilter === null)
+            throw new Error("The parameter 'levelFilter' cannot be null.");
+        else if (levelFilter !== undefined)
+            url_ += "LevelFilter=" + encodeURIComponent("" + levelFilter) + "&";
+        if (minAppDateTimeFilter === null)
+            throw new Error("The parameter 'minAppDateTimeFilter' cannot be null.");
+        else if (minAppDateTimeFilter !== undefined)
+            url_ += "MinAppDateTimeFilter=" + encodeURIComponent(minAppDateTimeFilter ? "" + minAppDateTimeFilter.toJSON() : "") + "&";
+        if (maxAppDateTimeFilter === null)
+            throw new Error("The parameter 'maxAppDateTimeFilter' cannot be null.");
+        else if (maxAppDateTimeFilter !== undefined)
+            url_ += "MaxAppDateTimeFilter=" + encodeURIComponent(maxAppDateTimeFilter ? "" + maxAppDateTimeFilter.toJSON() : "") + "&";
+        if (minRegDateTimeFilter === null)
+            throw new Error("The parameter 'minRegDateTimeFilter' cannot be null.");
+        else if (minRegDateTimeFilter !== undefined)
+            url_ += "MinRegDateTimeFilter=" + encodeURIComponent(minRegDateTimeFilter ? "" + minRegDateTimeFilter.toJSON() : "") + "&";
+        if (maxRegDateTimeFilter === null)
+            throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
+        else if (maxRegDateTimeFilter !== undefined)
+            url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (statusFilter === null)
+            throw new Error("The parameter 'statusFilter' cannot be null.");
+        else if (statusFilter !== undefined)
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+        if (appRefNoFilter === null)
+            throw new Error("The parameter 'appRefNoFilter' cannot be null.");
+        else if (appRefNoFilter !== undefined)
+            url_ += "AppRefNoFilter=" + encodeURIComponent("" + appRefNoFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -925,12 +1165,28 @@ export class AppointmentsServiceProxy {
     /**
      * @param filter (optional) 
      * @param fullNameFilter (optional) 
+     * @param identityCardFilter (optional) 
+     * @param phoneNoFilter (optional) 
+     * @param emailFilter (optional) 
+     * @param titleFilter (optional) 
+     * @param companyNameFilter (optional) 
+     * @param officerToMeetFilter (optional) 
+     * @param purposeOfVisitFilter (optional) 
+     * @param departmentFilter (optional) 
+     * @param towerFilter (optional) 
+     * @param levelFilter (optional) 
+     * @param minAppDateTimeFilter (optional) 
+     * @param maxAppDateTimeFilter (optional) 
+     * @param minRegDateTimeFilter (optional) 
+     * @param maxRegDateTimeFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param appRefNoFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllYesterday(filter: string | undefined, fullNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAllYesterday(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAllYesterday?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -940,6 +1196,70 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'fullNameFilter' cannot be null.");
         else if (fullNameFilter !== undefined)
             url_ += "FullNameFilter=" + encodeURIComponent("" + fullNameFilter) + "&";
+        if (identityCardFilter === null)
+            throw new Error("The parameter 'identityCardFilter' cannot be null.");
+        else if (identityCardFilter !== undefined)
+            url_ += "IdentityCardFilter=" + encodeURIComponent("" + identityCardFilter) + "&";
+        if (phoneNoFilter === null)
+            throw new Error("The parameter 'phoneNoFilter' cannot be null.");
+        else if (phoneNoFilter !== undefined)
+            url_ += "PhoneNoFilter=" + encodeURIComponent("" + phoneNoFilter) + "&";
+        if (emailFilter === null)
+            throw new Error("The parameter 'emailFilter' cannot be null.");
+        else if (emailFilter !== undefined)
+            url_ += "EmailFilter=" + encodeURIComponent("" + emailFilter) + "&";
+        if (titleFilter === null)
+            throw new Error("The parameter 'titleFilter' cannot be null.");
+        else if (titleFilter !== undefined)
+            url_ += "TitleFilter=" + encodeURIComponent("" + titleFilter) + "&";
+        if (companyNameFilter === null)
+            throw new Error("The parameter 'companyNameFilter' cannot be null.");
+        else if (companyNameFilter !== undefined)
+            url_ += "CompanyNameFilter=" + encodeURIComponent("" + companyNameFilter) + "&";
+        if (officerToMeetFilter === null)
+            throw new Error("The parameter 'officerToMeetFilter' cannot be null.");
+        else if (officerToMeetFilter !== undefined)
+            url_ += "OfficerToMeetFilter=" + encodeURIComponent("" + officerToMeetFilter) + "&";
+        if (purposeOfVisitFilter === null)
+            throw new Error("The parameter 'purposeOfVisitFilter' cannot be null.");
+        else if (purposeOfVisitFilter !== undefined)
+            url_ += "PurposeOfVisitFilter=" + encodeURIComponent("" + purposeOfVisitFilter) + "&";
+        if (departmentFilter === null)
+            throw new Error("The parameter 'departmentFilter' cannot be null.");
+        else if (departmentFilter !== undefined)
+            url_ += "DepartmentFilter=" + encodeURIComponent("" + departmentFilter) + "&";
+        if (towerFilter === null)
+            throw new Error("The parameter 'towerFilter' cannot be null.");
+        else if (towerFilter !== undefined)
+            url_ += "TowerFilter=" + encodeURIComponent("" + towerFilter) + "&";
+        if (levelFilter === null)
+            throw new Error("The parameter 'levelFilter' cannot be null.");
+        else if (levelFilter !== undefined)
+            url_ += "LevelFilter=" + encodeURIComponent("" + levelFilter) + "&";
+        if (minAppDateTimeFilter === null)
+            throw new Error("The parameter 'minAppDateTimeFilter' cannot be null.");
+        else if (minAppDateTimeFilter !== undefined)
+            url_ += "MinAppDateTimeFilter=" + encodeURIComponent(minAppDateTimeFilter ? "" + minAppDateTimeFilter.toJSON() : "") + "&";
+        if (maxAppDateTimeFilter === null)
+            throw new Error("The parameter 'maxAppDateTimeFilter' cannot be null.");
+        else if (maxAppDateTimeFilter !== undefined)
+            url_ += "MaxAppDateTimeFilter=" + encodeURIComponent(maxAppDateTimeFilter ? "" + maxAppDateTimeFilter.toJSON() : "") + "&";
+        if (minRegDateTimeFilter === null)
+            throw new Error("The parameter 'minRegDateTimeFilter' cannot be null.");
+        else if (minRegDateTimeFilter !== undefined)
+            url_ += "MinRegDateTimeFilter=" + encodeURIComponent(minRegDateTimeFilter ? "" + minRegDateTimeFilter.toJSON() : "") + "&";
+        if (maxRegDateTimeFilter === null)
+            throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
+        else if (maxRegDateTimeFilter !== undefined)
+            url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (statusFilter === null)
+            throw new Error("The parameter 'statusFilter' cannot be null.");
+        else if (statusFilter !== undefined)
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+        if (appRefNoFilter === null)
+            throw new Error("The parameter 'appRefNoFilter' cannot be null.");
+        else if (appRefNoFilter !== undefined)
+            url_ += "AppRefNoFilter=" + encodeURIComponent("" + appRefNoFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -18891,6 +19211,7 @@ export class AppointmentDto implements IAppointmentDto {
     regDateTime!: string | undefined;
     status!: StatusType;
     imageId!: string | undefined;
+    appRefNo!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -18926,6 +19247,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.regDateTime = _data["regDateTime"];
             this.status = _data["status"];
             this.imageId = _data["imageId"];
+            this.appRefNo = _data["appRefNo"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -18961,6 +19283,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["regDateTime"] = this.regDateTime;
         data["status"] = this.status;
         data["imageId"] = this.imageId;
+        data["appRefNo"] = this.appRefNo;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -18989,6 +19312,7 @@ export interface IAppointmentDto {
     regDateTime: string | undefined;
     status: StatusType;
     imageId: string | undefined;
+    appRefNo: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -20012,6 +20336,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     regDateTime!: IHasCreationTime;
     status!: StatusType;
     imageId!: string;
+    appRefNo!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -20048,6 +20373,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
             this.status = _data["status"];
             this.imageId = _data["imageId"];
+            this.appRefNo = _data["appRefNo"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -20084,6 +20410,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
         data["status"] = this.status;
         data["imageId"] = this.imageId;
+        data["appRefNo"] = this.appRefNo;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -20113,6 +20440,7 @@ export interface ICreateOrEditAppointmentDto {
     regDateTime: IHasCreationTime;
     status: StatusType;
     imageId: string;
+    appRefNo: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;

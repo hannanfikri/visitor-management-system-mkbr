@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Visitor.Appointments;
+using Visitor.Common;
 
 namespace Visitor.Appointment
 {
@@ -26,5 +27,7 @@ namespace Visitor.Appointment
         public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
         public string ImageId { get; set; }
+
+        public string AppRefNo { get; set; }
     }
 }

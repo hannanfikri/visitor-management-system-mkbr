@@ -215,6 +215,7 @@
                         <button type="button" class="btn btn-primary blue" name="upload" (click)="upload()" >Upload</button>
                 </div>
 
+<div *ngIf="appointment.id">
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
@@ -225,6 +226,7 @@
                         </select>
                     </div>
                 </div>
+</div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
                         {{ l('Cancel') }}

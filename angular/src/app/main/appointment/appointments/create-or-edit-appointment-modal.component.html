@@ -186,23 +186,16 @@
                     <label class="form-label" for="UploadPicture">{{ 'ChangeProfilePicture' | localize }} </label>
                     <div class="my-3">
                         <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="uploadPicture" name="uploadPicture" (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" />
-                                <label class="custom-file-label"  #uploadPictureInputLabel for="uploadPicture">
-                                    <!-- {{ 'ChooseAFile' | localize }} -->
-                                </label>
-                            </div>
-                        </div>
-                        <br>
-                        <div *ngIf="appointment.imageId">
-                            <!-- display when appointment.imageId is not null -->
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <h6>Uploaded {{ l('Picture') }} :</h6>
+                                <div class="custom-file">         <input type="file" id="uploadPicture" name="uploadPicture" (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" />         <label class="custom-file-label"  #uploadPictureInputLabel for="uploadPicture">
+                                        <!-- {{ 'ChooseAFile' | localize }} -->         </label>     </div> </div>
+                            <br> <div *ngIf="appointment.imageId">        <!-- display when appointment.imageId is not null -->
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <h6>Uploaded {{ l('Picture') }} :</h6>
                                     <img [src]="image">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
                         [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
@@ -214,15 +207,16 @@
                      accept="image/*" maxFileSize="1000000" (onUpload)="onUpload()"
                     >
                 </p-fileUpload> -->
-
-                <div class="modal-body">
-                    <div class="my-3">
-                        <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
-                        <select #Appointment_Status="ngModel" id="Appointment_Status" [(ngModel)]="appointment.status"
-                            name="Status" class="form-control">
-                            <option [value]="stat" *ngFor="let stat of statusType">
-                                {{ stat }}</option>
-                        </select>
+                <div *ngIf="appointment.id">
+                    <div class="modal-body">
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
+                            <select #Appointment_Status="ngModel" id="Appointment_Status"
+                                [(ngModel)]="appointment.status" name="Status" class="form-control">
+                                <option [value]="stat" *ngFor="let stat of statusType">
+                                    {{ stat }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -10,6 +10,7 @@ import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { result } from 'lodash-es';
 import { key } from 'localforage';
 import { AppConsts } from '@shared/AppConsts';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
     selector: 'createOrEditAppointmentModal',
@@ -30,6 +31,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
+
+    uploadUrl: string;
+    uploadedFiles: any[] = [];
+
+
     // statusenum = StatusType;
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     arrPOV: Array<any> = [];
@@ -44,6 +50,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
+
+     
 
     constructor(
         injector: Injector,

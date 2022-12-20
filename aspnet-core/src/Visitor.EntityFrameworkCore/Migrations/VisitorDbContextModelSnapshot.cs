@@ -1434,6 +1434,9 @@ namespace Visitor.Migrations
                     b.Property<DateTime>("AppDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("AppRefNo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 

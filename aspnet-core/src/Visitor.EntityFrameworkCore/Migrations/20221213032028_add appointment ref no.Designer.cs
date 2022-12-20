@@ -12,8 +12,8 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    [Migration("20221205024025_InitialChanges")]
-    partial class InitialChanges
+    [Migration("20221213032028_add appointment ref no")]
+    partial class addappointmentrefno
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1435,6 +1435,9 @@ namespace Visitor.Migrations
 
                     b.Property<DateTime>("AppDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AppRefNo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");

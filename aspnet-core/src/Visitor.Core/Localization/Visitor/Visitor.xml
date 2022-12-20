@@ -90,6 +90,8 @@
 	  
     <text name="RegDateTime">Register's date and time</text>
     <text name="FaceVerify">Visitor's face</text>
+	  <text name="Picture">Visitor's Image for Verification</text>
+	  <text name="UploadSuccessfully">Picture uploaded successfully.</text>
 
 	  <text name="Department">Department</text>
 	  <text name="Visitor.Department.Department">Department</text>

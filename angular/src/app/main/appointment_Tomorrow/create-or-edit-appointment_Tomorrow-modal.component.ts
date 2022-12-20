@@ -10,6 +10,7 @@ import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { result } from 'lodash-es';
 import { key } from 'localforage';
 import { AppConsts } from '@shared/AppConsts';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
     selector: 'createOrEditAppointmentModal',
@@ -23,6 +24,10 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     active = false;
     saving = false;
     //statusenum : Array<any> = []
+
+    uploadUrl: string;
+    uploadedFiles: any[] = [];
+
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
@@ -52,7 +57,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
-        //public datepipe: DatePipe
     ) {
         super(injector);
         this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
@@ -117,7 +121,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     close(): void {
         this.active = false;
         this.modal.hide();
-        
+        this.uploadedFiles = [];
     }
     setDate(): void {
         let date: Date = new Date();
@@ -184,13 +188,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.statusType.push(s);
             }
         };
-        // this.statusType = [];
-        // for(let s in this.keys){
-        //     this.statusType.push(s);
-        // }
-
-        
     }
+
     onUpload(event): void {
         for (const file of event.files) {
             this.uploadedFiles.push(file);

@@ -18,6 +18,7 @@ import { filter as _filter } from 'lodash-es';
 import { DateTime } from 'luxon';
 
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
+import { url } from 'inspector';
 
 @Component({
     templateUrl: './appointments.component.html',
@@ -33,6 +34,11 @@ export class AppointmentsComponent extends AppComponentBase {
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
+    imageUrl: any;
+    imageReader = new FileReader();
+    imageSrc: any;
+    imageId: any;
+    image: any;
     
     advancedFiltersAreShown = false;
     filterText = '';
@@ -123,6 +129,16 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.primengTableHelper.records = result.items;
                 this.primengTableHelper.hideLoadingIndicator();
             });
+    }
+
+    displayImage(appointment: AppointmentDto) {
+        this._appointmentsServiceProxy.getPictureByAppointment(appointment.id).subscribe(() => {
+            this.imageId = appointment.imageId;
+            this._appointmentsServiceProxy.getPictureByIdOrNull(this.imageId).subscribe((result) => {
+                this.imageSrc = result;
+                this.image = this.imageReader.readAsDataURL(this.imageSrc)
+            })
+        })
     }
 
     reloadPage(): void {

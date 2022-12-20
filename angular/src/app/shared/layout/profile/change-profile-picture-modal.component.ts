@@ -86,7 +86,7 @@ export class ChangeProfilePictureModalComponent extends AppComponentBase {
         this.uploader.onBuildItemForm = (fileItem: FileItem, form: any) => {
             form.append('FileType', fileItem.file.type);
             form.append('FileName', 'ProfilePicture');
-            form.append('FileToken', this.guid());
+            form.append('FileToken', this.guid()); //this.uploadProfilePictureInputLabel.nativeElement.innerHTML
         };
 
         this.uploader.onSuccessItem = (item, response, status) => {

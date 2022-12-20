@@ -1881,6 +1881,230 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<GetDepartmentForViewDto[]>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updatePictureForAppointment(body: UpdatePictureInput | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/UpdatePictureForAppointment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdatePictureForAppointment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdatePictureForAppointment(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdatePictureForAppointment(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param imageId (optional) 
+     * @return Success
+     */
+    getPictureByIdOrNull(imageId: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetPictureByIdOrNull?";
+        if (imageId === null)
+            throw new Error("The parameter 'imageId' cannot be null.");
+        else if (imageId !== undefined)
+            url_ += "imageId=" + encodeURIComponent("" + imageId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPictureByIdOrNull(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPictureByIdOrNull(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPictureByIdOrNull(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param imageId (optional) 
+     * @return Success
+     */
+    getFilePictureByIdOrNull(imageId: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetFilePictureByIdOrNull?";
+        if (imageId === null)
+            throw new Error("The parameter 'imageId' cannot be null.");
+        else if (imageId !== undefined)
+            url_ += "imageId=" + encodeURIComponent("" + imageId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFilePictureByIdOrNull(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFilePictureByIdOrNull(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFilePictureByIdOrNull(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param appId (optional) 
+     * @return Success
+     */
+    getPictureByAppointment(appId: string | undefined): Observable<GetPictureOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/GetPictureByAppointment?";
+        if (appId === null)
+            throw new Error("The parameter 'appId' cannot be null.");
+        else if (appId !== undefined)
+            url_ += "appId=" + encodeURIComponent("" + appId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPictureByAppointment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPictureByAppointment(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPictureOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPictureOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPictureByAppointment(response: HttpResponseBase): Observable<GetPictureOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetPictureOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPictureOutput>(<any>null);
+    }
 }
 
 @Injectable()
@@ -18984,9 +19208,9 @@ export class AppointmentDto implements IAppointmentDto {
     tower!: string | undefined;
     level!: string | undefined;
     appDateTime!: string | undefined;
-    faceVerify!: string | undefined;
     regDateTime!: string | undefined;
     status!: StatusType;
+    imageId!: string | undefined;
     appRefNo!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -19020,9 +19244,9 @@ export class AppointmentDto implements IAppointmentDto {
             this.tower = _data["tower"];
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"];
-            this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"];
             this.status = _data["status"];
+            this.imageId = _data["imageId"];
             this.appRefNo = _data["appRefNo"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
@@ -19056,9 +19280,9 @@ export class AppointmentDto implements IAppointmentDto {
         data["tower"] = this.tower;
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime;
-        data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime;
         data["status"] = this.status;
+        data["imageId"] = this.imageId;
         data["appRefNo"] = this.appRefNo;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
@@ -19085,9 +19309,9 @@ export interface IAppointmentDto {
     tower: string | undefined;
     level: string | undefined;
     appDateTime: string | undefined;
-    faceVerify: string | undefined;
     regDateTime: string | undefined;
     status: StatusType;
+    imageId: string | undefined;
     appRefNo: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -20111,6 +20335,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
     status!: StatusType;
+    imageId!: string;
     appRefNo!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -20147,6 +20372,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
             this.status = _data["status"];
+            this.imageId = _data["imageId"];
             this.appRefNo = _data["appRefNo"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
@@ -20183,6 +20409,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
         data["status"] = this.status;
+        data["imageId"] = this.imageId;
         data["appRefNo"] = this.appRefNo;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
@@ -20212,6 +20439,7 @@ export interface ICreateOrEditAppointmentDto {
     faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
     status: StatusType;
+    imageId: string;
     appRefNo: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -24950,6 +25178,42 @@ export class GetPasswordComplexitySettingOutput implements IGetPasswordComplexit
 
 export interface IGetPasswordComplexitySettingOutput {
     setting: PasswordComplexitySetting;
+}
+
+export class GetPictureOutput implements IGetPictureOutput {
+    picture!: string | undefined;
+
+    constructor(data?: IGetPictureOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.picture = _data["picture"];
+        }
+    }
+
+    static fromJS(data: any): GetPictureOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPictureOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["picture"] = this.picture;
+        return data; 
+    }
+}
+
+export interface IGetPictureOutput {
+    picture: string | undefined;
 }
 
 export class GetProfilePictureOutput implements IGetProfilePictureOutput {
@@ -33627,6 +33891,58 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
 export interface IUpdateOrganizationUnitInput {
     id: number;
     displayName: string;
+}
+
+export class UpdatePictureInput implements IUpdatePictureInput {
+    fileToken!: string | undefined;
+    x!: number;
+    y!: number;
+    width!: number;
+    height!: number;
+
+    constructor(data?: IUpdatePictureInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.fileToken = _data["fileToken"];
+            this.x = _data["x"];
+            this.y = _data["y"];
+            this.width = _data["width"];
+            this.height = _data["height"];
+        }
+    }
+
+    static fromJS(data: any): UpdatePictureInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdatePictureInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileToken"] = this.fileToken;
+        data["x"] = this.x;
+        data["y"] = this.y;
+        data["width"] = this.width;
+        data["height"] = this.height;
+        return data; 
+    }
+}
+
+export interface IUpdatePictureInput {
+    fileToken: string | undefined;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
 }
 
 export class UpdateProfilePictureInput implements IUpdateProfilePictureInput {

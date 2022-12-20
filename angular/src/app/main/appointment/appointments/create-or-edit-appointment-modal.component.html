@@ -25,7 +25,7 @@
 
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_FullName">{{ l('FullName') }} *</label>
+                        <label class="form-label" for="Appointment_FullName">{{ l('FullName') }}</label>
                         <input type="text" #Appointment_FullName="ngModel" id="Appointment_FullName"
                             class="form-control" [(ngModel)]="appointment.fullName" name="FullName" required />
                         <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
@@ -34,7 +34,7 @@
 
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_Title">{{ l('Title') }} *</label>
+                        <label class="form-label" for="Appointment_Title">{{ l('Title') }}</label>
                         <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
                             name="Title" class="form-control">
                             <ng-container *ngFor="let t of arrTitle">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }} *</label>
+                        <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}</label>
                         <input type="text" #Appointment_IdentityCard="ngModel" id="Appointment_IdentityCard"
                             class="form-control" [(ngModel)]="appointment.identityCard" name="IdentityCard" required />
                         <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
@@ -56,7 +56,7 @@
 
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }} *</label>
+                        <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }}</label>
                         <input type="text" #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
                             [(ngModel)]="appointment.phoneNo" name="PhoneNo" required />
                         <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
@@ -66,7 +66,7 @@
 
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_Email">{{ l('Email') }} *</label>
+                        <label class="form-label" for="Appointment_Email">{{ l('Email') }}</label>
                         <input type="text" #Appointment_Email="ngModel" id="Appointment_Email" class="form-control"
                             [(ngModel)]="appointment.email" name="Email" required />
                         <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }} *</label>
+                        <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}</label>
                         <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
                             [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" />
                         <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
@@ -166,20 +166,47 @@
                     </div>
                 </div>
 
-                <div class="modal-body">
+                <!-- multiple="multiple" -->
+                <!-- Multiple is for p-fileUpload -->
+
+                <!-- <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="DefaultFileUploadFileInput">Default file uploader</label>
-                        <p-fileUpload multiple="multiple" id="DefaultFileUploadFileInput"
-                            name="DefaultFileUploadFileInput[]" [url]="uploadUrl" accept="image/*" maxFileSize="1000000"
-                            (onUpload)="onUpload($event)" (onBeforeSend)="onBeforeSend($event)">
-                            <ng-template pTemplate="content">
-                                <ul *ngIf="uploadedFiles.length">
-                                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                                </ul>
-                            </ng-template>
+                        <label class="form-label" for="DefaultFileUploadFileInput">Upload an Image</label>
+                        <p-fileUpload id="DefaultFileUploadFileInput" name="DefaultFileUploadFileInput"
+                            [url]="uploadUrl" accept="image/*" maxFileSize="5242880" (onUpload)="onUpload()"
+                            (onBeforeSend)="fileChangeEvent($event)" >
+                            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
+                                (imageCropped)="imageCroppedFile($event)"></image-cropper>
                         </p-fileUpload>
                     </div>
+                </div> -->
+
+                <div class="modal-body">
+                    <label class="form-label" for="UploadPicture">{{ 'ChangeProfilePicture' | localize }} </label>
+                    <div class="my-3">
+                        <div class="input-group">
+                                <div class="custom-file">         <input type="file" id="uploadPicture" name="uploadPicture" (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" />         <label class="custom-file-label"  #uploadPictureInputLabel for="uploadPicture">
+                                        <!-- {{ 'ChooseAFile' | localize }} -->         </label>     </div> </div>
+                            <br> <div *ngIf="appointment.imageId">        <!-- display when appointment.imageId is not null -->
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <h6>Uploaded {{ l('Picture') }} :</h6>
+                                    <img [src]="image">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
+                        (imageCropped)="imageCroppedFile($event)"></image-cropper>
+                        <button type="button" class="btn btn-primary blue" name="upload" (click)="upload()" >Upload</button>
                 </div>
+                
+                <!-- <p-fileUpload id="uploadPicture" name="uploadPicture" [url]="uploadUrl"
+                     accept="image/*" maxFileSize="1000000" (onUpload)="onUpload()"
+                    >
+                </p-fileUpload> -->
                 <div *ngIf="appointment.id">
                     <div class="modal-body">
                         <div class="my-3">

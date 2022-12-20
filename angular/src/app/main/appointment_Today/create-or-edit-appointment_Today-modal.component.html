@@ -165,7 +165,7 @@
                     </div>
                 </div>
 
-                <div class="modal-body">
+                <!-- <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="DefaultFileUploadFileInput">Default file uploader</label>
                     <p-fileUpload
@@ -185,6 +185,34 @@
                         </ng-template>
                     </p-fileUpload>
                     </div>
+                </div> -->
+
+                <div class="modal-body">
+                    <label class="form-label" for="UploadPicture">{{ 'ChangeProfilePicture' | localize }} </label>
+                    <div class="my-3">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" id="uploadPicture" name="uploadPicture" (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" />
+                                <label class="custom-file-label"  #uploadPictureInputLabel for="uploadPicture">
+                                    <!-- {{ 'ChooseAFile' | localize }} -->
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngIf="appointment.imageId">
+                            <!-- display when appointment.imageId is not null -->
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <h6>Uploaded {{ l('Picture') }} :</h6>
+                                    <img [src]="image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
+                        (imageCropped)="imageCroppedFile($event)"></image-cropper>
+                        <button type="button" class="btn btn-primary blue" name="upload" (click)="upload()" >Upload</button>
                 </div>
 
                 <div class="modal-body">

@@ -29,7 +29,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     active = false;
     saving = false;
     tempGuid: any;
-    picId: any;
 
     //uploadUrl: string;
     // uploadedFiles: any;

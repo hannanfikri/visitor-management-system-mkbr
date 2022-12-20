@@ -33,7 +33,7 @@ namespace Visitor.Appointment
         public DateTime AppDateTime { get; set; }
         //public byte[] FaceVerify { get; set; }
         public StatusType Status { get; set; }
-        public virtual Guid ImageId { get; set; }
+        public virtual string ImageId { get; set; }
 
         private AppointmentEnt() { }//empty constructor
 

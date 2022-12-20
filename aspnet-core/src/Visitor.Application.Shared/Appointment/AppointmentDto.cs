@@ -25,6 +25,6 @@ namespace Visitor.Appointment
         //public byte[] FaceVerify { get; set; }
         public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
-        public virtual Guid ImageId { get; set; }
+        public string ImageId { get; set; }
     }
 }

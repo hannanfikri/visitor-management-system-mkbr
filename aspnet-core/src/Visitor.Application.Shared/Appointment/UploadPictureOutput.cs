@@ -9,6 +9,13 @@ namespace Visitor.Appointment
     {
         public Guid Id { get; set; }
         public string FileName { get; set; }
+        public string FileType { get; set; }
+
+        public string FileToken { get; set; }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
 
         public UploadPictureOutput()
         {}

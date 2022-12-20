@@ -44,6 +44,13 @@ using SixLabors.ImageSharp.Processing;
 using Visitor.Authorization.Users;
 using Abp.Extensions;
 using Abp.Collections.Extensions;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using UserIdentifier = Abp.UserIdentifier;
+using Visitor.Migrations;
+using Microsoft.AspNetCore.Mvc;
+using Abp.AspNetZeroCore.Net;
+using ImageDrawing = System.Drawing.Image;
+using System.Reflection.Metadata;
 
 namespace Visitor.Appointment
 {
@@ -59,6 +66,7 @@ namespace Visitor.Appointment
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly ProfileImageServiceFactory _profileImageServiceFactory;
+        private const int MaxPictureBytes = 5242880; //5MB
 
         public AppointmentsAppService
 
@@ -128,7 +136,7 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   //o.ImageId,
+                                   o.ImageId,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -158,6 +166,7 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
+                        ImageId = o.ImageId
                         //ImageId = image.Id,
                     }
                 };
@@ -602,6 +611,84 @@ namespace Visitor.Appointment
             return new List<GetDepartmentForViewDto>(results);
         }
 
+
+        // Upload image services (referring to profile services)
+        public async Task<Guid> UpdatePictureForAppointment(UpdatePictureInput input)
+        {
+
+            byte[] byteArray;
+            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            if (imageBytes == null)
+            {
+                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
+            }
+
+            using(var image = Image.Load(imageBytes, out IImageFormat format))
+            {
+                var width = (input.Width == 0 || input.Width > image.Width) ? image.Width : input.Width;
+                var height = (input.Height == 0 || input.Height > image.Height) ? image.Height : input.Height;
+
+                var bmCrop = image.Clone(i =>
+                    i.Crop(new Rectangle(input.X, input.Y, width, height))
+                );
+
+                await using (var stream = new MemoryStream())
+                {
+                    await bmCrop.SaveAsync(stream, format);
+                    byteArray = stream.ToArray();
+                }
+            }
+
+            if (byteArray.Length > MaxPictureBytes)
+            {
+                throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
+                    AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
+            }
+            var storedFile = new BinaryObject(AbpSession.TenantId, byteArray, $"Appointment picture at {DateTime.UtcNow}");
+            await _binaryObjectManager.SaveAsync(storedFile);
+
+            /*var app = _appointmentRepository.GetAsync(appId).Result;
+
+            app.ImageId = storedFile.Id;*/
+            var picId = storedFile.Id;
+            return picId;
+        }
+
+        public async Task<byte[]> GetPictureByIdOrNull(Guid imageId)
+        {
+            var file = await _binaryObjectManager.GetOrNullAsync(imageId);
+            if ( file == null)
+            {
+                return null;
+            }
+            return file.Bytes;
+        }
+
+        public async Task<string> GetFilePictureByIdOrNull(Guid imageId)
+        {
+            var output = await _binaryObjectManager.GetOrNullAsync(imageId);
+            //var memoryStream = new MemoryStream(output.Bytes);
+            //return ImageDrawing.FromStream(memoryStream);
+            //byte[] bytes = output.Bytes;
+            //return File(bytes);
+            //Blob blob = new Blob(memoryStream.GetBuffer());
+
+            using (MemoryStream ms = new MemoryStream(output.Bytes))
+            {
+                var image = ImageDrawing.FromStream(ms);
+                string base64 = Convert.ToBase64String(output.Bytes);
+                return base64;
+            }
+            
+        }
+
+        public async Task<GetPictureOutput> GetPictureByAppointment(Guid appId)
+        {
+            var output = await _appointmentRepository.GetAsync(appId);
+
+            return new GetPictureOutput(output.ImageId);
+        }
     }
     
 }

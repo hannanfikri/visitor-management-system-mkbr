@@ -3,6 +3,7 @@ using Abp.Application.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visitor.Authorization.Users.Profile.Dto;
 using Visitor.Departments.Dtos;
 
 namespace Visitor.Appointment
@@ -22,5 +23,10 @@ namespace Visitor.Appointment
 
         Task Delete (EntityDto<Guid> input);
         List<GetDepartmentForViewDto> GetDepartmentName();
+
+        //Upload image services (referring to profile services)
+        Task<Guid> UpdatePictureForAppointment(UpdatePictureInput input);
+        Task<byte[]> GetPictureByIdOrNull(Guid imageId);
+        Task<GetPictureOutput> GetPictureByAppointment(Guid appId);
     }
 }

@@ -189,11 +189,12 @@
                     <label class="form-label" for="UploadPicture">{{ 'ChangeProfilePicture' | localize }} *</label>
                     <div class="my-3">
                         <div class="input-group">
-                            <div class="custom-file"> 
+                            <div class="custom-file">
                                 <input type="file" id="uploadPicture" name="uploadPicture"
-                                    (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" required/> <label
-                                    class="custom-file-label" #uploadPictureInputLabel for="uploadPicture" >
-                                    <!-- {{ 'ChooseAFile' | localize }} --> </label> </div>
+                                    (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" required /> <label
+                                    class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
+                                    <!-- {{ 'ChooseAFile' | localize }} --> </label>
+                            </div>
                         </div>
                         <br>
                         <div *ngIf="appointment.imageId"> <!-- display when appointment.imageId is not null -->
@@ -224,6 +225,16 @@
                                 <option [value]="stat" *ngFor="let stat of statusType">
                                     {{ stat }}</option>
                             </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="appointment.id">
+                    <div class="modal-body">
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_PassNumber">{{ l('PassNumber') }}*</label>
+                            <input type="text" #Appointment_PassNumber="ngModel" id="Appointment_PassNumber"
+                                class="form-control" [(ngModel)]="appointment.passNumber" name="PassNumber" required />
+                            <validation-messages [formCtrl]="Appointment_PassNumber"></validation-messages>
                         </div>
                     </div>
                 </div>

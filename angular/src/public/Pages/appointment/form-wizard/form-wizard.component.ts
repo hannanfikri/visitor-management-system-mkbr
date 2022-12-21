@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, EventEmitter }
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { PortalsServiceProxy, CreateOrEditAppointmentDto, AppointmentsServiceProxy, StatusType } from '@shared/service-proxies/service-proxies';
+import { PortalsServiceProxy, CreateOrEditAppointmentDto, AppointmentsServiceProxy, StatusType , GetAppointmentForViewDto } from '@shared/service-proxies/service-proxies';
 import { DateTime } from 'luxon';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ReCaptchaV3Service } from 'ngx-captcha';
@@ -68,7 +68,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         private route: ActivatedRoute,
         private _portalAppService: PortalsServiceProxy,
         private _test: AppointmentsServiceProxy,
-        private _reCaptchaV3Service: ReCaptchaV3Service) {
+        private _reCaptchaV3Service: ReCaptchaV3Service, private router: Router) {
         super(injector);
 
         this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
@@ -86,24 +86,37 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         
 
     }
-    test():void{
+    test(appointmentId?: string):void{
+        this.appointment.id = appointmentId;
         this.viewDetails();
     }
 
 
-    save(): void {
+    save(appointmentId: string): void {
+        this.test();
         this.saving = true;
         this._portalAppService
             .createOrEdit(this.appointment)
             .pipe(
                 finalize(() => {
                     this.saving = false;
+                    this.goToView();
                 })
             )
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.modalSave.emit(null);
+                appointmentId= this.appointment.id;
+                
             });
+    }
+
+    goToView(): void {
+        this.router.navigate(['/view']);
+    }
+
+    fetchAppointmentId(): void {
+        this.appointment.id;
     }
 
     ngOnInit(appointmentId?: string): void {

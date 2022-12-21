@@ -30,6 +30,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     uploadUrl: string;
     uploadedFiles: any[] = [];
 
+    appId: any;
+
     //statusenum : Array<any> = []
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
@@ -108,7 +110,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         }
     }
 
-    save(): void {
+    save(appointmentId: string) {
         this.saving = true;
         this._appointmentsServiceProxy
             .createOrEdit(this.appointment)
@@ -117,11 +119,13 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                     this.saving = false;
                 })
             )
-            .subscribe(() => {
+            .subscribe((result) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
+                this.appId = result;
             });
+            appointmentId = this.appId;
     }
 
     close(): void {

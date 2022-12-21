@@ -30,6 +30,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
+
+
     // statusenum = StatusType;
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     arrPOV: Array<any> = [];
@@ -40,6 +42,12 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
+
+    sampleDateTime: DateTime;
+    dateFormat = 'dd-LL-yyyy HH:mm:ss';
+    r: any;
+
+     
 
     constructor(
         injector: Injector,

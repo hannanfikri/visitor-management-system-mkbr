@@ -26,6 +26,7 @@ using Visitor.Authorization.Users.Profile;
 using Abp.Collections.Extensions;
 using Visitor;
 using Visitor.Appointment;
+using System.Threading;
 
 namespace CMS.Portal
 {
@@ -59,7 +60,22 @@ namespace CMS.Portal
             _departmentRepository = departmentRepository;
 
         }
+        public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input)
+        {
+            var appointment = await _appointmentRepository.FirstOrDefaultAsync(input.Id);
 
+            var output = new GetAppointmentForEditOutput { Appointment = ObjectMapper.Map<CreateOrEditAppointmentDto>(appointment) };
+
+            return output;
+        }
+        public async Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id)
+        {
+            var appointment = await _appointmentRepository.GetAsync(id);
+
+            var output = new GetAppointmentForViewDto { Appointment = ObjectMapper.Map<AppointmentDto>(appointment) };
+
+            return output;
+        }
         public async Task CreateOrEdit(CreateOrEditAppointmentDto input)
         {
                 await Create(input);
@@ -67,8 +83,73 @@ namespace CMS.Portal
 
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
+
+
+            var pn = input.PhoneNo;
+            var ic = input.IdentityCard;
+            //input.MobileNumber = "+6" + input.MobileNumber;
+            var rand = new Random();
+            int num = rand.Next(1000);
+            var date = input.AppDateTime.Date.ToString("yyMMdd");
+            var lang = Thread.CurrentThread.CurrentCulture;
+            input.Status = 0;
+            string lastFourDigitsPN = pn.Substring(pn.Length - 4, 4);
+            string lastFourDigitsIC = ic.Substring(pn.Length - 2, 4);
+            //input.AppointmentDate = input.AppointmentDate.ToShortDateString();
+            input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+            /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
+
+
+
+
+            var checker = true;
+            while (checker)
+            {
+                var bookhCheck = _appointmentRepository.FirstOrDefault(e => e.AppRefNo == input.AppRefNo);
+                if (bookhCheck?.Id != null)
+                {
+                    /*string PhoneNo = "";*/
+
+                    //if duplicate booking ref no
+                    checker = true;
+                    num = rand.Next(1000);
+                    /*string lastFourDigits = pn.Substring(pn.Length - 4, 4);*/
+                    input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+
+                }
+                else
+                {
+                    checker = false;
+                    break;
+                }
+            };
+
             var appointment = ObjectMapper.Map<AppointmentEnt>(input);
             await _appointmentRepository.InsertAsync(appointment);
+            /*await UpdateSlot(input.BranchSlotSettingId, input.AppointmentSlot);*/
+            /*var bookingDetail = await _bookingRepository.InsertAsync(booking);
+            var branch = await _lookup_branchRepository.GetAsync(input.BranchId.Value);*/
+
+            /*if (input.Email != null)
+            {
+                try
+                {
+                    await _portalEmailer.SendEmailDetailBookingAsync(ObjectMapper.Map<Booking>(bookingDetail), branch, service);
+                }
+                catch
+                {
+                    //To do
+                }
+            }
+
+            try
+            {
+                await SendSms(input);
+            }
+            catch
+            {
+
+            }*/
 
         }
 

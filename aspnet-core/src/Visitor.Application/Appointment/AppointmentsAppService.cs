@@ -29,6 +29,7 @@ using System.Threading;
 using Stripe;
 using Twilio.Types;
 using NPOI.SS.Formula.Functions;
+using Visitor.Appointments;
 /*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
@@ -60,8 +61,6 @@ namespace Visitor.Appointment
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
             ProfileImageServiceFactory profileImageServiceFactory
-            
-            IRepository<Department, Guid> departmentRepository
             )
         {
             _appointmentRepository = appointmentRepository;

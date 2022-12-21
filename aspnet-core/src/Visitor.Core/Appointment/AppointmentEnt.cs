@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Visitor.Appointments;
+/*using static Twilio.Rest.Api.V2010.Account.Call.FeedbackSummaryResource;*/
 
 namespace Visitor.Appointment
 {
@@ -34,6 +35,8 @@ namespace Visitor.Appointment
         public byte[] FaceVerify { get; set; }
         public StatusType Status { get; set; }
         public string passNumber { get; set; }
+
+        public string AppRefNo { get; set; }
 
 
         private AppointmentEnt() { }//empty constructor

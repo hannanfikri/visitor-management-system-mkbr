@@ -37,6 +37,11 @@ using System.Threading;
 using Stripe;
 using Twilio.Types;
 using NPOI.SS.Formula.Functions;
+using Abp.UI;
+using System.IO;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Processing;
 /*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
@@ -178,7 +183,7 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.ImageId,,
+                                   o.ImageId,
                                    o.AppRefNo
                                };
 
@@ -209,7 +214,7 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        ImageId = o.ImageId
+                        ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo
                     }

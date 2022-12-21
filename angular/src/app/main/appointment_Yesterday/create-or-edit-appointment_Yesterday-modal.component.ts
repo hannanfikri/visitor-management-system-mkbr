@@ -106,6 +106,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     close(): void {
+        this.uploadedFiles = [];
         this.active = false;
         this.modal.hide();
         this.uploadedFiles = [];

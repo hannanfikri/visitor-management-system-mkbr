@@ -22,7 +22,6 @@
                 <div class="modal-body">
                     <hr>
                 </div>
-
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_FullName">{{ l('FullName') }} *</label>
@@ -34,7 +33,7 @@
 
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_Title">{{ l('Tiltle') }} *</label>
+                        <label class="form-label" for="Appointment_Title">{{ l('Title') }} *</label>
                         <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
                             name="Title" class="form-control">
                             <ng-container *ngFor="let t of arrTitle">
@@ -81,22 +80,26 @@
                 <div class="modal-body">
                     <hr>
                 </div>
-                <div class="modal-body">
-                    <div class="my-3">
-                        <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }}
-                            *</label>
-                        <input type="text" #Appointment_OfficerToMeet="ngModel" id="Appointment_OfficerToMeet"
-                            class="form-control" [(ngModel)]="appointment.officerToMeet" name="OfficerToMeet"
-                            required />
-                        <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
-                    </div>
-                </div>
+
+
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }} *</label>
                         <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
                             [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" />
                         <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+                    </div>
+                </div>
+
+
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }}
+                        </label>
+                        <input type="text" #Appointment_OfficerToMeet="ngModel" id="Appointment_OfficerToMeet"
+                            class="form-control" [(ngModel)]="appointment.officerToMeet" name="OfficerToMeet"
+                            required />
+                        <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -151,6 +154,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
@@ -214,7 +218,7 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
                         <select #Appointment_Status="ngModel" id="Appointment_Status" [(ngModel)]="appointment.status"
-                            name="Status" class="form-control">
+                            name="Status" class="form-control" type="hidden" value="0">
                             <option [value]="stat" *ngFor="let stat of statusType">
                                 {{ stat }}</option>
                         </select>

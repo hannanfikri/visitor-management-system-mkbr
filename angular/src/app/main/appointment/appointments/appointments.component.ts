@@ -17,6 +17,8 @@ import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistor
 import { filter as _filter } from 'lodash-es';
 import { DateTime } from 'luxon';
 
+import {DatePipe} from '@angular/common';
+
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { url } from 'inspector';
 
@@ -68,7 +70,7 @@ export class AppointmentsComponent extends AppComponentBase {
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
-        private _tokenService:TokenService
+        private _tokenService:TokenService,
     ) {
         super(injector);
     }

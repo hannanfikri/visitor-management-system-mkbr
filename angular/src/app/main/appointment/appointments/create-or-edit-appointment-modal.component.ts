@@ -21,6 +21,7 @@ import { resolve } from 'path';
     templateUrl: './create-or-edit-appointment-modal.component.html',
 })
 export class CreateOrEditAppointmentModalComponent extends AppComponentBase implements OnInit {
+    
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('uploadPictureInputLabel') uploadPictureInputLabel: ElementRef;
 
@@ -43,6 +44,12 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     imageBlob: any;
     image: any;
 
+    uploadUrl: string;
+    uploadedFiles: any[] = [];
+
+    appId: any;
+
+    //statusenum : Array<any> = []
     
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
@@ -61,6 +68,14 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
+
+    detailItems :any[] = [{title:'user01',name:"user01"},{title:'user02',name:'user02'}];
+//event for edit
+    public isEditing: boolean;
+	public pendingValue: string;
+	public value!: string;
+	public valueChangeEvents: EventEmitter<string>;
+    
 
     constructor(
         injector: Injector,
@@ -94,6 +109,12 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     imageCroppedFile(event: ImageCroppedEvent) {
         this.uploader.clearQueue();
         this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
+
+        //event for edit
+        this.isEditing = false;
+		this.pendingValue = "";
+		this.valueChangeEvents = new EventEmitter();
     }
 
     initFileUploader(): void {
@@ -256,7 +277,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.getCompanyArray();
                 this.getDepartmentArray();
                 this.getStatusEnum();
-                this.GetEmptyArray();
+
                 this.active = true;
                 this.modal.show();
                 this.displayImage(this.appointment.imageId);
@@ -281,14 +302,17 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                     this.saving = false;
                 })
             )
-            .subscribe(() => {
+            .subscribe((result) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
+                this.appId = result;
             });
+            
     }
 
     close(): void {
+        this.uploadedFiles = [];
         this.active = false;
         this.imageChangedEvent = '';
         this.modal.hide();
@@ -372,7 +396,48 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     //     //event.originalEvent.body.result[0].id (expression)
     // }
 
-    // onBeforeSend(event): void {
-    //     event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
-    // }
+    onBeforeSend(event): void {
+        event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
+    }
+
+    public cancel() : void {
+
+		this.isEditing = false;
+
+	}
+
+
+	// I enable the editing of the value.
+	public edit() : void {
+
+		this.pendingValue = this.value;
+		this.isEditing = true;
+
+	}
+
+
+	// I process changes to the pending value.
+	public processChanges() : void {
+
+		// If the value actually changed, emit the change but don't change the local
+		// value - we don't want to break unidirectional data-flow.
+		if ( this.pendingValue !== this.value ) {
+
+			this.valueChangeEvents.emit( this.pendingValue );
+
+		}
+
+		this.isEditing = false;
+
+	}
+
+    editDateTime(Appointment_AppDateTime){
+        Appointment_AppDateTime.tekan = true
+    }
+    setTitleEdit() {
+        this.isEditing = true;
+      }
+      public open(event: any, item: string) {
+        alert('Open ' + item);
+      }
 }

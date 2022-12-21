@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System;
 using Visitor.Appointment;
 using Visitor.Storage;
+using Abp.AspNetCore.Mvc.Authorization;
 
 namespace Visitor.Web.Controllers
 {
-    public class AppointmentController : VisitorControllerBase
+    public class AppointmentController : AppointmentControllerBase
     {
-        private readonly IBinaryObjectManager _binaryObjectManager;
+        /*private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly IRepository<AppointmentEnt, Guid> _appointmentRepository;
 
         public AppointmentController(IBinaryObjectManager binaryObjectManager, IRepository<AppointmentEnt, Guid> appointmentRepository)
@@ -26,8 +27,6 @@ namespace Visitor.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> UploadFiles()
         {
-
-
             try
             {
                 var files = Request.Form.Files;
@@ -69,5 +68,25 @@ namespace Visitor.Web.Controllers
                 return Json(new AjaxResponse(new ErrorInfo(ex.Message)));
             }
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetFiles(Guid id)
+        {
+            var file = await _binaryObjectManager.GetOrNullAsync(id);
+            return Json(new AjaxResponse(file));
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> DisplayImage(Guid id)
+        {
+            var file = await _binaryObjectManager.GetOrNullAsync(id);
+            string base64 = Convert.ToBase64String(file.Bytes);
+            return Json(new AjaxResponse(base64));
+        }*/
+
+
+        // Upload image services (referring to profile services)
+        public AppointmentController(ITempFileCacheManager tempFileCacheManager, IAppointmentsAppService appointmentsAppService) : base(tempFileCacheManager, appointmentsAppService)
+        { }
     }
 }

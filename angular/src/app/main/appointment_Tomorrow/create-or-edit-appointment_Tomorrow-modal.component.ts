@@ -11,6 +11,7 @@ import { result } from 'lodash-es';
 import { key } from 'localforage';
 import { AppConsts } from '@shared/AppConsts';
 
+
 @Component({
     selector: 'createOrEditAppointmentModal',
     templateUrl: './create-or-edit-appointment_Tomorrow-modal.component.html',
@@ -26,6 +27,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     uploadUrl: string;
     uploadedFiles: any[] = [];
+
+    
 
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
@@ -115,6 +118,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.uploadedFiles = [];
         this.active = false;
         this.modal.hide();
+        this.uploadedFiles = [];
     }
     setDate(): void {
         let date: Date = new Date();
@@ -182,6 +186,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             }
         };
     }
+
 
     onUpload(event): void {
         for (const file of event.files) {

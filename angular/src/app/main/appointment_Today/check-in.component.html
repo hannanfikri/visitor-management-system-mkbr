@@ -1,0 +1,43 @@
+﻿<div bsModal #CheckIn="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CheckIn" aria-hidden="true"
+    [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{ l('Details') }}</span>
+                    </h4>
+
+                    <button type="button" class="btn-close" (click)="close()" aria-label="Close"
+                        [disabled]="saving"></button>
+                </div>
+                <div class="modal-body">
+                    <hr>
+                </div>
+                <div>
+                    <h3 style="text-align:center ;">Input pass number to check-in</h3>
+                </div>
+                <div class="modal-body">
+                    <hr>
+                </div>
+                    <div class="modal-body">
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_PassNumber">{{ l('PassNumber') }}*</label>
+                            <input type="text" #Appointment_PassNumber="ngModel" id="Appointment_PassNumber"
+                                class="form-control" [(ngModel)]="appointment.passNumber" name="PassNumber" required />
+                            <validation-messages [formCtrl]="Appointment_PassNumber"></validation-messages>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-primary blue" (click)="change_Status_Register_To_In()">
+                        {{ l('Approve and Check-in') }}
+                    </button>
+                    <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                        {{ l('Close') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

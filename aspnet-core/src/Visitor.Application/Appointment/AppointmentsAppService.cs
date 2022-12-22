@@ -21,7 +21,6 @@ using Visitor.Level.Dtos;
 using Visitor.Company.Dtos;
 using Visitor.Departments;
 using Visitor.Departments.Dtos;
-using Visitor.Appointments;
 using Visitor.Storage;
 using Visitor.Authorization.Users.Profile;
 using Abp.Collections.Extensions;
@@ -37,6 +36,12 @@ using System.Threading;
 using Stripe;
 using Twilio.Types;
 using NPOI.SS.Formula.Functions;
+using Visitor.Appointments;
+using SixLabors.ImageSharp.Formats;
+using Abp.UI;
+using System.IO;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 /*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
@@ -56,6 +61,7 @@ namespace Visitor.Appointment
         private const int MaxPictureBytes = 5242880; //5MB
         
 
+
         public AppointmentsAppService
 
             (IRepository<AppointmentEnt, Guid> appointmentRepository,
@@ -68,7 +74,6 @@ namespace Visitor.Appointment
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
             ProfileImageServiceFactory profileImageServiceFactory
-            
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -82,6 +87,7 @@ namespace Visitor.Appointment
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
             
+
 
         }
         protected DateTime GetToday()
@@ -178,8 +184,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.ImageId,,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -209,9 +216,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        ImageId = o.ImageId
+                        ImageId = o.ImageId,
                         //ImageId = image.Id,,
-                        AppRefNo = o.AppRefNo
+                        AppRefNo = o.AppRefNo,
+                        PassNumber=o.passNumber,
                     }
                 };
 
@@ -307,7 +315,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -337,7 +347,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        AppRefNo = o.AppRefNo
+                        ImageId = o.ImageId,
+                        //ImageId = image.Id,,
+                        AppRefNo = o.AppRefNo,
+                        PassNumber = o.passNumber,
                     }
                 };
 
@@ -430,7 +443,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -459,7 +474,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        AppRefNo = o.AppRefNo
+                        ImageId = o.ImageId,
+                        //ImageId = image.Id,,
+                        AppRefNo = o.AppRefNo,
+                        PassNumber = o.passNumber,
                     }
                 };
 
@@ -552,7 +570,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -581,7 +601,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        AppRefNo = o.AppRefNo
+                        ImageId = o.ImageId,
+                        //ImageId = image.Id,,
+                        AppRefNo = o.AppRefNo,
+                        PassNumber = o.passNumber,
                     }
                 };
 
@@ -973,6 +996,20 @@ namespace Visitor.Appointment
 
             return new GetPictureOutput(output.ImageId);
         }
+
+        public async Task ChangeStatusToIn(Guid id)
+        {
+            var appointment = await _appointmentRepository.GetAsync(id);
+            appointment.Status = StatusType.In;
+
+        }
+        public async Task ChangeStatusToOut(Guid id)
+        {
+            var appointment = await _appointmentRepository.GetAsync(id);
+            appointment.Status = StatusType.Out;
+
+        }
+
     }
     
 }

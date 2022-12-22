@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
-import { NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRouteGuard } from './shared/common/auth/auth-route-guard';
 import { NotificationsComponent } from './shared/layout/notifications/notifications.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ViewDetailsComponent } from 'public/Pages/appointment/view-details/view-details.component';
+
+
+const route: Routes = [
+    { path: 'view', component: ViewDetailsComponent }
+]
 
 @NgModule({
     imports: [

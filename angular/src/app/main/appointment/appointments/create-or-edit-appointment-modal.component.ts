@@ -21,6 +21,7 @@ import { resolve } from 'path';
     templateUrl: './create-or-edit-appointment-modal.component.html',
 })
 export class CreateOrEditAppointmentModalComponent extends AppComponentBase implements OnInit {
+
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('uploadPictureInputLabel') uploadPictureInputLabel: ElementRef;
 
@@ -29,25 +30,20 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     active = false;
     saving = false;
     tempGuid: any;
-
-    //uploadUrl: string;
-    // uploadedFiles: any;
-
-    //upload image services (referring to profile services)
     public uploader: FileUploader;
     public temporaryPictureUrl: string;
     public maxPictureBytesUserFriendlyValue = 5;
-    imageChangedEvent: any="";
+    imageChangedEvent: any = "";
     private _uploaderOptions: FileUploaderOptions = {};
     public uploadedFile: File;
     imageBlob: any;
     image: any;
-
-    
+    uploadUrl: string;
+    uploadedFiles: any[] = [];
+    appId: any;
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
-    
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     arrPOV: Array<any> = [];
     arrTitle: Array<any> = [];
@@ -57,10 +53,16 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
-
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
+    detailItems: any[] = [{ title: 'user01', name: "user01" }, { title: 'user02', name: 'user02' }];
+    //event for edit
+    public isEditing: boolean;
+    public pendingValue: string;
+    public value!: string;
+    public valueChangeEvents: EventEmitter<string>;
+
 
     constructor(
         injector: Injector,
@@ -94,6 +96,12 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     imageCroppedFile(event: ImageCroppedEvent) {
         this.uploader.clearQueue();
         this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
+
+        //event for edit
+        this.isEditing = false;
+        this.pendingValue = "";
+        this.valueChangeEvents = new EventEmitter();
     }
 
     initFileUploader(): void {
@@ -115,7 +123,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         };
 
         // onSuccessItem run after item is success eg: after fx this.uploader.uploadAll()
-        
+
         // this.uploader.onBeforeUploadItem = (fileItem: FileItem) => {
         //     fileItem._onSuccess = (response, status) => {
         //         const resp = <IAjaxResponse>JSON.parse(response);
@@ -144,7 +152,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 //this.appointment.imageId = resp.result.fileToken;
                 //this.idPicture = resp.result.fileToken;
                 //this.appointment.imageId = resp.result.fileToken;
-                
+
             }
             else {
                 this.message.error(resp.error.message);
@@ -162,17 +170,17 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         input.height = 0;
         this.saving = true;
         this._appointmentsServiceProxy.updatePictureForAppointment(input)
-        .pipe(
-            //tap(result => this.appointment.imageId = result.toString())
-            finalize(() => {
-                this.saving = false;
+            .pipe(
+                //tap(result => this.appointment.imageId = result.toString())
+                finalize(() => {
+                    this.saving = false;
+                })
+            )
+            .subscribe((result) => {
+                //this.active = true;
+                this.appointment.imageId = result.toString();
+                //abp.event.trigger('pictureChanged');
             })
-        )
-        .subscribe((result) => {
-            //this.active = true;
-            this.appointment.imageId = result.toString();
-            //abp.event.trigger('pictureChanged');
-        })
     }
 
     guid(): string {
@@ -188,11 +196,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     displayImage(imageId: string): void {
         this._appointmentsServiceProxy.getFilePictureByIdOrNull(imageId)
-        .subscribe((result) => {
-            this.imageBlob = result;
-            //this.image = this.imageReader.readAsDataURL(this.imageBlob);
-            this.image = 'data:image/jpg;base64,' + this.imageBlob;
-        });
+            .subscribe((result) => {
+                this.imageBlob = result;
+                //this.image = this.imageReader.readAsDataURL(this.imageBlob);
+                this.image = 'data:image/jpg;base64,' + this.imageBlob;
+            });
     }
 
     // checkPictureExistOrNot(imageId: string) {
@@ -256,7 +264,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.getCompanyArray();
                 this.getDepartmentArray();
                 this.getStatusEnum();
-                this.GetEmptyArray();
+
                 this.active = true;
                 this.modal.show();
                 this.displayImage(this.appointment.imageId);
@@ -281,14 +289,17 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                     this.saving = false;
                 })
             )
-            .subscribe(() => {
+            .subscribe((result) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
+                this.appId = result;
             });
+
     }
 
     close(): void {
+        this.uploadedFiles = [];
         this.active = false;
         this.imageChangedEvent = '';
         this.modal.hide();
@@ -299,7 +310,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     ngOnInit(): void {
-     }
+    }
 
     //ListPurposeOfVisit
     getPOVArray(): void {
@@ -372,7 +383,48 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     //     //event.originalEvent.body.result[0].id (expression)
     // }
 
-    // onBeforeSend(event): void {
-    //     event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
-    // }
+    onBeforeSend(event): void {
+        event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
+    }
+
+    public cancel(): void {
+
+        this.isEditing = false;
+
+    }
+
+
+    // I enable the editing of the value.
+    public edit(): void {
+
+        this.pendingValue = this.value;
+        this.isEditing = true;
+
+    }
+
+
+    // I process changes to the pending value.
+    public processChanges(): void {
+
+        // If the value actually changed, emit the change but don't change the local
+        // value - we don't want to break unidirectional data-flow.
+        if (this.pendingValue !== this.value) {
+
+            this.valueChangeEvents.emit(this.pendingValue);
+
+        }
+
+        this.isEditing = false;
+
+    }
+
+    editDateTime(Appointment_AppDateTime) {
+        Appointment_AppDateTime.tekan = true
+    }
+    setTitleEdit() {
+        this.isEditing = true;
+    }
+    public open(event: any, item: string) {
+        alert('Open ' + item);
+    }
 }

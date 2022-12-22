@@ -100,7 +100,6 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
             .pipe(
                 finalize(() => {
                     this.saving = false;
-                    this.goToView();
                 })
             )
             .subscribe(() => {
@@ -109,10 +108,6 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                 appointmentId= this.appointment.id;
                 
             });
-    }
-
-    goToView(): void {
-        this.router.navigate(['/view']);
     }
 
     fetchAppointmentId(): void {

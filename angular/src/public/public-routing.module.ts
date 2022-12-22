@@ -11,7 +11,7 @@ import { ViewDetailsComponent} from './Pages/appointment/view-details/view-detai
                 path: '',
                 children: [
                     { path: 'new', component: FormWizardComponent },
-                    { path: 'view-details', component: ViewDetailsComponent},
+                    { path: 'details', component: ViewDetailsComponent},
                     { path: '**', redirectTo: 'new' }
                 ]
             }

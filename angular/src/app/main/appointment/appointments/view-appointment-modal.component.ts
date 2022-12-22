@@ -1,7 +1,6 @@
-﻿import { AppConsts } from '@shared/AppConsts';
-import { Component, ViewChild, Injector, Output, EventEmitter } from '@angular/core';
+﻿import { Component, ViewChild, Injector, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { GetAppointmentForViewDto, AppointmentDto, StatusType, AppointmentsServiceProxy } from '@shared/service-proxies/service-proxies';
+import { GetAppointmentForViewDto, AppointmentDto, AppointmentsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -36,7 +35,6 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         )
         .subscribe((result) => {
             this.imageBlob = result;
-            //this.image = this.imageReader.readAsDataURL(this.imageBlob);
             this.image = 'data:image/jpg;base64,' + this.imageBlob;
         });
     }

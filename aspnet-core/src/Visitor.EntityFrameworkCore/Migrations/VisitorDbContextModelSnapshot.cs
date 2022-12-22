@@ -1482,6 +1482,9 @@ namespace Visitor.Migrations
                     b.Property<string>("OfficerToMeet")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PassNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 

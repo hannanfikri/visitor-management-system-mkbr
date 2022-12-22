@@ -1,10 +1,7 @@
-﻿import { AppConsts } from '@shared/AppConsts';
-import { Component, Injector, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppointmentsServiceProxy, AppointmentDto, GetDepartmentForViewDto, GetAppointmentForViewDto, StatusType} from '@shared/service-proxies/service-proxies';
-import { IAjaxResponse, NotifyService, TokenService } from 'abp-ng2-module';
+﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
+import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto} from '@shared/service-proxies/service-proxies';
+import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment-modal.component';
 
 import { ViewAppointmentModalComponent } from './view-appointment-modal.component';
@@ -12,15 +9,12 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { LazyLoadEvent } from 'primeng/api';
-import { FileDownloadService } from '@shared/utils/file-download.service';
 import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
 import { filter as _filter } from 'lodash-es';
 import { DateTime } from 'luxon';
 
-import {DatePipe} from '@angular/common';
 
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
-import { url } from 'inspector';
 
 @Component({
     templateUrl: './appointments.component.html',
@@ -41,6 +35,8 @@ export class AppointmentsComponent extends AppComponentBase {
     imageSrc: any;
     imageId: any;
     image: any;
+
+    appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     
     advancedFiltersAreShown = false;
     filterText = '';
@@ -62,6 +58,8 @@ export class AppointmentsComponent extends AppComponentBase {
     statusFilter = -1;
     appRefNo = "";
 
+    test:any;
+
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
@@ -75,8 +73,9 @@ export class AppointmentsComponent extends AppComponentBase {
         super(injector);
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {this.getStatus();
         this.entityHistoryEnabled = this.setIsEntityHistoryEnabled();
+        
     }
 
     private setIsEntityHistoryEnabled(): boolean {
@@ -169,5 +168,12 @@ export class AppointmentsComponent extends AppComponentBase {
             }
         });
     }
-    getStatus():void{}
+    getStatus(appointmentId?: string):void
+    {
+        this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
+            this.appointment = result.appointment);
+            
+        
+
+    }
 }

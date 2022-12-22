@@ -185,7 +185,8 @@ namespace Visitor.Appointment
                                    o.Status,
                                    o.Title,
                                    o.ImageId,
-                                   o.AppRefNo
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -217,7 +218,8 @@ namespace Visitor.Appointment
                         Title = o.Title,
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
-                        AppRefNo = o.AppRefNo
+                        AppRefNo = o.AppRefNo,
+                        PassNumber=o.passNumber,
                     }
                 };
 
@@ -313,7 +315,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -343,7 +347,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        AppRefNo = o.AppRefNo
+                        ImageId = o.ImageId,
+                        //ImageId = image.Id,,
+                        AppRefNo = o.AppRefNo,
+                        PassNumber = o.passNumber,
                     }
                 };
 
@@ -436,7 +443,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -465,7 +474,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        AppRefNo = o.AppRefNo
+                        ImageId = o.ImageId,
+                        //ImageId = image.Id,,
+                        AppRefNo = o.AppRefNo,
+                        PassNumber = o.passNumber,
                     }
                 };
 
@@ -558,7 +570,9 @@ namespace Visitor.Appointment
                                    o.CreationTime,
                                    o.Status,
                                    o.Title,
-                                   o.AppRefNo
+                                   o.ImageId,
+                                   o.AppRefNo,
+                                   o.passNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -587,7 +601,10 @@ namespace Visitor.Appointment
                         RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         Status = o.Status,
                         Title = o.Title,
-                        AppRefNo = o.AppRefNo
+                        ImageId = o.ImageId,
+                        //ImageId = image.Id,,
+                        AppRefNo = o.AppRefNo,
+                        PassNumber = o.passNumber,
                     }
                 };
 
@@ -979,6 +996,20 @@ namespace Visitor.Appointment
 
             return new GetPictureOutput(output.ImageId);
         }
+
+        public async Task ChangeStatusToIn(Guid id)
+        {
+            var appointment = await _appointmentRepository.GetAsync(id);
+            appointment.Status = StatusType.In;
+
+        }
+        public async Task ChangeStatusToOut(Guid id)
+        {
+            var appointment = await _appointmentRepository.GetAsync(id);
+            appointment.Status = StatusType.Out;
+
+        }
+
     }
     
 }

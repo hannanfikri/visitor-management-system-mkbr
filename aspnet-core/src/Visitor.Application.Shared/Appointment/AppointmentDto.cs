@@ -29,5 +29,6 @@ namespace Visitor.Appointment
         public string ImageId { get; set; }
 
         public string AppRefNo { get; set; }
+        public string PassNumber { get; set; }
     }
 }

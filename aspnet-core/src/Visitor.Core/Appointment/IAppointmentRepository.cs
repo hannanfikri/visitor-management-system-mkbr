@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Visitor.Appointment
 {
-    public interface IAppointmentRepository : IRepository<AppointmentEnt, Guid>
+    public interface IAppointmentRepository : IDisposable
     {
-        IQueryable<AppointmentEnt> GetYesterday();
+        
     }
 }

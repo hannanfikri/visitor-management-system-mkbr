@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title">
-                
+
             </h4>
         </div>
         <div>
@@ -12,9 +12,9 @@
         <div style="text-align:center ;">
             <div class="modal-body">
                 <div class="row">
-                    <div >
+                    <div>
                         <h6 style="text-align:center ;">{{ l('RefNo') }} :</h6>
-            {{ item.appointment.identityCard }}
+                        {{ item.appointment.appRefNo }}
                     </div>
                 </div>
             </div>
@@ -25,16 +25,16 @@
         <div style="text-align:center ;" class="modal-body">
             <div class="row">
                 <div class="col-6 mb-3">
-                    <h6>{{ l('AppDateTime') }} :</h6>
-                    {{ item.appointment.appDateTime }}
+                    <!-- <h6>{{ l('AppDateTime') }} :</h6>
+                    {{  }} -->
                 </div>
             </div>
         </div>
         <div class="modal-body" style="text-align:center ;">
             <div class="row">
                 <div class="col-6 mb-3">
-                    <h6>{{ l('RegDateTime') }} :</h6>
-                    {{ item.appointment.regDateTime }}
+                    <!-- <h6>{{ l('RegDateTime') }} :</h6>
+                    {{  }} -->
                 </div>
             </div>
         </div>
@@ -42,8 +42,8 @@
             Visitor can check-out at the receptionist by giving out
             your referral number or access card siri number.
         </div>
-    <div>        
-        ''
-    </div>
+        <div>
+            <app-PortalFooter></app-PortalFooter>
+        </div>
     </div>
 </div>

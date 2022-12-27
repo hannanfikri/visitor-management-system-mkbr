@@ -308,7 +308,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.modalSave.emit(null);
                 this.appId = result;
             });
-            
     }
 
     close(): void {

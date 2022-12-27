@@ -37,6 +37,12 @@ import { LocaleMappingService } from '@shared/locale-mapping.service';
 import { FormWizardComponent } from './Pages/appointment/form-wizard/form-wizard.component';
 import { CreateOrEditAppointmentDto, PortalsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ViewDetailsComponent } from './Pages/appointment/view-details/view-details.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { PublicComponent } from './public.component';
+import { PortalThemeComponent } from './public-layout/PortalTheme/PortalTheme.component';
+import { PortalFooterComponent } from './public-layout/PortalFooter/PortalFooter.component';
+import { PortalHeaderComponent } from './public-layout/PortalHeader/PortalHeader.component';
+import { PortalModalMessageComponent } from './public-layout/portal-modal-message/portal-modal-message.component';
 
 
 export function getRecaptchaLanguage(): string {
@@ -72,12 +78,17 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         PublicRoutingModule,
         CountoModule,
         NgxCaptchaModule,
+        ImageCropperModule,
     ],
     declarations: [
         
         ViewDetailsComponent,
         FormWizardComponent,
-        
+        PublicComponent,
+        PortalThemeComponent,
+        PortalFooterComponent,
+        PortalHeaderComponent,
+        PortalModalMessageComponent
 
     ],
     providers: [

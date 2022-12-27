@@ -1,3 +1,9 @@
+#PortalComponent > app-portaltheme,
+#PortalComponent > app-portaltheme > div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
 /* You can add global styles to this file, and also import other style files */
 .margin-left-5 {
     margin-left: 5px !important;
@@ -163,9 +169,27 @@ bs-days-calendar-view {
     border-radius: 4px 0 0 4px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .btn-md-icon {
         margin-right: 0 !important;
         padding-right: 0 !important;
+    }
+} */
+@media print {
+    app-root > * {
+        display: none;
+    }
+
+    #kt_header,
+    #kt_footer,
+    #kt_header_mobile,
+    .hideForPrint {
+        display: none !important;
+    }
+
+    app-root app-appointment-check .printArea,
+    app-root app-appointment-check .printHeader,
+    app-root app-appointment-check .printFooter.printArea {
+        display: block !important;
     }
 }

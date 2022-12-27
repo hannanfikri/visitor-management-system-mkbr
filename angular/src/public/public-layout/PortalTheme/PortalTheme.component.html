@@ -1,0 +1,92 @@
+<!-- <div>
+    <div id="kt_header_mobile" class="header-mobile  header-mobile-fixed ">
+        <a routerLink="/">
+            <img [src]="defaultLogo" alt="logo" height="28" />
+        </a>
+        <div class="d-flex align-items-center">
+            <div class="language-option pr-3 d-flex align-items-center">
+                <div class="triangle-left"></div>
+                <a *ngFor="let item of languages"
+                    class="btn btn-primary  btn-language-option {{item.name == currentLanguage.name ? 'disable' : ''}}"
+                    (click)="changeLanguage(item)">{{item.displayName}}</a>
+                <div class="triangle-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <div [@routerTransition] class="d-flex flex-column flex-root" style="padding-top: 0px; opacity: 1;">
+        <div class="d-flex flex-row flex-column-fluid page">
+            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+                <div id="kt_header" class="header flex-column  header-fixed">
+                    <div class="header-top d-flex justify-content-between align-items-center">
+
+                        <div class="d-none pl-3 d-lg-flex align-items-center mr-3">
+                            <a routerLink="/">
+                                <img [src]="defaultLogo" alt="logo" height="38" />
+                            </a>
+                        </div>
+                        <div class="language-option pr-3 d-flex align-items-center">
+                            <div class="triangle-left"></div>
+                            <a *ngFor="let item of languages"
+                                class="btn btn-primary  btn-language-option {{item.name == currentLanguage.name ? 'disable' : ''}}"
+                                (click)="changeLanguage(item)">{{item.displayName}}</a>
+
+                            <div class="triangle-right"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mobile-subscription-warning d-print-none mt-3"
+                    *ngIf="isMobileDevice() && subscriptionStatusBarVisible()">
+                </div>
+
+
+                <div style="flex:1">
+                    <router-outlet></router-outlet>
+                </div>
+
+
+                <app-PortalFooter></app-PortalFooter><div class="
+                "></div>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+<div>
+    <div id="kt_header_mobile" class="header-mobile  header-mobile-fixed ">
+        <div [@routerTransition] class="d-flex flex-column flex-root" style="padding-top: 0px; opacity: 1;">
+            <div class="d-flex flex-row flex-column-fluid page">
+                <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+                    <div id="kt_header" class="header flex-column  header-fixed">
+                        <div class="header-top d-flex justify-content-between align-items-center">
+
+                            <div class="d-none pl-3 d-lg-flex align-items-center mr-3">
+                                <a routerLink="/">
+                                    <img [src]="defaultLogo" alt="logo" height="38" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mobile-subscription-warning d-print-none mt-3"
+                        *ngIf="isMobileDevice() && subscriptionStatusBarVisible()">
+                    </div>
+
+
+                    <div style="flex:1">
+                        <router-outlet></router-outlet>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-form-wizard></app-form-wizard>
+    <app-PortalFooter></app-PortalFooter>
+</div>

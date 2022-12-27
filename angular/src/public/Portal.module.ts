@@ -20,7 +20,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bootstrap-datepicker-config.service';
-import { PublicRoutingModule } from './public-routing.module';
+import { PortalRoutingModule } from './Portal-routing.module';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +37,12 @@ import { LocaleMappingService } from '@shared/locale-mapping.service';
 import { FormWizardComponent } from './Pages/appointment/form-wizard/form-wizard.component';
 import { CreateOrEditAppointmentDto, PortalsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ViewDetailsComponent } from './Pages/appointment/view-details/view-details.component';
+import { PortalComponent } from './Portal.component';
+import { MenuComponent } from './Component/Menu/Menu.component';
+import { PortalFooterComponent } from './Component/PortalFooter/PortalFooter.component';
+import { PortalHeaderComponent } from './Component/PortalHeader/PortalHeader.component';
+import { PortalThemeComponent } from './Component/PortalTheme/PortalTheme.component';
+import { PortalModalMessageComponent } from './Component/portal-modal-message/portal-modal-message.component';
 
 
 export function getRecaptchaLanguage(): string {
@@ -69,7 +75,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         AutoCompleteModule,
         EditorModule,
         InputMaskModule,
-        PublicRoutingModule,
+        PortalRoutingModule,
         CountoModule,
         NgxCaptchaModule,
     ],
@@ -77,6 +83,12 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         
         ViewDetailsComponent,
         FormWizardComponent,
+        PortalComponent,
+        PortalThemeComponent,
+        PortalFooterComponent,
+        MenuComponent,
+        PortalHeaderComponent,
+        PortalModalMessageComponent,
         
 
     ],
@@ -88,4 +100,4 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
     ],
     entryComponents: [NgxSpinnerComponent]
 })
-export class PublicModule { }
+export class PortalModule { }

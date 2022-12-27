@@ -54,7 +54,7 @@ export class CheckOut extends AppComponentBase {
                 })
             )
             .subscribe((result) => {
-                this.notify.info(this.l('SApproveSuccessfully'));
+                this.notify.info(this.l('CheckOutSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
             });  

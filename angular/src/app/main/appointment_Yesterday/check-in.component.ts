@@ -54,7 +54,7 @@ export class CheckIn extends AppComponentBase {
                 })
             )
             .subscribe((result) => {
-                this.notify.info(this.l('SApproveSuccessfully'));
+                this.notify.info(this.l('CheckInSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
             });  

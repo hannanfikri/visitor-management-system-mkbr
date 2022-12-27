@@ -1,0 +1,43 @@
+<div bsModal #portalModalMessage="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <div *ngIf="key=='Submit'">
+                        {{l('SubmitTitle')}}
+                    </div>
+
+                    <div *ngIf="key=='Duplicate'">
+                        {{l('DuplicateTitle')}}
+                    </div>
+
+                    <div *ngIf="key=='Survey'">
+                        {{l('SurveyTitle')}}
+                    </div>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <i class="flaticon2-cross"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="key == 'Submit'">
+                    {{l('SubmitContent')}} : {{bookingRef}}
+                </div>
+
+                <div *ngIf="key == 'Duplicate'">
+                    {{l('DuplicateContent')}}
+                </div>
+
+                <div *ngIf="key == 'Survey'">
+                    {{l('SurveyContent')}}
+                </div>
+            </div>
+            <!--  End: Modal-body -->
+        </div>
+        <!-- End: Modal COntent-->
+    </div>
+    <!--End: modal dialog-->
+</div>
+<!--End: div-->

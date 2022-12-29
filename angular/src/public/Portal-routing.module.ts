@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormWizardComponent } from './Pages/appointment/form-wizard/form-wizard.component';
 import { ViewDetailsComponent } from './Pages/appointment/view-details/view-details.component';
-import { PublicComponent } from './Portal.component';
+import { PortalComponent } from './Portal.component';
 
 
 @NgModule({
@@ -10,8 +10,9 @@ import { PublicComponent } from './Portal.component';
         RouterModule.forChild([
             {
                 path: '',
-                component: PublicComponent,
+                component: PortalComponent,
                 children: [
+                    
                     { path: 'new', component: FormWizardComponent },
                     { path: 'appointment-details', component: ViewDetailsComponent },
                     { path: '**', redirectTo: 'new' }
@@ -23,4 +24,4 @@ import { PublicComponent } from './Portal.component';
         RouterModule
     ]
 })
-export class PublicRoutingModule { }
+export class PortalRoutingModule { }

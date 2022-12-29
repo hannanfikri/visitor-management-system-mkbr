@@ -20,7 +20,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bootstrap-datepicker-config.service';
-import { PublicRoutingModule } from './Portal-routing.module';
+import { PortalRoutingModule } from './Portal-routing.module';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -38,7 +38,7 @@ import { FormWizardComponent } from './Pages/appointment/form-wizard/form-wizard
 import { CreateOrEditAppointmentDto, PortalsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ViewDetailsComponent } from './Pages/appointment/view-details/view-details.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { PublicComponent } from './Portal.component';
+import { PortalComponent } from './Portal.component';
 import { PortalThemeComponent } from './public-layout/PortalTheme/PortalTheme.component';
 import { PortalFooterComponent } from './public-layout/PortalFooter/PortalFooter.component';
 import { PortalHeaderComponent } from './public-layout/PortalHeader/PortalHeader.component';
@@ -75,7 +75,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         AutoCompleteModule,
         EditorModule,
         InputMaskModule,
-        PublicRoutingModule,
+        PortalRoutingModule,
         CountoModule,
         NgxCaptchaModule,
         ImageCropperModule,
@@ -84,7 +84,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         
         ViewDetailsComponent,
         FormWizardComponent,
-        PublicComponent,
+        PortalComponent,
         PortalThemeComponent,
         PortalFooterComponent,
         PortalHeaderComponent,
@@ -99,4 +99,4 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
     ],
     entryComponents: [NgxSpinnerComponent]
 })
-export class PublicModule { }
+export class PortalModule { }

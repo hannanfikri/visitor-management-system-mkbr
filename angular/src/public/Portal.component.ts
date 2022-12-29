@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { AppComponentBase } from '@shared/common/app-component-base';
 
 @Component({
-  selector: 'app-public',
-  templateUrl: './public.component.html',
-  styleUrls: ['./public.component.css']
+  selector: 'app-Portal',
+  templateUrl: './Portal.component.html',
+  encapsulation: ViewEncapsulation.None,
+  animations: [appModuleAnimation()]
 })
-export class PublicComponent implements OnInit {
+export class PortalComponent extends AppComponentBase implements OnInit {
 
-  constructor() { }
+  constructor(
+    injector: Injector
+  ) {
+    super(injector)
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }

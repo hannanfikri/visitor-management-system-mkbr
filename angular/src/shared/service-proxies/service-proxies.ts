@@ -2105,6 +2105,110 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<GetPictureOutput>(<any>null);
     }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    changeStatusToIn(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToIn?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangeStatusToIn(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangeStatusToIn(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangeStatusToIn(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    changeStatusToOut(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToOut?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangeStatusToOut(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangeStatusToOut(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangeStatusToOut(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -19740,6 +19844,7 @@ export class AppointmentDto implements IAppointmentDto {
     status!: StatusType;
     imageId!: string | undefined;
     appRefNo!: string | undefined;
+    passNumber!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19776,6 +19881,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.status = _data["status"];
             this.imageId = _data["imageId"];
             this.appRefNo = _data["appRefNo"];
+            this.passNumber = _data["passNumber"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -19812,6 +19918,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["status"] = this.status;
         data["imageId"] = this.imageId;
         data["appRefNo"] = this.appRefNo;
+        data["passNumber"] = this.passNumber;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -19841,6 +19948,7 @@ export interface IAppointmentDto {
     status: StatusType;
     imageId: string | undefined;
     appRefNo: string | undefined;
+    passNumber: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -20860,7 +20968,6 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     tower!: string | undefined;
     level!: string | undefined;
     appDateTime!: DateTime;
-    faceVerify!: string | undefined;
     regDateTime!: IHasCreationTime;
     status!: StatusType;
     imageId!: string | undefined;
@@ -20898,7 +21005,6 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.tower = _data["tower"];
             this.level = _data["level"];
             this.appDateTime = _data["appDateTime"] ? DateTime.fromISO(_data["appDateTime"].toString()) : <any>undefined;
-            this.faceVerify = _data["faceVerify"];
             this.regDateTime = _data["regDateTime"] ? IHasCreationTime.fromJS(_data["regDateTime"]) : <any>undefined;
             this.status = _data["status"];
             this.imageId = _data["imageId"];
@@ -20936,7 +21042,6 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["tower"] = this.tower;
         data["level"] = this.level;
         data["appDateTime"] = this.appDateTime ? this.appDateTime.toString() : <any>undefined;
-        data["faceVerify"] = this.faceVerify;
         data["regDateTime"] = this.regDateTime ? this.regDateTime.toJSON() : <any>undefined;
         data["status"] = this.status;
         data["imageId"] = this.imageId;
@@ -20967,7 +21072,6 @@ export interface ICreateOrEditAppointmentDto {
     tower: string | undefined;
     level: string | undefined;
     appDateTime: DateTime;
-    faceVerify: string | undefined;
     regDateTime: IHasCreationTime;
     status: StatusType;
     imageId: string | undefined;

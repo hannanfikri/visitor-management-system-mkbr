@@ -255,7 +255,26 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
             });
     }
 
+    getArray(): void {
+
+        combineLatest
+            (
+                this._appointmentsServiceProxy.getTitle(), this._appointmentsServiceProxy.getTower(),
+                this._appointmentsServiceProxy.getPurposeOfVisit(), this._appointmentsServiceProxy.getLevel(),
+                this._appointmentsServiceProxy.getCompanyName(), this._appointmentsServiceProxy.getDepartmentName()
+            )
+            .subscribe(([valueTitle, valueTower, valuePOV, valueLevel, valueCompany, valueDepartment]) => {
+                this.arrTitle.push(valueTitle),
+                    this.arrTower.push(valueTower),
+                    this.arrPOV.push(valuePOV),
+                    this.arrLevel.push(valueLevel),
+                    this.arrCompany.push(valueCompany),
+                    this.arrDepartment.push(valueDepartment);
+            })
+    }
+
     ngOnInit(appointmentId?: string): void {
+        this.getArray();
         this.initializeModal();
     }
     ngAfterViewInit() { }

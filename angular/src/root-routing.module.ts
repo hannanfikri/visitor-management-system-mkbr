@@ -12,7 +12,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        loadChildren: () => import('public/public.module').then(m => m.PublicModule)//Lazy load Portal Module
+        loadChildren: () => import('public/Portal.module').then(m => m.PortalModule)//Lazy load Portal Module
     },
     // {
     //     path: '',

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
-
+<text name="RefNo">Referral Number</text>
     <text name="Company">Company</text>
     <text name="Visitor.Company.Company">Company</text>
     <text name="CompanyName">Company name</text>
@@ -99,7 +99,15 @@
 	  <text name="Message1">Use below referral number to get your access card at the counter reception</text>
 	  <text name="Message2">Visitor can check-out at the receptionist by giving out the referral number or pass number.</text>
 	  <text name="AppointmentDetails">Appointment Details</text>
-	  
+	  <text name="PassNumber">Pass Number</text>
+	      
+    <text name="Approve and Check-in">Approve and Check In</text>    
+    <text name="Approve and Check-Out">Approve and Check Out</text>
+    <text name="CheckInSuccessfully">Check in succesfully</text>
+    <text name="CheckOutSuccessfully">Check Out succesfully</text>    
+    <text name="CheckIn">Check in</text>
+    <text name="CheckOut">Check out</text>
+
 	  <text name="Department">Department</text>
 	  <text name="Visitor.Department.Department">Department</text>
 	  <text name="DepartmentName">Department name</text>

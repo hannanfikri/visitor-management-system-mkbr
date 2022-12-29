@@ -1,22 +1,16 @@
-﻿import { AppConsts } from '@shared/AppConsts';
-import { Component, Injector, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppointmentsServiceProxy, AppointmentDto, GetDepartmentForViewDto, GetAppointmentForViewDto, StatusType} from '@shared/service-proxies/service-proxies';
-import { IAjaxResponse, NotifyService, TokenService } from 'abp-ng2-module';
+﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
+import { AppointmentsServiceProxy, AppointmentDto,CreateOrEditAppointmentDto} from '@shared/service-proxies/service-proxies';
+import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment_Tomorrow-modal.component';
-
 import { ViewAppointmentModalComponent } from './view-appointment_Tomorrow-modal.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { LazyLoadEvent } from 'primeng/api';
-import { FileDownloadService } from '@shared/utils/file-download.service';
 import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
 import { filter as _filter } from 'lodash-es';
 import { DateTime } from 'luxon';
-
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
 @Component({
@@ -33,7 +27,14 @@ export class AppointmentsComponent extends AppComponentBase {
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
+    imageUrl: any;
+    imageReader = new FileReader();
+    imageSrc: any;
+    imageId: any;
+    image: any;
 
+    appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
+    
     advancedFiltersAreShown = false;
     filterText = '';
     fullNameFilter = '';
@@ -54,21 +55,22 @@ export class AppointmentsComponent extends AppComponentBase {
     statusFilter = -1;
     appRefNo = "";
 
+    test:any;
+
+
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
-
-    
-
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
-        private _tokenService:TokenService
+        private _tokenService:TokenService,
     ) {
         super(injector);
     }
 
     ngOnInit(): void {
+        this.getStatus();
         this.entityHistoryEnabled = this.setIsEntityHistoryEnabled();
     }
 
@@ -126,6 +128,16 @@ export class AppointmentsComponent extends AppComponentBase {
             });
     }
 
+    displayImage(appointment: AppointmentDto) {
+        this._appointmentsServiceProxy.getPictureByAppointment(appointment.id).subscribe(() => {
+            this.imageId = appointment.imageId;
+            this._appointmentsServiceProxy.getPictureByIdOrNull(this.imageId).subscribe((result) => {
+                this.imageSrc = result;
+                this.image = this.imageReader.readAsDataURL(this.imageSrc)
+            })
+        })
+    }
+
     reloadPage(): void {
         this.paginator.changePage(this.paginator.getPage());
     }
@@ -151,5 +163,13 @@ export class AppointmentsComponent extends AppComponentBase {
                 });
             }
         });
+    }
+    getStatus(appointmentId?: string):void
+    {
+        this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
+            this.appointment = result.appointment);
+            
+        
+
     }
 }

@@ -156,7 +156,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="!setAllowCheckIn()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <h6>{{ l('PassNumber') }} :</h6>
@@ -166,10 +166,20 @@
             </div>
             <div>
                 <div class="modal-footer">
+                    <div *ngIf="setAllowCheckIn()">
+                    <button  type="button" class="btn btn-primary blue" (click)="checkIn.show(item.appointment.id)"  >
+                        {{ l('CheckIn') }}
+                    </button></div>
+                    <div *ngIf="setAllowCheckOut()">
+                        <button  type="button" class="btn btn-primary blue"  (click)="change_Status_Register_To_Out()" >
+                            {{ l('CheckOut') }}
+                        </button></div>
                     <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
                         {{ l('Close') }}
                     </button>
                 </div>
             </div>
+            
+        <CheckIn #checkIn></CheckIn>
         </div>
     </div>

@@ -1,19 +1,16 @@
 ﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
-import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto} from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto, StatusType, GetAppointmentForViewDto} from '@shared/service-proxies/service-proxies';
 import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment-modal.component';
-
 import { ViewAppointmentModalComponent } from './view-appointment-modal.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { LazyLoadEvent } from 'primeng/api';
 import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
-import { filter as _filter } from 'lodash-es';
+import { filter as _filter, result } from 'lodash-es';
 import { DateTime } from 'luxon';
-
-
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
 @Component({
@@ -63,7 +60,6 @@ export class AppointmentsComponent extends AppComponentBase {
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
     entityHistoryEnabled = false;
-
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
@@ -73,9 +69,9 @@ export class AppointmentsComponent extends AppComponentBase {
         super(injector);
     }
 
-    ngOnInit(): void {this.getStatus();
+    ngOnInit(): void {
+        this.getStatus();
         this.entityHistoryEnabled = this.setIsEntityHistoryEnabled();
-        
     }
 
     private setIsEntityHistoryEnabled(): boolean {

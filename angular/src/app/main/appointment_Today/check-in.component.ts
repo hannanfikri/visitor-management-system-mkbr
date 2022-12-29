@@ -3,6 +3,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppointmentsServiceProxy, CreateOrEditAppointmentDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
+import { Paginator } from 'primeng/paginator';
+import { Router } from '@angular/router';
+import { ViewAppointmentModalComponent } from './view-appointment_Today-modal.component';
 
 @Component({
     selector: 'CheckIn',
@@ -11,7 +14,9 @@ import { finalize } from 'rxjs/operators';
 export class CheckIn extends AppComponentBase {
     @ViewChild('CheckIn', { static: true }) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+    @ViewChild('viewAppointmentModalComponent', { static: true }) viewAppointmentModal: ViewAppointmentModalComponent;
+    
     active = false;
     saving = false;
 
@@ -21,11 +26,14 @@ export class CheckIn extends AppComponentBase {
     constructor(
         injector: Injector, 
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
+        private _router: Router,
     ) {
         super(injector);
     }
 
     show(appointmentId?: string): void {
+//this.viewAppointmentModal.close();
+
         this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => {
             this.appointment = result.appointment;
         this.active = true;
@@ -42,6 +50,7 @@ export class CheckIn extends AppComponentBase {
     }
     change_Status_Register_To_In() :void
     {
+
         this.saving = true;
         this.AppointmentId = this.appointment.id;
         this.save();
@@ -54,10 +63,14 @@ export class CheckIn extends AppComponentBase {
                 })
             )
             .subscribe((result) => {
-                this.notify.info(this.l('SApproveSuccessfully'));
+                this.notify.info(this.l('CheckInSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
-            });  
+                this.reloadPage();
+                this._router.navigate(['/app/main/appointment/appointments']);
+                this.modal.toggle();
+            });
+            
     }
     save(): void {
         this.saving = true;
@@ -71,7 +84,11 @@ export class CheckIn extends AppComponentBase {
             )
             .subscribe((result) => {
                 this.modalSave.emit(null);
-            });
-            
+            });            
     }
+    reloadPage(): void {
+        //this._router.navigate(['/app/main/appointment/appointments']);
+        this.paginator.changePage(this.paginator.getPage());
+    }
+    
 }

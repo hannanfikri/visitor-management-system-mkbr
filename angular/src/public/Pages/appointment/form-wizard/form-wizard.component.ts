@@ -156,6 +156,6 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     onBeforeSend(event): void { }
 
     viewDetails() {
-        this._router.navigate(['/view-details']);
+        this._router.navigate(['/details']);
       }
 }

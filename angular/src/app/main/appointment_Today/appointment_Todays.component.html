@@ -316,20 +316,6 @@
                                                             {{ l('History') }}
                                                         </a>
                                                     </li>
-                                                    <li>
-                                                        <a href="javascript:;" 
-                                                            class="dropdown-item"
-                                                            (click)="checkIn.show(record.appointment.id)">
-                                                            {{ l('CheckIn') }}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:;" 
-                                                            class="dropdown-item"
-                                                            (click)="checkOut.show(record.appointment.id)">
-                                                            {{ l('CheckOut') }}
-                                                        </a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -419,7 +405,5 @@
         </createOrEditAppointmentModal>
         <viewAppointmentModal #viewAppointmentModal></viewAppointmentModal>
         <entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>
-        <CheckIn #checkIn></CheckIn>
-        <CheckOut #checkOut></CheckOut>
     </div>
 </div>

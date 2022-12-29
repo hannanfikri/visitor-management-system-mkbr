@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
-<text name="ReffNo">Referrence Number</text>
+<text name="RefNo">Referral Number</text>
     <text name="Company">Company</text>
     <text name="Visitor.Company.Company">Company</text>
     <text name="CompanyName">Company name</text>

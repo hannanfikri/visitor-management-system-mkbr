@@ -1,4 +1,4 @@
-import { Injector, Output } from '@angular/core';
+import { Injector, Output, LOCALE_ID, Inject } from '@angular/core';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
@@ -13,11 +13,13 @@ import { finalize } from 'rxjs/operators';
 import { FormWizardComponent } from '../form-wizard/form-wizard.component';
 import { tap } from 'rxjs/operators';
 import { result } from 'lodash-es';
+import {  formatDate  } from '@angular/common';
 
 
 @Component({
     selector: 'app-view-details',
-    templateUrl: './view-details.component.html'
+    templateUrl: './view-details.component.html',
+    styleUrls: ['./view-details.component.css']
 })
 export class ViewDetailsComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
@@ -35,12 +37,13 @@ export class ViewDetailsComponent extends AppComponentBase implements OnInit, Af
     item: GetAppointmentForViewDto;
 
     queryParam: any;
+    reg: any;
 
     // item: GetAppointmentForViewDto;
 
     wizard: FormWizardComponent;
 
-    constructor(injector: Injector, private route: ActivatedRoute, private _portalAppService: PortalsServiceProxy, private _appointmentAppService: AppointmentsServiceProxy, private _passService: PassService) {
+    constructor(injector: Injector, private route: ActivatedRoute, private _portalAppService: PortalsServiceProxy, private _appointmentAppService: AppointmentsServiceProxy, private _passService: PassService, @Inject(LOCALE_ID) public locale: string) {
         super(injector);
         this.item = new GetAppointmentForViewDto();
         this.item.appointment = new AppointmentDto();
@@ -82,6 +85,9 @@ export class ViewDetailsComponent extends AppComponentBase implements OnInit, Af
                 (result) => {
                     result.appointment;
                     this.item.appointment = result.appointment;
+                    this.item.appointment.creationTime;
+                    this.reg = formatDate(this.item.appointment.creationTime.toISO(), 'dd/MM/yy, hh:mm a', this.locale,);
+                    this.reg;
                     // this.item.appointment.appRefNo = result.appointment.appRefNo;
                 }
             );

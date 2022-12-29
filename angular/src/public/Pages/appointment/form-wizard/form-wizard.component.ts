@@ -16,13 +16,15 @@ import { combineLatest } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ViewDetailsComponent } from '../view-details/view-details.component';
 import { pluck } from 'rxjs/operators';
+import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layout-base.component';
 
 
 
 
 @Component({
     selector: 'app-form-wizard',
-    templateUrl: './form-wizard.component.html'
+    templateUrl: './form-wizard.component.html',
+    styleUrls: ['./form-wizard.component.css']
 })
 export class FormWizardComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
@@ -33,7 +35,6 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
 
     // @ViewChild('viewAppointmentModalComponent', { static: true }) viewAppointmentModal: ViewDetailsComponent;
     // @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
-
 
     active = false;
     saving = false;
@@ -265,6 +266,6 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     cancel() { }
 
     viewDetails() {
-        this._router.navigate(['/view-details']);
+        this._router.navigateByUrl('/appointment-details');
     }
 }

@@ -388,7 +388,6 @@ namespace Visitor.Appointment
                         ? (StatusType)input.StatusFilter
                         : default;
 
-            var serviceType = 0;
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))

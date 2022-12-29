@@ -1,44 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: Highlight">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">QR2E</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<div>
+    <div id="kt_header_mobile" class="header-mobile  header-mobile-fixed ">
+        <div [@routerTransition] class="d-flex flex-column flex-root" style="padding-top: 0px; opacity: 1;">
+            <div class="d-flex flex-row flex-column-fluid page">
+                <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+                    <div id="kt_header" class="header flex-column  header-fixed">
+                        <div class="header-top d-flex justify-content-between align-items-center">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="product">Product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="product">Success Story</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="b2e">Apply Online</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+                            <div class="d-none pl-3 d-lg-flex align-items-center mr-3">
+                                <a routerLink="/">
+                                    <img [src]="defaultLogo" alt="logo" height="38" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mobile-subscription-warning d-print-none mt-3"
+                        *ngIf="isMobileDevice() && subscriptionStatusBarVisible()">
+                    </div>
+
+
+                    <!-- <div style="flex:1;">
+                        <router-outlet></router-outlet>
+                    </div> -->
+                </div>
+            </div>
         </div>
     </div>
-</nav>
+</div>

@@ -1,0 +1,28 @@
+.form-control:focus-visible{
+    border-color: rgba(232, 103, 36, 1) !important;
+}
+
+.container mt-5{
+    color: rgba(232, 103, 36, 1);
+}
+
+.default-layout-page{
+    margin: 30px;
+    padding: 30px;
+}
+
+.bg-custom-1{
+    background-color: #FFEDDA !important;
+}
+
+.bg-custom-2{
+    background-color: #E8C07D !important;
+}
+
+.space-between-card-form{
+    margin: 20px;
+}
+
+.form-label{
+    font-weight: bold;
+}

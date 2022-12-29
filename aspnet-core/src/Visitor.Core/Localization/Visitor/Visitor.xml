@@ -83,16 +83,23 @@
     <text name="IdentityCard">Visitor's identity card</text>
     <text name="PhoneNo">Visitor's phone number</text>
     <text name="OfficerToMeet">Officer to meet</text>
+	  <text name="VisitorEmail">Visitor's email address</text>
+	  <text name="VisitorTitle">Visitor's title</text>
+	  <text name="VisitorFullName">Visitor's full name</text>
 	<text name="AppRefNo">Visitor's Referral Number</text> 
     <text name="AppDateTime">Appointment's date and time</text>
 	  <text name="MinAppDateTimeFilter">Appointment's date and time</text>
 	  <text name="MinRegDateTimeFilter">Registration's date and time</text>
-	  
+	  <text name="UploadPicture">Upload Picture</text>
     <text name="RegDateTime">Register's date and time</text>
     <text name="FaceVerify">Visitor's face</text>
 	  <text name="Picture">Visitor's Image for Verification</text>
+	  <text name="UploadedPicture">Uploaded Visitor's Image for Verification</text>
 	  <text name="UploadSuccessfully">Picture uploaded successfully.</text>
-
+	  <text name="Message1">Use below referral number to get your access card at the counter reception</text>
+	  <text name="Message2">Visitor can check-out at the receptionist by giving out the referral number or pass number.</text>
+	  <text name="AppointmentDetails">Appointment Details</text>
+	  
 	  <text name="Department">Department</text>
 	  <text name="Visitor.Department.Department">Department</text>
 	  <text name="DepartmentName">Department name</text>

@@ -4,7 +4,7 @@ import { AppUiCustomizationService } from '@shared/common/ui/app-ui-customizatio
 
 const routes: Routes = [
     //{ path: '', redirectTo: 'Portal', pathMatch: 'full' },
-    { path: '', redirectTo: 'Portal', pathMatch: 'full' },
+    { path: '', redirectTo: 'Public', pathMatch: 'full' },
     {
         path: 'account',
         loadChildren: () => import('account/account.module').then((m) => m.AccountModule), //Lazy load account module

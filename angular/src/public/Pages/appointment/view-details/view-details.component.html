@@ -1,49 +1,48 @@
-<div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">
-                
-            </h4>
+<div class="default-layout-page">
+    <div class="card card-custom bg-custom-1">
+        <div class="card-header">
+            <div class="card-title">
+                {{ l('AppointmentDetails') }}
+            </div>
         </div>
-        <div>
-            <h3 style="text-align:center ;">Use the referral number to get your
-                access card at the counter reception</h3>
-        </div>
-        <div style="text-align:center ;">
-            <div class="modal-body">
-                <div class="row">
-                    <div >
-                        <h6 style="text-align:center ;">{{ l('RefNo') }} :</h6>
-            {{ item.appointment.identityCard }}
+        <div class="card-body align-items-center">
+            <div>
+                <div class="subtitle text-center">
+                    {{ l('Message1') }}
+                </div>
+                <div class="lead">
+                    <div class="title-data text-center pt-20 pb-10">
+                        {{ l('AppRefNo') }}
+                    </div>
+                </div>
+                <div class="lead">
+                    <div class="title-date text-center pb-10 pt-0">
+                        #{{ item.appointment.appRefNo }}
                     </div>
                 </div>
             </div>
-        </div>
-        <div style="text-align:center ;">
-            *This referral number has been sent to your e-mail
-        </div>
-        <div style="text-align:center ;" class="modal-body">
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <h6>{{ l('AppDateTime') }} :</h6>
+            <!-- <div class="subtitle text-center">
+                *This referral number has been sent to your e-mail
+            </div> -->
+            <div>
+                <div class="title-data text-center p-5">
+                    {{ l('AppDateTime') }}
+                </div>
+                <div class="data text-center p-5">
                     {{ item.appointment.appDateTime }}
                 </div>
             </div>
-        </div>
-        <div class="modal-body" style="text-align:center ;">
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <h6>{{ l('RegDateTime') }} :</h6>
-                    {{ item.appointment.regDateTime }}
+            <div>
+                <div class="title-data text-center p-5">
+                    {{ l('RegDateTime') }} :
+                </div>
+                <div class="data text-center p-5">
+                    {{ reg }}
                 </div>
             </div>
+            <div class="subtitle-2 text-center mt-15 mb-0">
+                {{ l('Message2') }}
+            </div>
         </div>
-        <div style="text-align:center ;">
-            Visitor can check-out at the receptionist by giving out
-            your referral number or access card siri number.
-        </div>
-    <div>        
-        ''
-    </div>
     </div>
 </div>

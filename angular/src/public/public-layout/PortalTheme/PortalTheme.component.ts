@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layout-base.component';
-import { ToggleOptions } from '@metronic/app/core/_base/layout/directives/toggle.directive';
+// import { ToggleOptions } from '@metronic/app/core/_base/layout/directives/toggle.directive';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { UrlHelper } from '@shared/helpers/UrlHelper';
@@ -18,11 +18,11 @@ import { filter as _filter } from 'lodash-es';
 })
 export class PortalThemeComponent extends ThemesLayoutBaseComponent implements OnInit {
 
-  userMenuToggleOptions: ToggleOptions = {
-    target: this.document.body,
-    targetState: 'topbar-mobile-on',
-    toggleState: 'active'
-  };
+  // userMenuToggleOptions: ToggleOptions = {
+  //   target: this.document.body,
+  //   targetState: 'topbar-mobile-on',
+  //   toggleState: 'active'
+  // };
 
   asideToggler;
 

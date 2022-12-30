@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 
 @Component({
   selector: 'app-Portal',
-  templateUrl: './portal.component.html',
+  templateUrl: './Portal.component.html',
   encapsulation: ViewEncapsulation.None,
   animations: [appModuleAnimation()]
 })

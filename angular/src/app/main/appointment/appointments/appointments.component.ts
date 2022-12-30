@@ -168,8 +168,5 @@ export class AppointmentsComponent extends AppComponentBase {
     {
         this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
             this.appointment = result.appointment);
-            
-        
-
     }
 }

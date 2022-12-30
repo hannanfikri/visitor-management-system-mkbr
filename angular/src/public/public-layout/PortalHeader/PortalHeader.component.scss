@@ -3,7 +3,7 @@
     background-color: #025ea7;
     align-content: center;
     height: auto;
-     padding: 0 12px;
+    // padding: 0 12px;
     .header-top {
         background-color: #025ea7;
     }
@@ -50,8 +50,6 @@
 
 #kt_header_mobile {
     background-color: #025ea7;
-    height: 60px;
-    bottom: 10px;
     .language-option {
         .btn-language-option {
             background-color: #e86724;
@@ -87,7 +85,6 @@
         }
     }
 }
-
 
 #kt_wrapper {
     padding-left: 0px;
@@ -146,5 +143,7 @@
             }
         }
 
+        a img {
+        }
     }
 }

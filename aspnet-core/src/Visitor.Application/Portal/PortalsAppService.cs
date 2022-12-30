@@ -27,10 +27,14 @@ using Abp.Collections.Extensions;
 using Visitor;
 using Visitor.Appointment;
 using System.Threading;
+using NPOI.OpenXmlFormats.Dml;
+using Abp.Domain.Uow;
+using Visitor.Chat;
+using Visitor.Portal;
 
 namespace CMS.Portal
 {
-    public class PortalsAppService : VisitorAppServiceBase
+    public class PortalsAppService : VisitorAppServiceBase, IPortalAppServices
     {
         private readonly IRepository<AppointmentEnt, Guid> _appointmentRepository;
         private readonly IRepository<PurposeOfVisitEnt, Guid> _purposeOfVisitRepository;
@@ -39,6 +43,7 @@ namespace CMS.Portal
         private readonly IRepository<LevelEnt, Guid> _levelRepository;
         private readonly IRepository<CompanyEnt, Guid> _companyRepository;
         private readonly IRepository<Department, Guid> _departmentRepository;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
 
         public PortalsAppService
 
@@ -48,7 +53,8 @@ namespace CMS.Portal
             IRepository<TowerEnt, Guid> towerRepository,
             IRepository<LevelEnt, Guid> levelRepository,
             IRepository<CompanyEnt, Guid> companyRepository,
-            IRepository<Department, Guid> departmentRepository
+            IRepository<Department, Guid> departmentRepository,
+            IUnitOfWorkManager unitOfWorkManager
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -58,7 +64,7 @@ namespace CMS.Portal
             _levelRepository = levelRepository;
             _companyRepository = companyRepository;
             _departmentRepository = departmentRepository;
-
+            _unitOfWorkManager = unitOfWorkManager;
         }
         public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input)
         {
@@ -76,12 +82,13 @@ namespace CMS.Portal
 
             return output;
         }
-        public async Task CreateOrEdit(CreateOrEditAppointmentDto input)
+        public async Task<Guid> CreateOrEdit(CreateOrEditAppointmentDto input)
         {
-                await Create(input);
+            var output = await Create(input);
+            return output;
         }
 
-        protected virtual async Task Create(CreateOrEditAppointmentDto input)
+        protected virtual async Task<Guid> Create(CreateOrEditAppointmentDto input)
         {
 
 
@@ -125,31 +132,41 @@ namespace CMS.Portal
             };
 
             var appointment = ObjectMapper.Map<AppointmentEnt>(input);
-            await _appointmentRepository.InsertAsync(appointment);
-            /*await UpdateSlot(input.BranchSlotSettingId, input.AppointmentSlot);*/
-            /*var bookingDetail = await _bookingRepository.InsertAsync(booking);
-            var branch = await _lookup_branchRepository.GetAsync(input.BranchId.Value);*/
+            var appId = await _appointmentRepository.InsertAndGetIdAsync(appointment);
+            return appId;
 
-            /*if (input.Email != null)
+            /*return _unitOfWorkManager.WithUnitOfWork(() =>
             {
+                using (CurrentUnitOfWork.SetTenantId(message.TenantId))
+                {
+                    return _chatMessageRepository.InsertAndGetId(message);
+                }
+            });*/
+
+                /*await UpdateSlot(input.BranchSlotSettingId, input.AppointmentSlot);*/
+                /*var bookingDetail = await _bookingRepository.InsertAsync(booking);
+                var branch = await _lookup_branchRepository.GetAsync(input.BranchId.Value);*/
+
+                /*if (input.Email != null)
+                {
+                    try
+                    {
+                        await _portalEmailer.SendEmailDetailBookingAsync(ObjectMapper.Map<Booking>(bookingDetail), branch, service);
+                    }
+                    catch
+                    {
+                        //To do
+                    }
+                }
+
                 try
                 {
-                    await _portalEmailer.SendEmailDetailBookingAsync(ObjectMapper.Map<Booking>(bookingDetail), branch, service);
+                    await SendSms(input);
                 }
                 catch
                 {
-                    //To do
-                }
-            }
 
-            try
-            {
-                await SendSms(input);
-            }
-            catch
-            {
-
-            }*/
+                }*/
 
         }
 
@@ -314,6 +331,18 @@ namespace CMS.Portal
             }
             return new List<GetDepartmentForViewDto>(results);
         }
+
+        /*public virtual long Save(ChatMessage message)
+        {
+            *//*return _unitOfWorkManager.WithUnitOfWork(() =>
+            {
+                using (CurrentUnitOfWork.SetTenantId(message.TenantId))
+                {
+                    return _chatMessageRepository.InsertAndGetId(message);
+                }
+            });*//*
+
+        }*/
 
     }
 }

@@ -155,7 +155,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter != 0, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue , e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
                         //.WhereIf(input.AppDateTimeFilter != null, e => e.AppDateTime == input.AppDateTimeFilter );
@@ -289,7 +289,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter != 0, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
@@ -416,7 +416,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter != 0, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
@@ -543,7 +543,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter != 0, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 

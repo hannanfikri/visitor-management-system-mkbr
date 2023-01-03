@@ -88,7 +88,7 @@
 	  <text name="VisitorEmail">Visitor's email address</text>
 	  <text name="VisitorTitle">Visitor's title</text>
 	  <text name="VisitorFullName">Visitor's full name</text>
-	<text name="AppRefNo">Visitor's Referral Number</text> 
+    <text name="AppRefNo">Visitor's Referral Number</text> 
     <text name="AppDateTime">Appointment's date and time</text>
 	  <text name="MinAppDateTimeFilter">Appointment's date and time</text>
 	  <text name="MinRegDateTimeFilter">Registration's date and time</text>
@@ -105,8 +105,8 @@
 	      
     <text name="Approve and Check-in">Approve and Check In</text>    
     <text name="Approve and Check-Out">Approve and Check Out</text>
-    <text name="CheckInSuccessfully">Check in succesfully</text>
-    <text name="CheckOutSuccessfully">Check Out succesfully</text>    
+    <text name="CheckInSuccessfully">Succesfully check in</text>
+    <text name="CheckOutSuccessfully">Succesfully check out</text>    
     <text name="CheckIn">Check in</text>
     <text name="CheckOut">Check out</text>
 

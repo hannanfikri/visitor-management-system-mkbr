@@ -47,6 +47,7 @@ export class CheckIn extends AppComponentBase {
     close(): void {
         this.active = false;
         this.modal.hide();
+        window.location.reload();
     }
     change_Status_Register_To_In() :void
     {
@@ -63,12 +64,11 @@ export class CheckIn extends AppComponentBase {
                 })
             )
             .subscribe((result) => {
-                this.notify.info(this.l('CheckInSuccessfully'));
+                
                 this.close();
                 this.modalSave.emit(null);
-                this.reloadPage();
-                this._router.navigate(['/app/main/appointment/appointments']);
-                this.modal.toggle();
+                this.notify.info(this.l('CheckInSuccessfully'));
+                
             });
             
     }

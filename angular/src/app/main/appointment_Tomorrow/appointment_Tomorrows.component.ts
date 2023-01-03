@@ -52,7 +52,7 @@ export class AppointmentsComponent extends AppComponentBase {
     maxAppDateTimeFilter: DateTime;
     minRegDateTimeFilter: DateTime;
     maxRegDateTimeFilter: DateTime;
-    statusFilter = -1;
+    statusFilter : any;
     appRefNo = "";
 
     test:any;

@@ -72,7 +72,9 @@
     <text name="EditLevel">Edit level</text>
     <text name="Deletelevel">Delete level</text>
     <text name="Levels">Levels</text>
-    
+
+
+	  <text name="IC"> Identity Card</text>
     <text name="Appointment">Appointment</text>
     <text name="Visitor.Appointment.Appointment">Appointment</text>
     <text name="AppointmentsHeaderInfo">Appointment header info</text>
@@ -122,8 +124,8 @@
 	  <text name="Pick">Pick</text>
 	  <text name="True">True</text>
 	  <text name="False">False</text>
-	  <text name="MinValue">Min</text>
-	  <text name="MaxValue">Max</text>
+	  <text name="MinValue">Start Date</text>
+	  <text name="MaxValue">End Date</text>
 	  <text name="Enum:StatusType:0">Registered</text>
 	  <text name="Enum:StatusType:1">In</text>
 	  <text name="Enum:StatusType:2">Out</text>

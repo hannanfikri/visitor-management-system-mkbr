@@ -62,6 +62,7 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.modal.hide();
     }
 
+    
     setAllowCheckIn(): boolean {
         if (this.item.appointment.status == StatusType.Registered)
             return true;
@@ -90,9 +91,11 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
                         })
                     )
                     .subscribe((result) => {
-                        this.notify.info(this.l('CheckOutSuccessfully'));
+                        
                         this.close();
+                        window.location.reload();
                         this.modalSave.emit(null);
+                        this.notify.info(this.l('CheckOutSuccessfully'));
                         
                     });
                     
@@ -112,6 +115,7 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
                 this.modalSave.emit(null);
             });
     }
+
 
     goToModelCheckIn(appointmentId?:string): void {
         

@@ -996,15 +996,19 @@ namespace Visitor.Appointment
             return new GetPictureOutput(output.ImageId);
         }
 
-        public async Task ChangeStatusToIn(Guid id)
+        public async Task ChangeStatusToIn(CreateOrEditAppointmentDto input)
         {
-            var appointment = await _appointmentRepository.GetAsync(id);
+            await Update(input);
+
+            var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.In;
 
         }
-        public async Task ChangeStatusToOut(Guid id)
+        public async Task ChangeStatusToOut(CreateOrEditAppointmentDto input)
         {
-            var appointment = await _appointmentRepository.GetAsync(id);
+            await Update(input);
+
+            var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.Out;
 
         }

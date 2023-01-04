@@ -51,7 +51,8 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.item = item;
         this._appointmentsServiceProxy.getAppointmentForEdit(item.appointment.id).subscribe((result) => {
             this.appointment = result.appointment;
-        this.appointment.id = item.appointment.id;});
+            this.appointment.id = item.appointment.id;
+        });
         this.active = true;
         this.displayImage(this.item.appointment.imageId);
         this.modal.show();
@@ -61,6 +62,7 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.active = false;
         this.modal.hide();
     }
+
 
     setAllowCheckIn(): boolean {
         if (this.item.appointment.status == StatusType.Registered)
@@ -79,23 +81,19 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.message.confirm('', this.l('AreYouSure'), (isConfirmed) => {
             if (isConfirmed) {
                 this.saving = true;
-                this.AppointmentId = this.appointment.id;
-                this.save();
-                this._appointmentsServiceProxy.changeStatusToOut(this.AppointmentId)
                 this._appointmentsServiceProxy
-                    .changeStatusToOut(this.AppointmentId)
+                    .changeStatusToOut(this.appointment)
                     .pipe(
                         finalize(() => {
                             this.saving = false;
                         })
                     )
                     .subscribe((result) => {
-                        this.notify.info(this.l('CheckOutSuccessfully'));
-                        this.close();
                         this.modalSave.emit(null);
-                        
+                        window.location.reload();
+                        this.notify.info(this.l('CheckOutSuccessfully'));
                     });
-                    
+
             }
         });
     }
@@ -113,11 +111,12 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
             });
     }
 
-    goToModelCheckIn(appointmentId?:string): void {
-        
+
+    goToModelCheckIn(appointmentId?: string): void {
+
         //new this.modal1.onHide();
         this.checkIn.modal.show();
         this.checkIn.show(appointmentId);
-        
+
     }
 }

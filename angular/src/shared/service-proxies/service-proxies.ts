@@ -2107,21 +2107,21 @@ export class AppointmentsServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    changeStatusToIn(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToIn?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+    changeStatusToIn(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToIn";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
             })
         };
 
@@ -2159,21 +2159,21 @@ export class AppointmentsServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    changeStatusToOut(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToOut?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+    changeStatusToOut(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToOut";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
             })
         };
 

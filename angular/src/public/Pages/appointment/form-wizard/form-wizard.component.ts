@@ -286,6 +286,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     ngOnInit(appointmentId?: string): void {
         this.getArray();
         this.initializeModal();
+        //window.location.
     }
     ngAfterViewInit() { }
 

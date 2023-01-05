@@ -74,13 +74,11 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
-
-    
-
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
-
+    Tower: any;
+    isTower = true;
     detailItems: any[] = [{ title: 'user01', name: "user01" }, { title: 'user02', name: 'user02' }];
     //event for edit
     public isEditing: boolean;
@@ -298,4 +296,14 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     viewDetails() {
         this._router.navigateByUrl('/appointment-details');
     }
+
+    onChange(getValueTower) 
+    {
+        this.Tower = getValueTower;
+        if (this.Tower == "Tower 1")
+            this.isTower = false;
+        else
+        this.isTower = true;
+    }
+    
 }

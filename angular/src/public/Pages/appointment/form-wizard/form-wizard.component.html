@@ -101,7 +101,7 @@
 
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
-                                    <select #Appointment_Tower="ngModel" id="Appointment_Tower"
+                                    <select #Appointment_Tower="ngModel" id="Appointment_Tower" (ngModelChange)="onChange($event)"
                                         [(ngModel)]="appointment.tower" name="Tower" class="form-control">
                                         <option value="" disabled selected>Select</option>
                                         <ng-container *ngFor="let t of arrTower">
@@ -113,20 +113,26 @@
                                     </select>
                                 </div>
 
-                                <div class="my-3">
+                                <div class="my-3"  *ngIf="isTower">
                                     <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
                                     </label>
-                                    <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
+                                    <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName" 
                                         [(ngModel)]="appointment.companyName" name="CompanyName" class="form-control">
                                         <option value="" disabled selected>Select</option>
                                         <ng-container *ngFor="let c of arrCompany">
-                                            <option name="CompanyName" *ngFor="let comp of c"
+                                            <option name="CompanyName" *ngFor="let comp of c" 
                                                 [ngValue]="comp.company.companyName">
                                                 {{comp.company.companyName}}</option>
                                         </ng-container>
                                     </select>
                                 </div>
-
+                                <div class="my-3" *ngIf="!isTower">
+                                    <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
+                                    </label>
+                                    <input disabled="true" type="text" 
+                                            #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
+                                            class="form-control" [(ngModel)]="appointment.companyName" value= "Bank Rakyat" />
+                                </div>
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_Department">{{ l('Department') }}
                                     </label>
@@ -180,10 +186,6 @@
                                         </ng-container>
                                     </select>
                                 </div>
-
-
-
-
                                 <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }}
                                     *</label>
                                 <div class="my-3">

@@ -22,12 +22,13 @@ namespace Visitor.Appointment
         public string Department { get; set; }
         public string Tower { get; set; }
         public string Level { get; set; }
-        public DateTime AppDateTime { get; set; }
+        public string AppDateTime { get; set; }
+        public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
         public string ImageId { get; set; }
         public string AppRefNo { get; set; }
         public string PassNumber { get; set; }
-        public DateTime CheckInDateTime { get; set; }
-        public DateTime CheckOutDateTime { get; set; }
+        public DateTime? CheckInDateTime { get; set; }
+        public DateTime? CheckOutDateTime { get; set; }
     }
 }

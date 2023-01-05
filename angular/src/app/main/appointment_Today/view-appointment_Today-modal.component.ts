@@ -32,8 +32,6 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     paginator: any;
     checkInDateTime: any;
     checkOutDateTime: any;
-    appDateTime: any;
-    regDateTime: any;
 
     constructor(injector: Injector, private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _router: Router, private _sanitizer: DomSanitizer, @Inject(LOCALE_ID) public locale: string) {
@@ -63,8 +61,6 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.displayImage(this.item.appointment.imageId);
         this.checkInDateTime = formatDate(this.item.appointment.checkInDateTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);
         this.checkOutDateTime = formatDate(this.item.appointment.checkOutDateTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);        
-        this.appDateTime = formatDate(this.item.appointment.appDateTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);
-        this.regDateTime = formatDate(this.item.appointment.creationTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);
         this.modal.show();
     }
 

@@ -19,15 +19,16 @@
                             <div class="card-body">
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_FullName">{{ l('VisitorFullName') }} *</label>
-                                    <input type="text" #Appointment_FullName="ngModel" id="Appointment_FullName"
+                                    <input type="text" placeholder="{{l('FullName')}}..." #Appointment_FullName="ngModel" id="Appointment_FullName"
                                         class="form-control" [(ngModel)]="appointment.fullName" name="FullName"
                                         required />
                                     <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
                                 </div>
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_Title">{{ l('VisitorTitle') }} *</label>
-                                    <select #Appointment_Title="ngModel" id="Appointment_Title"
+                                    <select #Appointment_Title="ngModel"  id="Appointment_Title" 
                                         [(ngModel)]="appointment.title" name="Title" class="form-control">
+                                        <option value="" disabled selected>Select</option>
                                         <ng-container *ngFor="let t of arrTitle">
                                             <option name="Title" *ngFor="let tit of t"
                                                 [ngValue]="tit.title.visitorTitle">
@@ -38,23 +39,24 @@
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}
                                         *</label>
-                                    <input type="text" #Appointment_IdentityCard="ngModel" id="Appointment_IdentityCard"
+                                    <input type="text" placeholder="{{l('IC')}}..." #Appointment_IdentityCard="ngModel" id="Appointment_IdentityCard"
                                         class="form-control" [(ngModel)]="appointment.identityCard" name="IdentityCard"
                                         required />
                                     <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                                 </div>
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }} *</label>
-                                    <input type="text" #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo"
+                                    <input type="text" placeholder="{{l('PhoneNumber')}}..." #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo"
                                         class="form-control" [(ngModel)]="appointment.phoneNo" name="PhoneNo"
                                         required />
                                     <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                                 </div>
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_Email">{{ l('VisitorEmail') }} *</label>
-                                    <input type="text" #Appointment_Email="ngModel" id="Appointment_Email"
-                                        class="form-control" [(ngModel)]="appointment.email" name="Email" required />
+                                    <input type="email"  placeholder="{{l('EmailAddress')}}..."#Appointment_Email="ngModel" id="Appointment_Email"
+                                        class="form-control" [(ngModel)]="appointment.email" name="Email" required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
                                     <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -77,7 +79,7 @@
                             <div class="my-3">
                                 <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }}
                                 </label>
-                                <input type="text" #Appointment_OfficerToMeet="ngModel" id="Appointment_OfficerToMeet"
+                                <input type="text" placeholder="{{l('OfficerToMeet')}}..." #Appointment_OfficerToMeet="ngModel" id="Appointment_OfficerToMeet"
                                     class="form-control" [(ngModel)]="appointment.officerToMeet" name="OfficerToMeet"
                                     required />
                                 <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
@@ -87,6 +89,7 @@
                                 </label>
                                 <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
                                     [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control">
+                                    <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let p of arrPOV">
                                         <option name="PurposeOfVisit" *ngFor="let POV of p"
                                             [ngValue]="POV.purposeOfVisit.purposeOfVisitApp">
@@ -98,6 +101,7 @@
                                 <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }} </label>
                                 <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
                                     [(ngModel)]="appointment.companyName" name="CompanyName" class="form-control">
+                                    <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let c of arrCompany">
                                         <option name="CompanyName" *ngFor="let comp of c"
                                             [ngValue]="comp.company.companyName">
@@ -109,6 +113,7 @@
                                 <label class="form-label" for="Appointment_Department">{{ l('Department') }} </label>
                                 <select #Appointment_Department="ngModel" id="Appointment_Department"
                                     [(ngModel)]="appointment.department" name="Department" class="form-control">
+                                    <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let d of arrDepartment">
                                         <option name="Department" *ngFor="let dep of d"
                                             [ngValue]="dep.department.departmentName">
@@ -121,6 +126,7 @@
                                 <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
                                 <select #Appointment_Tower="ngModel" id="Appointment_Tower"
                                     [(ngModel)]="appointment.tower" name="Tower" class="form-control">
+                                    <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let t of arrTower">
                                         <option name="Tower" *ngFor="let tower of t"
                                             [value]="tower.tower.towerBankRakyat">
@@ -131,11 +137,13 @@
                             </div>
                             <div class="my-3">
                                 <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
-                                <select #Appointment_Level="ngModel" id="Appointment_Level"
-                                    [(ngModel)]="appointment.level" name="Level" class="form-control">
+                                <select  #Appointment_Level="ngModel" id="Appointment_Level"
+                                    [(ngModel)]="appointment.level"  name="Level" class="form-control" >
+                                    <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let l of arrLevel">
                                         <option name="Level" *ngFor="let level of l"
-                                            [value]="level.level.levelBankRakyat">
+                                            [value]="level.level.levelBankRakyat" >
+                                            
                                             {{level.level.levelBankRakyat}}
                                         </option>
                                     </ng-container>
@@ -189,10 +197,10 @@
                         flaticon-exclamation-1"></i>
                         <span>{{ l('Reset') }}</span>
                     </button>
-                    <button type="submit" class="btn btn-light-primary blue font-weight-bold mr-2" [disabled]="!appointmentForm.form.valid"
+                    <button type="submit" class="btn btn-light-primary blue font-weight-bold mr-2" [disabled]="!appointmentForm.form.valid || !Appointment_Email.valid"
                         [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" >
                         <i class="fa fa-save"></i>
-                        <span>{{ l('Save') }}</span>
+                        <span>{{ l('Submit') }}</span>
                     </button>
                 </div>
             </form>

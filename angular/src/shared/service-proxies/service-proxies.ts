@@ -2107,21 +2107,21 @@ export class AppointmentsServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    changeStatusToIn(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToIn?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+    changeStatusToIn(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToIn";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
             })
         };
 
@@ -2159,21 +2159,21 @@ export class AppointmentsServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    changeStatusToOut(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToOut?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+    changeStatusToOut(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/ChangeStatusToOut";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
             })
         };
 
@@ -19845,6 +19845,8 @@ export class AppointmentDto implements IAppointmentDto {
     imageId!: string | undefined;
     appRefNo!: string | undefined;
     passNumber!: string | undefined;
+    checkInDateTime!: DateTime | undefined;
+    checkOutDateTime!: DateTime | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19882,6 +19884,8 @@ export class AppointmentDto implements IAppointmentDto {
             this.imageId = _data["imageId"];
             this.appRefNo = _data["appRefNo"];
             this.passNumber = _data["passNumber"];
+            this.checkInDateTime = _data["checkInDateTime"] ? DateTime.fromISO(_data["checkInDateTime"].toString()) : <any>undefined;
+            this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -19919,6 +19923,8 @@ export class AppointmentDto implements IAppointmentDto {
         data["imageId"] = this.imageId;
         data["appRefNo"] = this.appRefNo;
         data["passNumber"] = this.passNumber;
+        data["checkInDateTime"] = this.checkInDateTime ? this.checkInDateTime.toString() : <any>undefined;
+        data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -19949,6 +19955,8 @@ export interface IAppointmentDto {
     imageId: string | undefined;
     appRefNo: string | undefined;
     passNumber: string | undefined;
+    checkInDateTime: DateTime | undefined;
+    checkOutDateTime: DateTime | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -20973,6 +20981,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     imageId!: string | undefined;
     passNumber!: string | undefined;
     appRefNo!: string | undefined;
+    checkInDateTime!: DateTime | undefined;
+    checkOutDateTime!: DateTime | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -21010,6 +21020,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.imageId = _data["imageId"];
             this.passNumber = _data["passNumber"];
             this.appRefNo = _data["appRefNo"];
+            this.checkInDateTime = _data["checkInDateTime"] ? DateTime.fromISO(_data["checkInDateTime"].toString()) : <any>undefined;
+            this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -21047,6 +21059,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["imageId"] = this.imageId;
         data["passNumber"] = this.passNumber;
         data["appRefNo"] = this.appRefNo;
+        data["checkInDateTime"] = this.checkInDateTime ? this.checkInDateTime.toString() : <any>undefined;
+        data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -21077,6 +21091,8 @@ export interface ICreateOrEditAppointmentDto {
     imageId: string | undefined;
     passNumber: string | undefined;
     appRefNo: string | undefined;
+    checkInDateTime: DateTime | undefined;
+    checkOutDateTime: DateTime | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;

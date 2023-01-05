@@ -66,41 +66,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <h4>{{ l('OfficerToMeet') }} :</h4>
-                        {{ item.appointment.officerToMeet }}
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-6 mb-3">
                         <h6>{{ l('AppDateTime') }} :</h6>
                         {{ item.appointment.appDateTime }}
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-6 mb-3">
-                        <h6>{{ l('PurposeOfVisit') }} :</h6>
-                        {{ item.appointment.purposeOfVisit }}
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-6 mb-3">
-                        <h6>{{ l('CompanyName') }} :</h6>
-                        {{ item.appointment.companyName }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-6 mb-3">
-                        <h6>{{ l('Departmment') }} :</h6>
-                        {{ item.appointment.department }}
                     </div>
                 </div>
             </div>
@@ -115,12 +82,43 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
+                        <h6>{{ l('CompanyName') }} :</h6>
+                        {{ item.appointment.companyName }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Departmment') }} :</h6>
+                        {{ item.appointment.department }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
                         <h6>{{ l('Level') }} :</h6>
                         {{ item.appointment.level }}
                     </div>
                 </div>
             </div>
-
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h4>{{ l('OfficerToMeet') }} :</h4>
+                        {{ item.appointment.officerToMeet }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurposeOfVisit') }} :</h6>
+                        {{ item.appointment.purposeOfVisit }}
+                    </div>
+                </div>
+            </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
@@ -129,7 +127,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
@@ -138,8 +135,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
@@ -156,7 +151,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body" *ngIf="!setAllowCheckIn()">
+            <div class="modal-body" *ngIf="!isStatusRegistered()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <h6>{{ l('PassNumber') }} :</h6>
@@ -164,13 +159,29 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-body" *ngIf="!isStatusRegistered()">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('checkInDateTime') }} :</h6>
+                        {{ checkInDateTime}}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" *ngIf="isStatusOut()">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('checkOutDateTime') }} :</h6>
+                        {{ checkOutDateTime}}
+                    </div>
+                </div>
+            </div>
             <div>
                 <div class="modal-footer">
-                    <div *ngIf="setAllowCheckIn()">
+                    <div *ngIf="isStatusRegistered()">
                     <button  type="button" class="btn btn-primary blue" (click)="checkIn.show(item.appointment.id)"  >
                         {{ l('CheckIn') }}
                     </button></div>
-                    <div *ngIf="setAllowCheckOut()">
+                    <div *ngIf="isStatusIn()">
                         <button  type="button" class="btn btn-primary blue"  (click)="change_Status_Register_To_Out()" >
                             {{ l('CheckOut') }}
                         </button></div>
@@ -179,7 +190,6 @@
                     </button>
                 </div>
             </div>
-            
         <CheckIn #checkIn></CheckIn>
         </div>
     </div>

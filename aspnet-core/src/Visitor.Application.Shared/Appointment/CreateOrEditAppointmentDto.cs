@@ -52,7 +52,8 @@ namespace Visitor.Appointment
         public virtual StatusType Status { get; set; }
         public virtual string ImageId { get; set; }
         public virtual string PassNumber { get; set; }
-
         public virtual string AppRefNo { get; set; }
+        public virtual DateTime? CheckInDateTime { get; set; }
+        public virtual DateTime? CheckOutDateTime { get; set; }
     }
 }

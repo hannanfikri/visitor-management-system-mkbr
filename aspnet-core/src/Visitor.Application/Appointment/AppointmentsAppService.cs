@@ -131,11 +131,11 @@ namespace Visitor.Appointment
 
             var todaysDate = DateTime.Today;
 
-            var statusEnumFilter = input.StatusFilter.HasValue
+            var statusEnumFilter = input.StatusFilter.HasValue 
                         ? (StatusType)input.StatusFilter
                         : default;
 
-            var serviceType = 0;
+            /*var serviceType = 0;*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
@@ -155,7 +155,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue , e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
                         //.WhereIf(input.AppDateTimeFilter != null, e => e.AppDateTime == input.AppDateTimeFilter );
@@ -187,6 +187,9 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -220,6 +223,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber=o.passNumber,
+                        CheckInDateTime=o.CheckInDateTime,
+                        CheckOutDateTime=o.CheckOutDateTime,
                     }
                 };
 
@@ -289,7 +294,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
@@ -318,6 +323,9 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -351,6 +359,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.passNumber,
+                        CheckInDateTime = o.CheckInDateTime,
+                        CheckOutDateTime = o.CheckOutDateTime,
                     }
                 };
 
@@ -416,7 +426,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
@@ -445,12 +455,16 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            var image = new UploadPictureOutput();
 
             foreach (var o in dbList)
             {
@@ -477,6 +491,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.passNumber,
+                        CheckInDateTime = o.CheckInDateTime,
+                        CheckOutDateTime = o.CheckOutDateTime,
                     }
                 };
 
@@ -543,7 +559,7 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue && input.StatusFilter > -1, e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
 
@@ -572,12 +588,16 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            var image = new UploadPictureOutput();
 
             foreach (var o in dbList)
             {
@@ -604,6 +624,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.passNumber,
+                        CheckInDateTime = o.CheckInDateTime,
+                        CheckOutDateTime = o.CheckOutDateTime,
                     }
                 };
 
@@ -996,16 +1018,24 @@ namespace Visitor.Appointment
             return new GetPictureOutput(output.ImageId);
         }
 
-        public async Task ChangeStatusToIn(Guid id)
+        public async Task ChangeStatusToIn(CreateOrEditAppointmentDto input)
         {
-            var appointment = await _appointmentRepository.GetAsync(id);
+            DateTime now = DateTime.Now;
+            await Update(input);
+
+            var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.In;
+            appointment.CheckInDateTime = now;
 
         }
-        public async Task ChangeStatusToOut(Guid id)
+        public async Task ChangeStatusToOut(CreateOrEditAppointmentDto input)
         {
-            var appointment = await _appointmentRepository.GetAsync(id);
+            DateTime now = DateTime.Now;
+            await Update(input);
+
+            var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.Out;
+            appointment.CheckOutDateTime = now;
 
         }
 

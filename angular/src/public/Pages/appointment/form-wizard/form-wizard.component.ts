@@ -41,6 +41,14 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     tempGuid: any;
     appId: any;
 
+    // appointment = { level: '' };
+    // arrLevel = [    [{ level: { levelBankRakyat: 'option1' } }],
+    //   [{ level: { levelBankRakyat: 'option2' } }],
+    //   [{ level: { levelBankRakyat: 'option3' } }]
+    // ];
+    
+    
+
     public uploader: FileUploader;
     public temporaryPictureUrl: string;
     public maxPictureBytesUserFriendlyValue = 5;
@@ -66,6 +74,8 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
+
+    
 
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
@@ -190,7 +200,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         input.y = 0;
         input.width = 0;
         input.height = 0;
-        this.saving = true;
+        // this.saving = true;
         this._appointmentsServiceProxy.updatePictureForAppointment(input)
             .pipe(
                 //tap(result => this.appointment.imageId = result.toString())

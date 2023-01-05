@@ -47,48 +47,24 @@ export class CheckIn extends AppComponentBase {
     close(): void {
         this.active = false;
         this.modal.hide();
+        
     }
     change_Status_Register_To_In() :void
     {
-
         this.saving = true;
         this.AppointmentId = this.appointment.id;
-        this.save();
-        this._appointmentsServiceProxy.changeStatusToIn(this.AppointmentId)
         this._appointmentsServiceProxy
-            .changeStatusToIn(this.AppointmentId)
+            .changeStatusToIn(this.appointment)
             .pipe(
                 finalize(() => {
                     this.saving = false;
                 })
             )
             .subscribe((result) => {
+                this.modalSave.emit(null);
+                window.location.reload();
                 this.notify.info(this.l('CheckInSuccessfully'));
-                this.close();
-                this.modalSave.emit(null);
-                this.reloadPage();
-                this._router.navigate(['/app/main/appointment/appointments']);
-                this.modal.toggle();
             });
-            
-    }
-    save(): void {
-        this.saving = true;
-        //this.uploader.uploadAll();
-        this._appointmentsServiceProxy
-            .createOrEdit(this.appointment)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe((result) => {
-                this.modalSave.emit(null);
-            });            
-    }
-    reloadPage(): void {
-        //this._router.navigate(['/app/main/appointment/appointments']);
-        this.paginator.changePage(this.paginator.getPage());
-    }
-    
+        
+    }    
 }

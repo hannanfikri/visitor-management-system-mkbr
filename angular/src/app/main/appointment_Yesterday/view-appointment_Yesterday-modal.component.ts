@@ -1,12 +1,12 @@
-﻿import { Component, ViewChild, Injector, Output, EventEmitter } from '@angular/core';
+﻿import { Component, ViewChild, Injector, Output, EventEmitter, Inject, LOCALE_ID } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { GetAppointmentForViewDto, AppointmentDto, StatusType, AppointmentsServiceProxy, CreateOrEditAppointmentDto } from '@shared/service-proxies/service-proxies';
+import { GetAppointmentForViewDto, AppointmentDto, AppointmentsServiceProxy, StatusType, CreateOrEditAppointmentDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DomSanitizer } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CheckIn } from './check-in.component';
-
+import {  formatDate  } from '@angular/common';
 
 @Component({
     selector: 'viewAppointmentModal',
@@ -16,6 +16,7 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     @ViewChild('checkIn', { static: true }) checkIn: CheckIn;
+    
 
     active = false;
     saving = false;
@@ -29,9 +30,13 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     AppointmentId: any;
     paginator: any;
+    checkInDateTime: any;
+    checkOutDateTime: any;
+    appDateTime: any;
+    regDateTime: any;
 
     constructor(injector: Injector, private _appointmentsServiceProxy: AppointmentsServiceProxy,
-        private _router: Router, private _sanitizer: DomSanitizer) {
+        private _router: Router, private _sanitizer: DomSanitizer, @Inject(LOCALE_ID) public locale: string) {
         super(injector);
         this.item = new GetAppointmentForViewDto();
         this.item.appointment = new AppointmentDto();
@@ -56,6 +61,10 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         });
         this.active = true;
         this.displayImage(this.item.appointment.imageId);
+        this.checkInDateTime = formatDate(this.item.appointment.checkInDateTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);
+        this.checkOutDateTime = formatDate(this.item.appointment.checkOutDateTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);        
+        this.appDateTime = formatDate(this.item.appointment.appDateTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);
+        this.regDateTime = formatDate(this.item.appointment.creationTime.toISO(), 'dd/MM/yyyy, hh:mm a', this.locale,);
         this.modal.show();
     }
 
@@ -65,14 +74,20 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     }
 
 
-    setAllowCheckIn(): boolean {
+    isStatusRegistered(): boolean {
         if (this.item.appointment.status == StatusType.Registered)
             return true;
         else
             return false;
     }
-    setAllowCheckOut(): boolean {
+    isStatusIn(): boolean {
         if (this.item.appointment.status == StatusType.In)
+            return true;
+        else
+            return false;
+    }
+    isStatusOut(): boolean {
+        if (this.item.appointment.status == StatusType.Out)
             return true;
         else
             return false;

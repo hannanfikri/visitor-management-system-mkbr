@@ -187,6 +187,9 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -212,14 +215,16 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title,
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber=o.passNumber,
+                        CheckInDateTime=o.CheckInDateTime,
+                        CheckOutDateTime=o.CheckOutDateTime,
                     }
                 };
 
@@ -318,6 +323,9 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -343,14 +351,16 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title,
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.passNumber,
+                        CheckInDateTime = o.CheckInDateTime,
+                        CheckOutDateTime = o.CheckOutDateTime,
                     }
                 };
 
@@ -445,12 +455,16 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            var image = new UploadPictureOutput();
 
             foreach (var o in dbList)
             {
@@ -469,14 +483,16 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title,
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.passNumber,
+                        CheckInDateTime = o.CheckInDateTime,
+                        CheckOutDateTime = o.CheckOutDateTime,
                     }
                 };
 
@@ -572,12 +588,16 @@ namespace Visitor.Appointment
                                    o.ImageId,
                                    o.AppRefNo,
                                    o.passNumber,
+                                   o.CheckInDateTime,
+                                   o.CheckOutDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
 
             var dbList = await appointments.ToListAsync();
             var results = new List<GetAppointmentForViewDto>();
+            var image = new UploadPictureOutput();
 
             foreach (var o in dbList)
             {
@@ -596,14 +616,16 @@ namespace Visitor.Appointment
                         Department = o.Department,
                         Tower = o.Tower,
                         Level = o.Level,
-                        AppDateTime = o.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        RegDateTime = o.CreationTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        AppDateTime = o.AppDateTime,
+                        CreationTime = o.CreationTime,
                         Status = o.Status,
                         Title = o.Title,
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.passNumber,
+                        CheckInDateTime = o.CheckInDateTime,
+                        CheckOutDateTime = o.CheckOutDateTime,
                     }
                 };
 
@@ -998,18 +1020,22 @@ namespace Visitor.Appointment
 
         public async Task ChangeStatusToIn(CreateOrEditAppointmentDto input)
         {
+            DateTime now = DateTime.Now;
             await Update(input);
 
             var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.In;
+            appointment.CheckInDateTime = now;
 
         }
         public async Task ChangeStatusToOut(CreateOrEditAppointmentDto input)
         {
+            DateTime now = DateTime.Now;
             await Update(input);
 
             var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.Out;
+            appointment.CheckOutDateTime = now;
 
         }
 

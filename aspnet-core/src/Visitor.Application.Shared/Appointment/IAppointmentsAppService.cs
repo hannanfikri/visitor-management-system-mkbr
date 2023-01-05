@@ -28,5 +28,7 @@ namespace Visitor.Appointment
         Task<Guid> UpdatePictureForAppointment(UpdatePictureInput input);
         Task<byte[]> GetPictureByIdOrNull(Guid imageId);
         Task<GetPictureOutput> GetPictureByAppointment(Guid appId);
+        Task ChangeStatusToIn(CreateOrEditAppointmentDto input);
+        Task ChangeStatusToOut(CreateOrEditAppointmentDto input);
     }
 }

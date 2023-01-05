@@ -32,12 +32,12 @@ namespace Visitor.Appointment
         public string Tower { get; set; }
         public string Level { get; set; }
         public DateTime AppDateTime { get; set; }
-        //public byte[] FaceVerify { get; set; }
         public StatusType Status { get; set; }
         public string passNumber { get; set; }
-
         public virtual string ImageId { get; set; }
         public string AppRefNo { get; set; }
+        public DateTime CheckInDateTime { get; set; }
+        public DateTime CheckOutDateTime { get; set; }
 
 
         private AppointmentEnt() { }//empty constructor

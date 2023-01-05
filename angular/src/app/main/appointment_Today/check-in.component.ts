@@ -53,8 +53,6 @@ export class CheckIn extends AppComponentBase {
 
         this.saving = true;
         this.AppointmentId = this.appointment.id;
-        this.save();
-        this._appointmentsServiceProxy.changeStatusToIn(this.AppointmentId)
         this._appointmentsServiceProxy
             .changeStatusToIn(this.AppointmentId)
             .pipe(
@@ -64,13 +62,20 @@ export class CheckIn extends AppComponentBase {
             )
             .subscribe((result) => {
                 this.notify.info(this.l('CheckInSuccessfully'));
-                this.close();
                 this.modalSave.emit(null);
-                this.reloadPage();
-                this._router.navigate(['/app/main/appointment/appointments']);
-                this.modal.toggle();
             });
-            
+        this._appointmentsServiceProxy
+            .createOrEdit(this.appointment)
+            .pipe(
+                finalize(() => {
+                    this.saving = false;
+                })
+            )
+            .subscribe((result) => {
+                this.modalSave.emit(null);
+                this.close();
+            }); 
+
     }
     save(): void {
         this.saving = true;

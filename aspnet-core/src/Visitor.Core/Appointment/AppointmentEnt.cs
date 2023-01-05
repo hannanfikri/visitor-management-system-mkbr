@@ -34,7 +34,7 @@ namespace Visitor.Appointment
         public DateTime AppDateTime { get; set; }
         //public byte[] FaceVerify { get; set; }
         public StatusType Status { get; set; }
-        public string passNumber { get; set; }
+        public string PassNumber { get; set; }
 
         public virtual string ImageId { get; set; }
         public string AppRefNo { get; set; }

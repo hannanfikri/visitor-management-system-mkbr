@@ -128,7 +128,7 @@ namespace Visitor.Appointment
                 maxR = (DateTime)input.MaxRegDateTimeFilter;
             }
 
-
+            
             var todaysDate = DateTime.Today;
 
             var statusEnumFilter = input.StatusFilter.HasValue 
@@ -138,7 +138,12 @@ namespace Visitor.Appointment
             /*var serviceType = 0;*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter))
+                        
+
+
+
+
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.IdentityCardFilter), e => e.IdentityCard == input.IdentityCardFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNo == input.PhoneNoFilter)
@@ -186,7 +191,7 @@ namespace Visitor.Appointment
                                    o.Title,
                                    o.ImageId,
                                    o.AppRefNo,
-                                   o.passNumber,
+                                   o.PassNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -219,7 +224,7 @@ namespace Visitor.Appointment
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
-                        PassNumber=o.passNumber,
+                        PassNumber=o.PassNumber,
                     }
                 };
 
@@ -269,7 +274,7 @@ namespace Visitor.Appointment
 
 
             var filteredAppointments = _appointmentRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
                         .Where(e => e.AppDateTime.Date == d1)
 
@@ -317,7 +322,7 @@ namespace Visitor.Appointment
                                    o.Title,
                                    o.ImageId,
                                    o.AppRefNo,
-                                   o.passNumber,
+                                   o.PassNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -350,7 +355,7 @@ namespace Visitor.Appointment
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
-                        PassNumber = o.passNumber,
+                        PassNumber = o.PassNumber,
                     }
                 };
 
@@ -397,7 +402,7 @@ namespace Visitor.Appointment
 
 
             var filteredAppointments = _appointmentRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
                         .Where(e => e.AppDateTime.Date == d2)
 
@@ -444,7 +449,7 @@ namespace Visitor.Appointment
                                    o.Title,
                                    o.ImageId,
                                    o.AppRefNo,
-                                   o.passNumber,
+                                   o.PassNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -476,7 +481,7 @@ namespace Visitor.Appointment
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
-                        PassNumber = o.passNumber,
+                        PassNumber = o.PassNumber,
                     }
                 };
 
@@ -524,7 +529,7 @@ namespace Visitor.Appointment
             var serviceType = 0;
 
             var filteredAppointments = _appointmentRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FullNameFilter), e => e.FullName == input.FullNameFilter)
                         .Where(e => e.AppDateTime.Date == d3)
 
@@ -571,7 +576,7 @@ namespace Visitor.Appointment
                                    o.Title,
                                    o.ImageId,
                                    o.AppRefNo,
-                                   o.passNumber,
+                                   o.PassNumber,
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -603,7 +608,7 @@ namespace Visitor.Appointment
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
-                        PassNumber = o.passNumber,
+                        PassNumber = o.PassNumber,
                     }
                 };
 

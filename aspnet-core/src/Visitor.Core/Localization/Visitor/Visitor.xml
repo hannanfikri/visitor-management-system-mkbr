@@ -92,7 +92,7 @@
     <text name="AppDateTime">Appointment's date and time</text>
 	  <text name="MinAppDateTimeFilter">Appointment's date and time</text>
 	  <text name="MinRegDateTimeFilter">Registration's date and time</text>
-	  <text name="UploadPicture">Upload Picture</text>
+	  <text name="UploadPicture">Upload Visitor's Picture</text>
     <text name="RegDateTime">Register's date and time</text>
     <text name="FaceVerify">Visitor's face</text>
 	  <text name="Picture">Visitor's Image for Verification</text>

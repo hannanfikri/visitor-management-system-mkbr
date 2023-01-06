@@ -180,7 +180,7 @@
                                     <div class="my-3">
                                         <label for="AppRefNo">{{ l('AppRefNo') }}</label>
                                         <input type="text" class="form-control" id="AppRefNo" name="appRefNo"
-                                            [(ngModel)]="appRefNo" />
+                                            [(ngModel)]="appRefNoFilter" />
                                     </div>
                                 </div>
 
@@ -274,6 +274,14 @@
                                         <th style="width: 150px" pSortableColumn="AppRefNo">
                                             {{ l('AppRefNo') }}
                                             <p-sortIcon field="appointment.appRefNo"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="checkInDateTime">
+                                            {{ l('checkInDateTime') }}
+                                            <p-sortIcon field="appointment.checkInDateTime"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="checkOutDateTime">
+                                            {{ l('checkOutDateTime') }}
+                                            <p-sortIcon field="appointment.checkOutDateTime"></p-sortIcon>
                                         </th>
                                     </tr>
                                 </ng-template>
@@ -378,7 +386,14 @@
                                             <span class="p-column-title">{{ l('AppRefNo') }}</span>
                                             {{ record.appointment.appRefNo }}
                                         </td>
-
+                                        <td *ngIf="isStatusRegistered" style="width: 150px" >
+                                            <span class="p-column-title">{{ l('checkInDateTime') }}</span>
+                                            {{record.appointment.checkInDateTime }}
+                                        </td>
+                                        <td style="width: 150px" >
+                                            <span class="p-column-title">{{ l('checkOutDateTime') }}</span>
+                                            {{ record.appointment.checkOutDateTime }}
+                                        </td>
 
                                     </tr>
                                 </ng-template>

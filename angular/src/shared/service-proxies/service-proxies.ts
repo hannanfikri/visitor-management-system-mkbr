@@ -19865,8 +19865,8 @@ export class AppointmentDto implements IAppointmentDto {
     imageId!: string | undefined;
     appRefNo!: string | undefined;
     passNumber!: string | undefined;
-    checkInDateTime!: DateTime | undefined;
-    checkOutDateTime!: DateTime | undefined;
+    checkInDateTime!: string | undefined;
+    checkOutDateTime!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19904,8 +19904,8 @@ export class AppointmentDto implements IAppointmentDto {
             this.imageId = _data["imageId"];
             this.appRefNo = _data["appRefNo"];
             this.passNumber = _data["passNumber"];
-            this.checkInDateTime = _data["checkInDateTime"] ? DateTime.fromISO(_data["checkInDateTime"].toString()) : <any>undefined;
-            this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
+            this.checkInDateTime = _data["checkInDateTime"];
+            this.checkOutDateTime = _data["checkOutDateTime"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -19943,8 +19943,8 @@ export class AppointmentDto implements IAppointmentDto {
         data["imageId"] = this.imageId;
         data["appRefNo"] = this.appRefNo;
         data["passNumber"] = this.passNumber;
-        data["checkInDateTime"] = this.checkInDateTime ? this.checkInDateTime.toString() : <any>undefined;
-        data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
+        data["checkInDateTime"] = this.checkInDateTime;
+        data["checkOutDateTime"] = this.checkOutDateTime;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -19975,8 +19975,8 @@ export interface IAppointmentDto {
     imageId: string | undefined;
     appRefNo: string | undefined;
     passNumber: string | undefined;
-    checkInDateTime: DateTime | undefined;
-    checkOutDateTime: DateTime | undefined;
+    checkInDateTime: string | undefined;
+    checkOutDateTime: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;

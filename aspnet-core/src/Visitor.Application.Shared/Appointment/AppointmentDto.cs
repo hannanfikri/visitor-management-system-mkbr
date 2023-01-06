@@ -28,7 +28,7 @@ namespace Visitor.Appointment
         public string ImageId { get; set; }
         public string AppRefNo { get; set; }
         public string PassNumber { get; set; }
-        public DateTime? CheckInDateTime { get; set; }
-        public DateTime? CheckOutDateTime { get; set; }
+        public string CheckInDateTime { get; set; }
+        public string CheckOutDateTime { get; set; }
     }
 }

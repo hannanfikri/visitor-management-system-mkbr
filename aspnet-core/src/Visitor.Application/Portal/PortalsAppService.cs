@@ -100,10 +100,10 @@ namespace CMS.Portal
             var date = input.AppDateTime.Date.ToString("yyMMdd");
             var lang = Thread.CurrentThread.CurrentCulture;
             input.Status = 0;
-            string lastFourDigitsPN = pn.Substring(pn.Length - 4, 4);
-            string lastFourDigitsIC = ic.Substring(pn.Length - 2, 4);
+            /*string lastFourDigitsPN = pn.Substring(pn.Length - 4, 4);
+            string lastFourDigitsIC = ic.Substring(pn.Length - 2, 4);*/
             //input.AppointmentDate = input.AppointmentDate.ToShortDateString();
-            input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+            input.AppRefNo = "AR" + date + num;
             /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
 
 
@@ -121,7 +121,7 @@ namespace CMS.Portal
                     checker = true;
                     num = rand.Next(1000);
                     /*string lastFourDigits = pn.Substring(pn.Length - 4, 4);*/
-                    input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+                    input.AppRefNo = "AR" + date + num;
 
                 }
                 else

@@ -62,7 +62,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     public pendingValue: string;
     public value!: string;
     public valueChangeEvents: EventEmitter<string>;
-
+    Tower: any;
+    isTower = true;
 
     constructor(
         injector: Injector,
@@ -426,5 +427,13 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
     public open(event: any, item: string) {
         alert('Open ' + item);
+    }
+    onChange(getValueTower) 
+    {
+        this.Tower = getValueTower;
+        if (this.Tower == "Tower 1")
+            this.isTower = false;
+        else
+        this.isTower = true;
     }
 }

@@ -53,6 +53,7 @@ export class AppointmentsComponent extends AppComponentBase {
     minRegDateTimeFilter: DateTime;
     maxRegDateTimeFilter: DateTime;
     statusFilter : any;
+    passNumberFilter = '';
     appRefNo = "";
 
     test:any;
@@ -116,6 +117,7 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.minRegDateTimeFilter,
                 this.maxRegDateTimeFilter,
                 this.statusFilter,
+                this.passNumberFilter,
                 this.appRefNo,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),

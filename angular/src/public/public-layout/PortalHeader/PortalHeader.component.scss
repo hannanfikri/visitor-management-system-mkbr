@@ -4,8 +4,11 @@
     align-content: center;
     height: auto;
     // padding: 0 12px;
+    
     .header-top {
         background-color: #025ea7;
+        // width: 100%;
+        
     }
 
     .language-option {
@@ -62,6 +65,7 @@
             &.disable {
                 cursor: auto;
                 pointer-events: none;
+                width: 100%;
             }
         }
 
@@ -143,7 +147,7 @@
             }
         }
 
-        a img {
-        }
+        // a img {
+        // }
     }
 }

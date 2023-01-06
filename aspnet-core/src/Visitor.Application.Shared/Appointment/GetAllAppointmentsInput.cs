@@ -11,7 +11,7 @@ namespace Visitor.Appointment
     public class GetAllAppointmentsInput : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
-        public string FullNameFilter { get; set; }
+        public string FullNameFilter { get; set; }  
         //public DateTime Masa { get; set; }
 
         public string IdentityCardFilter { get; set; }
@@ -30,6 +30,8 @@ namespace Visitor.Appointment
         public DateTime? MaxRegDateTimeFilter { get; set; }
 
         public int? StatusFilter { get; set; }
+
+        public string PassNumberFilter { get; set; }
 
         public string AppRefNoFilter { get; set; }
         /*public int? AppointmentSlotFilter { get; set; }*/

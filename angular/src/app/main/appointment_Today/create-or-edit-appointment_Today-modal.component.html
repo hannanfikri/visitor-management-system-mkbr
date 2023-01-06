@@ -38,15 +38,17 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_FullName">{{ l('FullName') }}*</label>
                         <input type="text" #Appointment_FullName="ngModel" id="Appointment_FullName"
-                        placeholder="{{l('FullName')}}..."    class="form-control" [(ngModel)]="appointment.fullName" name="FullName" required />
+                            placeholder="{{l('FullName')}}..." class="form-control" [(ngModel)]="appointment.fullName"
+                            name="FullName" required />
                         <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
                     </div>
-                </div>                
+                </div>
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}*</label>
                         <input type="text" #Appointment_IdentityCard="ngModel" id="Appointment_IdentityCard"
-                        placeholder="{{l('IdentityCard')}}..."   class="form-control" [(ngModel)]="appointment.identityCard" name="IdentityCard" required />
+                            placeholder="{{l('IdentityCard')}}..." class="form-control"
+                            [(ngModel)]="appointment.identityCard" name="IdentityCard" required />
                         <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                     </div>
                 </div>
@@ -56,7 +58,8 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }}*</label>
                         <input type="text" #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
-                        placeholder="{{l('PhoneNo')}}..."   [(ngModel)]="appointment.phoneNo" name="PhoneNo" required />
+                            placeholder="{{l('PhoneNo')}}..." [(ngModel)]="appointment.phoneNo" name="PhoneNo"
+                            required />
                         <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                     </div>
                 </div>
@@ -65,9 +68,9 @@
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Email">{{ l('VisitorEmail') }}*</label>
-                        <input type="email" placeholder="{{l('EmailAddress')}}..."
-                            #Appointment_Email="ngModel" id="Appointment_Email" class="form-control"
-                            [(ngModel)]="appointment.email" name="Email" required
+                        <input type="email" placeholder="{{l('EmailAddress')}}..." #Appointment_Email="ngModel"
+                            id="Appointment_Email" class="form-control" [(ngModel)]="appointment.email" name="Email"
+                            required
                             pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
                         <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
 
@@ -93,8 +96,9 @@
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
-                        <select #Appointment_Tower="ngModel" id="Appointment_Tower" [(ngModel)]="appointment.tower"
-                            name="Tower" class="form-control">
+                        <select #Appointment_Tower="ngModel" id="Appointment_Tower" (ngModelChange)="onChange($event)"
+                            [(ngModel)]="appointment.tower" name="Tower" class="form-control">
+                            <option value="" disabled selected>Select</option>
                             <ng-container *ngFor="let t of arrTower">
                                 <option name="Tower" *ngFor="let tower of t" [value]="tower.tower.towerBankRakyat">
                                     {{tower.tower.towerBankRakyat}}
@@ -103,16 +107,27 @@
                         </select>
                     </div>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" *ngIf="isTower">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }} </label>
+                        <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
+                        </label>
                         <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
                             [(ngModel)]="appointment.companyName" name="CompanyName" class="form-control">
+                            <option value="" disabled selected>Select</option>
                             <ng-container *ngFor="let c of arrCompany">
                                 <option name="CompanyName" *ngFor="let comp of c" [ngValue]="comp.company.companyName">
                                     {{comp.company.companyName}}</option>
                             </ng-container>
                         </select>
+                    </div>
+                </div>
+                <div class="modal-body" *ngIf="!isTower">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
+                        </label>
+                        <input disabled="true" type="text" #Appointment_CompanyName="ngModel"
+                            id="Appointment_CompanyName" class="form-control" [(ngModel)]="appointment.companyName"
+                            value="Bank Rakyat" />
                     </div>
                 </div>
                 <div class="modal-body">
@@ -147,10 +162,10 @@
                         </label>
                         <input type="text" #Appointment_OfficerToMeet="ngModel" id="Appointment_OfficerToMeet"
                             class="form-control" [(ngModel)]="appointment.officerToMeet" name="OfficerToMeet"
-                            placeholder="{{l('OfficerToMeet')}}..."  required />
+                            placeholder="{{l('OfficerToMeet')}}..." required />
                         <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
                     </div>
-                </div>                
+                </div>
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }}
@@ -187,7 +202,7 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" id="uploadPicture" name="uploadPicture"
-                                    (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile"  /> <label
+                                    (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" /> <label
                                     class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
                                     <!-- {{ 'ChooseAFile' | localize }} --> </label>
                             </div>
@@ -229,7 +244,8 @@
                         <div class="my-3">
                             <label class="form-label" for="Appointment_PassNumber">{{ l('PassNumber') }}*</label>
                             <input type="text" #Appointment_PassNumber="ngModel" id="Appointment_PassNumber"
-                            placeholder="{{l('PassNumber')}}..."  class="form-control" [(ngModel)]="appointment.passNumber" name="PassNumber" required />
+                                placeholder="{{l('PassNumber')}}..." class="form-control"
+                                [(ngModel)]="appointment.passNumber" name="PassNumber" required />
                             <validation-messages [formCtrl]="Appointment_PassNumber"></validation-messages>
                         </div>
                     </div>

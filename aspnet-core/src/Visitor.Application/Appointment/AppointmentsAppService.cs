@@ -138,7 +138,7 @@ namespace Visitor.Appointment
             /*var serviceType = 0;*/
 
             var filteredAppointments = _appointmentRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.AppRefNo.Contains(input.Filter))
                         
 
 
@@ -228,8 +228,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber=o.PassNumber,
-                        CheckInDateTime=o.CheckInDateTime,
-                        CheckOutDateTime=o.CheckOutDateTime,
+                        CheckInDateTime = o.CheckInDateTime.ToString(" dd/MM hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
                     }
                 };
 
@@ -364,8 +364,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.PassNumber,
-                        CheckInDateTime = o.CheckInDateTime,
-                        CheckOutDateTime = o.CheckOutDateTime,
+                        CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                     }
                 };
 
@@ -496,8 +496,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.PassNumber,
-                        CheckInDateTime = o.CheckInDateTime,
-                        CheckOutDateTime = o.CheckOutDateTime,
+                        CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                     }
                 };
 
@@ -629,8 +629,8 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.PassNumber,
-                        CheckInDateTime = o.CheckInDateTime,
-                        CheckOutDateTime = o.CheckOutDateTime,
+                        CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                     }
                 };
 
@@ -687,10 +687,10 @@ namespace Visitor.Appointment
             var date = input.AppDateTime.Date.ToString("yyMMdd");
             var lang = Thread.CurrentThread.CurrentCulture;
             input.Status = 0;
-            string lastFourDigitsPN = pn.Substring(pn.Length - 4, 4);
-            string lastFourDigitsIC = ic.Substring(pn.Length - 2, 4);
+            /*string lastFourDigitsPN = pn.Substring(pn.Length - 4, 4);
+            string lastFourDigitsIC = ic.Substring(pn.Length - 2, 4);*/
             //input.AppointmentDate = input.AppointmentDate.ToShortDateString();
-            input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+            input.AppRefNo = "AR" + date + num;
             /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
 
             
@@ -708,7 +708,7 @@ namespace Visitor.Appointment
                     checker = true;
                     num = rand.Next(1000);
                     /*string lastFourDigits = pn.Substring(pn.Length - 4, 4);*/
-                    input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
+                    input.AppRefNo = "AR" + date + num;
 
                 }
                 else

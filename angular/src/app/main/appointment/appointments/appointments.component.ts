@@ -54,7 +54,7 @@ export class AppointmentsComponent extends AppComponentBase {
     maxRegDateTimeFilter: DateTime;
     statusFilter: any;
     passNumberFilter = '';
-    appRefNo = "";
+    appRefNoFilter = "";
 
     test:any;
 
@@ -118,7 +118,7 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.maxRegDateTimeFilter,
                 this.statusFilter,
                 this.passNumberFilter,
-                this.appRefNo,
+                this.appRefNoFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -170,5 +170,25 @@ export class AppointmentsComponent extends AppComponentBase {
     {
         this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
             this.appointment = result.appointment);
+    }
+    isStatusRegistered(): boolean {
+        if (this.appointment.status == StatusType.Registered){
+            this.appointment.checkInDateTime = null;
+            return true;
+        }
+        else
+            return false;
+    }
+    isStatusIn(): boolean {
+        if (this.appointment.status == StatusType.In)
+            return true;
+        else
+            return false;
+    }
+    isStatusOut(): boolean {
+        if (this.appointment.status == StatusType.Out)
+            return true;
+        else
+            return false;
     }
 }

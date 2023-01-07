@@ -651,10 +651,9 @@ namespace Visitor.Appointment
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
-
             var pn = input.PhoneNo;
             var ic = input.IdentityCard;
-            //input.MobileNumber = "+6" + input.MobileNumber;
+            //input.MobileNumber = "+6" + input.MobileNumber; 
             var rand = new Random();
             int num = rand.Next(1000);
             var date = input.AppDateTime.Date.ToString("yyMMdd");
@@ -665,9 +664,45 @@ namespace Visitor.Appointment
             //input.AppointmentDate = input.AppointmentDate.ToShortDateString();
             input.AppRefNo = "AR" + date + lastFourDigitsPN + lastFourDigitsIC + num;
             /*var appointment = ObjectMapper.Map<AppointmentEnt>(input);*/
+            /* var idImage = UpdatePictureForAppointment();
+             input.ImageId = idImage.ToString();*/
+            /*var res = await UpdatePictureForAppointment(input.FileToken, input.X, input.Y, input.Width, input.Height);
+            input.ImageId = res.ToString();*/
 
+            byte[] byteArray;
+            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            if (imageBytes == null)
+            {
+                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
+            }
+
+            using (var image = Image.Load(imageBytes, out IImageFormat format))
+            {
+                var width = (input.Width == 0 || input.Width > image.Width) ? image.Width : input.Width;
+                var height = (input.Height == 0 || input.Height > image.Height) ? image.Height : input.Height;
+
+                var bmCrop = image.Clone(i =>
+                    i.Crop(new Rectangle(input.X, input.Y, width, height))
+                );
+
+                await using (var stream = new MemoryStream())
+                {
+                    await bmCrop.SaveAsync(stream, format);
+                    byteArray = stream.ToArray();
+                }
+            }
+
+            if (byteArray.Length > MaxPictureBytes)
+            {
+                throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
+                    AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
+            }
+            var storedFile = new BinaryObject(AbpSession.TenantId, byteArray, $"Appointment picture at {DateTime.UtcNow}");
+            await _binaryObjectManager.SaveAsync(storedFile);
+
+            input.ImageId = storedFile.Id.ToString();
             
-
 
             var checker = true;
             while (checker)
@@ -919,24 +954,24 @@ namespace Visitor.Appointment
 
 
         // Upload image services (referring to profile services)
-        public async Task<Guid> UpdatePictureForAppointment(UpdatePictureInput input)
+        /*protected async Task<Guid> UpdatePictureForAppointment(string inputFileToken, int xInput, int yInput, int widthInput, int heightInput)
         {
 
             byte[] byteArray;
-            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+            var imageBytes = _tempFileCacheManager.GetFile(inputFileToken);
 
             if (imageBytes == null)
             {
-                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
+                throw new UserFriendlyException("There is no such image file with the token: " + inputFileToken);
             }
 
             using(var image = Image.Load(imageBytes, out IImageFormat format))
             {
-                var width = (input.Width == 0 || input.Width > image.Width) ? image.Width : input.Width;
-                var height = (input.Height == 0 || input.Height > image.Height) ? image.Height : input.Height;
+                var width = (widthInput == 0 || widthInput > image.Width) ? image.Width : widthInput;
+                var height = (heightInput == 0 || heightInput > image.Height) ? image.Height : heightInput;
 
                 var bmCrop = image.Clone(i =>
-                    i.Crop(new Rectangle(input.X, input.Y, width, height))
+                    i.Crop(new Rectangle(xInput, yInput, width, height))
                 );
 
                 await using (var stream = new MemoryStream())
@@ -954,12 +989,9 @@ namespace Visitor.Appointment
             var storedFile = new BinaryObject(AbpSession.TenantId, byteArray, $"Appointment picture at {DateTime.UtcNow}");
             await _binaryObjectManager.SaveAsync(storedFile);
 
-            /*var app = _appointmentRepository.GetAsync(appId).Result;
-
-            app.ImageId = storedFile.Id;*/
             var picId = storedFile.Id;
             return picId;
-        }
+        }*/
 
         public async Task<byte[]> GetPictureByIdOrNull(Guid imageId)
         {

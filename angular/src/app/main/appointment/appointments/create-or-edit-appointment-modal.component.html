@@ -191,7 +191,7 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" id="uploadPicture" name="uploadPicture"
-                                    (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFile" required /> <label
+                                    (change)="fileChangeEvent($event)" [(ngModel)]="uploadedFiles"  /> <label
                                     class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
                                     <!-- {{ 'ChooseAFile' | localize }} --> </label>
                             </div>
@@ -201,7 +201,7 @@
                             <div class="row">
                                 <div class="col-6 mb-3">
                                     <h6>Uploaded {{ l('Picture') }} *:</h6>
-                                    <img [src]="image" required>
+                                    <img [src]="image">
                                 </div>
                             </div>
                         </div>
@@ -209,7 +209,7 @@
                     <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
                         [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
                         (imageCropped)="imageCroppedFile($event)"></image-cropper>
-                    <button type="button" class="btn btn-primary blue" name="upload" (click)="upload()">Upload</button>
+                    <button type="button" class="btn btn-primary blue" name="upload" >Upload</button>
                 </div>
 
                 <!-- <p-fileUpload id="uploadPicture" name="uploadPicture" [url]="uploadUrl"

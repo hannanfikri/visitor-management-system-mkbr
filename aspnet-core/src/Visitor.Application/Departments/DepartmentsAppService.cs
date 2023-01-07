@@ -63,7 +63,7 @@ namespace Visitor.Departments
         }
         public async Task<GetDepartmentForEditDto> GetDepartmentForEdit (EntityDto<Guid> input)
         {
-            var department = _departmentsRepository.FirstOrDefaultAsync(input.Id);
+            var department = await _departmentsRepository.FirstOrDefaultAsync(input.Id);
             var output = new GetDepartmentForEditDto { Department = ObjectMapper.Map<CreateOrEditDepartmentDto>(department) };
             return output;
         }

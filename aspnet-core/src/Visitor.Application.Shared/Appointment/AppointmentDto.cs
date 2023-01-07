@@ -27,7 +27,6 @@ namespace Visitor.Appointment
         public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
         public string ImageId { get; set; }
-
         public string AppRefNo { get; set; }
         public string PassNumber { get; set; }
     }

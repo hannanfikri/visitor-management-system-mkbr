@@ -25,7 +25,7 @@ namespace Visitor.Appointment
         List<GetDepartmentForViewDto> GetDepartmentName();
 
         //Upload image services (referring to profile services)
-        Task<Guid> UpdatePictureForAppointment(UpdatePictureInput input);
+        //Task<Guid> UpdatePictureForAppointment(string inputFileToken, int xInput, int yInput, int widthInput, int heightInput);
         Task<byte[]> GetPictureByIdOrNull(Guid imageId);
         Task<GetPictureOutput> GetPictureByAppointment(Guid appId);
     }

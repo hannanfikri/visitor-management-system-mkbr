@@ -186,7 +186,7 @@
                 </div> -->
 
                 <div class="modal-body">
-                    <label class="form-label" for="UploadPicture">{{ 'ChangeProfilePicture' | localize }} *</label>
+                    <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }} *</label>
                     <div class="my-3">
                         <div class="input-group">
                             <div class="custom-file">
@@ -200,7 +200,7 @@
                         <div *ngIf="appointment.imageId"> <!-- display when appointment.imageId is not null -->
                             <div class="row">
                                 <div class="col-6 mb-3">
-                                    <h6>Uploaded {{ l('Picture') }} *:</h6>
+                                    <h6>{{ l('UploadedPicture') }} *:</h6>
                                     <img [src]="image">
                                 </div>
                             </div>

@@ -210,7 +210,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     imageCroppedFile(event: ImageCroppedEvent) {
         this.uploader.clearQueue();
         this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
-        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture';
 
         //event for edit
         this.isEditing = false;
@@ -220,7 +220,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     initFileUploader(): void {
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture' });
-        this._uploaderOptions.autoUpload = false;
+        this._uploaderOptions.autoUpload = true;
         this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
         this._uploaderOptions.removeAfterUpload = true;
         this.uploader.onAfterAddingFile = (file) => {
@@ -253,7 +253,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.appointment.y = 0;
         this.appointment.width = 0;
         this.appointment.height = 0;
-        this.saving = true;
+        
         // this._appointmentsServiceProxy.updatePictureForAppointment(input)
         //     .pipe(
         //         finalize(() => {

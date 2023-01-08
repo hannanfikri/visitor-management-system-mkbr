@@ -18,6 +18,7 @@ import { base64ToFile, ImageCroppedEvent } from 'ngx-image-cropper';
 })
 export class CreateOrEditAppointmentModalComponent extends AppComponentBase implements OnInit {
 
+
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('uploadPictureInputLabel') uploadPictureInputLabel: ElementRef;
 
@@ -36,6 +37,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     image: any;
     uploadUrl: string;
     uploadedFiles: any[] = [];
+    appId: any;
     appId: any;
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
@@ -66,6 +68,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
         private _tokenService: TokenService,
+        //public datepipe: DatePipe
         //public datepipe: DatePipe
     ) {
         super(injector);
@@ -185,6 +188,41 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.image = 'data:image/jpg;base64,' + this.imageBlob;
             });
     }
+
+    // checkPictureExistOrNot(imageId: string) {
+    //     if(!imageId) {
+    //         return "You dont have any image";
+    //     }
+    //     else {
+    //         this._appointmentsServiceProxy.getFilePictureByIdOrNull(imageId)
+    //         .subscribe((result) => {
+    //             this.convertFromBase64ToBlob(result);
+    //         })
+    //         this.uploadedFile = new File([this.imageBlob], "Appointment.png",{type: "png/jpeg"});
+    //         return this.uploadedFile;
+    //     }
+    // }
+
+    // convertFromBase64ToBlob(base64: string) {
+    //     var contentType = contentType || '';
+    //     const sliceSize = 512;
+    //     const byteCharacters = window.atob(base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
+    //     const byteArrays = [];
+
+    //     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize){
+    //         const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    //         const byteNumbers = new Array(slice.length);
+    //         for (let i = 0; i < slice.length; i++){
+    //             byteNumbers[i] = slice.charCodeAt(i);
+    //         }
+
+    //         const byteArray = new Uint8Array(byteNumbers);
+    //         byteArrays.push(byteArray);
+    //     }
+    //     this.imageBlob = new Blob(byteArrays, {type: contentType});
+    //     return this.imageBlob;
+    // }
 
     // checkPictureExistOrNot(imageId: string) {
     //     if(!imageId) {
@@ -407,6 +445,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     setTitleEdit() {
         this.isEditing = true;
     }
+    public open(event: any, item: string) {
+        alert('Open ' + item);
     public open(event: any, item: string) {
         alert('Open ' + item);
     }

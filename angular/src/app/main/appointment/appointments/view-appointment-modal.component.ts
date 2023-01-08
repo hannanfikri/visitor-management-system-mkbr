@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, Injector, Output, EventEmitter } from '@angular/core';
+﻿import { Component, ViewChild, Injector, Output, EventEmitter, Inject, LOCALE_ID } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GetAppointmentForViewDto, AppointmentDto, AppointmentsServiceProxy, StatusType, CreateOrEditAppointmentDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CheckIn } from './check-in.component';
+import {  formatDate  } from '@angular/common';
 
 @Component({
     selector: 'viewAppointmentModal',
@@ -15,6 +16,7 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     @ViewChild('checkIn', { static: true }) checkIn: CheckIn;
+    
 
     active = false;
     saving = false;
@@ -30,7 +32,7 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     paginator: any;
 
     constructor(injector: Injector, private _appointmentsServiceProxy: AppointmentsServiceProxy,
-        private _router: Router, private _sanitizer: DomSanitizer) {
+        private _router: Router, private _sanitizer: DomSanitizer, @Inject(LOCALE_ID) public locale: string) {
         super(injector);
         this.item = new GetAppointmentForViewDto();
         this.item.appointment = new AppointmentDto();
@@ -51,7 +53,8 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.item = item;
         this._appointmentsServiceProxy.getAppointmentForEdit(item.appointment.id).subscribe((result) => {
             this.appointment = result.appointment;
-        this.appointment.id = item.appointment.id;});
+            this.appointment.id = item.appointment.id;
+        });
         this.active = true;
         this.displayImage(this.item.appointment.imageId);
         this.modal.show();
@@ -62,14 +65,21 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.modal.hide();
     }
 
-    setAllowCheckIn(): boolean {
+
+    isStatusRegistered(): boolean {
         if (this.item.appointment.status == StatusType.Registered)
             return true;
         else
             return false;
     }
-    setAllowCheckOut(): boolean {
+    isStatusIn(): boolean {
         if (this.item.appointment.status == StatusType.In)
+            return true;
+        else
+            return false;
+    }
+    isStatusOut(): boolean {
+        if (this.item.appointment.status == StatusType.Out)
             return true;
         else
             return false;
@@ -79,23 +89,19 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         this.message.confirm('', this.l('AreYouSure'), (isConfirmed) => {
             if (isConfirmed) {
                 this.saving = true;
-                this.AppointmentId = this.appointment.id;
-                this.save();
-                this._appointmentsServiceProxy.changeStatusToOut(this.AppointmentId)
                 this._appointmentsServiceProxy
-                    .changeStatusToOut(this.AppointmentId)
+                    .changeStatusToOut(this.appointment)
                     .pipe(
                         finalize(() => {
                             this.saving = false;
                         })
                     )
                     .subscribe((result) => {
-                        this.notify.info(this.l('CheckOutSuccessfully'));
-                        this.close();
                         this.modalSave.emit(null);
-                        
+                        window.location.reload();
+                        this.notify.info(this.l('CheckOutSuccessfully'));
                     });
-                    
+
             }
         });
     }
@@ -113,11 +119,12 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
             });
     }
 
-    goToModelCheckIn(appointmentId?:string): void {
-        
+
+    goToModelCheckIn(appointmentId?: string): void {
+
         //new this.modal1.onHide();
         this.checkIn.modal.show();
         this.checkIn.show(appointmentId);
-        
+
     }
 }

@@ -273,18 +273,22 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 })
             )
             .subscribe((result) => {
+            .subscribe((result) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
                 this.appId = result;
+                this.appId = result;
             });
+
 
     }
 
     close(): void {
-        this.uploadedFiles = [];
+        this.uploadedFiles = [];this.uploadedFiles = [];
         this.active = false;
         this.imageChangedEvent = '';
+        this.modal.hide();
         this.modal.hide();
     }
     setDate(): void {
@@ -293,6 +297,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     ngOnInit(): void {
+   
     }
 
     //ListPurposeOfVisit
@@ -345,6 +350,14 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.arrTitle = [];
         this.arrPOV = [];
     }
+    GetEmptyArray(): void {
+        this.arrDepartment = [];
+        this.arrCompany = [];
+        this.arrLevel = [];
+        this.arrTower = [];
+        this.arrTitle = [];
+        this.arrPOV = [];
+    }
     getStatusEnum(): void {
         this.statusType = [];
         for (let s in StatusType) {
@@ -366,11 +379,29 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     //     //event.originalEvent.body.result[0].id (expression)
     // }
 
+    //     //event.originalEvent.body.result[0].id (expression)
+    // }
+
     onBeforeSend(event): void {
         event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
     }
 
-    
+    public cancel(): void {
+
+        this.isEditing = false;
+
+    }
+
+
+    // I enable the editing of the value.
+    public edit(): void {
+
+        this.pendingValue = this.value;
+        this.isEditing = true;
+
+    }
+
+
     // I process changes to the pending value.
     public processChanges(): void {
 
@@ -384,6 +415,10 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
         this.isEditing = false;
 
+    }
+
+    editDateTime(Appointment_AppDateTime) {
+        Appointment_AppDateTime.tekan = true
     }
     setTitleEdit() {
         this.isEditing = true;

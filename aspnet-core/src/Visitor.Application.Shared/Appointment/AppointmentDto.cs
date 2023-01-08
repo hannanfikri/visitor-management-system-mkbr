@@ -23,11 +23,12 @@ namespace Visitor.Appointment
         public string Tower { get; set; }
         public string Level { get; set; }
         public string AppDateTime { get; set; }
-        //public byte[] FaceVerify { get; set; }
         public string RegDateTime { get; set; }
         public StatusType Status { get; set; }
         public string ImageId { get; set; }
         public string AppRefNo { get; set; }
         public string PassNumber { get; set; }
+        public string CheckInDateTime { get; set; }
+        public string CheckOutDateTime { get; set; }
     }
 }

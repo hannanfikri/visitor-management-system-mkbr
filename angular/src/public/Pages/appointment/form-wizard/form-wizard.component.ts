@@ -41,6 +41,14 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     tempGuid: any;
     appId: any;
 
+    // appointment = { level: '' };
+    // arrLevel = [    [{ level: { levelBankRakyat: 'option1' } }],
+    //   [{ level: { levelBankRakyat: 'option2' } }],
+    //   [{ level: { levelBankRakyat: 'option3' } }]
+    // ];
+    
+    
+
     public uploader: FileUploader;
     public temporaryPictureUrl: string;
     public maxPictureBytesUserFriendlyValue = 5;
@@ -66,11 +74,11 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
-
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
-
+    Tower: any;
+    isTower = true;
     detailItems: any[] = [{ title: 'user01', name: "user01" }, { title: 'user02', name: 'user02' }];
     //event for edit
     public isEditing: boolean;
@@ -275,6 +283,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     ngOnInit(appointmentId?: string): void {
         this.getArray();
         this.initializeModal();
+        //window.location.
     }
     ngAfterViewInit() { }
 
@@ -286,4 +295,14 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     viewDetails() {
         this._router.navigateByUrl('/appointment-details');
     }
+
+    onChange(getValueTower) 
+    {
+        this.Tower = getValueTower;
+        if (this.Tower == "Tower 1")
+            this.isTower = false;
+        else
+        this.isTower = true;
+    }
+    
 }

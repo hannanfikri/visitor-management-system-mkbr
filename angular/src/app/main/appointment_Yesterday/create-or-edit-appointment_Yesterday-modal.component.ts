@@ -16,16 +16,15 @@ import { base64ToFile, ImageCroppedEvent } from 'ngx-image-cropper';
     templateUrl: './create-or-edit-appointment_Yesterday-modal.component.html',
 })
 export class CreateOrEditAppointmentModalComponent extends AppComponentBase implements OnInit {
+
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('uploadPictureInputLabel') uploadPictureInputLabel: ElementRef;
-
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     active = false;
     saving = false;
     tempGuid: any;
-    
     public uploader: FileUploader;
     public temporaryPictureUrl: string;
     public maxPictureBytesUserFriendlyValue = 5;
@@ -34,15 +33,12 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     public uploadedFile: File;
     imageBlob: any;
     image: any;
-
     uploadUrl: string;
     uploadedFiles: any[] = [];
-    
-
+    appId: any;
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
-
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
     arrPOV: Array<any> = [];
     arrTitle: Array<any> = [];
@@ -52,142 +48,28 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
-
     sampleDateTime: DateTime;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
-
     detailItems: any[] = [{ title: 'user01', name: "user01" }, { title: 'user02', name: 'user02' }];
     //event for edit
     public isEditing: boolean;
     public pendingValue: string;
     public value!: string;
     public valueChangeEvents: EventEmitter<string>;
+    Tower: any;
+    isTower = true;
+
     constructor(
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
         private _tokenService: TokenService,
+        //public datepipe: DatePipe
     ) {
         super(injector);
+        //this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture';
     }
-
-    show(appointmentId?: string): void {
-        this.initializeModal();
-        this.modal.show();
-        if (!appointmentId) {
-            this.getPOVArray();
-
-            this.getTitleArray();
-            this.getTowerArray();
-            this.getCompanyArray();
-            this.getDepartmentArray();
-            this.getLevelArray();
-            this.getStatusEnum();
-
-            this.appointment = new CreateOrEditAppointmentDto();
-            this.appointment.id = appointmentId;
-            this.active = true;
-            this.modal.show();
-        } else {
-            this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => {
-                this.appointment = result.appointment;
-                this.getPOVArray();
-                this.getLevelArray();
-                this.getTitleArray();
-                this.getTowerArray();
-                this.getCompanyArray();
-                this.getDepartmentArray();
-                this.getStatusEnum();
-                this.displayImage(this.appointment.imageId);
-                this.active = true;
-                this.modal.show();
-            });
-        }
-    }
-
-    save(): void {
-        this.saving = true;
-        this._appointmentsServiceProxy
-            .createOrEdit(this.appointment)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe(() => {
-                this.notify.info(this.l('SavedSuccessfully'));
-                this.close();
-                this.modalSave.emit(null);
-            });
-    }
-
-    close(): void {
-        
-        this.active = false;
-        this.modal.hide();
-        this.imageChangedEvent = '';
-    }
-    setDate(): void {
-        let date: Date = new Date();
-        console.log("Date = " + date);
-    }
-
-    ngOnInit(): void { }
-
-    //ListPurposeOfVisit
-    getPOVArray(): void {
-        this._appointmentsServiceProxy.getPurposeOfVisit().subscribe((result) => {
-            this.arrPOV = [];
-            this.arrPOV.push(result);
-        })
-    }
-    //List title
-    getTitleArray(): void {
-        this._appointmentsServiceProxy.getTitle().subscribe((result) => {
-            this.arrTitle = [];
-            this.arrTitle.push(result);
-        })
-    }
-    //List tower
-    getTowerArray(): void {
-        this._appointmentsServiceProxy.getTower().subscribe((result) => {
-            this.arrTower = [];
-            this.arrTower.push(result);
-        })
-    }
-    //List level
-    getLevelArray(): void {
-        this._appointmentsServiceProxy.getLevel().subscribe((result) => {
-            this.arrLevel = [];
-            this.arrLevel.push(result);
-        })
-    }
-    //List company name
-    getCompanyArray(): void {
-        this._appointmentsServiceProxy.getCompanyName().subscribe((result) => {
-            this.arrCompany = [];
-            this.arrCompany.push(result);
-        })
-    }
-    //List Department Name
-    getDepartmentArray(): void {
-        this._appointmentsServiceProxy.getDepartmentName().subscribe((result) => {
-            this.arrDepartment = [];
-            this.arrDepartment.push(result)
-        })
-    }
-    //Get list of status
-    getStatusEnum(): void {
-        this.statusType = [];
-        for (let s in StatusType) {
-            if (isNaN(Number(s))) {
-                this.statusType.push(s);
-            }
-        };
-    }
-
-    //Upload Picture
 
     initializeModal(): void {
         this.active = true;
@@ -232,12 +114,41 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             form.append('FileType', fileItem.file.type);
             form.append('FileName', 'AppointmentPicture');
             form.append('FileToken', this.tempGuid);
+            //form.append('uploadFile', this.uploadedFile);
+            //this.appointment.imageId = this.tempGuid;
         };
+
+        // onSuccessItem run after item is success eg: after fx this.uploader.uploadAll()
+
+        // this.uploader.onBeforeUploadItem = (fileItem: FileItem) => {
+        //     fileItem._onSuccess = (response, status) => {
+        //         const resp = <IAjaxResponse>JSON.parse(response);
+        //         //this.appointment.imageId = resp.result.fileToken;
+        //         this.updatePicture(resp.result.fileToken);
+        //     }
+        // }
+
+        // this.uploader.uploadItem = (fileItem: FileItem) => {
+        //     this.guid();
+        //     this.updatePicture(this.tempGuid);
+        // }
+
+        // this.uploader.onCompleteItem = (item, response, status) => {
+        //     const resp = <IAjaxResponse>JSON.parse(response);
+        //     if (resp.success) {
+        //         //this.appointment.imageId = resp.result.id;
+        //     }
+        // }
 
         this.uploader.onSuccessItem = (item, response, status) => {
             const resp = <IAjaxResponse>JSON.parse(response);
             if (resp.success) {
                 this.updatePicture(resp.result.fileToken);
+
+                //this.appointment.imageId = resp.result.fileToken;
+                //this.idPicture = resp.result.fileToken;
+                //this.appointment.imageId = resp.result.fileToken;
+
             }
             else {
                 this.message.error(resp.error.message);
@@ -279,12 +190,241 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this._appointmentsServiceProxy.getFilePictureByIdOrNull(imageId)
             .subscribe((result) => {
                 this.imageBlob = result;
+                //this.image = this.imageReader.readAsDataURL(this.imageBlob);
                 this.image = 'data:image/jpg;base64,' + this.imageBlob;
             });
+    }
+
+    // checkPictureExistOrNot(imageId: string) {
+    //     if(!imageId) {
+    //         return "You dont have any image";
+    //     }
+    //     else {
+    //         this._appointmentsServiceProxy.getFilePictureByIdOrNull(imageId)
+    //         .subscribe((result) => {
+    //             this.convertFromBase64ToBlob(result);
+    //         })
+    //         this.uploadedFile = new File([this.imageBlob], "Appointment.png",{type: "png/jpeg"});
+    //         return this.uploadedFile;
+    //     }
+    // }
+
+    // convertFromBase64ToBlob(base64: string) {
+    //     var contentType = contentType || '';
+    //     const sliceSize = 512;
+    //     const byteCharacters = window.atob(base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
+    //     const byteArrays = [];
+
+    //     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize){
+    //         const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    //         const byteNumbers = new Array(slice.length);
+    //         for (let i = 0; i < slice.length; i++){
+    //             byteNumbers[i] = slice.charCodeAt(i);
+    //         }
+
+    //         const byteArray = new Uint8Array(byteNumbers);
+    //         byteArrays.push(byteArray);
+    //     }
+    //     this.imageBlob = new Blob(byteArrays, {type: contentType});
+    //     return this.imageBlob;
+    // }
+
+    show(appointmentId?: string): void {
+        this.initializeModal();
+        this.modal.show();
+        if (!appointmentId) {
+            this.GetEmptyArray();
+            this.getPOVArray();
+            this.getTitleArray();
+            this.getTowerArray();
+            this.getCompanyArray();
+            this.getDepartmentArray();
+            this.getLevelArray();
+            this.getStatusEnum();
+            this.appointment = new CreateOrEditAppointmentDto();
+            this.appointment.id = appointmentId;
+            this.active = true;
+            this.modal.show();
+        } else {
+            this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => {
+                this.appointment = result.appointment;
+                this.getPOVArray();
+                this.getLevelArray();
+                this.getTitleArray();
+                this.getTowerArray();
+                this.getCompanyArray();
+                this.getDepartmentArray();
+                this.getStatusEnum();
+
+                this.active = true;
+                this.modal.show();
+                this.displayImage(this.appointment.imageId);
+                // this.checkPictureExistOrNot(this.appointment.imageId);
+                // this.uploadedFile;
+            });
+        }
     }
 
     upload(): void {
         this.uploader.uploadAll();
         this.notify.info(this.l('UploadSuccessfully'));
+    }
+
+    save(): void {
+        this.saving = true;
+        //this.uploader.uploadAll();
+        this._appointmentsServiceProxy
+            .createOrEdit(this.appointment)
+            .pipe(
+                finalize(() => {
+                    this.saving = false;
+                })
+            )
+            .subscribe((result) => {
+                this.notify.info(this.l('SavedSuccessfully'));
+                this.close();
+                this.modalSave.emit(null);
+                this.appId = result;
+            });
+
+    }
+
+    close(): void {
+        this.uploadedFiles = [];
+        this.active = false;
+        this.imageChangedEvent = '';
+        this.modal.hide();
+    }
+    setDate(): void {
+        let date: Date = new Date();
+        console.log("Date = " + date);
+    }
+
+    ngOnInit(): void {
+    }
+
+    //ListPurposeOfVisit
+    getPOVArray(): void {
+        this._appointmentsServiceProxy.getPurposeOfVisit().subscribe((result) => {
+            this.arrPOV = [];
+            this.arrPOV.push(result);
+        })
+    }
+    //List title
+    getTitleArray(): void {
+        this._appointmentsServiceProxy.getTitle().subscribe((result) => {
+            this.arrTitle = [];
+            this.arrTitle.push(result);
+        })
+    }
+    //List tower
+    getTowerArray(): void {
+        this._appointmentsServiceProxy.getTower().subscribe((result) => {
+            this.arrTower = [];
+            this.arrTower.push(result);
+        })
+    }
+    //List level
+    getLevelArray(): void {
+        this._appointmentsServiceProxy.getLevel().subscribe((result) => {
+            this.arrLevel = [];
+            this.arrLevel.push(result);
+        })
+    }
+    //List company name
+    getCompanyArray(): void {
+        this._appointmentsServiceProxy.getCompanyName().subscribe((result) => {
+            this.arrCompany = [];
+            this.arrCompany.push(result);
+        })
+    }
+    //List Department Name
+    getDepartmentArray(): void {
+        this._appointmentsServiceProxy.getDepartmentName().subscribe((result) => {
+            this.arrDepartment = [];
+            this.arrDepartment.push(result)
+        })
+    }
+    GetEmptyArray(): void {
+        this.arrDepartment = [];
+        this.arrCompany = [];
+        this.arrLevel = [];
+        this.arrTower = [];
+        this.arrTitle = [];
+        this.arrPOV = [];
+    }
+    getStatusEnum(): void {
+        this.statusType = [];
+        for (let s in StatusType) {
+            if (isNaN(Number(s))) {
+                this.statusType.push(s);
+            }
+        };
+    }
+
+    // onUpload(event): void {
+    //     // for (const file of event.files) {
+    //     //     this.uploadedFiles.push(file);
+    //     // }
+    //     this.uploadedFiles = event.files;
+    //     for (const files of event.originalEvent.body.result) {
+    //         this.appointment.imageId = files.id;
+    //     }
+
+    //     //event.originalEvent.body.result[0].id (expression)
+    // }
+
+    onBeforeSend(event): void {
+        event.xhr.setRequestHeader('Authorization', 'Bearer' + abp.auth.getToken());
+    }
+
+    public cancel(): void {
+
+        this.isEditing = false;
+
+    }
+
+
+    // I enable the editing of the value.
+    public edit(): void {
+
+        this.pendingValue = this.value;
+        this.isEditing = true;
+
+    }
+
+
+    // I process changes to the pending value.
+    public processChanges(): void {
+
+        // If the value actually changed, emit the change but don't change the local
+        // value - we don't want to break unidirectional data-flow.
+        if (this.pendingValue !== this.value) {
+
+            this.valueChangeEvents.emit(this.pendingValue);
+
+        }
+
+        this.isEditing = false;
+
+    }
+
+    editDateTime(Appointment_AppDateTime) {
+        Appointment_AppDateTime.tekan = true
+    }
+    setTitleEdit() {
+        this.isEditing = true;
+    }
+    public open(event: any, item: string) {
+        alert('Open ' + item);
+    }
+    onChange(getValueTower) 
+    {
+        this.Tower = getValueTower;
+        if (this.Tower == "Tower 1")
+            this.isTower = false;
+        else
+        this.isTower = true;
     }
 }

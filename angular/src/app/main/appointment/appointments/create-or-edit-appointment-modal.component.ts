@@ -54,7 +54,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     arrDepartment: Array<any> = [];
     fv: string = "0x0A";
     myDefaultValue: number = 1;
-    sampleDateTime: DateTime;
+    sampleDateTime: DateTimeService;
     dateFormat = 'dd-LL-yyyy HH:mm:ss';
     r: any;
     detailItems: any[] = [{ title: 'user01', name: "user01" }, { title: 'user02', name: 'user02' }];

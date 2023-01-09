@@ -103,7 +103,6 @@ namespace CMS.Portal
         protected virtual async Task<Guid> Create(CreateOrEditAppointmentDto input)
         {
 
-
             var pn = input.PhoneNo;
             var ic = input.IdentityCard;
             //input.MobileNumber = "+6" + input.MobileNumber;
@@ -120,6 +119,11 @@ namespace CMS.Portal
 
             byte[] byteArray;
             var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            if (input.Tower == "Tower 1")
+            {
+                input.CompanyName = "Bank Rakyat";
+            }
 
             if (imageBytes == null)
             {

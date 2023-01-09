@@ -55,7 +55,7 @@
     <text name="Blacklist">Blacklist</text>
     <text name="Visitor.Blacklist.Blacklist">Blacklist</text>
     <text name="BlacklistFullName">Blacklist full name</text>
-    <text name="BlacklistIdentityCard">Blacklist identity card</text>
+    <text name="BlacklistIdentityCard">Blacklist Identity Card/Passport Number</text>
     <text name="BlacklistPhoneNumber">Blacklist phone number</text>
     <text name="BlacklistRemarks">Blacklist remarks</text>
     <text name="BlacklistsHeaderInfo">Blacklists header info</text>
@@ -74,7 +74,7 @@
     <text name="Levels">Levels</text>
 
 
-	  <text name="IC"> Identity Card</text>
+	  <text name="IC"> Identity Card/Passport Number</text>
     <text name="Appointment">Appointment</text>
     <text name="Visitor.Appointment.Appointment">Appointment</text>
     <text name="AppointmentsHeaderInfo">Appointment header info</text>
@@ -82,12 +82,12 @@
     <text name="EditAppointment">Edit appointment</text>
     <text name="DeleteAppointment">Delete appointment</text>
     <text name="Appointments">Appointments</text>
-    <text name="IdentityCard">Visitor's identity card</text>
-    <text name="PhoneNo">Visitor's phone number</text>
+    <text name="IdentityCard">Identity Card/Passport Number</text>
+    <text name="PhoneNo">Phone number</text>
     <text name="OfficerToMeet">Officer to meet</text>
-	  <text name="VisitorEmail">Visitor's email address</text>
-	  <text name="VisitorTitle">Visitor's title</text>
-	  <text name="VisitorFullName">Visitor's full name</text>
+	  <text name="VisitorEmail">Email address</text>
+	  <text name="VisitorTitle">Title</text>
+	  <text name="VisitorFullName">Full name</text>
     <text name="AppRefNo">Visitor's Referral Number</text> 
     <text name="AppDateTime">Appointment's date and time</text>
 	  <text name="MinAppDateTimeFilter">Appointment's date and time</text>
@@ -127,8 +127,8 @@
 	  <text name="MinValue">Start Date</text>
 	  <text name="MaxValue">End Date</text>
 	  <text name="Enum:StatusType:0">Registered</text>
-	  <text name="Enum:StatusType:1">In</text>
-	  <text name="Enum:StatusType:2">Out</text>
+	  <text name="Enum:StatusType:1">Check In</text>
+	  <text name="Enum:StatusType:2">Check Out</text>
 	  <text name="Enum:StatusType:3">Overstayed</text>
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>

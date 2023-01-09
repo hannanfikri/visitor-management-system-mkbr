@@ -163,7 +163,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.appointment.y = 0;
         this.appointment.width = 0;
         this.appointment.height = 0;
-        this.saving = true;
     }
 
     guid(): string {

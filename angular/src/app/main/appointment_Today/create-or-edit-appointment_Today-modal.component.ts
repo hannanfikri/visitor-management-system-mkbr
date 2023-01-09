@@ -273,7 +273,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 })
             )
             .subscribe((result) => {
-            .subscribe((result) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(null);
@@ -341,14 +340,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
             this.arrDepartment = [];
             this.arrDepartment.push(result)
         })
-    }
-    GetEmptyArray(): void {
-        this.arrDepartment = [];
-        this.arrCompany = [];
-        this.arrLevel = [];
-        this.arrTower = [];
-        this.arrTitle = [];
-        this.arrPOV = [];
     }
     GetEmptyArray(): void {
         this.arrDepartment = [];

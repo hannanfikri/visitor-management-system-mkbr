@@ -38,7 +38,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     uploadUrl: string;
     uploadedFiles: any[] = [];
     appId: any;
-    appId: any;
     keys = Object.keys(StatusType);
     statusType: Array<string> = [];
     statusenum: typeof StatusType = StatusType;
@@ -445,8 +444,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     setTitleEdit() {
         this.isEditing = true;
     }
-    public open(event: any, item: string) {
-        alert('Open ' + item);
     public open(event: any, item: string) {
         alert('Open ' + item);
     }

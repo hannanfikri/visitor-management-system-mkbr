@@ -24,7 +24,7 @@ import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layo
 @Component({
     selector: 'app-form-wizard',
     templateUrl: './form-wizard.component.html',
-    styleUrls: ['./form-wizard.component.css']
+    styleUrls: ['./form-wizard.component.scss']
 })
 export class FormWizardComponent extends AppComponentBase implements OnInit, AfterViewInit {
 

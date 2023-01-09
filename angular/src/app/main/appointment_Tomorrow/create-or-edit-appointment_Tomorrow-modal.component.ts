@@ -1,7 +1,7 @@
-﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
-import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, StatusType, UpdatePictureInput } from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, StatusType } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
 
@@ -17,6 +17,7 @@ import { base64ToFile, ImageCroppedEvent } from 'ngx-image-cropper';
     templateUrl: './create-or-edit-appointment_Tomorrow-modal.component.html',
 })
 export class CreateOrEditAppointmentModalComponent extends AppComponentBase implements OnInit {
+
 
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('uploadPictureInputLabel') uploadPictureInputLabel: ElementRef;
@@ -67,6 +68,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         private _dateTimeService: DateTimeService,
         private _tokenService: TokenService,
         //public datepipe: DatePipe
+        //public datepipe: DatePipe
     ) {
         super(injector);
         //this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture';
@@ -93,7 +95,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     imageCroppedFile(event: ImageCroppedEvent) {
         this.uploader.clearQueue();
         this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
-        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture';
 
         //event for edit
         this.isEditing = false;
@@ -103,7 +105,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     initFileUploader(): void {
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture' });
-        this._uploaderOptions.autoUpload = false;
+        this._uploaderOptions.autoUpload = true;
         this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
         this._uploaderOptions.removeAfterUpload = true;
         this.uploader.onAfterAddingFile = (file) => {
@@ -159,25 +161,11 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     updatePicture(fileToken: string): void {
-        const input = new UpdatePictureInput();
-        input.fileToken = fileToken;
-        input.x = 0;
-        input.y = 0;
-        input.width = 0;
-        input.height = 0;
-        this.saving = true;
-        this._appointmentsServiceProxy.updatePictureForAppointment(input)
-            .pipe(
-                //tap(result => this.appointment.imageId = result.toString())
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe((result) => {
-                //this.active = true;
-                this.appointment.imageId = result.toString();
-                //abp.event.trigger('pictureChanged');
-            })
+        this.appointment.fileToken = fileToken;
+        this.appointment.x = 0;
+        this.appointment.y = 0;
+        this.appointment.width = 0;
+        this.appointment.height = 0;
     }
 
     guid(): string {
@@ -199,6 +187,41 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
                 this.image = 'data:image/jpg;base64,' + this.imageBlob;
             });
     }
+
+    // checkPictureExistOrNot(imageId: string) {
+    //     if(!imageId) {
+    //         return "You dont have any image";
+    //     }
+    //     else {
+    //         this._appointmentsServiceProxy.getFilePictureByIdOrNull(imageId)
+    //         .subscribe((result) => {
+    //             this.convertFromBase64ToBlob(result);
+    //         })
+    //         this.uploadedFile = new File([this.imageBlob], "Appointment.png",{type: "png/jpeg"});
+    //         return this.uploadedFile;
+    //     }
+    // }
+
+    // convertFromBase64ToBlob(base64: string) {
+    //     var contentType = contentType || '';
+    //     const sliceSize = 512;
+    //     const byteCharacters = window.atob(base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
+    //     const byteArrays = [];
+
+    //     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize){
+    //         const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    //         const byteNumbers = new Array(slice.length);
+    //         for (let i = 0; i < slice.length; i++){
+    //             byteNumbers[i] = slice.charCodeAt(i);
+    //         }
+
+    //         const byteArray = new Uint8Array(byteNumbers);
+    //         byteArrays.push(byteArray);
+    //     }
+    //     this.imageBlob = new Blob(byteArrays, {type: contentType});
+    //     return this.imageBlob;
+    // }
 
     // checkPictureExistOrNot(imageId: string) {
     //     if(!imageId) {

@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
-import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, StatusType, UpdatePictureInput } from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, StatusType } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
 
@@ -92,7 +92,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     imageCroppedFile(event: ImageCroppedEvent) {
         this.uploader.clearQueue();
         this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
-        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture';
 
         //event for edit
         this.isEditing = false;
@@ -102,7 +102,7 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
 
     initFileUploader(): void {
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture' });
-        this._uploaderOptions.autoUpload = false;
+        this._uploaderOptions.autoUpload = true;
         this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
         this._uploaderOptions.removeAfterUpload = true;
         this.uploader.onAfterAddingFile = (file) => {
@@ -158,25 +158,21 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     }
 
     updatePicture(fileToken: string): void {
-        const input = new UpdatePictureInput();
-        input.fileToken = fileToken;
-        input.x = 0;
-        input.y = 0;
-        input.width = 0;
-        input.height = 0;
-        this.saving = true;
-        this._appointmentsServiceProxy.updatePictureForAppointment(input)
-            .pipe(
-                //tap(result => this.appointment.imageId = result.toString())
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe((result) => {
-                //this.active = true;
-                this.appointment.imageId = result.toString();
-                //abp.event.trigger('pictureChanged');
-            })
+        //const input = new UpdatePictureInput();
+        this.appointment.fileToken = fileToken;
+        this.appointment.x = 0;
+        this.appointment.y = 0;
+        this.appointment.width = 0;
+        this.appointment.height = 0;
+        // this._appointmentsServiceProxy.updatePictureForAppointment(input)
+        //     .pipe(
+        //         finalize(() => {
+        //             this.saving = false;
+        //         })
+        //     )
+        //     .subscribe((result) => {
+        //         this.appointment.imageId = result.toString();
+        //     })
     }
 
     guid(): string {

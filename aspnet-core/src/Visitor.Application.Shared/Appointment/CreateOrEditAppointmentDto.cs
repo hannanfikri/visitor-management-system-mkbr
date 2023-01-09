@@ -10,6 +10,8 @@ using Visitor.Departments.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
 using Visitor.Appointments;
 using Visitor.Common;
+using Abp.Runtime.Validation;
+using Abp.Extensions;
 
 namespace Visitor.Appointment
 {
@@ -55,5 +57,22 @@ namespace Visitor.Appointment
         public virtual string AppRefNo { get; set; }
         public virtual DateTime? CheckInDateTime { get; set; }
         public virtual DateTime? CheckOutDateTime { get; set; }
+        public string FileToken { get; set; }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public void AddValidationErrors(CustomValidationContext context)
+        {
+            if (FileToken.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(FileToken));
+            }
+        }
     }
 }

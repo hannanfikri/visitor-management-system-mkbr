@@ -86,7 +86,7 @@ namespace Visitor.Appointment
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
-            
+
 
 
         }
@@ -678,6 +678,7 @@ namespace Visitor.Appointment
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
+
             var pn = input.PhoneNo;
             var ic = input.IdentityCard;
             //input.MobileNumber = "+6" + input.MobileNumber; 
@@ -698,6 +699,11 @@ namespace Visitor.Appointment
 
             byte[] byteArray;
             var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            if(input.Tower == "Tower 1")
+            {
+                input.CompanyName = "Bank Rakyat";
+            }
 
             if (imageBytes == null)
             {

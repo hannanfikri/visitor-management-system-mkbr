@@ -29,7 +29,7 @@
                                     <label class="form-label" for="Appointment_Title">{{ l('VisitorTitle') }}
                                         *</label>
                                     <select #Appointment_Title="ngModel" id="Appointment_Title"
-                                        [(ngModel)]="appointment.title" name="Title" class="form-control">
+                                        [(ngModel)]="appointment.title" name="Title" class="form-control" required>
                                         <option value="" disabled selected>Select</option>
                                         <ng-container *ngFor="let t of arrTitle">
                                             <option name="Title" *ngFor="let tit of t"
@@ -41,9 +41,8 @@
                                     <label class="form-label" for="Appointment_FullName">{{ l('VisitorFullName') }}
                                         *</label>
                                     <input type="text" placeholder="{{l('FullName')}}..."
-                                        #Appointment_FullName="ngModel" id="Appointment_FullName"
-                                        class="form-control" [(ngModel)]="appointment.fullName" name="FullName"
-                                        required />
+                                        #Appointment_FullName="ngModel" id="Appointment_FullName" class="form-control"
+                                        [(ngModel)]="appointment.fullName" name="FullName" required />
                                     <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
 
                                 </div>
@@ -52,14 +51,15 @@
                                         *</label>
                                     <input type="text" placeholder="{{l('IC')}}..." #Appointment_IdentityCard="ngModel"
                                         id="Appointment_IdentityCard" class="form-control"
-                                        [(ngModel)]="appointment.identityCard" name="IdentityCard" required />
+                                        [(ngModel)]="appointment.identityCard" name="IdentityCard" required minlength="9" maxlength="12" />
                                     <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                                 </div>
                                 <div class="my-3">
                                     <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }} *</label>
                                     <input type="text" placeholder="{{l('PhoneNumber')}}..."
                                         #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
-                                        [(ngModel)]="appointment.phoneNo" name="PhoneNo" required />
+                                        [(ngModel)]="appointment.phoneNo" name="PhoneNo" 
+                                        required minlength="10" maxlength="11" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]" />
                                     <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                                 </div>
                                 <div class="my-3">
@@ -67,8 +67,8 @@
                                         *</label>
                                     <input type="email" placeholder="{{l('EmailAddress')}}..."
                                         #Appointment_Email="ngModel" id="Appointment_Email" class="form-control"
-                                        [(ngModel)]="appointment.email" name="Email" required
-                                        pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
+                                        [(ngModel)]="appointment.email" name="Email" 
+                                        pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" required />
                                     <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
 
                                 </div>
@@ -91,7 +91,7 @@
                                     *</label>
                                 <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime"
                                     class="form-control" [(ngModel)]="appointment.appDateTime" name="AppDateTime"
-                                    type="datetime-local" />
+                                    type="datetime-local" required/>
                                 <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
                             </div>
 
@@ -110,7 +110,7 @@
                                 </select>
                             </div>
 
-                            <div class="my-3">
+                            <div class="my-3" *ngIf="isTower">
                                 <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
                                 </label>
                                 <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
@@ -123,13 +123,13 @@
                                     </ng-container>
                                 </select>
                             </div>
-                            <!-- <div class="my-3" *ngIf="!isTower">
-                                    <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
-                                    </label>
-                                    <input disabled="true" type="text" 
-                                            #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
-                                            class="form-control" [(ngModel)]="appointment.companyName" value= "Bank Rakyat" />
-                                </div> -->
+                            <div class="my-3" *ngIf="!isTower">
+                                <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
+                                </label>
+                                <input disabled="true" type="text" #Appointment_CompanyName="ngModel"
+                                    id="Appointment_CompanyName" class="form-control"
+                                    [(ngModel)]="appointment.companyName" value="Bank Rakyat" />
+                            </div>
                             <div class="my-3">
                                 <label class="form-label" for="Appointment_Department">{{ l('Department') }}
                                 </label>
@@ -148,7 +148,7 @@
                             <div class="my-3">
                                 <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
                                 <select #Appointment_Level="ngModel" id="Appointment_Level"
-                                    [(ngModel)]="appointment.level" name="Level" class="form-control">
+                                    [(ngModel)]="appointment.level" name="Level" class="form-control" required>
                                     <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let l of arrLevel">
                                         <option name="Level" *ngFor="let level of l"

@@ -55,7 +55,7 @@
     <text name="Blacklist">Blacklist</text>
     <text name="Visitor.Blacklist.Blacklist">Blacklist</text>
     <text name="BlacklistFullName">Blacklist full name</text>
-    <text name="BlacklistIdentityCard">Blacklist identity card</text>
+    <text name="BlacklistIdentityCard">Blacklist Identity Card/Passport Number</text>
     <text name="BlacklistPhoneNumber">Blacklist phone number</text>
     <text name="BlacklistRemarks">Blacklist remarks</text>
     <text name="BlacklistsHeaderInfo">Blacklists header info</text>
@@ -74,7 +74,7 @@
     <text name="Levels">Levels</text>
 
 
-	  <text name="IC"> Identity Card</text>
+	  <text name="IC"> Identity Card/Passport Number</text>
     <text name="Appointment">Appointment</text>
     <text name="Visitor.Appointment.Appointment">Appointment</text>
     <text name="AppointmentsHeaderInfo">Appointment header info</text>
@@ -82,7 +82,7 @@
     <text name="EditAppointment">Edit appointment</text>
     <text name="DeleteAppointment">Delete appointment</text>
     <text name="Appointments">Appointments</text>
-    <text name="IdentityCard">Identity card</text>
+    <text name="IdentityCard">Identity Card/Passport Number</text>
     <text name="PhoneNo">Phone number</text>
     <text name="OfficerToMeet">Officer to meet</text>
 	  <text name="VisitorEmail">Email address</text>

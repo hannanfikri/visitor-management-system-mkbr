@@ -246,7 +246,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     show(appointmentId?: string): void {
         this.initializeModal();
         this.modal.show();
-        this.sampleDateTime.getDate();
         if (!appointmentId) {
             this.GetEmptyArray();
             this.getPOVArray();

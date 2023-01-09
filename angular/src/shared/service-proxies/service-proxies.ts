@@ -1903,62 +1903,6 @@ export class AppointmentsServiceProxy {
     }
 
     /**
-     * @param body (optional) 
-     * @return Success
-     */
-    updatePictureForAppointment(body: UpdatePictureInput | undefined): Observable<string> {
-        let url_ = this.baseUrl + "/api/services/app/Appointments/UpdatePictureForAppointment";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdatePictureForAppointment(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdatePictureForAppointment(<any>response_);
-                } catch (e) {
-                    return <Observable<string>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<string>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdatePictureForAppointment(response: HttpResponseBase): Observable<string> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<string>(<any>null);
-    }
-
-    /**
      * @param imageId (optional) 
      * @return Success
      */
@@ -21003,6 +20947,11 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     appRefNo!: string | undefined;
     checkInDateTime!: DateTime | undefined;
     checkOutDateTime!: DateTime | undefined;
+    fileToken!: string | undefined;
+    x!: number;
+    y!: number;
+    width!: number;
+    height!: number;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -21042,6 +20991,11 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.appRefNo = _data["appRefNo"];
             this.checkInDateTime = _data["checkInDateTime"] ? DateTime.fromISO(_data["checkInDateTime"].toString()) : <any>undefined;
             this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
+            this.fileToken = _data["fileToken"];
+            this.x = _data["x"];
+            this.y = _data["y"];
+            this.width = _data["width"];
+            this.height = _data["height"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -21081,6 +21035,11 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["appRefNo"] = this.appRefNo;
         data["checkInDateTime"] = this.checkInDateTime ? this.checkInDateTime.toString() : <any>undefined;
         data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
+        data["fileToken"] = this.fileToken;
+        data["x"] = this.x;
+        data["y"] = this.y;
+        data["width"] = this.width;
+        data["height"] = this.height;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -21113,6 +21072,11 @@ export interface ICreateOrEditAppointmentDto {
     appRefNo: string | undefined;
     checkInDateTime: DateTime | undefined;
     checkOutDateTime: DateTime | undefined;
+    fileToken: string | undefined;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -34563,58 +34527,6 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
 export interface IUpdateOrganizationUnitInput {
     id: number;
     displayName: string;
-}
-
-export class UpdatePictureInput implements IUpdatePictureInput {
-    fileToken!: string | undefined;
-    x!: number;
-    y!: number;
-    width!: number;
-    height!: number;
-
-    constructor(data?: IUpdatePictureInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.fileToken = _data["fileToken"];
-            this.x = _data["x"];
-            this.y = _data["y"];
-            this.width = _data["width"];
-            this.height = _data["height"];
-        }
-    }
-
-    static fromJS(data: any): UpdatePictureInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdatePictureInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fileToken"] = this.fileToken;
-        data["x"] = this.x;
-        data["y"] = this.y;
-        data["width"] = this.width;
-        data["height"] = this.height;
-        return data; 
-    }
-}
-
-export interface IUpdatePictureInput {
-    fileToken: string | undefined;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
 }
 
 export class UpdateProfilePictureInput implements IUpdateProfilePictureInput {

@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { PortalsServiceProxy, CreateOrEditAppointmentDto, AppointmentsServiceProxy, StatusType, GetAppointmentForViewDto, UpdatePictureInput, AppointmentDto } from '@shared/service-proxies/service-proxies';
+import { PortalsServiceProxy, CreateOrEditAppointmentDto, AppointmentsServiceProxy, StatusType, GetAppointmentForViewDto, AppointmentDto } from '@shared/service-proxies/service-proxies';
 import { IAjaxResponse, TokenService } from 'abp-ng2-module';
 import { DateTime } from 'luxon';
 import { FileItem, FileUploader, FileUploaderOptions } from 'ng2-file-upload';
@@ -24,7 +24,7 @@ import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layo
 @Component({
     selector: 'app-form-wizard',
     templateUrl: './form-wizard.component.html',
-    styleUrls: ['./form-wizard.component.css']
+    styleUrls: ['./form-wizard.component.scss']
 })
 export class FormWizardComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
@@ -126,7 +126,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     imageCroppedFile(event: ImageCroppedEvent) {
         this.uploader.clearQueue();
         this.uploader.addToQueue([<File>base64ToFile(event.base64)]);
-        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadFiles';
+        this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture';
 
         //event for edit
         this.isEditing = false;
@@ -136,7 +136,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
 
     initFileUploader(): void {
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + '/Appointment/UploadAppointmentPicture' });
-        this._uploaderOptions.autoUpload = false;
+        this._uploaderOptions.autoUpload = true;
         this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
         this._uploaderOptions.removeAfterUpload = true;
         this.uploader.onAfterAddingFile = (file) => {
@@ -192,25 +192,24 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
 
     updatePicture(fileToken: string): void {
-        const input = new UpdatePictureInput();
-        input.fileToken = fileToken;
-        input.x = 0;
-        input.y = 0;
-        input.width = 0;
-        input.height = 0;
-        // this.saving = true;
-        this._appointmentsServiceProxy.updatePictureForAppointment(input)
-            .pipe(
-                //tap(result => this.appointment.imageId = result.toString())
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe((result) => {
-                //this.active = true;
-                this.appointment.imageId = result.toString();
-                //abp.event.trigger('pictureChanged');
-            })
+        //const input = new UpdatePictureInput();
+        this.appointment.fileToken = fileToken;
+        this.appointment.x = 0;
+        this.appointment.y = 0;
+        this.appointment.width = 0;
+        this.appointment.height = 0;
+        // this._appointmentsServiceProxy.updatePictureForAppointment(input)
+        //     .pipe(
+        //         //tap(result => this.appointment.imageId = result.toString())
+        //         finalize(() => {
+        //             this.saving = false;
+        //         })
+        //     )
+        //     .subscribe((result) => {
+        //         //this.active = true;
+        //         this.appointment.imageId = result.toString();
+        //         //abp.event.trigger('pictureChanged');
+        //     })
     }
 
     guid(): string {

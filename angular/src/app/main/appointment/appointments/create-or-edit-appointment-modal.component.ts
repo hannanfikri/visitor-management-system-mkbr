@@ -1,6 +1,6 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { finalize, map, switchMap, tap } from 'rxjs/operators';
+import { finalize, map, min, switchMap, tap } from 'rxjs/operators';
 import { AppointmentsServiceProxy, CreateOrEditAppointmentDto, DepartmentDto, GetDepartmentForViewDto, StatusType, } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
@@ -65,6 +65,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     public valueChangeEvents: EventEmitter<string>;
     Tower: any;
     isTower = true;
+    minDate;
+    maxDate;
 
     constructor(
         injector: Injector,
@@ -244,6 +246,9 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     // }
 
     show(appointmentId?: string): void {
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth() + 3);
         this.initializeModal();
         this.modal.show();
         if (!appointmentId) {

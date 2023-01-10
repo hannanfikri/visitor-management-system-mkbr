@@ -91,7 +91,8 @@
                                     *</label>
                                 <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime"
                                     class="form-control" [(ngModel)]="appointment.appDateTime" name="AppDateTime"
-                                    type="datetime-local" required/>
+                                    type="datetime-local"  required
+                                    min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}"/>
                                 <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
                             </div>
 

@@ -85,6 +85,8 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     public pendingValue: string;
     public value!: string;
     public valueChangeEvents: EventEmitter<string>;
+    minDate;
+    maxDate;
 
     //end
 
@@ -283,6 +285,9 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     ngOnInit(appointmentId?: string): void {
         this.getArray();
         this.initializeModal();
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth() + 3);
         //window.location.
     }
     ngAfterViewInit() { }

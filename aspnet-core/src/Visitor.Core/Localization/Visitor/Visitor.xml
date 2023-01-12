@@ -109,6 +109,7 @@
     <text name="CheckOutSuccessfully">Succesfully check out</text>    
     <text name="CheckIn">Check in</text>
     <text name="CheckOut">Check out</text>
+    <text name="OtherPurpose">Other (Please specify)</text>
 
 	  <text name="Department">Department</text>
 	  <text name="Visitor.Department.Department">Department</text>

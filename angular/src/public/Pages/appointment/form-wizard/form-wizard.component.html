@@ -100,7 +100,7 @@
                                 <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
                                 <select #Appointment_Tower="ngModel" id="Appointment_Tower"
                                     (ngModelChange)="onChange($event)" [(ngModel)]="appointment.tower" name="Tower"
-                                    class="form-control">
+                                    class="form-control">                   
                                     <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let t of arrTower">
                                         <option name="Tower" *ngFor="let tower of t"
@@ -170,11 +170,12 @@
                                     required />
                                 <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
                             </div>
-                            <div class="my-3">
+                            <div class="my-3" >
                                 <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }}
                                 </label>
                                 <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
-                                    [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control">
+                                    [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control"
+                                    (ngModelChange)="onClickOther($event)" >
                                     <option value="" disabled selected>Select</option>
                                     <ng-container *ngFor="let p of arrPOV">
                                         <option name="PurposeOfVisit" *ngFor="let POV of p"
@@ -183,8 +184,11 @@
                                     </ng-container>
                                 </select>
                             </div>
-                            <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }}
-                                *</label>
+                            <div class="my-3" *ngIf="!isOther">
+                                <input type="text" nullValue placeholder="{{l('OtherPurpose')}}"
+                                 class="form-control" [(ngModel)]="desc" name="PurposeOfVisit" />
+                            </div>
+                            <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }}*</label>
                             <div class="my-3">
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -212,17 +216,6 @@
                             </div>
                             <button type="button" class="btn btn-secondary" name="upload"
                                 (click)="upload()">Upload</button>
-
-                            <div *ngIf="appointment.id">
-                                <div class="my-3">
-                                    <label class="form-label" for="Appointment_Status">{{ l('Status') }} *</label>
-                                    <select #Appointment_Status="ngModel" id="Appointment_Status"
-                                        [(ngModel)]="appointment.status" name="Status" class="form-control">
-                                        <option [value]="stat" *ngFor="let stat of statusType">
-                                            {{ stat }}</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

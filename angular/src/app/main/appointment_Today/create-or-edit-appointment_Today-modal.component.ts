@@ -59,6 +59,8 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     public valueChangeEvents: EventEmitter<string>;
     Tower: any;
     isTower = true;
+    minDate;
+    maxDate;
 
     constructor(
         injector: Injector,
@@ -163,7 +165,6 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
         this.appointment.y = 0;
         this.appointment.width = 0;
         this.appointment.height = 0;
-        this.saving = true;
     }
 
     guid(): string {
@@ -222,6 +223,9 @@ export class CreateOrEditAppointmentModalComponent extends AppComponentBase impl
     // }
 
     show(appointmentId?: string): void {
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth() + 3);
         this.initializeModal();
         this.modal.show();
         if (!appointmentId) {

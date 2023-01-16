@@ -42,6 +42,7 @@ using Abp.UI;
 using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using Visitor.core.Portal;
 /*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
@@ -59,7 +60,8 @@ namespace Visitor.Appointment
         private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly ProfileImageServiceFactory _profileImageServiceFactory;
         private const int MaxPictureBytes = 5242880; //5MB
-        
+
+        private readonly IPortalEmailer _portalEmailer;
 
 
         public AppointmentsAppService
@@ -73,7 +75,8 @@ namespace Visitor.Appointment
             IRepository<Department, Guid> departmentRepository,
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
-            ProfileImageServiceFactory profileImageServiceFactory
+            ProfileImageServiceFactory profileImageServiceFactory,
+            IPortalEmailer portalEmailer
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -86,7 +89,8 @@ namespace Visitor.Appointment
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
-            
+            _portalEmailer = portalEmailer;
+
 
 
         }
@@ -678,6 +682,7 @@ namespace Visitor.Appointment
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
+
             var pn = input.PhoneNo;
             var ic = input.IdentityCard;
             //input.MobileNumber = "+6" + input.MobileNumber; 
@@ -698,6 +703,11 @@ namespace Visitor.Appointment
 
             byte[] byteArray;
             var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            if (input.Tower == "Tower 1")
+            {
+                input.CompanyName = "Bank Rakyat";
+            }
 
             if (imageBytes == null)
             {
@@ -729,7 +739,7 @@ namespace Visitor.Appointment
             await _binaryObjectManager.SaveAsync(storedFile);
 
             input.ImageId = storedFile.Id.ToString();
-            
+
 
             var checker = true;
             while (checker)
@@ -800,7 +810,20 @@ namespace Visitor.Appointment
             {
 
             }*/
+            var appointmentDetail = await _appointmentRepository.InsertAsync(appointment);
 
+            if (input.Email != null)
+            {
+                try
+                {
+                    await _portalEmailer.SendEmailDetailAppointmentAsync(ObjectMapper.Map<AppointmentEnt>(appointmentDetail));
+                }
+                catch
+                {
+                    //To do 20210815
+                }
+
+            }
         }
 
         [AbpAuthorize(AppPermissions.Pages_Appointments_Edit)]

@@ -26,7 +26,7 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Title">{{ l('Title') }}*</label>
                         <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
-                            name="Title" class="form-control">
+                            name="Title" class="form-control" required>
                             <ng-container *ngFor="let t of arrTitle">
                                 <option name="Title" *ngFor="let tit of t" [ngValue]="tit.title.visitorTitle">
                                     {{tit.title.visitorTitle}}</option>
@@ -48,7 +48,7 @@
                         <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}*</label>
                         <input type="text" #Appointment_IdentityCard="ngModel" id="Appointment_IdentityCard"
                             placeholder="{{l('IdentityCard')}}..." class="form-control"
-                            [(ngModel)]="appointment.identityCard" name="IdentityCard" required />
+                            [(ngModel)]="appointment.identityCard" name="IdentityCard" required minlength="9" maxlength="12"/>
                         <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                     </div>
                 </div>
@@ -57,9 +57,9 @@
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }}*</label>
-                        <input type="text" #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
+                        <input type="tel" #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
                             placeholder="{{l('PhoneNo')}}..." [(ngModel)]="appointment.phoneNo" name="PhoneNo"
-                            required />
+                            required minlength="10" maxlength="11" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]"/>
                         <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                     </div>
                 </div>
@@ -71,7 +71,8 @@
                         <input type="email" placeholder="{{l('EmailAddress')}}..." #Appointment_Email="ngModel"
                             id="Appointment_Email" class="form-control" [(ngModel)]="appointment.email" name="Email"
                             required
-                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
+                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" 
+                            />
                         <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
 
                     </div>
@@ -89,7 +90,8 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}*</label>
                         <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
-                            [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" required />
+                            [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" 
+                            min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}" required/>
                         <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
                     </div>
                 </div>
@@ -120,16 +122,16 @@
                             </ng-container>
                         </select>
                     </div>
-                </div>
-                <div class="modal-body" *ngIf="!isTower">
+                 </div>
+               <div class="modal-body" *ngIf="!isTower">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
                         </label>
-                        <input disabled="true" type="text" #Appointment_CompanyName="ngModel"
+                        <input disabled="true"  type="text" #Appointment_CompanyName="ngModel" value="Bank Rakyat"
                             id="Appointment_CompanyName" class="form-control" [(ngModel)]="appointment.companyName"
-                            value="Bank Rakyat" />
+                             />
                     </div>
-                </div>
+                </div> 
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Department">{{ l('Department') }} </label>
@@ -145,9 +147,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="my-3">
-                        <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
+                        <label class="form-label" for="Appointment_Level">{{ l('Level') }} *</label>
                         <select #Appointment_Level="ngModel" id="Appointment_Level" [(ngModel)]="appointment.level"
-                            name="Level" class="form-control">
+                            name="Level" class="form-control" required p>
                             <ng-container *ngFor="let l of arrLevel">
                                 <option name="Level" *ngFor="let level of l" [value]="level.level.levelBankRakyat">
                                     {{level.level.levelBankRakyat}}
@@ -212,7 +214,7 @@
                             <div class="row">
                                 <div class="col-6 mb-3">
                                     <h6>{{ l('UploadedPicture') }} *:</h6>
-                                    <img [src]="image" required>
+                                    <img [src]="image">
                                 </div>
                             </div>
                         </div>
@@ -220,7 +222,7 @@
                     <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
                         [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
                         (imageCropped)="imageCroppedFile($event)"></image-cropper>
-                    <!-- <button type="button" class="btn btn-primary blue" name="upload" (click)="upload()">Upload</button> -->
+                    <!-- <button type="button" class="btn btn-primary blue" name="upload" >Upload</button> -->
                 </div>
 
                 <!-- <p-fileUpload id="uploadPicture" name="uploadPicture" [url]="uploadUrl"

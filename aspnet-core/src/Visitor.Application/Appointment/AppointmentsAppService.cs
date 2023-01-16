@@ -816,7 +816,7 @@ namespace Visitor.Appointment
             {
                 try
                 {
-                    await _portalEmailer.SendEmailDetailBookingAsync(ObjectMapper.Map<AppointmentEnt>(appointmentDetail));
+                    await _portalEmailer.SendEmailDetailAppointmentAsync(ObjectMapper.Map<AppointmentEnt>(appointmentDetail));
                 }
                 catch
                 {

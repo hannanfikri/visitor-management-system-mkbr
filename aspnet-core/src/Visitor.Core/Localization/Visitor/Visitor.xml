@@ -72,8 +72,8 @@
     <text name="EditLevel">Edit level</text>
     <text name="Deletelevel">Delete level</text>
     <text name="Levels">Levels</text>
-
-
+    
+    <text name="VisitorDetails">Visitor details</text>
 	  <text name="IC"> Identity Card/Passport Number</text>
     <text name="Appointment">Appointment</text>
     <text name="Visitor.Appointment.Appointment">Appointment</text>
@@ -83,6 +83,7 @@
     <text name="DeleteAppointment">Delete appointment</text>
     <text name="Appointments">Appointments</text>
     <text name="IdentityCard">Identity Card/Passport Number</text>
+    <text name="IC/Pas">IC/Passport</text>
     <text name="PhoneNo">Phone number</text>
     <text name="OfficerToMeet">Officer to meet</text>
 	  <text name="VisitorEmail">Email address</text>

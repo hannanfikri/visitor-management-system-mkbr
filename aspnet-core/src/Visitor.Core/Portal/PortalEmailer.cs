@@ -36,17 +36,21 @@ namespace Visitor.core.Portal
             _configurationAccessor = configurationAccessor;
         }
 
-        public async Task SendEmailDetailBookingAsync(AppointmentEnt appointment)
+        public async Task SendEmailDetailAppointmentAsync(AppointmentEnt appointment)
         {
             await CheckMailSettingsEmptyOrNull();
 
-            var emailTemplate = GetTitleAndSubTitle(null, appointment.AppRefNo, L("AppointmentDetail"));
+            var dateTimeInfo = new StringBuilder();
+            dateTimeInfo.AppendLine(L("AppDateTime")+":" + "<br>" );
+            dateTimeInfo.AppendLine(appointment.AppDateTime.ToString("dddd, dd MMMM yyyy ") + " at " + appointment.AppDateTime.ToString("hh:mm tt"));
+
+            var emailTemplate = GetTitleAndSubTitle(null, appointment.AppRefNo, dateTimeInfo);
             var mailMessage = new StringBuilder();
 
             //new
             var visitorInfo = new StringBuilder();
             var appointmentInfo = new StringBuilder();
-            var dateTimeInfo = new StringBuilder();
+            
 
             /*var serviceInfo = new StringBuilder();
             var timeInfo = new StringBuilder();
@@ -54,29 +58,29 @@ namespace Visitor.core.Portal
             var ServiceTranslationDto = service.Translations.FirstOrDefault();*/
 
             visitorInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            visitorInfo.AppendLine(L("VisitorDetails"));
+            visitorInfo.AppendLine(L("VisitorDetails") + ":" );
             visitorInfo.AppendLine("</td>");
 
             visitorInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            visitorInfo.AppendLine(appointment.Title + " " + appointment.FullName + "<br>" + appointment.IdentityCard + "<br>" + appointment.PhoneNo + "<br>" + appointment.Email );
+            visitorInfo.AppendLine(L("VisitorFullName") + " : " + appointment.Title + " " + appointment.FullName + "<br>" + L("IC/Pas") + " : " + appointment.IdentityCard + "<br>" + L("PhoneNo") + " : " + appointment.PhoneNo + "<br>" + L("VisitorEmail") + " : " + appointment.Email);
             visitorInfo.AppendLine("</td>");
 
 
             dateTimeInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            dateTimeInfo.AppendLine(L("Date"));
+            
             dateTimeInfo.AppendLine("</td>");
 
             dateTimeInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            dateTimeInfo.AppendLine(appointment.AppDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"));
+            dateTimeInfo.AppendLine(L("Date") + " : " + appointment.AppDateTime.ToString("dddd, dd MMMM yyyy " ) + "<br>" + L("Time") + " : " + appointment.AppDateTime.ToString("hh:mm tt"));
             dateTimeInfo.AppendLine("</td>");
 
             appointmentInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            appointmentInfo.AppendLine(L("AppointmentDetails"));
+            appointmentInfo.AppendLine(L("AppointmentDetails") + ":");
             appointmentInfo.AppendLine("</td>");
 
             appointmentInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            appointmentInfo.AppendLine(appointment.Tower + "<br>" + appointment.CompanyName + "<br>" + appointment.Department + "<br>"
-            + appointment.Level + "<br>" + appointment.OfficerToMeet + "<br>" + appointment.PurposeOfVisit );
+            appointmentInfo.AppendLine(L("Tower") + " : " + appointment.Tower + "<br>" + L("Company") + " : " + appointment.CompanyName + "<br>" + L("Department") + " : " + appointment.Department + "<br>"
+            + L("Level") + " : " + appointment.Level + "<br>" + L("OfficerToMeet") + " : " + appointment.OfficerToMeet + "<br>" + L("PurposeOfVisit") + " : " + appointment.PurposeOfVisit);
             appointmentInfo.AppendLine("</td>");
 
 
@@ -96,7 +100,7 @@ namespace Visitor.core.Portal
             //e.g. Windows 10 - Full .NET Framework
 
 
-            await ReplaceBodyAndSend(appointment.Email, L("YourBookingDetail"), emailTemplate, mailMessage, visitorInfo,appointmentInfo, dateTimeInfo);
+            await ReplaceBodyAndSend(appointment.Email, L("AppointmentDetails"), emailTemplate, mailMessage, visitorInfo,appointmentInfo, dateTimeInfo);
 
         }
 
@@ -126,11 +130,11 @@ namespace Visitor.core.Portal
                 throw new UserFriendlyException(L("SMTPSettingsNotProvidedWarningText"));
             }
         }
-        private StringBuilder GetTitleAndSubTitle(int? tenantId, string title, string subTitle)
+        private StringBuilder GetTitleAndSubTitle(int? tenantId, string title, StringBuilder dateTimeInfo)
         {
             var emailTemplate = new StringBuilder(_emailTemplateProvider.GetAppointmentEmailTemplate(tenantId));
             emailTemplate.Replace("{EMAIL_TITLE}", title);
-            emailTemplate.Replace("{EMAIL_SUB_TITLE}", subTitle);
+            emailTemplate.Replace("{EMAIL_SUB_TITLE}", dateTimeInfo.ToString());
 
             return emailTemplate;
         }

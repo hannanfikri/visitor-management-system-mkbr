@@ -93,7 +93,7 @@ namespace Visitor
             Configuration.MultiTenancy.IsEnabled = VisitorConsts.MultiTenancyEnabled;
 
             //Enable LDAP authentication 
-            //Configuration.Modules.ZeroLdap().Enable(typeof(AppLdapAuthenticationSource));
+            Configuration.Modules.ZeroLdap().Enable(typeof(AppLdapAuthenticationSource));
 
             //Twilio - Enable this line to activate Twilio SMS integration
             //Configuration.ReplaceService<ISmsSender,TwilioSmsSender>();
@@ -111,7 +111,7 @@ namespace Visitor
             if (DebugHelper.IsDebug)
             {
                 //Disabling email sending in debug mode
-                Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
+                //Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
             }
 
             Configuration.ReplaceService(typeof(IEmailSenderConfiguration), () =>

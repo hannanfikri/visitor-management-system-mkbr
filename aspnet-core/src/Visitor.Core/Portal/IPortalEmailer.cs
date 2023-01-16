@@ -10,6 +10,6 @@ namespace Visitor.core.Portal
 {
     public interface IPortalEmailer
     {
-        Task SendEmailDetailBookingAsync(AppointmentEnt appointment);
+        Task SendEmailDetailAppointmentAsync(AppointmentEnt appointment);
     }
 }

@@ -46,8 +46,8 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     //   [{ level: { levelBankRakyat: 'option2' } }],
     //   [{ level: { levelBankRakyat: 'option3' } }]
     // ];
-    
-    
+
+
 
     public uploader: FileUploader;
     public temporaryPictureUrl: string;
@@ -79,12 +79,17 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     r: any;
     Tower: any;
     isTower = true;
+    PurposeOfVisit: any;
+    isOther = true;
     detailItems: any[] = [{ title: 'user01', name: "user01" }, { title: 'user02', name: 'user02' }];
     //event for edit
     public isEditing: boolean;
     public pendingValue: string;
     public value!: string;
     public valueChangeEvents: EventEmitter<string>;
+    minDate;
+    maxDate;
+    desc;
 
     //end
 
@@ -245,6 +250,10 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
 
     save(): void {
+
+        if (this.appointment.purposeOfVisit == "Other")
+            this.appointment.purposeOfVisit = this.appointment.purposeOfVisit + " : " + this.desc;
+
         this.saving = true;
         this._portalAppService
             .createOrEdit(this.appointment)
@@ -283,6 +292,9 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     ngOnInit(appointmentId?: string): void {
         this.getArray();
         this.initializeModal();
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth() + 3);
         //window.location.
     }
     ngAfterViewInit() { }
@@ -296,13 +308,19 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         this._router.navigateByUrl('/appointment-details');
     }
 
-    onChange(getValueTower) 
-    {
+    onChange(getValueTower) {
         this.Tower = getValueTower;
         if (this.Tower == "Tower 1")
             this.isTower = false;
         else
-        this.isTower = true;
+            this.isTower = true;
     }
-    
+    onClickOther(other) {
+        this.PurposeOfVisit = other;
+        if (this.PurposeOfVisit == "Other")
+            this.isOther = false;
+        else
+            this.isTower = true;
+    }
+
 }

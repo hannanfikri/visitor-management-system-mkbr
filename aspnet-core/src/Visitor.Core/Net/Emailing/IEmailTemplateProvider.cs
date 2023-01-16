@@ -3,5 +3,6 @@
     public interface IEmailTemplateProvider
     {
         string GetDefaultTemplate(int? tenantId);
+        string GetAppointmentEmailTemplate(int? tenantId);
     }
 }

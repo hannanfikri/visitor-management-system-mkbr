@@ -90,7 +90,8 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}*</label>
                         <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
-                            [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local"  required/>
+                            [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" 
+                            min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}" required/>
                         <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
                     </div>
                 </div>

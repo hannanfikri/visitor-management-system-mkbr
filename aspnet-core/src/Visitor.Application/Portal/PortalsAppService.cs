@@ -36,8 +36,10 @@ using SixLabors.ImageSharp.Formats;
 using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using Visitor.core.Portal;
+using Stripe;
 
-namespace CMS.Portal
+namespace Visitor.Portal
 {
     public class PortalsAppService : VisitorAppServiceBase, IPortalAppServices
     {
@@ -53,6 +55,8 @@ namespace CMS.Portal
         private readonly IBinaryObjectManager _binaryObjectManager;
         private const int MaxPictureBytes = 5242880; //5MB
 
+        private readonly IPortalEmailer _portalEmailer;
+
         public PortalsAppService
 
             (IRepository<AppointmentEnt, Guid> appointmentRepository,
@@ -64,7 +68,8 @@ namespace CMS.Portal
             IRepository<Department, Guid> departmentRepository,
             IUnitOfWorkManager unitOfWorkManager,
             ITempFileCacheManager tempFileCacheManager,
-            IBinaryObjectManager binaryObjectManager
+            IBinaryObjectManager binaryObjectManager,
+            IPortalEmailer portalEmailer
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -77,6 +82,7 @@ namespace CMS.Portal
             _unitOfWorkManager = unitOfWorkManager;
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
+            _portalEmailer = portalEmailer;
         }
         public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input)
         {
@@ -179,6 +185,22 @@ namespace CMS.Portal
             };
 
             var appointment = ObjectMapper.Map<AppointmentEnt>(input);
+
+            var appointmentDetail = await _appointmentRepository.InsertAsync(appointment);
+
+            if (input.Email != null)
+            {
+                try
+                {
+                    await _portalEmailer.SendEmailDetailAppointmentAsync(ObjectMapper.Map<AppointmentEnt>(appointmentDetail));
+                }
+                catch
+                {
+                    //To do 20210815
+                }
+
+            }
+
             var appId = await _appointmentRepository.InsertAndGetIdAsync(appointment);
             return appId;
 

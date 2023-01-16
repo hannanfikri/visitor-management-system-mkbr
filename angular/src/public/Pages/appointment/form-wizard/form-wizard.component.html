@@ -47,7 +47,8 @@
                             <div>
                                 <input type="text" placeholder="e.g. 112233445566" #Appointment_IdentityCard="ngModel"
                                     id="Appointment_IdentityCard" class="form-control"
-                                    [(ngModel)]="appointment.identityCard" name="IdentityCard" required />
+                                    [(ngModel)]="appointment.identityCard" name="IdentityCard" minlength="9"
+                                    maxlength="12" required />
                                 <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                             </div>
                         </div>
@@ -58,7 +59,8 @@
                             <div>
                                 <input type="text" placeholder="e.g. 0123456789" #Appointment_PhoneNo="ngModel"
                                     id="Appointment_PhoneNo" class="form-control" [(ngModel)]="appointment.phoneNo"
-                                    name="PhoneNo" required />
+                                    name="PhoneNo" minlength="10" maxlength="11"
+                                    pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]" required />
                                 <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                             </div>
                         </div>
@@ -86,7 +88,9 @@
                                 <div class="text-danger" style="display: inline;"> *</div>
                             </label>
                             <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
-                                [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" />
+                                [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local"
+                                min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}"
+                                required />
                             <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
                         </div>
 
@@ -102,9 +106,10 @@
                                     </option>
                                 </ng-container>
                             </select> -->
-                            <p-dropdown #Appointment_Tower="ngModel" id="Appointment_Tower" [options]="arrayTowerString" [(ngModel)]="appointment.tower"
-                                placeholder="Select a Tower" optionLabel="towerBankRakyat" optionValue="towerBankRakyat"
-                                [showClear]="true" class="form_control" name="Tower"></p-dropdown>
+                            <p-dropdown #Appointment_Tower="ngModel" id="Appointment_Tower" [options]="arrayTowerString"
+                                [(ngModel)]="appointment.tower" placeholder="Select a Tower"
+                                optionLabel="towerBankRakyat" optionValue="towerBankRakyat" [showClear]="true"
+                                class="form_control" name="Tower"></p-dropdown>
                         </div>
 
                         <div class="my-3">
@@ -233,7 +238,9 @@
                                         {{POV.purposeOfVisit.purposeOfVisitApp}}</option>
                                 </ng-container>
                             </select> -->
-                            <p-dropdown #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit" [options]="arrayPOVString" [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control" [editable]="true"
+                            <p-dropdown #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
+                                [options]="arrayPOVString" [(ngModel)]="appointment.purposeOfVisit"
+                                name="PurposeOfVisit" class="form-control" [editable]="true"
                                 optionLabel="purposeOfVisitApp" optionValue="purposeOfVisitApp"></p-dropdown>
                         </div>
                         <div class="my-3">

@@ -1,5 +1,5 @@
-#PortalComponent > app-portaltheme,
-#PortalComponent > app-portaltheme > div {
+#PortalComponent > app-PortalTheme,
+#PortalComponent > app-PortalTheme > div {
     display: flex;
     flex: 1;
     flex-direction: column;

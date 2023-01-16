@@ -4,11 +4,11 @@
     align-content: center;
     height: auto;
     // padding: 0 12px;
-    
+
     .header-top {
         background-color: #025ea7;
         // width: 100%;
-        
+
     }
 
     .language-option {
@@ -147,7 +147,30 @@
             }
         }
 
-        // a img {
-        // }
+        a img {
+        }
+    }
+}
+
+#kt_header_mobile {
+    background-color: #025ea7;
+    .triangle-left {
+        content: "";
+        width: 0px;
+        height: 0px !important;
+        border-bottom: 4.5rem solid #e86724;
+        border-left: 1.7rem solid transparent;
+    }
+
+    .triangle-right {
+        content: "";
+        width: 0px;
+        height: 0px !important;
+        border-top: 4.6rem solid #e86724;
+        border-right: 1.7rem solid transparent;
+    }
+
+    .btn+.btn {
+        margin-left: 0px;
     }
 }

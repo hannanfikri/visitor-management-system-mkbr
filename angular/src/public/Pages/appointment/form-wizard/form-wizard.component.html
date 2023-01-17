@@ -1,240 +1,294 @@
-<div>
-    <div class="default-layout-page">
-        <!-- <div class="card card-custom bg-custom-2"> -->
-        <fieldset>
-            <form #appointmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
-
-                <legend>
-                    <!-- <div class="card-header">
-                        
-                        <div class="card-title">
-                            {{ l('CreateNewAppointment') }}
+<div class="container mt-3 mb-3">
+    <!-- <div class="card card-custom bg-custom-2"> -->
+    <form #appointmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="card card-custom bg-custom-1">
+            <div class="card-header border-1">
+                <div class="card-title">
+                    <p class="text-center fs-1 fw-bolder">Create A New Appointment</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="container-lg mt-3">
+                    <p class="text-center fs-2 fw-bold">Visitor Details</p>
+                </div>
+                <hr class="hr hr-blurry" />
+                <div class="d-flex flex-column p-2">
+                    <div class="side_to_side">
+                        <div class="my-3" style="flex-grow: 1;">
+                            <label class="form-label" for="Appointment_Title">{{ l('VisitorTitle') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
+                                name="Title" class="form-control">
+                                <option value="" disabled selected>Select</option>
+                                <ng-container *ngFor="let t of arrTitle">
+                                    <option name="Title" *ngFor="let tit of t" [ngValue]="tit.title.visitorTitle">
+                                        {{tit.title.visitorTitle}}</option>
+                                </ng-container>
+                            </select>
                         </div>
-                        
-                    </div> -->
-                    Create New Appointment
-                </legend>
-
-                <div class="card-body">
-                    <div class="card card-custom bg-custom-1">
-                        <div class="card-header border-1">
-                            <div class="card-title">
-                                <h4>Visitor Details</h4>
-                            </div>
-                        </div>
-                        <div class="card-appointment-details">
-                            <div class="card-body">
-                                <div class="input-flex">
-
-                                    <label class="form-label" for="Appointment_Title">{{ l('VisitorTitle') }}
-                                        *</label>
-                                    <select #Appointment_Title="ngModel" id="Appointment_Title"
-                                        [(ngModel)]="appointment.title" name="Title" class="form-control" required>
-                                        <option value="" disabled selected>Select</option>
-                                        <ng-container *ngFor="let t of arrTitle">
-                                            <option name="Title" *ngFor="let tit of t"
-                                                [ngValue]="tit.title.visitorTitle">
-                                                {{tit.title.visitorTitle}}</option>
-                                        </ng-container>
-                                    </select>
-
-                                    <label class="form-label" for="Appointment_FullName">{{ l('VisitorFullName') }}
-                                        *</label>
-                                    <input type="text" placeholder="{{l('FullName')}}..."
-                                        #Appointment_FullName="ngModel" id="Appointment_FullName" class="form-control"
-                                        [(ngModel)]="appointment.fullName" name="FullName" required />
-                                    <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
-
-                                </div>
-                                <div class="my-3">
-                                    <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}
-                                        *</label>
-                                    <input type="text" placeholder="{{l('IC')}}..." #Appointment_IdentityCard="ngModel"
-                                        id="Appointment_IdentityCard" class="form-control"
-                                        [(ngModel)]="appointment.identityCard" name="IdentityCard" required minlength="9" maxlength="12" />
-                                    <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
-                                </div>
-                                <div class="my-3">
-                                    <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }} *</label>
-                                    <input type="text" placeholder="{{l('PhoneNumber')}}..."
-                                        #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
-                                        [(ngModel)]="appointment.phoneNo" name="PhoneNo" 
-                                        required minlength="10" maxlength="11" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]" />
-                                    <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
-                                </div>
-                                <div class="my-3">
-                                    <label class="form-label" for="Appointment_Email">{{ l('VisitorEmail') }}
-                                        *</label>
-                                    <input type="email" placeholder="{{l('EmailAddress')}}..."
-                                        #Appointment_Email="ngModel" id="Appointment_Email" class="form-control"
-                                        [(ngModel)]="appointment.email" name="Email" 
-                                        pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" required />
-                                    <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
-
-                                </div>
+                        <div class="my-3" style="flex-grow: 6;">
+                            <label class="form-label" for="Appointment_FullName">{{ l('VisitorFullName') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="text" placeholder="Please enter your full name"
+                                    #Appointment_FullName="ngModel" id="Appointment_FullName" class="form-control"
+                                    [(ngModel)]="appointment.fullName" name="FullName" required style="flex-grow: 1;" />
+                                <validation-messages [formCtrl]="Appointment_FullName"></validation-messages>
                             </div>
                         </div>
                     </div>
-                    <div class="space-between-card-form"></div>
-                    <div class="card card-custom bg-custom-1">
-                        <div class="card-header border-1">
-                            <div class="card-title">
-                                <h4>Appointment Details</h4>
+                    <div class="side_normal">
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="text" placeholder="e.g. 112233445566" #Appointment_IdentityCard="ngModel"
+                                    id="Appointment_IdentityCard" class="form-control"
+                                    [(ngModel)]="appointment.identityCard" name="IdentityCard" minlength="9"
+                                    maxlength="12" required />
+                                <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                             </div>
                         </div>
-                        <div class="card-body">
-
-
-
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}
-                                    *</label>
-                                <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime"
-                                    class="form-control" [(ngModel)]="appointment.appDateTime" name="AppDateTime"
-                                    type="datetime-local"  required
-                                    min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}"/>
-                                <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="text" placeholder="e.g. 0123456789" #Appointment_PhoneNo="ngModel"
+                                    id="Appointment_PhoneNo" class="form-control" [(ngModel)]="appointment.phoneNo"
+                                    name="PhoneNo" minlength="10" maxlength="11"
+                                    pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]" required />
+                                <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                             </div>
-
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
-                                <select #Appointment_Tower="ngModel" id="Appointment_Tower"
-                                    (ngModelChange)="onChange($event)" [(ngModel)]="appointment.tower" name="Tower"
-                                    class="form-control">                   
-                                    <option value="" disabled selected>Select</option>
-                                    <ng-container *ngFor="let t of arrTower">
-                                        <option name="Tower" *ngFor="let tower of t"
-                                            [value]="tower.tower.towerBankRakyat">
-                                            {{tower.tower.towerBankRakyat}}
-                                        </option>
-                                    </ng-container>
-                                </select>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_Email">{{ l('VisitorEmail') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="email" placeholder="e.g. example@gmail.com" #Appointment_Email="ngModel"
+                                    id="Appointment_Email" class="form-control" [(ngModel)]="appointment.email"
+                                    name="Email" required
+                                    pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
+                                <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
                             </div>
+                        </div>
+                    </div>
+                    <div class="container-lg mt-10">
+                        <p class="text-center fs-2 fw-bold">Appointment Details</p>
+                    </div>
+                    <hr class="hr hr-blurry" />
 
-                            <div class="my-3" *ngIf="isTower">
-                                <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
-                                </label>
-                                <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
-                                    [(ngModel)]="appointment.companyName" name="CompanyName" class="form-control">
-                                    <option value="" disabled selected>Select</option>
-                                    <ng-container *ngFor="let c of arrCompany">
-                                        <option name="CompanyName" *ngFor="let comp of c"
-                                            [ngValue]="comp.company.companyName">
-                                            {{comp.company.companyName}}</option>
-                                    </ng-container>
-                                </select>
-                            </div>
-                            <div class="my-3" *ngIf="!isTower">
-                                <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
-                                </label>
-                                <input disabled="true" type="text" #Appointment_CompanyName="ngModel"
-                                    id="Appointment_CompanyName" class="form-control"
-                                    [(ngModel)]="appointment.companyName" value="Bank Rakyat" />
-                            </div>
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_Department">{{ l('Department') }}
-                                </label>
-                                <select #Appointment_Department="ngModel" id="Appointment_Department"
-                                    [(ngModel)]="appointment.department" name="Department" class="form-control">
-                                    <option value="" disabled selected>Select</option>
-                                    <ng-container *ngFor="let d of arrDepartment">
-                                        <option name="Department" *ngFor="let dep of d"
-                                            [ngValue]="dep.department.departmentName">
-                                            {{dep.department.departmentName}}
-                                        </option>
-                                    </ng-container>
-                                </select>
-                            </div>
+                    <div class="side_normal">
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
+                                [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local"
+                                min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}"
+                                required />
+                            <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+                        </div>
 
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_Level">{{ l('Level') }} </label>
-                                <select #Appointment_Level="ngModel" id="Appointment_Level"
-                                    [(ngModel)]="appointment.level" name="Level" class="form-control" required>
-                                    <option value="" disabled selected>Select</option>
-                                    <ng-container *ngFor="let l of arrLevel">
-                                        <option name="Level" *ngFor="let level of l"
-                                            [value]="level.level.levelBankRakyat">
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_Tower">{{ l('Tower') }} </label>
+                            <!-- <select #Appointment_Tower="ngModel" id="Appointment_Tower"
+                                (ngModelChange)="onChange($event)" [(ngModel)]="appointment.tower" name="Tower"
+                                class="form-control">
+                                <option value="" disabled selected>Select</option>
+                                <ng-container *ngFor="let t of arrTower">
+                                    <option name="Tower" *ngFor="let tower of t" [value]="tower.tower.towerBankRakyat">
+                                        {{tower.tower.towerBankRakyat}}
+                                    </option>
+                                </ng-container>
+                            </select> -->
+                            <p-dropdown #Appointment_Tower="ngModel" id="Appointment_Tower" [options]="arrayTowerString"
+                                [(ngModel)]="appointment.tower" placeholder="Select a Tower"
+                                optionLabel="towerBankRakyat" optionValue="towerBankRakyat" [showClear]="true"
+                                class="form_control" name="Tower"></p-dropdown>
+                        </div>
 
-                                            {{level.level.levelBankRakyat}}
-                                        </option>
-                                    </ng-container>
-                                </select>
-                            </div>
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
+                            </label>
+                            <!-- <select #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
+                                [(ngModel)]="appointment.companyName" name="CompanyName" class="form-control">
+                                <option value="" disabled selected>Select</option>
+                                <ng-container *ngFor="let c of arrCompany">
+                                    <option name="CompanyName" *ngFor="let comp of c"
+                                        [ngValue]="comp.company.companyName">
+                                        {{comp.company.companyName}}</option>
+                                </ng-container>
+                            </select> -->
+                            <p-dropdown #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
+                                name="CompanyName" [options]="arrayCompanyString" [(ngModel)]="appointment.companyName"
+                                optionValue="companyName" optionLabel="companyName" [filter]="true"
+                                filterBy="companyName" [showClear]="true" placeholder="Select a Company"
+                                class="form-control">
+                                <!-- <ng-template pTemplate="selectedItem">
+                                    <div class="department-item department-item-value" *ngIf="selectedDepartment">
+                                        <div>{{selectedDepartment}}</div>
+                                    </div>
+                                </ng-template> -->
+                                <ng-template let-company pTemplate="item">
+                                    <div class="company-item">
+                                        <div>{{company.companyName}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                        <!-- <div class="my-3" *ngIf="!isTower">
+                            <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
+                            </label>
+                            <input disabled="true" type="text" 
+                                    #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
+                                    class="form-control" [(ngModel)]="appointment.companyName" value= "Bank Rakyat" />
+                        </div> -->
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_Department">{{ l('Department') }}
+                            </label>
+                            <!-- <select #Appointment_Department="ngModel" id="Appointment_Department"
+                                [(ngModel)]="appointment.department" name="Department" class="form-control">
+                                <option value="" disabled selected>Select</option>
+                                <ng-container *ngFor="let d of arrDepartment">
+                                    <option name="Department" *ngFor="let dep of d"
+                                        [ngValue]="dep.department.departmentName">
+                                        {{dep.department.departmentName}}
+                                    </option>
+                                </ng-container>
+                            </select> -->
 
-                            <div class="my-3">
-                                <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }}
-                                </label>
-                                <input type="text" placeholder="{{l('OfficerToMeet')}}..."
+
+                            <p-dropdown #Appointment_Department="ngModel" id="Appointment_Department" name="Department"
+                                [options]="arrayDepartmentString" [(ngModel)]="appointment.department"
+                                optionValue="departmentName" optionLabel="departmentName" [filter]="true"
+                                filterBy="departmentName" [showClear]="true" placeholder="Select a Department"
+                                class="form-control">
+                                <!-- <ng-template pTemplate="selectedItem">
+                                    <div class="department-item department-item-value" *ngIf="selectedDepartment">
+                                        <div>{{selectedDepartment}}</div>
+                                    </div>
+                                </ng-template> -->
+                                <ng-template let-department pTemplate="item">
+                                    <div class="department-item">
+                                        <div>{{department.departmentName}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+
+                        </div>
+
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_Level">{{ l('Level') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <!-- <select #Appointment_Level="ngModel" id="Appointment_Level" [(ngModel)]="appointment.level"
+                                name="Level" class="form-control">
+                                <option value="" disabled selected>Select</option>
+                                <ng-container *ngFor="let l of arrLevel">
+                                    <option name="Level" *ngFor="let level of l" [value]="level.level.levelBankRakyat">
+
+                                        {{level.level.levelBankRakyat}}
+                                    </option>
+                                </ng-container>
+                            </select> -->
+                            <p-dropdown #Appointment_Level="ngModel" id="Appointment_Level" name="Level"
+                                [options]="arrayLevelString" [(ngModel)]="appointment.level"
+                                optionValue="levelBankRakyat" optionLabel="levelBankRakyat" [filter]="true"
+                                filterBy="levelBankRakyat" [showClear]="true" placeholder="Select a Level"
+                                class="form-control">
+                                <!-- <ng-template pTemplate="selectedItem">
+                                    <div class="department-item department-item-value" *ngIf="selectedDepartment">
+                                        <div>{{selectedDepartment}}</div>
+                                    </div>
+                                </ng-template> -->
+                                <ng-template let-level pTemplate="item">
+                                    <div class="level-item">
+                                        <div>{{level.levelBankRakyat}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_OfficerToMeet">{{ l('OfficerToMeet') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="text" placeholder="Please enter the officer's name"
                                     #Appointment_OfficerToMeet="ngModel" id="Appointment_OfficerToMeet"
                                     class="form-control" [(ngModel)]="appointment.officerToMeet" name="OfficerToMeet"
                                     required />
                                 <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
                             </div>
-                            <div class="my-3" >
-                                <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }}
-                                </label>
-                                <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
-                                    [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control"
-                                    (ngModelChange)="onClickOther($event)" >
-                                    <option value="" disabled selected>Select</option>
-                                    <ng-container *ngFor="let p of arrPOV">
-                                        <option name="PurposeOfVisit" *ngFor="let POV of p"
-                                            [ngValue]="POV.purposeOfVisit.purposeOfVisitApp">
-                                            {{POV.purposeOfVisit.purposeOfVisitApp}}</option>
-                                    </ng-container>
-                                </select>
-                            </div>
-                            <div class="my-3" *ngIf="!isOther">
-                                <input type="text" nullValue placeholder="{{l('OtherPurpose')}}"
-                                 class="form-control" [(ngModel)]="desc" name="PurposeOfVisit" />
-                            </div>
-                            <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }}*</label>
-                            <div class="my-3">
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" id="uploadPicture" name="uploadPicture"
-                                            (change)="fileChangeEvent($event)" required /> <label
-                                            class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
-                                            <!-- {{ 'ChooseAFile' | localize }} --> </label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div *ngIf="appointment.imageId">
-                                    <!-- display when appointment.imageId is not null -->
-                                    <div class="row">
-                                        <div class="col-6 mb-3">
-                                            <h6>{{ l('UploadedPicture') }} *:</h6>
-                                            <img [src]="image" required>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }}
+                            </label>
+                            <!-- <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
+                                [(ngModel)]="appointment.purposeOfVisit" name="PurposeOfVisit" class="form-control">
+                                <option value="" disabled selected>Select</option>
+                                <ng-container *ngFor="let p of arrPOV">
+                                    <option name="PurposeOfVisit" *ngFor="let POV of p"
+                                        [ngValue]="POV.purposeOfVisit.purposeOfVisitApp">
+                                        {{POV.purposeOfVisit.purposeOfVisitApp}}</option>
+                                </ng-container>
+                            </select> -->
+                            <p-dropdown #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
+                                [options]="arrayPOVString" [(ngModel)]="appointment.purposeOfVisit"
+                                name="PurposeOfVisit" class="form-control" [editable]="true"
+                                optionLabel="purposeOfVisitApp" optionValue="purposeOfVisitApp"></p-dropdown>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="uploadPicture" name="uploadPicture"
+                                        (change)="fileChangeEvent($event)" required /> <label class="custom-file-label"
+                                        #uploadPictureInputLabel for="uploadPicture">
+                                        <!-- {{ 'ChooseAFile' | localize }} --> </label>
                                 </div>
                             </div>
-                            <div *ngIf="uploadedFile">
-                                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                                    [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
-                                    (imageCropped)="imageCroppedFile($event)"></image-cropper>
+                            <br>
+                            <div *ngIf="appointment.imageId">
+                                <!-- display when appointment.imageId is not null -->
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <h6>{{ l('UploadedPicture') }} *:</h6>
+                                        <img [src]="image" required>
+                                    </div>
+                                </div>
                             </div>
-                            <button type="button" class="btn btn-secondary" name="upload"
-                                (click)="upload()">Upload</button>
+                        </div>
+                        <div *ngIf="uploadedFile">
+                            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                [aspectRatio]="4 / 4" [resizeToWidth]="128" format="png"
+                                (imageCropped)="imageCroppedFile($event)"></image-cropper>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button type="reset" class="btn btn-light-danger font-weight-bold mr-2">
-                        <i class="
-                        flaticon-exclamation-1"></i>
-                        <span>{{ l('Reset') }}</span>
-                    </button>
-                    <button type="submit" class="btn btn-light-primary blue font-weight-bold mr-2"
-                        [disabled]="!appointmentForm.form.valid || !Appointment_Email.valid" [buttonBusy]="saving"
-                        [busyText]="l('SavingWithThreeDot')">
-                        <i class="fa fa-save"></i>
-                        <span>{{ l('Submit') }}</span>
-                    </button>
-                </div>
-
-            </form>
-        </fieldset>
-        <!-- </div> -->
-    </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button type="reset" class="btn btn-light-danger font-weight-bold mr-2">
+                    <i class="
+                    flaticon-exclamation-1"></i>
+                    <span>{{ l('Reset') }}</span>
+                </button>
+                <button type="submit" class="btn btn-light-primary blue font-weight-bold mr-2"
+                    [disabled]="!appointmentForm.form.valid || !Appointment_Email.valid" [buttonBusy]="saving"
+                    [busyText]="l('SavingWithThreeDot')">
+                    <i class="fa fa-save"></i>
+                    <span>{{ l('Submit') }}</span>
+                </button>
+            </div>
+        </div>
+        <!-- <div class="space-between-card-form"></div> -->
+    </form>
+    <!-- </div> -->
 </div>

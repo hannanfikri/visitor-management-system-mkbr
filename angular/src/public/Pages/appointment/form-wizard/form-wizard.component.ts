@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { PortalsServiceProxy, CreateOrEditAppointmentDto, AppointmentsServiceProxy, StatusType, GetAppointmentForViewDto, AppointmentDto } from '@shared/service-proxies/service-proxies';
+import { PortalsServiceProxy, CreateOrEditAppointmentDto, AppointmentsServiceProxy, StatusType, GetAppointmentForViewDto, AppointmentDto, DepartmentDto, GetDepartmentForViewDto } from '@shared/service-proxies/service-proxies';
 import { IAjaxResponse, TokenService } from 'abp-ng2-module';
 import { DateTime } from 'luxon';
 import { FileItem, FileUploader, FileUploaderOptions } from 'ng2-file-upload';
@@ -17,8 +17,7 @@ import { finalize } from 'rxjs/operators';
 import { ViewDetailsComponent } from '../view-details/view-details.component';
 import { pluck } from 'rxjs/operators';
 import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layout-base.component';
-
-
+import { ConvertToArrayOfStringsService } from 'public/services/convert-to-array-of-strings.service'
 
 
 @Component({
@@ -49,6 +48,8 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
 
 
 
+
+
     public uploader: FileUploader;
     public temporaryPictureUrl: string;
     public maxPictureBytesUserFriendlyValue = 5;
@@ -72,6 +73,25 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     arrLevel: Array<any> = [];
     arrCompany: Array<any> = [];
     arrDepartment: Array<any> = [];
+
+    // getdepartment: GetDepartmentForViewDto = new GetDepartmentForViewDto;
+    // department: DepartmentDto = new DepartmentDto;
+    arrayDepartmentString: Array<any> = [];
+    arrayCompanyString: Array<any> = [];
+    arrayLevelString: Array<any> = [];
+    arrayTowerString: Array<any> = [];
+    arrayPOVString: Array<any> = [];
+
+
+    flatArrayDepartment: Array<string> = [];
+    
+    selectedDepartment: string;
+    
+    arrTest: Array<any> = [
+        { name: 'Australia', code: 'AU' },
+        { name: 'Brazil', code: 'BR' },
+    ];
+
     fv: string = "0x0A";
     myDefaultValue: number = 1;
     sampleDateTime: DateTime;
@@ -101,7 +121,8 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _tokenService: TokenService,
         private _reCaptchaV3Service: ReCaptchaV3Service, private router: Router,
-        private _passService: PassService) {
+        private _passService: PassService,
+        private _arrayService: ConvertToArrayOfStringsService) {
         super(injector);
 
         //event for edit
@@ -286,7 +307,49 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                     this.arrLevel.push(valueLevel),
                     this.arrCompany.push(valueCompany),
                     this.arrDepartment.push(valueDepartment);
+                this.convertToArrayString();
             })
+    }
+
+    convertToArrayString(): void {
+        // this.arrayDepartmentString = this._arrayService.getArrayString(this.arrDepartment);
+        // for (var i = 0; i < this.arrDepartment.length; i++) {
+        //     this.arrDepartment.map((res, i) => this.arrayDepartmentString.push(res[i].department.departmentName));
+        // }
+        
+        this.arrDepartment.map((res) => {
+            res.map((result) => {
+                this.arrayDepartmentString.push(result.department);
+            })
+        });
+
+        this.arrCompany.map((res) => {
+            res.map((result) => {
+                this.arrayCompanyString.push(result.company);
+            })
+        });
+
+        this.arrLevel.map((res) => {
+            res.map((result) => {
+                this.arrayLevelString.push(result.level);
+            })
+        });
+
+        this.arrTower.map((res) => {
+            res.map((result) => {
+                this.arrayTowerString.push(result.tower);
+            })
+        });
+
+        this.arrPOV.map((res) => {
+            res.map((result) => {
+                this.arrayPOVString.push(result.purposeOfVisit);
+            })
+        });
+
+        // this.flatArrayDepartment = this.arrayDepartmentString.flat();
+        console.log(this.arrayTowerString);
+        // this.arrayDepartmentString.push(this.arrDepartment);
     }
 
     ngOnInit(appointmentId?: string): void {
@@ -297,28 +360,22 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         this.maxDate.setMonth(this.maxDate.getMonth() + 3);
         //window.location.
     }
-    ngAfterViewInit() { }
+    ngAfterViewInit() {
+    }
 
 
-    ngOnDestroy() { }
+    ngOnDestroy() {
+    }
 
     cancel() { }
 
     viewDetails() {
         this._router.navigateByUrl('/appointment-details');
     }
-
     onChange(getValueTower) {
         this.Tower = getValueTower;
         if (this.Tower == "Tower 1")
             this.isTower = false;
-        else
-            this.isTower = true;
-    }
-    onClickOther(other) {
-        this.PurposeOfVisit = other;
-        if (this.PurposeOfVisit == "Other")
-            this.isOther = false;
         else
             this.isTower = true;
     }

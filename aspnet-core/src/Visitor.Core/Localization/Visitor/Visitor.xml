@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+
+<text name="TermsConditions">Terms &#38; Conditions</text>
+<text name="Disclaimer">Disclaimer</text>
+<text name="PrivacyPolicy">Privacy Policy</text>
+<text name="SecurityPolicy">Security Policy</text>
+<text name="CustomerService">Customer Service</text>
+
 <text name="RefNo">Referral Number</text>
     <text name="Company">Company</text>
     <text name="Visitor.Company.Company">Company</text>
@@ -82,13 +89,13 @@
     <text name="EditAppointment">Edit appointment</text>
     <text name="DeleteAppointment">Delete appointment</text>
     <text name="Appointments">Appointments</text>
-    <text name="IdentityCard">Identity Card/Passport Number</text>
-    <text name="IC/Pas">IC/Passport</text>
+    <text name="IdentityCard">Identity card/No. Passport</text>
     <text name="PhoneNo">Phone number</text>
+    <text name="IC/Pas">IC/Passport</text>
     <text name="OfficerToMeet">Officer to meet</text>
+	  <text name="VisitorFullName">Full name</text>
 	  <text name="VisitorEmail">Email address</text>
 	  <text name="VisitorTitle">Title</text>
-	  <text name="VisitorFullName">Full name</text>
     <text name="AppRefNo">Visitor's Referral Number</text> 
     <text name="AppDateTime">Appointment's date and time</text>
 	  <text name="MinAppDateTimeFilter">Appointment's date and time</text>

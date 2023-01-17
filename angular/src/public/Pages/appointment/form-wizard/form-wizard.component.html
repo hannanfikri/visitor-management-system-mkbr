@@ -18,14 +18,17 @@
                             <label class="form-label" for="Appointment_Title">{{ l('VisitorTitle') }}
                                 <div class="text-danger" style="display: inline;"> *</div>
                             </label>
-                            <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
+                            <!-- <select #Appointment_Title="ngModel" id="Appointment_Title" [(ngModel)]="appointment.title"
                                 name="Title" class="form-control">
                                 <option value="" disabled selected>Select</option>
                                 <ng-container *ngFor="let t of arrTitle">
                                     <option name="Title" *ngFor="let tit of t" [ngValue]="tit.title.visitorTitle">
                                         {{tit.title.visitorTitle}}</option>
                                 </ng-container>
-                            </select>
+                            </select> -->
+                            <p-dropdown #Appointment_Title="ngModel" id="Appointment_Title" [options]="arrayTitleString"
+                                [(ngModel)]="appointment.title" placeholder="Select a Title" optionLabel="visitorTitle"
+                                optionValue="visitorTitle" [showClear]="true" name="Title" style="focus:true"></p-dropdown>
                         </div>
                         <div class="my-3" style="flex-grow: 6;">
                             <label class="form-label" for="Appointment_FullName">{{ l('VisitorFullName') }}
@@ -87,11 +90,13 @@
                             <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}
                                 <div class="text-danger" style="display: inline;"> *</div>
                             </label>
-                            <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
-                                [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local"
-                                min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}"
-                                required />
-                            <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+                            <div>
+                                <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime"
+                                    class="form-control" [(ngModel)]="appointment.appDateTime" name="AppDateTime"
+                                    type="datetime-local" min="{{minDate | date:'yyyy-MM-ddT00:00'}}"
+                                    max="{{maxDate | date:'yyyy-MM-ddT00:00'}}" required />
+                                <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
+                            </div>
                         </div>
 
                         <div class="my-3">
@@ -106,10 +111,12 @@
                                     </option>
                                 </ng-container>
                             </select> -->
-                            <p-dropdown #Appointment_Tower="ngModel" id="Appointment_Tower" [options]="arrayTowerString"
-                                [(ngModel)]="appointment.tower" placeholder="Select a Tower"
-                                optionLabel="towerBankRakyat" optionValue="towerBankRakyat" [showClear]="true"
-                                class="form_control" name="Tower"></p-dropdown>
+                            <div>
+                                <p-dropdown #Appointment_Tower="ngModel" id="Appointment_Tower"
+                                    [options]="arrayTowerString" [(ngModel)]="appointment.tower"
+                                    placeholder="Select a Tower" optionLabel="towerBankRakyat"
+                                    optionValue="towerBankRakyat" [showClear]="true" name="Tower"></p-dropdown>
+                            </div>
                         </div>
 
                         <div class="my-3">
@@ -124,22 +131,24 @@
                                         {{comp.company.companyName}}</option>
                                 </ng-container>
                             </select> -->
-                            <p-dropdown #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
-                                name="CompanyName" [options]="arrayCompanyString" [(ngModel)]="appointment.companyName"
-                                optionValue="companyName" optionLabel="companyName" [filter]="true"
-                                filterBy="companyName" [showClear]="true" placeholder="Select a Company"
-                                class="form-control">
-                                <!-- <ng-template pTemplate="selectedItem">
+                            <div>
+                                <p-dropdown #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
+                                    name="CompanyName" [options]="arrayCompanyString"
+                                    [(ngModel)]="appointment.companyName" optionValue="companyName"
+                                    optionLabel="companyName" [filter]="true" filterBy="companyName" [showClear]="true"
+                                    placeholder="Select a Company">
+                                    <!-- <ng-template pTemplate="selectedItem">
                                     <div class="department-item department-item-value" *ngIf="selectedDepartment">
                                         <div>{{selectedDepartment}}</div>
                                     </div>
                                 </ng-template> -->
-                                <ng-template let-company pTemplate="item">
-                                    <div class="company-item">
-                                        <div>{{company.companyName}}</div>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
+                                    <ng-template let-company pTemplate="item">
+                                        <div class="company-item">
+                                            <div>{{company.companyName}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
                         </div>
                         <!-- <div class="my-3" *ngIf="!isTower">
                             <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
@@ -161,25 +170,24 @@
                                     </option>
                                 </ng-container>
                             </select> -->
-
-
-                            <p-dropdown #Appointment_Department="ngModel" id="Appointment_Department" name="Department"
-                                [options]="arrayDepartmentString" [(ngModel)]="appointment.department"
-                                optionValue="departmentName" optionLabel="departmentName" [filter]="true"
-                                filterBy="departmentName" [showClear]="true" placeholder="Select a Department"
-                                class="form-control">
-                                <!-- <ng-template pTemplate="selectedItem">
+                            <div>
+                                <p-dropdown #Appointment_Department="ngModel" id="Appointment_Department"
+                                    name="Department" [options]="arrayDepartmentString"
+                                    [(ngModel)]="appointment.department" optionValue="departmentName"
+                                    optionLabel="departmentName" [filter]="true" filterBy="departmentName"
+                                    [showClear]="true" placeholder="Select a Department">
+                                    <!-- <ng-template pTemplate="selectedItem">
                                     <div class="department-item department-item-value" *ngIf="selectedDepartment">
                                         <div>{{selectedDepartment}}</div>
                                     </div>
                                 </ng-template> -->
-                                <ng-template let-department pTemplate="item">
-                                    <div class="department-item">
-                                        <div>{{department.departmentName}}</div>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
-
+                                    <ng-template let-department pTemplate="item">
+                                        <div class="department-item">
+                                            <div>{{department.departmentName}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
                         </div>
 
                         <div class="my-3">
@@ -196,22 +204,23 @@
                                     </option>
                                 </ng-container>
                             </select> -->
-                            <p-dropdown #Appointment_Level="ngModel" id="Appointment_Level" name="Level"
-                                [options]="arrayLevelString" [(ngModel)]="appointment.level"
-                                optionValue="levelBankRakyat" optionLabel="levelBankRakyat" [filter]="true"
-                                filterBy="levelBankRakyat" [showClear]="true" placeholder="Select a Level"
-                                class="form-control">
-                                <!-- <ng-template pTemplate="selectedItem">
+                            <div>
+                                <p-dropdown #Appointment_Level="ngModel" id="Appointment_Level" name="Level"
+                                    [options]="arrayLevelString" [(ngModel)]="appointment.level"
+                                    optionValue="levelBankRakyat" optionLabel="levelBankRakyat" [filter]="true"
+                                    filterBy="levelBankRakyat" [showClear]="true" placeholder="Select a Level">
+                                    <!-- <ng-template pTemplate="selectedItem">
                                     <div class="department-item department-item-value" *ngIf="selectedDepartment">
                                         <div>{{selectedDepartment}}</div>
                                     </div>
                                 </ng-template> -->
-                                <ng-template let-level pTemplate="item">
-                                    <div class="level-item">
-                                        <div>{{level.levelBankRakyat}}</div>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
+                                    <ng-template let-level pTemplate="item">
+                                        <div class="level-item">
+                                            <div>{{level.levelBankRakyat}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
                         </div>
 
                         <div class="my-3">
@@ -238,21 +247,25 @@
                                         {{POV.purposeOfVisit.purposeOfVisitApp}}</option>
                                 </ng-container>
                             </select> -->
-                            <p-dropdown #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
-                                [options]="arrayPOVString" [(ngModel)]="appointment.purposeOfVisit"
-                                name="PurposeOfVisit" class="form-control" [editable]="true"
-                                optionLabel="purposeOfVisitApp" optionValue="purposeOfVisitApp"></p-dropdown>
+                            <div>
+                                <p-dropdown #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"
+                                    [options]="arrayPOVString" [(ngModel)]="appointment.purposeOfVisit"
+                                    name="PurposeOfVisit" [editable]="true" optionLabel="purposeOfVisitApp"
+                                    optionValue="purposeOfVisitApp"></p-dropdown>
+                            </div>
                         </div>
                         <div class="my-3">
                             <label class="form-label" for="UploadPicture">{{ 'UploadPicture' | localize }}
                                 <div class="text-danger" style="display: inline;"> *</div>
                             </label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" id="uploadPicture" name="uploadPicture"
-                                        (change)="fileChangeEvent($event)" required /> <label class="custom-file-label"
-                                        #uploadPictureInputLabel for="uploadPicture">
-                                        <!-- {{ 'ChooseAFile' | localize }} --> </label>
+                            <div>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="uploadPicture" name="uploadPicture"
+                                            (change)="fileChangeEvent($event)" required /> <label
+                                            class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
+                                            <!-- {{ 'ChooseAFile' | localize }} --> </label>
+                                    </div>
                                 </div>
                             </div>
                             <br>

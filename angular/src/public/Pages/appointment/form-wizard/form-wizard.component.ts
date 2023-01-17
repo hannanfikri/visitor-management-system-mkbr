@@ -81,7 +81,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     arrayLevelString: Array<any> = [];
     arrayTowerString: Array<any> = [];
     arrayPOVString: Array<any> = [];
-
+    arrayTitleString: Array<any> = [];
 
     flatArrayDepartment: Array<string> = [];
     
@@ -347,9 +347,11 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
             })
         });
 
-        // this.flatArrayDepartment = this.arrayDepartmentString.flat();
-        console.log(this.arrayTowerString);
-        // this.arrayDepartmentString.push(this.arrDepartment);
+        this.arrTitle.map((res) => {
+            res.map((result) => {
+                this.arrayTitleString.push(result.title);
+            })
+        });
     }
 
     ngOnInit(appointmentId?: string): void {

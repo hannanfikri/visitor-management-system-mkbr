@@ -146,6 +146,7 @@
     <text name="AreYouSureCancelAppointment">Are you sure to cancel the appointment?</text>
     <text name="SuccessfullyCancelAppointment">Succesfully cancel the appointment</text>
     <text name="CancelAppointment">Cancel appointment</text>
+    <text name="cancelDateTime">Cancel appointment's date and time</text>
     
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>

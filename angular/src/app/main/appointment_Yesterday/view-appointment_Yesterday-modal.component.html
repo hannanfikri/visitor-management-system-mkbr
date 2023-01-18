@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body" *ngIf="!isStatusRegistered()">
+            <div class="modal-body" *ngIf="!isStatusRegistered() && !isStatusCancel()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <h6>{{ l('PassNumber') }} :</h6>
@@ -175,7 +175,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body" *ngIf="!isStatusRegistered()">
+            <div class="modal-body" *ngIf="!isStatusRegistered() && !isStatusCancel()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <h6>{{ l('checkInDateTime') }} :</h6>
@@ -183,7 +183,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body" *ngIf="isStatusOut()">
+            <div class="modal-body" *ngIf="isStatusOut() && !isStatusCancel()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <h6>{{ l('checkOutDateTime') }} :</h6>

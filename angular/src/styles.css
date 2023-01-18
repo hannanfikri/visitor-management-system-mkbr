@@ -174,12 +174,34 @@ bs-days-calendar-view {
     border-radius: 4px 0 0 4px;
 }
 
+.p-inputtext {
+    font-family:inherit !important;
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+}
+
+.p-component {
+    font-family:inherit !important;
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+    width: 100%;
+    border: 1px solid #E4E6EF !important;
+    border-radius: 0.475rem !important;
+}
+
+.p-dropdown .p-dropdown-label.p-placeholder {
+    color: #999 !important;
+}
+
 /* @media (max-width: 768px) {
     .btn-md-icon {
         margin-right: 0 !important;
         padding-right: 0 !important;
     }
 } */
+
+
+
 @media print {
     app-root > * {
         display: none;

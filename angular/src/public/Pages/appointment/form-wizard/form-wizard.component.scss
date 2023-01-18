@@ -96,6 +96,10 @@ h4 {
 
 //web view
 @media screen and (min-width: 1024px) {
+    .form-label {
+        margin: inherit;
+    }
+
     .side_to_side {
         display: flex !important;
         flex-wrap: wrap;
@@ -129,8 +133,16 @@ h4 {
         .my-3 {
             display: flex;
             flex-direction: row;
-
+            gap: 50px;
             .form-label {
+                width: 320px;
+                max-width: 500px;
+            }
+            .input-group {
+                margin-top: auto;
+                margin-left: 0;
+                margin-bottom: auto;
+                margin-right: auto;
                 width: 320px;
                 max-width: 500px;
             }
@@ -141,6 +153,11 @@ h4 {
             flex-direction: column;
             flex-wrap: wrap;
             flex-grow: 6;
+        }
+
+        .my-3>p-dropdown {
+            display: flex !important;
+            width: 100%;
         }
     }
 }

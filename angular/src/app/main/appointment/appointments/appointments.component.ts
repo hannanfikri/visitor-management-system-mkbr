@@ -1,5 +1,5 @@
 ﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
-import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto, StatusType, GetAppointmentForViewDto} from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto, StatusType, GetAppointmentForViewDto } from '@shared/service-proxies/service-proxies';
 import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment-modal.component';
@@ -34,7 +34,7 @@ export class AppointmentsComponent extends AppComponentBase {
     image: any;
 
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
-    
+
     advancedFiltersAreShown = false;
     filterText = '';
     fullNameFilter = '';
@@ -55,8 +55,10 @@ export class AppointmentsComponent extends AppComponentBase {
     statusFilter: any;
     passNumberFilter = '';
     appRefNoFilter = "";
+    emailOfficerToMeetFilter = "";
+    phoneNoOfficerToMeetFilter = "";
 
-    test:any;
+    test: any;
 
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
@@ -65,7 +67,7 @@ export class AppointmentsComponent extends AppComponentBase {
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
-        private _tokenService:TokenService,
+        private _tokenService: TokenService,
     ) {
         super(injector);
     }
@@ -116,6 +118,8 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.maxAppDateTimeFilter,
                 this.minRegDateTimeFilter,
                 this.maxRegDateTimeFilter,
+                this.emailOfficerToMeetFilter,
+                this.phoneNoOfficerToMeetFilter,
                 this.statusFilter,
                 this.passNumberFilter,
                 this.appRefNoFilter,
@@ -166,13 +170,12 @@ export class AppointmentsComponent extends AppComponentBase {
             }
         });
     }
-    getStatus(appointmentId?: string):void
-    {
-        this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
+    getStatus(appointmentId?: string): void {
+        this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) =>
             this.appointment = result.appointment);
     }
     isStatusRegistered(): boolean {
-        if (this.appointment.status == StatusType.Registered){
+        if (this.appointment.status == StatusType.Registered) {
             this.appointment.checkInDateTime = null;
             return true;
         }

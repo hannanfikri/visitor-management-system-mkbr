@@ -28,7 +28,7 @@
                             </select> -->
                             <p-dropdown #Appointment_Title="ngModel" id="Appointment_Title" [options]="arrayTitleString"
                                 [(ngModel)]="appointment.title" placeholder="Select a Title" optionLabel="visitorTitle"
-                                optionValue="visitorTitle" [showClear]="true" name="Title" style="focus:true"></p-dropdown>
+                                optionValue="visitorTitle" [showClear]="true" name="Title"></p-dropdown>
                         </div>
                         <div class="my-3" style="flex-grow: 6;">
                             <label class="form-label" for="Appointment_FullName">{{ l('VisitorFullName') }}
@@ -115,7 +115,8 @@
                                 <p-dropdown #Appointment_Tower="ngModel" id="Appointment_Tower"
                                     [options]="arrayTowerString" [(ngModel)]="appointment.tower"
                                     placeholder="Select a Tower" optionLabel="towerBankRakyat"
-                                    optionValue="towerBankRakyat" [showClear]="true" name="Tower"></p-dropdown>
+                                    optionValue="towerBankRakyat" [showClear]="true" name="Tower"
+                                    (ngModelChange)="onChange($event)"></p-dropdown>
                             </div>
                         </div>
 
@@ -131,24 +132,20 @@
                                         {{comp.company.companyName}}</option>
                                 </ng-container>
                             </select> -->
-                            <div>
+
+                            <div> <!--tower 1 -->
                                 <p-dropdown #Appointment_CompanyName="ngModel" id="Appointment_CompanyName"
                                     name="CompanyName" [options]="arrayCompanyString"
                                     [(ngModel)]="appointment.companyName" optionValue="companyName"
                                     optionLabel="companyName" [filter]="true" filterBy="companyName" [showClear]="true"
-                                    placeholder="Select a Company">
-                                    <!-- <ng-template pTemplate="selectedItem">
-                                    <div class="department-item department-item-value" *ngIf="selectedDepartment">
-                                        <div>{{selectedDepartment}}</div>
+                                    [disabled]="disabledOptionsDropdown" placeholder="Select a Company"></p-dropdown>
+                                <ng-template let-company pTemplate="item">
+                                    <div class="company-item">
+                                        <div>{{company.companyName}}</div>
                                     </div>
-                                </ng-template> -->
-                                    <ng-template let-company pTemplate="item">
-                                        <div class="company-item">
-                                            <div>{{company.companyName}}</div>
-                                        </div>
-                                    </ng-template>
-                                </p-dropdown>
+                                </ng-template>
                             </div>
+
                         </div>
                         <!-- <div class="my-3" *ngIf="!isTower">
                             <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}

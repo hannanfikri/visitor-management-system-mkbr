@@ -2173,6 +2173,58 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    cancelAppointment(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/CancelAppointment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCancelAppointment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCancelAppointment(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCancelAppointment(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -19811,6 +19863,7 @@ export class AppointmentDto implements IAppointmentDto {
     passNumber!: string | undefined;
     checkInDateTime!: string | undefined;
     checkOutDateTime!: string | undefined;
+    cancelDateTime!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19850,6 +19903,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.passNumber = _data["passNumber"];
             this.checkInDateTime = _data["checkInDateTime"];
             this.checkOutDateTime = _data["checkOutDateTime"];
+            this.cancelDateTime = _data["cancelDateTime"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -19889,6 +19943,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["passNumber"] = this.passNumber;
         data["checkInDateTime"] = this.checkInDateTime;
         data["checkOutDateTime"] = this.checkOutDateTime;
+        data["cancelDateTime"] = this.cancelDateTime;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -19921,6 +19976,7 @@ export interface IAppointmentDto {
     passNumber: string | undefined;
     checkInDateTime: string | undefined;
     checkOutDateTime: string | undefined;
+    cancelDateTime: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -20947,6 +21003,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     appRefNo!: string | undefined;
     checkInDateTime!: DateTime | undefined;
     checkOutDateTime!: DateTime | undefined;
+    cancelDateTime!: DateTime | undefined;
     fileToken!: string | undefined;
     x!: number;
     y!: number;
@@ -20991,6 +21048,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.appRefNo = _data["appRefNo"];
             this.checkInDateTime = _data["checkInDateTime"] ? DateTime.fromISO(_data["checkInDateTime"].toString()) : <any>undefined;
             this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
+            this.cancelDateTime = _data["cancelDateTime"] ? DateTime.fromISO(_data["cancelDateTime"].toString()) : <any>undefined;
             this.fileToken = _data["fileToken"];
             this.x = _data["x"];
             this.y = _data["y"];
@@ -21035,6 +21093,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["appRefNo"] = this.appRefNo;
         data["checkInDateTime"] = this.checkInDateTime ? this.checkInDateTime.toString() : <any>undefined;
         data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
+        data["cancelDateTime"] = this.cancelDateTime ? this.cancelDateTime.toString() : <any>undefined;
         data["fileToken"] = this.fileToken;
         data["x"] = this.x;
         data["y"] = this.y;
@@ -21072,6 +21131,7 @@ export interface ICreateOrEditAppointmentDto {
     appRefNo: string | undefined;
     checkInDateTime: DateTime | undefined;
     checkOutDateTime: DateTime | undefined;
+    cancelDateTime: DateTime | undefined;
     fileToken: string | undefined;
     x: number;
     y: number;
@@ -32316,6 +32376,7 @@ export enum StatusType {
     In = 1,
     Out = 2,
     Overstayed = 3,
+    Cancel = 4,
 }
 
 export class StringOutput implements IStringOutput {

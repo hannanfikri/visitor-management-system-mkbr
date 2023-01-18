@@ -81,12 +81,13 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     arrayLevelString: Array<any> = [];
     arrayTowerString: Array<any> = [];
     arrayPOVString: Array<any> = [];
-
+    arrayTitleString: Array<any> = [];
+    selectedDepartment: string;
+    disabledOptionsDropdown: boolean = false;
 
     flatArrayDepartment: Array<string> = [];
-    
-    selectedDepartment: string;
-    
+
+
     arrTest: Array<any> = [
         { name: 'Australia', code: 'AU' },
         { name: 'Brazil', code: 'BR' },
@@ -316,7 +317,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         // for (var i = 0; i < this.arrDepartment.length; i++) {
         //     this.arrDepartment.map((res, i) => this.arrayDepartmentString.push(res[i].department.departmentName));
         // }
-        
+
         this.arrDepartment.map((res) => {
             res.map((result) => {
                 this.arrayDepartmentString.push(result.department);
@@ -347,9 +348,11 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
             })
         });
 
-        // this.flatArrayDepartment = this.arrayDepartmentString.flat();
-        console.log(this.arrayTowerString);
-        // this.arrayDepartmentString.push(this.arrDepartment);
+        this.arrTitle.map((res) => {
+            res.map((result) => {
+                this.arrayTitleString.push(result.title);
+            })
+        });
     }
 
     ngOnInit(appointmentId?: string): void {
@@ -374,10 +377,17 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
     onChange(getValueTower) {
         this.Tower = getValueTower;
-        if (this.Tower == "Tower 1")
-            this.isTower = false;
-        else
-            this.isTower = true;
+        if (this.Tower == "1") {
+            this.appointment.companyName = "Bank Rakyat";
+            this.arrayCompanyString.forEach((res) => {
+                if(res.companyName == "Bank Rakyat"){
+                    this.disabledOptionsDropdown = true;
+                }
+            })
+        }
+        else if(this.Tower == "2") {
+            this.disabledOptionsDropdown = false;
+        }
     }
 
 }

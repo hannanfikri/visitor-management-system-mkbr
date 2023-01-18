@@ -55,6 +55,8 @@ export class AppointmentsComponent extends AppComponentBase {
     statusFilter: any;
     passNumberFilter = '';
     appRefNoFilter = "";
+    emailOfficerToMeetFilter = "";
+    phoneNoOfficerToMeetFilter = "";
 
     test:any;
 
@@ -115,7 +117,9 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.minAppDateTimeFilter,
                 this.maxAppDateTimeFilter,
                 this.minRegDateTimeFilter,
-                this.maxRegDateTimeFilter,
+                this.maxRegDateTimeFilter,  
+                this.emailOfficerToMeetFilter,
+                this.phoneNoOfficerToMeetFilter,
                 this.statusFilter,
                 this.passNumberFilter,
                 this.appRefNoFilter,

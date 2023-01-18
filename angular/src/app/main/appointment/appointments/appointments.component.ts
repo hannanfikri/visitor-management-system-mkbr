@@ -171,22 +171,27 @@ export class AppointmentsComponent extends AppComponentBase {
         this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
             this.appointment = result.appointment);
     }
-    isStatusRegistered(): boolean {
-        if (this.appointment.status == StatusType.Registered){
-            this.appointment.checkInDateTime = null;
+    isStatusRegistered(status:any): boolean {
+        if (status == StatusType.Registered){
             return true;
         }
         else
             return false;
     }
-    isStatusIn(): boolean {
-        if (this.appointment.status == StatusType.In)
+    isStatusIn(status:any): boolean {
+        if (status == StatusType.In)
             return true;
         else
             return false;
     }
-    isStatusOut(): boolean {
-        if (this.appointment.status == StatusType.Out)
+    isStatusOut(status:any): boolean {
+        if (status == StatusType.Out)
+            return true;
+        else
+            return false;
+    }
+    isStatusCancel(status:any): boolean {
+        if (status == StatusType.Cancel)
             return true;
         else
             return false;

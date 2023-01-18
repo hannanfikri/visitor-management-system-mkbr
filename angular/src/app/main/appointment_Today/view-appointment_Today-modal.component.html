@@ -175,21 +175,40 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="modal-footer">
-                    <div *ngIf="isStatusRegistered()">
-                    <button  type="button" class="btn btn-primary blue" (click)="checkIn.show(item.appointment.id)"  >
-                        {{ l('CheckIn') }}
-                    </button></div>
-                    <div *ngIf="isStatusIn()">
-                        <button  type="button" class="btn btn-primary blue"  (click)="change_Status_Register_To_Out()" >
-                            {{ l('CheckOut') }}
-                        </button></div>
-                    <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
-                        {{ l('Close') }}
-                    </button>
+            <div class="modal-body" *ngIf="isStatusCancel()">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('cancelDateTime') }} :</h6>
+                        {{ item.appointment.cancelDateTime}}
+                    </div>
                 </div>
             </div>
-        <CheckIn #checkIn></CheckIn>
+            <div>
+                <div class="modal-footer">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <div *ngIf="isStatusRegistered()" style="align-self: flex-start;">
+                            <button type="button" class="btn btn-light-danger" (click)="cancelAppointment()">
+                                {{ l('Cancel') }}
+                            </button>
+                        </div>
+                        <div *ngIf="isStatusRegistered()">
+                            <button type="button" class="btn btn-primary blue"
+                                (click)="checkIn.show(item.appointment.id)">
+                                {{ l('CheckIn') }}
+                            </button>
+                        </div>
+                        <div *ngIf="isStatusIn()">
+                            <button type="button" class="btn btn-primary blue"
+                                (click)="change_Status_Register_To_Out()">
+                                {{ l('CheckOut') }}
+                            </button>
+                        </div>
+                        <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                            {{ l('Close') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <CheckIn #checkIn></CheckIn>
         </div>
     </div>

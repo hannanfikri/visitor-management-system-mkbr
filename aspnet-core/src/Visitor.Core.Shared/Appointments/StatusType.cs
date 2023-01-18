@@ -10,5 +10,6 @@ namespace Visitor.Appointments
         In,
         Out,
         Overstayed,
+        Cancel,
     }
 }

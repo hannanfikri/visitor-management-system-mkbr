@@ -57,6 +57,7 @@ namespace Visitor.Appointment
         public virtual string AppRefNo { get; set; }
         public virtual DateTime? CheckInDateTime { get; set; }
         public virtual DateTime? CheckOutDateTime { get; set; }
+        public virtual DateTime? CancelDateTime { get; set; }
         public string FileToken { get; set; }
 
         public int X { get; set; }

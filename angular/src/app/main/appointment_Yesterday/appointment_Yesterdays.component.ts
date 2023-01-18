@@ -1,5 +1,5 @@
 ﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
-import { AppointmentsServiceProxy, AppointmentDto,CreateOrEditAppointmentDto} from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto,CreateOrEditAppointmentDto,StatusType} from '@shared/service-proxies/service-proxies';
 import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment_Yesterday-modal.component';
@@ -52,9 +52,9 @@ export class AppointmentsComponent extends AppComponentBase {
     maxAppDateTimeFilter: DateTime;
     minRegDateTimeFilter: DateTime;
     maxRegDateTimeFilter: DateTime;
-    statusFilter : any;
+    statusFilter: any;
     passNumberFilter = '';
-    appRefNo = "";
+    appRefNoFilter = "";
 
     test:any;
 
@@ -118,7 +118,7 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.maxRegDateTimeFilter,
                 this.statusFilter,
                 this.passNumberFilter,
-                this.appRefNo,
+                this.appRefNoFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -170,8 +170,30 @@ export class AppointmentsComponent extends AppComponentBase {
     {
         this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
             this.appointment = result.appointment);
-            
-        
-
+    }
+    isStatusRegistered(status:any): boolean {
+        if (status == StatusType.Registered){
+            return true;
+        }
+        else
+            return false;
+    }
+    isStatusIn(status:any): boolean {
+        if (status == StatusType.In)
+            return true;
+        else
+            return false;
+    }
+    isStatusOut(status:any): boolean {
+        if (status == StatusType.Out)
+            return true;
+        else
+            return false;
+    }
+    isStatusCancel(status:any): boolean {
+        if (status == StatusType.Cancel)
+            return true;
+        else
+            return false;
     }
 }

@@ -39,6 +39,7 @@ namespace Visitor.Appointment
         public string AppRefNo { get; set; }
         public DateTime CheckInDateTime { get; set; }
         public DateTime CheckOutDateTime { get; set; }
+        public DateTime CancelDateTime { get; set; }
 
 
         private AppointmentEnt() { }//empty constructor

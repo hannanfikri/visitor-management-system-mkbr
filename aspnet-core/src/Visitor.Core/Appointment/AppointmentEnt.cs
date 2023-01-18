@@ -41,8 +41,16 @@ namespace Visitor.Appointment
         public DateTime CheckOutDateTime { get; set; }
         public DateTime CancelDateTime { get; set; }
 
+        public string EmailOfficerToMeet { get; set; }
+        public string PhoneNoOfficerToMeet { get; set; }
+
 
         private AppointmentEnt() { }//empty constructor
+
+        public object WhereIf(Func<object, bool> value)
+        {
+            throw new NotImplementedException();
+        }
 
         /*public AppointmentEnt
             (string identityCard, string fullName, string phoneNo, string email, 

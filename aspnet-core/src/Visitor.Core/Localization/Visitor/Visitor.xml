@@ -118,6 +118,9 @@
     <text name="CheckIn">Check in</text>
     <text name="CheckOut">Check out</text>
     <text name="OtherPurpose">Other (Please specify)</text>
+	  <text name="EmailOfficerToMeet">Officer To Meet Email</text>
+	  <text name="PhoneNoOfficerToMeet">Officer To Meet Phone No.</text>
+	  
 
     <text name="Department">Department</text>
     <text name="Visitor.Department.Department">Department</text>

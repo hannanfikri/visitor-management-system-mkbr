@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { CheckIn } from './check-in.component';
 import {  formatDate  } from '@angular/common';
 
+
+
 @Component({
     selector: 'viewAppointmentModal',
     templateUrl: './view-appointment-modal.component.html',
@@ -16,6 +18,12 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     @ViewChild('checkIn', { static: true }) checkIn: CheckIn;
+    
+
+    currentDateTime = new Date();
+    parseDate(dateString: string) {
+        return new Date(dateString);
+    }
     
 
     active = false;

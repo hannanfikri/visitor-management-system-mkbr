@@ -687,6 +687,27 @@ namespace Visitor.Appointment
             }
         }
 
+        /*public async Task Validation()
+        {
+            var currentDate = GetToday();
+            int total = _appointmentRepository.Count();
+            
+            for(int i = 1; i <= total ; i++)
+            {
+
+                var bookhCheck = _appointmentRepository.GetAll().Where(e => e.CheckInDateTime < currentDate && e.Status == StatusType.In);
+                *//*if (bookhCheck?.Id != null)
+                {
+                    var appointment = await _appointmentRepository.GetAsync((Guid)bookhCheck.Id);
+                    appointment.Status = StatusType.Overstayed;
+                }*//*
+            }
+            
+        }*/
+
+
+
+
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
         protected virtual async Task Create(CreateOrEditAppointmentDto input)
         {
@@ -770,6 +791,8 @@ namespace Visitor.Appointment
                     break;
                 }
             };
+
+
 
             var appointment = ObjectMapper.Map<AppointmentEnt>(input);
             await _appointmentRepository.InsertAsync(appointment);

@@ -711,6 +711,8 @@ export class AppointmentsServiceProxy {
      * @param maxAppDateTimeFilter (optional) 
      * @param minRegDateTimeFilter (optional) 
      * @param maxRegDateTimeFilter (optional) 
+     * @param emailOfficerToMeet (optional) 
+     * @param phoneNoOfficerToMeet (optional) 
      * @param statusFilter (optional) 
      * @param passNumberFilter (optional) 
      * @param appRefNoFilter (optional) 
@@ -719,7 +721,7 @@ export class AppointmentsServiceProxy {
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAll(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, emailOfficerToMeet: string | undefined, phoneNoOfficerToMeet: string | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -785,6 +787,14 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
         else if (maxRegDateTimeFilter !== undefined)
             url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (emailOfficerToMeet === null)
+            throw new Error("The parameter 'emailOfficerToMeet' cannot be null.");
+        else if (emailOfficerToMeet !== undefined)
+            url_ += "EmailOfficerToMeet=" + encodeURIComponent("" + emailOfficerToMeet) + "&";
+        if (phoneNoOfficerToMeet === null)
+            throw new Error("The parameter 'phoneNoOfficerToMeet' cannot be null.");
+        else if (phoneNoOfficerToMeet !== undefined)
+            url_ += "PhoneNoOfficerToMeet=" + encodeURIComponent("" + phoneNoOfficerToMeet) + "&";
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
@@ -872,6 +882,8 @@ export class AppointmentsServiceProxy {
      * @param maxAppDateTimeFilter (optional) 
      * @param minRegDateTimeFilter (optional) 
      * @param maxRegDateTimeFilter (optional) 
+     * @param emailOfficerToMeet (optional) 
+     * @param phoneNoOfficerToMeet (optional) 
      * @param statusFilter (optional) 
      * @param passNumberFilter (optional) 
      * @param appRefNoFilter (optional) 
@@ -880,7 +892,7 @@ export class AppointmentsServiceProxy {
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllToday(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAllToday(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, emailOfficerToMeet: string | undefined, phoneNoOfficerToMeet: string | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAllToday?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -946,6 +958,14 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
         else if (maxRegDateTimeFilter !== undefined)
             url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (emailOfficerToMeet === null)
+            throw new Error("The parameter 'emailOfficerToMeet' cannot be null.");
+        else if (emailOfficerToMeet !== undefined)
+            url_ += "EmailOfficerToMeet=" + encodeURIComponent("" + emailOfficerToMeet) + "&";
+        if (phoneNoOfficerToMeet === null)
+            throw new Error("The parameter 'phoneNoOfficerToMeet' cannot be null.");
+        else if (phoneNoOfficerToMeet !== undefined)
+            url_ += "PhoneNoOfficerToMeet=" + encodeURIComponent("" + phoneNoOfficerToMeet) + "&";
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
@@ -1033,6 +1053,8 @@ export class AppointmentsServiceProxy {
      * @param maxAppDateTimeFilter (optional) 
      * @param minRegDateTimeFilter (optional) 
      * @param maxRegDateTimeFilter (optional) 
+     * @param emailOfficerToMeet (optional) 
+     * @param phoneNoOfficerToMeet (optional) 
      * @param statusFilter (optional) 
      * @param passNumberFilter (optional) 
      * @param appRefNoFilter (optional) 
@@ -1041,7 +1063,7 @@ export class AppointmentsServiceProxy {
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllTomorrow(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAllTomorrow(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, emailOfficerToMeet: string | undefined, phoneNoOfficerToMeet: string | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAllTomorrow?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -1107,6 +1129,14 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
         else if (maxRegDateTimeFilter !== undefined)
             url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (emailOfficerToMeet === null)
+            throw new Error("The parameter 'emailOfficerToMeet' cannot be null.");
+        else if (emailOfficerToMeet !== undefined)
+            url_ += "EmailOfficerToMeet=" + encodeURIComponent("" + emailOfficerToMeet) + "&";
+        if (phoneNoOfficerToMeet === null)
+            throw new Error("The parameter 'phoneNoOfficerToMeet' cannot be null.");
+        else if (phoneNoOfficerToMeet !== undefined)
+            url_ += "PhoneNoOfficerToMeet=" + encodeURIComponent("" + phoneNoOfficerToMeet) + "&";
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
@@ -1194,6 +1224,8 @@ export class AppointmentsServiceProxy {
      * @param maxAppDateTimeFilter (optional) 
      * @param minRegDateTimeFilter (optional) 
      * @param maxRegDateTimeFilter (optional) 
+     * @param emailOfficerToMeet (optional) 
+     * @param phoneNoOfficerToMeet (optional) 
      * @param statusFilter (optional) 
      * @param passNumberFilter (optional) 
      * @param appRefNoFilter (optional) 
@@ -1202,7 +1234,7 @@ export class AppointmentsServiceProxy {
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllYesterday(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
+    getAllYesterday(filter: string | undefined, fullNameFilter: string | undefined, identityCardFilter: string | undefined, phoneNoFilter: string | undefined, emailFilter: string | undefined, titleFilter: string | undefined, companyNameFilter: string | undefined, officerToMeetFilter: string | undefined, purposeOfVisitFilter: string | undefined, departmentFilter: string | undefined, towerFilter: string | undefined, levelFilter: string | undefined, minAppDateTimeFilter: DateTime | undefined, maxAppDateTimeFilter: DateTime | undefined, minRegDateTimeFilter: DateTime | undefined, maxRegDateTimeFilter: DateTime | undefined, emailOfficerToMeet: string | undefined, phoneNoOfficerToMeet: string | undefined, statusFilter: number | undefined, passNumberFilter: string | undefined, appRefNoFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAppointmentForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Appointments/GetAllYesterday?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -1268,6 +1300,14 @@ export class AppointmentsServiceProxy {
             throw new Error("The parameter 'maxRegDateTimeFilter' cannot be null.");
         else if (maxRegDateTimeFilter !== undefined)
             url_ += "MaxRegDateTimeFilter=" + encodeURIComponent(maxRegDateTimeFilter ? "" + maxRegDateTimeFilter.toJSON() : "") + "&";
+        if (emailOfficerToMeet === null)
+            throw new Error("The parameter 'emailOfficerToMeet' cannot be null.");
+        else if (emailOfficerToMeet !== undefined)
+            url_ += "EmailOfficerToMeet=" + encodeURIComponent("" + emailOfficerToMeet) + "&";
+        if (phoneNoOfficerToMeet === null)
+            throw new Error("The parameter 'phoneNoOfficerToMeet' cannot be null.");
+        else if (phoneNoOfficerToMeet !== undefined)
+            url_ += "PhoneNoOfficerToMeet=" + encodeURIComponent("" + phoneNoOfficerToMeet) + "&";
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
@@ -19863,6 +19903,8 @@ export class AppointmentDto implements IAppointmentDto {
     passNumber!: string | undefined;
     checkInDateTime!: string | undefined;
     checkOutDateTime!: string | undefined;
+    emailOfficerToMeet!: string | undefined;
+    phoneNoOfficerToMeet!: string | undefined;
     cancelDateTime!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -19903,6 +19945,8 @@ export class AppointmentDto implements IAppointmentDto {
             this.passNumber = _data["passNumber"];
             this.checkInDateTime = _data["checkInDateTime"];
             this.checkOutDateTime = _data["checkOutDateTime"];
+            this.emailOfficerToMeet = _data["emailOfficerToMeet"];
+            this.phoneNoOfficerToMeet = _data["phoneNoOfficerToMeet"];
             this.cancelDateTime = _data["cancelDateTime"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
@@ -19943,6 +19987,8 @@ export class AppointmentDto implements IAppointmentDto {
         data["passNumber"] = this.passNumber;
         data["checkInDateTime"] = this.checkInDateTime;
         data["checkOutDateTime"] = this.checkOutDateTime;
+        data["emailOfficerToMeet"] = this.emailOfficerToMeet;
+        data["phoneNoOfficerToMeet"] = this.phoneNoOfficerToMeet;
         data["cancelDateTime"] = this.cancelDateTime;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
@@ -19976,6 +20022,8 @@ export interface IAppointmentDto {
     passNumber: string | undefined;
     checkInDateTime: string | undefined;
     checkOutDateTime: string | undefined;
+    emailOfficerToMeet: string | undefined;
+    phoneNoOfficerToMeet: string | undefined;
     cancelDateTime: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -21003,6 +21051,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     appRefNo!: string | undefined;
     checkInDateTime!: DateTime | undefined;
     checkOutDateTime!: DateTime | undefined;
+    emailOfficerToMeet!: string | undefined;
+    phoneNoOfficerToMeet!: string | undefined;
     cancelDateTime!: DateTime | undefined;
     fileToken!: string | undefined;
     x!: number;
@@ -21048,6 +21098,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.appRefNo = _data["appRefNo"];
             this.checkInDateTime = _data["checkInDateTime"] ? DateTime.fromISO(_data["checkInDateTime"].toString()) : <any>undefined;
             this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
+            this.emailOfficerToMeet = _data["emailOfficerToMeet"];
+            this.phoneNoOfficerToMeet = _data["phoneNoOfficerToMeet"];
             this.cancelDateTime = _data["cancelDateTime"] ? DateTime.fromISO(_data["cancelDateTime"].toString()) : <any>undefined;
             this.fileToken = _data["fileToken"];
             this.x = _data["x"];
@@ -21093,6 +21145,8 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["appRefNo"] = this.appRefNo;
         data["checkInDateTime"] = this.checkInDateTime ? this.checkInDateTime.toString() : <any>undefined;
         data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
+        data["emailOfficerToMeet"] = this.emailOfficerToMeet;
+        data["phoneNoOfficerToMeet"] = this.phoneNoOfficerToMeet;
         data["cancelDateTime"] = this.cancelDateTime ? this.cancelDateTime.toString() : <any>undefined;
         data["fileToken"] = this.fileToken;
         data["x"] = this.x;
@@ -21131,6 +21185,8 @@ export interface ICreateOrEditAppointmentDto {
     appRefNo: string | undefined;
     checkInDateTime: DateTime | undefined;
     checkOutDateTime: DateTime | undefined;
+    emailOfficerToMeet: string | undefined;
+    phoneNoOfficerToMeet: string | undefined;
     cancelDateTime: DateTime | undefined;
     fileToken: string | undefined;
     x: number;

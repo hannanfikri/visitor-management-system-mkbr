@@ -53,6 +53,9 @@ namespace Visitor.Appointment
 
         public virtual DateTime CheckInDateTime { get; set; }
         public virtual DateTime CheckOutDateTime { get; set; }
+
+        public virtual string EmailOfficerToMeet { get; set; }
+        public virtual string PhoneNoOfficerToMeet { get; set; }
         public virtual DateTime CancelDateTime { get; set; }
     }
 }

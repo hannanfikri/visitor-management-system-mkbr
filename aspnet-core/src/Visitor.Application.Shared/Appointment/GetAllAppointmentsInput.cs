@@ -29,6 +29,9 @@ namespace Visitor.Appointment
         public DateTime? MinRegDateTimeFilter { get; set; }
         public DateTime? MaxRegDateTimeFilter { get; set; }
 
+        public string EmailOfficerToMeet { get; set; }
+        public string PhoneNoOfficerToMeet { get; set; }
+
         public int? StatusFilter { get; set; }
 
         public string PassNumberFilter { get; set; }

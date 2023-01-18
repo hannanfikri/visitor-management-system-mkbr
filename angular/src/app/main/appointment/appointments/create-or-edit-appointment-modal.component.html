@@ -48,7 +48,8 @@
                         <label class="form-label" for="Appointment_IdentityCard">{{ l('IdentityCard') }}*</label>
                         <input type="text" #Appointment_IdentityCard="ngModel" id="Appointment_IdentityCard"
                             placeholder="{{l('IdentityCard')}}" class="form-control"
-                            [(ngModel)]="appointment.identityCard" name="IdentityCard" required minlength="9" maxlength="12"/>
+                            [(ngModel)]="appointment.identityCard" name="IdentityCard" required minlength="9"
+                            maxlength="12" />
                         <validation-messages [formCtrl]="Appointment_IdentityCard"></validation-messages>
                     </div>
                 </div>
@@ -58,8 +59,9 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_PhoneNo">{{ l('PhoneNo') }}*</label>
                         <input type="tel" #Appointment_PhoneNo="ngModel" id="Appointment_PhoneNo" class="form-control"
-                            placeholder="{{l('PhoneNo')}}" [(ngModel)]="appointment.phoneNo" name="PhoneNo"
-                            required minlength="10" maxlength="11" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]"/>
+                            placeholder="{{l('PhoneNo')}}" [(ngModel)]="appointment.phoneNo" name="PhoneNo" required
+                            minlength="10" maxlength="11"
+                            pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]" />
                         <validation-messages [formCtrl]="Appointment_PhoneNo"></validation-messages>
                     </div>
                 </div>
@@ -71,8 +73,7 @@
                         <input type="email" placeholder="{{l('EmailAddress')}}" #Appointment_Email="ngModel"
                             id="Appointment_Email" class="form-control" [(ngModel)]="appointment.email" name="Email"
                             required
-                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" 
-                            />
+                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
                         <validation-messages [formCtrl]="Appointment_Email"></validation-messages>
 
                     </div>
@@ -90,8 +91,9 @@
                     <div class="my-3">
                         <label class="form-label" for="Appointment_AppDateTime">{{ l('AppDateTime') }}*</label>
                         <input #Appointment_AppDateTime="ngModel" id="Appointment_AppDateTime" class="form-control"
-                            [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local" 
-                            min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}" required/>
+                            [(ngModel)]="appointment.appDateTime" name="AppDateTime" type="datetime-local"
+                            min="{{minDate | date:'yyyy-MM-ddT00:00'}}" max="{{maxDate | date:'yyyy-MM-ddT00:00'}}"
+                            required />
                         <validation-messages [formCtrl]="Appointment_AppDateTime"></validation-messages>
                     </div>
                 </div>
@@ -122,16 +124,15 @@
                             </ng-container>
                         </select>
                     </div>
-                 </div>
-               <div class="modal-body" *ngIf="!isTower">
+                </div>
+                <div class="modal-body" *ngIf="!isTower">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_CompanyName">{{ l('CompanyName') }}
                         </label>
-                        <input disabled="true"  type="text" #Appointment_CompanyName="ngModel" value="Bank Rakyat"
-                            id="Appointment_CompanyName" class="form-control" [(ngModel)]="appointment.companyName"
-                             />
+                        <input disabled="true" type="text" #Appointment_CompanyName="ngModel" value="Bank Rakyat"
+                            id="Appointment_CompanyName" class="form-control" [(ngModel)]="appointment.companyName" />
                     </div>
-                </div> 
+                </div>
                 <div class="modal-body">
                     <div class="my-3">
                         <label class="form-label" for="Appointment_Department">{{ l('Department') }} </label>
@@ -166,6 +167,31 @@
                             class="form-control" [(ngModel)]="appointment.officerToMeet" name="OfficerToMeet"
                             placeholder="{{l('OfficerToMeet')}}" required />
                         <validation-messages [formCtrl]="Appointment_OfficerToMeet"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_EmailOfficerToMeet">{{ l('EmailOfficerToMeet') }}*
+                        </label>
+                        <div>
+                            <input type="text" placeholder="Please enter the officer's email address"
+                                #Appointment_EmailOfficerToMeet="ngModel" id="Appointment_EmailOfficerToMeet" class="form-control"
+                                [(ngModel)]="appointment.emailOfficerToMeet" name="EmailOfficerToMeet" required />
+                            <validation-messages [formCtrl]="Appointment_EmailOfficerToMeet"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="Appointment_PhoneNoOfficerToMeet">{{ l('PhoneNoOfficerToMeet') }}*
+                        </label>
+                        <div>
+                            <input type="text" placeholder="Please enter the officer's phone number"
+                                #Appointment_PhoneNoOfficerToMeet="ngModel" id="Appointment_PhoneNoOfficerToMeet"
+                                class="form-control" [(ngModel)]="appointment.phoneNoOfficerToMeet" name="PhoneNoOfficerToMeet"
+                                required />
+                            <validation-messages [formCtrl]="Appointment_PhoneNoOfficerToMeet"></validation-messages>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-body">

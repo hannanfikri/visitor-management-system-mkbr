@@ -233,6 +233,30 @@
                             </div>
                         </div>
                         <div class="my-3">
+                            <label class="form-label" for="Appointment_EmailOfficerToMeet">{{ l('EmailOfficerToMeet') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="text" placeholder="Please enter the officer's email address"
+                                    #Appointment_EmailOfficerToMeet="ngModel" id="Appointment_EmailOfficerToMeet"
+                                    class="form-control" [(ngModel)]="appointment.emailOfficerToMeet" name="EmailOfficerToMeet"
+                                    required />
+                                <validation-messages [formCtrl]="Appointment_EmailOfficerToMeet"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="Appointment_PhoneNoOfficerToMeet">{{ l('PhoneNoOfficerToMeet') }}
+                                <div class="text-danger" style="display: inline;"> *</div>
+                            </label>
+                            <div>
+                                <input type="text" placeholder="Please enter the officer's phone number"
+                                    #Appointment_PhoneNoOfficerToMeet="ngModel" id="Appointment_PhoneNoOfficerToMeet"
+                                    class="form-control" [(ngModel)]="appointment.phoneNoOfficerToMeet" name="PhoneNoOfficerToMeet"
+                                    required />
+                                <validation-messages [formCtrl]="Appointment_PhoneNoOfficerToMeet"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="my-3">
                             <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }}
                             </label>
                             <!-- <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"

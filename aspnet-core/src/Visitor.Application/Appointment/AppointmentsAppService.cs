@@ -155,6 +155,8 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TitleFilter), e => e.Title == input.TitleFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfficerToMeetFilter), e => e.OfficerToMeet == input.OfficerToMeetFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.EmailOfficerToMeet), e => e.EmailOfficerToMeet == input.EmailOfficerToMeet)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNoOfficerToMeet== input.PhoneNoOfficerToMeet)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
@@ -198,7 +200,8 @@ namespace Visitor.Appointment
                                    o.PassNumber,
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
-
+                                   o.EmailOfficerToMeet,
+                                   o.PhoneNoOfficerToMeet
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -234,6 +237,8 @@ namespace Visitor.Appointment
                         PassNumber=o.PassNumber,
                         CheckInDateTime = o.CheckInDateTime.ToString(" dd/MM hh:mm tt"),
                         CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
+                        EmailOfficerToMeet = o.EmailOfficerToMeet,
+                        PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
                 };
 
@@ -293,6 +298,8 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TitleFilter), e => e.Title == input.TitleFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfficerToMeetFilter), e => e.OfficerToMeet == input.OfficerToMeetFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.EmailOfficerToMeet), e => e.EmailOfficerToMeet == input.EmailOfficerToMeet)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNoOfficerToMeet == input.PhoneNoOfficerToMeet)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
@@ -334,7 +341,8 @@ namespace Visitor.Appointment
                                    o.PassNumber,
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
-
+                                   o.EmailOfficerToMeet,
+                                   o.PhoneNoOfficerToMeet
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -370,6 +378,8 @@ namespace Visitor.Appointment
                         PassNumber = o.PassNumber,
                         CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        EmailOfficerToMeet = o.EmailOfficerToMeet,
+                        PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
                 };
 
@@ -426,6 +436,8 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TitleFilter), e => e.Title == input.TitleFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfficerToMeetFilter), e => e.OfficerToMeet == input.OfficerToMeetFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.EmailOfficerToMeet), e => e.EmailOfficerToMeet == input.EmailOfficerToMeet)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNoOfficerToMeet == input.PhoneNoOfficerToMeet)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
@@ -466,7 +478,8 @@ namespace Visitor.Appointment
                                    o.PassNumber,
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
-
+                                   o.EmailOfficerToMeet,
+                                   o.PhoneNoOfficerToMeet
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -502,6 +515,8 @@ namespace Visitor.Appointment
                         PassNumber = o.PassNumber,
                         CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        EmailOfficerToMeet = o.EmailOfficerToMeet,
+                        PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
                 };
 
@@ -559,6 +574,8 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TitleFilter), e => e.Title == input.TitleFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfficerToMeetFilter), e => e.OfficerToMeet == input.OfficerToMeetFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.EmailOfficerToMeet), e => e.EmailOfficerToMeet == input.EmailOfficerToMeet)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNoOfficerToMeet == input.PhoneNoOfficerToMeet)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
@@ -599,7 +616,8 @@ namespace Visitor.Appointment
                                    o.PassNumber,
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
-
+                                   o.EmailOfficerToMeet,
+                                   o.PhoneNoOfficerToMeet
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -635,6 +653,8 @@ namespace Visitor.Appointment
                         PassNumber = o.PassNumber,
                         CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                         CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        EmailOfficerToMeet = o.EmailOfficerToMeet,
+                        PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
                 };
 

@@ -82,6 +82,20 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="my-3">
+                                        <label for="EmailOfficerToMeetFilter">{{ l('EmailOfficerToMeet') }}</label>
+                                        <input type="text" class="form-control" id="EmailOfficerToMeetFilter"
+                                            name="officerToMeetFilter" [(ngModel)]="emailOfficerToMeetFilter" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="PhoneNoOfficerToMeetFilter">{{ l('PhoneNoOfficerToMeet') }}</label>
+                                        <input type="text" class="form-control" id="PhoneNoOfficerToMeetFilter"
+                                            name="officerToMeetFilter" [(ngModel)]="phoneNoOfficerToMeetFilter" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="my-3">
                                         <label for="PurposeOfVisitFilter">{{ l('PurposeOfVisit') }}</label>
                                         <input type="text" class="form-control" id="PurposeOfVisitFilter"
                                             name="purposeOfVisitFilter" [(ngModel)]="purposeOfVisitFilter" />
@@ -246,6 +260,14 @@
                                             {{ l('OfficerToMeet') }}
                                             <p-sortIcon field="appointment.officerToMeet"></p-sortIcon>
                                         </th>
+                                        <th style="width: 150px" pSortableColumn="EmailOfficerToMeet">
+                                            {{ l('EmailOfficerToMeet') }}
+                                            <p-sortIcon field="appointment.emailOfficerToMeet"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="PhoneNoOfficerToMeet">
+                                            {{ l('PhoneNoOfficerToMeet') }}
+                                            <p-sortIcon field="appointment.phoneNoOfficerToMeet"></p-sortIcon>
+                                        </th>
                                         <th style="width: 150px" pSortableColumn="Department">
                                             {{ l('Department') }}
                                             <p-sortIcon field="appointment.department"></p-sortIcon>
@@ -354,6 +376,14 @@
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('OfficerToMeet') }}</span>
                                             {{ record.appointment.officerToMeet }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('EmailOfficerToMeet') }}</span>
+                                            {{ record.appointment.emailOfficerToMeet }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('PhoneNoOfficerToMeet') }}</span>
+                                            {{ record.appointment.phoneNoOfficerToMeet }}
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Department') }}</span>

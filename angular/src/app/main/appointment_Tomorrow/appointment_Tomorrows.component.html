@@ -82,6 +82,20 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="my-3">
+                                        <label for="EmailOfficerToMeetFilter">{{ l('EmailOfficerToMeet') }}</label>
+                                        <input type="text" class="form-control" id="EmailOfficerToMeetFilter"
+                                            name="officerToMeetFilter" [(ngModel)]="emailOfficerToMeetFilter" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="my-3">
+                                        <label for="PhoneNoOfficerToMeetFilter">{{ l('PhoneNoOfficerToMeet') }}</label>
+                                        <input type="text" class="form-control" id="PhoneNoOfficerToMeetFilter"
+                                            name="officerToMeetFilter" [(ngModel)]="phoneNoOfficerToMeetFilter" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="my-3">
                                         <label for="PurposeOfVisitFilter">{{ l('PurposeOfVisit') }}</label>
                                         <input type="text" class="form-control" id="PurposeOfVisitFilter"
                                             name="purposeOfVisitFilter" [(ngModel)]="purposeOfVisitFilter" />
@@ -108,66 +122,70 @@
                                             [(ngModel)]="levelFilter" />
                                     </div>
                                 </div>
-                            <div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="MinAppointmentDateFilter">{{
-                                            l("MinAppDateTimeFilter")
-                                            }}</label>
+                                <div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="MinAppointmentDateFilter">{{
+                                                l("MinAppDateTimeFilter")
+                                                }}</label>
 
-                                        <div class="input-group">
-                                            <input class="form-control m-input" id="MinAppDateTimeFilter"
-                                                name="MinAppDateTimeFilter" type="datetime" bsDatepicker placeholder="{{
+                                            <div class="input-group">
+                                                <input class="form-control m-input" id="MinAppDateTimeFilter"
+                                                    name="MinAppDateTimeFilter" type="datetime" bsDatepicker
+                                                    placeholder="{{
                                                     l('MinValue')
                                                 }}" [(ngModel)]="
                                                 minAppDateTimeFilter
                                                 " />
-                                            <span style="
+                                                <span style="
                                                     line-height: 40px;
                                                     padding: 0 15px 0 15px;
                                                 ">
-                                                &mdash;
-                                            </span>
-                                            <input class="form-control m-input" id="MaxAppDateTimeFilter"
-                                                name="MaxAppDateTimeFilter" type="datetime" bsDatepicker placeholder="{{
+                                                    &mdash;
+                                                </span>
+                                                <input class="form-control m-input" id="MaxAppDateTimeFilter"
+                                                    name="MaxAppDateTimeFilter" type="datetime" bsDatepicker
+                                                    placeholder="{{
                                                     l('MaxValue')
                                                 }}" [(ngModel)]="
                                                 maxAppDateTimeFilter
                                                 " />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="MinAppointmentDateFilter">{{
-                                            l("MinRegDateTimeFilter")
-                                            }}</label>
+                                <div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="MinAppointmentDateFilter">{{
+                                                l("MinRegDateTimeFilter")
+                                                }}</label>
 
-                                        <div class="input-group">
-                                            <input class="form-control m-input" id="MinRegDateTimeFilter"
-                                                name="MinRegDateTimeFilter" type="datetime" bsDatepicker placeholder="{{
+                                            <div class="input-group">
+                                                <input class="form-control m-input" id="MinRegDateTimeFilter"
+                                                    name="MinRegDateTimeFilter" type="datetime" bsDatepicker
+                                                    placeholder="{{
                                                     l('MinValue')
                                                 }}" [(ngModel)]="
                                                 minRegDateTimeFilter
                                                 " />
-                                            <span style="
+                                                <span style="
                                                     line-height: 40px;
                                                     padding: 0 15px 0 15px;
                                                 ">
-                                                &mdash;
-                                            </span>
-                                            <input class="form-control m-input" id="MaxRegDateTimeFilter"
-                                                name="MaxRegDateTimeFilter" type="datetime" bsDatepicker placeholder="{{
+                                                    &mdash;
+                                                </span>
+                                                <input class="form-control m-input" id="MaxRegDateTimeFilter"
+                                                    name="MaxRegDateTimeFilter" type="datetime" bsDatepicker
+                                                    placeholder="{{
                                                     l('MaxValue')
                                                 }}" [(ngModel)]="
                                                 maxRegDateTimeFilter
                                                 " />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 <div class="col-md-3">
                                     <div class="my-3">
                                         <label for="StatusFilter">{{ l('Status') }}</label>
@@ -246,6 +264,14 @@
                                             {{ l('OfficerToMeet') }}
                                             <p-sortIcon field="appointment.officerToMeet"></p-sortIcon>
                                         </th>
+                                        <th style="width: 150px" pSortableColumn="EmailOfficerToMeet">
+                                            {{ l('EmailOfficerToMeet') }}
+                                            <p-sortIcon field="appointment.emailOfficerToMeet"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 150px" pSortableColumn="PhoneNoOfficerToMeet">
+                                            {{ l('PhoneNoOfficerToMeet') }}
+                                            <p-sortIcon field="appointment.phoneNoOfficerToMeet"></p-sortIcon>
+                                        </th>
                                         <th style="width: 150px" pSortableColumn="Department">
                                             {{ l('Department') }}
                                             <p-sortIcon field="appointment.department"></p-sortIcon>
@@ -260,7 +286,8 @@
                                         </th>
                                         <th style="width: 250px" pSortableColumn="AppDateTime">
                                             {{ l('AppDateTime') }}
-                                            <p-sortIcon field="appointment.appDateTime" ate-date-format="DD MMMM YYYY"></p-sortIcon>
+                                            <p-sortIcon field="appointment.appDateTime"
+                                                ate-date-format="DD MMMM YYYY"></p-sortIcon>
                                         </th>
                                         <th style="width: 150px" pSortableColumn="RegDateTime">
                                             {{ l('RegDateTime') }}
@@ -354,6 +381,14 @@
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('OfficerToMeet') }}</span>
                                             {{ record.appointment.officerToMeet }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('EmailOfficerToMeet') }}</span>
+                                            {{ record.appointment.emailOfficerToMeet }}
+                                        </td>
+                                        <td style="width: 150px">
+                                            <span class="p-column-title">{{ l('PhoneNoOfficerToMeet') }}</span>
+                                            {{ record.appointment.phoneNoOfficerToMeet }}
                                         </td>
                                         <td style="width: 150px">
                                             <span class="p-column-title">{{ l('Department') }}</span>

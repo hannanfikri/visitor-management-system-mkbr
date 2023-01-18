@@ -159,7 +159,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body" *ngIf="!isStatusRegistered()">
+            <!-- <div class="modal-body" *ngIf="!isStatusRegistered()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <h6>{{ l('checkInDateTime') }} :</h6>
@@ -190,6 +190,50 @@
                     </button>
                 </div>
             </div>
+        <CheckIn #checkIn></CheckIn> -->
+        <div class="modal-body" *ngIf="!isStatusRegistered()">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <h6>{{ l('checkInDateTime') }} :</h6>
+                    {{ item.appointment.checkInDateTime}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-body" *ngIf="isStatusOut()">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <h6>{{ l('checkOutDateTime') }} :</h6>
+                    {{ item.appointment.checkOutDateTime}}
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="modal-footer">
+                <div *ngIf="isStatusRegistered() && parseDate(item.appointment.checkInDateTime) > currentDateTime">
+                    <button type="button" class="btn btn-primary blue" (click)="checkIn.show(item.appointment.id)">
+                        {{ l('CheckIn') }}
+                    </button>
+                </div>
+                
+                
+                <!-- <div *ngIf="isStatusIn() && parseDate(item.appointment.checkOutDateTime) > currentDateTime">
+                    <button type="button" class="btn btn-primary blue" (click)="change_Status_Register_To_Out()">
+                        {{ l('CheckOut') }}
+                    </button>
+                </div> -->
+                <div *ngIf="isStatusIn()">
+                    <button  type="button" class="btn btn-primary blue"  (click)="change_Status_Register_To_Out()" >
+                        {{ l('CheckOut') }}
+                    </button></div>
+                
+                
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                    {{ l('Close') }}
+                </button>
+            </div>
+        </div>
         <CheckIn #checkIn></CheckIn>
+        
         </div>
     </div>

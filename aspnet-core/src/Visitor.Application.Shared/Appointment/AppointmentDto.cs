@@ -30,5 +30,7 @@ namespace Visitor.Appointment
         public string PassNumber { get; set; }
         public string CheckInDateTime { get; set; }
         public string CheckOutDateTime { get; set; }
+        public string EmailOfficerToMeet { get; set; }
+        public string PhoneNoOfficerToMeet { get; set; }
     }
 }

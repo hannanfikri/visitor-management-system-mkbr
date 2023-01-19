@@ -271,9 +271,15 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         this.notify.info(this.l('UploadSuccessfully'));
     }
 
-    reset(): void {
-        this.uploadPictureInputLabel.nativeElement.innerText = "";
-        this.imageChangedEvent = null;
+    reset(form: NgForm): void {
+        this.message.confirm(this.l('FormResetWarningMessage'), this.l('AreYouSure'), (isConfirmed) => {
+            if (isConfirmed) {
+                this.uploadPictureInputLabel.nativeElement.innerText = "";
+                this.uploadPictureInputLabel.nativeElement.value = "";
+                this.imageChangedEvent = null;
+                form.reset();
+            }
+        });
     }
 
     save(): void {
@@ -385,12 +391,12 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         if (this.Tower == "Tower 1") {
             this.appointment.companyName = "Bank Rakyat";
             this.arrayCompanyString.forEach((res) => {
-                if(res.companyName == "Bank Rakyat"){
+                if (res.companyName == "Bank Rakyat") {
                     this.disabledOptionsDropdown = true;
                 }
             })
         }
-        else if(this.Tower == "Tower 2") {
+        else if (this.Tower == "Tower 2") {
             this.disabledOptionsDropdown = false;
         }
     }

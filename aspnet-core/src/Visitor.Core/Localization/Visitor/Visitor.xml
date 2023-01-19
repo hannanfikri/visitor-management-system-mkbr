@@ -118,9 +118,9 @@
     <text name="CheckIn">Check in</text>
     <text name="CheckOut">Check out</text>
     <text name="OtherPurpose">Other (Please specify)</text>
-    <text name="EmailOfficerToMeet">Officer To Meet Email</text>
-    <text name="PhoneNoOfficerToMeet">Officer To Meet Phone No.</text>
-
+	  <text name="EmailOfficerToMeet">Officer To Meet Email</text>
+	  <text name="PhoneNoOfficerToMeet">Officer To Meet Phone No.</text>
+	  
 
     <text name="Department">Department</text>
     <text name="Visitor.Department.Department">Department</text>
@@ -147,19 +147,7 @@
     <text name="SuccessfullyCancelAppointment">Succesfully cancel the appointment</text>
     <text name="CancelAppointment">Cancel appointment</text>
     <text name="cancelDateTime">Cancel appointment's date and time</text>
-
-    <text name="CancelEmailBodyTitle">Bank Rakyat - Appointment Cancellation</text>
-    <text name="CancelEmailIntro">Dear Mr/Mrs </text>
-    <text name="CancelEmailBodyContent1">We have received your appointment cancelation date </text>
-    <text name="CancelEmailBodyContent1.1">, on </text>
-    <text name="CancelEmailBodyContent1.2">, at our BANK RAKYAT </text>
-    <text name="CancelEmailBodyContent1.3"> branch. </text>
-    <text name="CancelEmailBodyContent2">To cancel this appointment, please click below link.</text>
-    <text name="CancelEmailBodyContent3">For your information, this link will expired after 15 minutes and can only be used once.</text>
-    <text name="CancelLinkExpiredTitle">Appointment Cancellation Link Expired</text>
-    <text name="CancelLinkExpiredContent1">your appointment cancellation link has expired because you haven't used it. The appointment cancellation link expired every 15 minutes and can only be used once.</text>
-    <text name="CancelLinkExpiredContent2">You may request new appointment cancellation by click the below button.</text>
-
+    
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

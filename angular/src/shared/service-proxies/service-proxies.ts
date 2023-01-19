@@ -2213,6 +2213,58 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    cancelAppointment(body: CreateOrEditAppointmentDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/CancelAppointment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCancelAppointment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCancelAppointment(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCancelAppointment(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -19853,6 +19905,7 @@ export class AppointmentDto implements IAppointmentDto {
     checkOutDateTime!: string | undefined;
     emailOfficerToMeet!: string | undefined;
     phoneNoOfficerToMeet!: string | undefined;
+    cancelDateTime!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: DateTime | undefined;
@@ -19894,6 +19947,7 @@ export class AppointmentDto implements IAppointmentDto {
             this.checkOutDateTime = _data["checkOutDateTime"];
             this.emailOfficerToMeet = _data["emailOfficerToMeet"];
             this.phoneNoOfficerToMeet = _data["phoneNoOfficerToMeet"];
+            this.cancelDateTime = _data["cancelDateTime"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
@@ -19935,6 +19989,7 @@ export class AppointmentDto implements IAppointmentDto {
         data["checkOutDateTime"] = this.checkOutDateTime;
         data["emailOfficerToMeet"] = this.emailOfficerToMeet;
         data["phoneNoOfficerToMeet"] = this.phoneNoOfficerToMeet;
+        data["cancelDateTime"] = this.cancelDateTime;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
@@ -19969,6 +20024,7 @@ export interface IAppointmentDto {
     checkOutDateTime: string | undefined;
     emailOfficerToMeet: string | undefined;
     phoneNoOfficerToMeet: string | undefined;
+    cancelDateTime: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: DateTime | undefined;
@@ -20997,6 +21053,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
     checkOutDateTime!: DateTime | undefined;
     emailOfficerToMeet!: string | undefined;
     phoneNoOfficerToMeet!: string | undefined;
+    cancelDateTime!: DateTime | undefined;
     fileToken!: string | undefined;
     x!: number;
     y!: number;
@@ -21043,6 +21100,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
             this.checkOutDateTime = _data["checkOutDateTime"] ? DateTime.fromISO(_data["checkOutDateTime"].toString()) : <any>undefined;
             this.emailOfficerToMeet = _data["emailOfficerToMeet"];
             this.phoneNoOfficerToMeet = _data["phoneNoOfficerToMeet"];
+            this.cancelDateTime = _data["cancelDateTime"] ? DateTime.fromISO(_data["cancelDateTime"].toString()) : <any>undefined;
             this.fileToken = _data["fileToken"];
             this.x = _data["x"];
             this.y = _data["y"];
@@ -21089,6 +21147,7 @@ export class CreateOrEditAppointmentDto implements ICreateOrEditAppointmentDto {
         data["checkOutDateTime"] = this.checkOutDateTime ? this.checkOutDateTime.toString() : <any>undefined;
         data["emailOfficerToMeet"] = this.emailOfficerToMeet;
         data["phoneNoOfficerToMeet"] = this.phoneNoOfficerToMeet;
+        data["cancelDateTime"] = this.cancelDateTime ? this.cancelDateTime.toString() : <any>undefined;
         data["fileToken"] = this.fileToken;
         data["x"] = this.x;
         data["y"] = this.y;
@@ -21128,6 +21187,7 @@ export interface ICreateOrEditAppointmentDto {
     checkOutDateTime: DateTime | undefined;
     emailOfficerToMeet: string | undefined;
     phoneNoOfficerToMeet: string | undefined;
+    cancelDateTime: DateTime | undefined;
     fileToken: string | undefined;
     x: number;
     y: number;
@@ -32372,6 +32432,7 @@ export enum StatusType {
     In = 1,
     Out = 2,
     Overstayed = 3,
+    Cancel = 4,
 }
 
 export class StringOutput implements IStringOutput {

@@ -1,5 +1,5 @@
 ﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
-import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto, StatusType, GetAppointmentForViewDto } from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto, StatusType, GetAppointmentForViewDto} from '@shared/service-proxies/service-proxies';
 import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment-modal.component';
@@ -34,7 +34,7 @@ export class AppointmentsComponent extends AppComponentBase {
     image: any;
 
     appointment: CreateOrEditAppointmentDto = new CreateOrEditAppointmentDto();
-
+    
     advancedFiltersAreShown = false;
     filterText = '';
     fullNameFilter = '';
@@ -58,7 +58,7 @@ export class AppointmentsComponent extends AppComponentBase {
     emailOfficerToMeetFilter = "";
     phoneNoOfficerToMeetFilter = "";
 
-    test: any;
+    test:any;
 
 
     _entityTypeFullName = 'Visitor.Appointment.Appointment';
@@ -67,7 +67,7 @@ export class AppointmentsComponent extends AppComponentBase {
         injector: Injector,
         private _appointmentsServiceProxy: AppointmentsServiceProxy,
         private _dateTimeService: DateTimeService,
-        private _tokenService: TokenService,
+        private _tokenService:TokenService,
     ) {
         super(injector);
     }
@@ -117,7 +117,7 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.minAppDateTimeFilter,
                 this.maxAppDateTimeFilter,
                 this.minRegDateTimeFilter,
-                this.maxRegDateTimeFilter,
+                this.maxRegDateTimeFilter,  
                 this.emailOfficerToMeetFilter,
                 this.phoneNoOfficerToMeetFilter,
                 this.statusFilter,
@@ -170,26 +170,32 @@ export class AppointmentsComponent extends AppComponentBase {
             }
         });
     }
-    getStatus(appointmentId?: string): void {
-        this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) =>
+    getStatus(appointmentId?: string):void
+    {
+        this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
             this.appointment = result.appointment);
     }
-    isStatusRegistered(): boolean {
-        if (this.appointment.status == StatusType.Registered) {
-            this.appointment.checkInDateTime = null;
+    isStatusRegistered(status:any): boolean {
+        if (status == StatusType.Registered){
             return true;
         }
         else
             return false;
     }
-    isStatusIn(): boolean {
-        if (this.appointment.status == StatusType.In)
+    isStatusIn(status:any): boolean {
+        if (status == StatusType.In)
             return true;
         else
             return false;
     }
-    isStatusOut(): boolean {
-        if (this.appointment.status == StatusType.Out)
+    isStatusOut(status:any): boolean {
+        if (status == StatusType.Out)
+            return true;
+        else
+            return false;
+    }
+    isStatusCancel(status:any): boolean {
+        if (status == StatusType.Cancel)
             return true;
         else
             return false;

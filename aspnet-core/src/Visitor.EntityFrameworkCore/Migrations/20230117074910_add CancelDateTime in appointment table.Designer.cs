@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Visitor.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    partial class VisitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230117074910_add CancelDateTime in appointment table")]
+    partial class addCancelDateTimeinappointmenttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1467,9 +1469,6 @@ namespace Visitor.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmailOfficerToMeet")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
@@ -1498,9 +1497,6 @@ namespace Visitor.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNoOfficerToMeet")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PurposeOfVisit")

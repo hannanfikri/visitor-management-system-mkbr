@@ -271,6 +271,11 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
         this.notify.info(this.l('UploadSuccessfully'));
     }
 
+    reset(): void {
+        this.uploadPictureInputLabel.nativeElement.innerText = "";
+        this.imageChangedEvent = null;
+    }
+
     save(): void {
 
         if (this.appointment.purposeOfVisit == "Other")

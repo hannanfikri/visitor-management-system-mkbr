@@ -104,6 +104,35 @@ namespace Visitor.core.Portal
 
         }
 
+        public async Task SendCancelEmailAsync(AppointmentEnt appointment)
+        {
+            await CheckMailSettingsEmptyOrNull();
+
+            var surveyUrl = _configurationAccessor.Configuration["Survey:surveyUrl"] + "cancel?bookingId=" + appointment.Id ;
+
+            var emailTemplate = GetTitleAndSubTitleCancel(null, L("CancelEmailBodyTitle"), "");
+            var mailMessage = new StringBuilder();
+
+            mailMessage.AppendLine(L("CancelEmailIntro") + appointment.FullName);
+            mailMessage.AppendLine("<br><br>");
+            mailMessage.AppendLine(L("CancelEmailBodyContent1") + appointment.AppDateTime.ToString("dd-MM-yyyy") + L("CancelEmailBodyContent1.1") + appointment.AppDateTime.ToString("hh: mm tt"));
+            mailMessage.AppendLine("<br>");
+            mailMessage.AppendLine(L("CancelEmailBodyContent2"));
+            mailMessage.AppendLine("<br>");
+            mailMessage.AppendLine(String.Format("<a href='" + surveyUrl + "'>Cancel</a>"));
+            //mailMessage.AppendLine("<ul><li>" + userList + "</li></ul>" + "<br>");
+            mailMessage.AppendLine("<br><br>" + L("CancelEmailBodyContent3"));
+            mailMessage.AppendLine("<br><br>");
+            mailMessage.AppendLine(L("Sincerely"));
+            mailMessage.AppendLine("<br>");
+            mailMessage.AppendLine(L("BankRakyat"));
+
+            //From here on, you can implement your platform-dependent byte[]-to-image code 
+
+            await ReplaceBodyAndSendCancel(appointment.Email, L("CancelEmailBodyTitle"), emailTemplate, mailMessage);
+
+        }
+
         private async Task CheckMailSettingsEmptyOrNull()
         {
 #if DEBUG
@@ -138,6 +167,14 @@ namespace Visitor.core.Portal
 
             return emailTemplate;
         }
+        private StringBuilder GetTitleAndSubTitleCancel(int? tenantId, string title, String dateTimeInfo)
+        {
+            var emailTemplate = new StringBuilder(_emailTemplateProvider.GetCancelAppointmentEmailTemplate(tenantId));
+            emailTemplate.Replace("{EMAIL_TITLE}", title);
+            emailTemplate.Replace("{EMAIL_SUB_TITLE}", dateTimeInfo);
+
+            return emailTemplate;
+        }
         private async Task ReplaceBodyAndSend(string emailAddress, string subject, StringBuilder emailTemplate, StringBuilder mailMessage,
             StringBuilder visitorInfo, StringBuilder appointmentInfo, StringBuilder dateTimeInfo)
         {
@@ -149,6 +186,18 @@ namespace Visitor.core.Portal
             emailTemplate.Replace("{ARRIVAL_INFO}", timeInfo.ToString());
             emailTemplate.Replace("{CHECK_URL}", bookingCheck.ToString());*/
 
+
+            await _emailSender.SendAsync(new MailMessage
+            {
+                To = { emailAddress },
+                Subject = subject,
+                Body = emailTemplate.ToString(),
+                IsBodyHtml = true,
+            });
+        }
+        private async Task ReplaceBodyAndSendCancel(string emailAddress, string subject, StringBuilder emailTemplate, StringBuilder mailMessage)
+        {
+            emailTemplate.Replace("{EMAIL_BODY}", mailMessage.ToString());
 
             await _emailSender.SendAsync(new MailMessage
             {

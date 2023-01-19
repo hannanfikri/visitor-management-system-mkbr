@@ -54,6 +54,36 @@ namespace Visitor.Net.Emailing
                 }
             });
         }
+        public string GetCancelAppointmentEmailTemplate(int? tenantId)
+        {
+            var tenancyKey = tenantId.HasValue ? tenantId.Value.ToString() : "host";
+
+            return _defaultTemplates.GetOrAdd(tenancyKey, key =>
+            {
+                using (var stream = typeof(EmailTemplateProvider).GetAssembly().GetManifestResourceStream("CMS.Net.Emailing.EmailTemplates.cancelEmail.html"))
+                {
+                    var bytes = stream.GetAllBytes();
+                    var template = Encoding.UTF8.GetString(bytes, 3, bytes.Length - 3);
+                    template = template.Replace("{THIS_YEAR}", DateTime.Now.Year.ToString());
+                    return template.Replace("{EMAIL_LOGO_URL}", GetTenantLogoUrl(tenantId));
+                }
+            });
+        }
+        public string GetThanksEmailTemplate(int? tenantId)
+        {
+            var tenancyKey = tenantId.HasValue ? tenantId.Value.ToString() : "host";
+
+            return _defaultTemplates.GetOrAdd(tenancyKey, key =>
+            {
+                using (var stream = typeof(EmailTemplateProvider).GetAssembly().GetManifestResourceStream("CMS.Net.Emailing.EmailTemplates.thankEmail.html"))
+                {
+                    var bytes = stream.GetAllBytes();
+                    var template = Encoding.UTF8.GetString(bytes, 3, bytes.Length - 3);
+                    template = template.Replace("{THIS_YEAR}", DateTime.Now.Year.ToString());
+                    return template.Replace("{EMAIL_LOGO_URL}", GetTenantLogoUrl(tenantId));
+                }
+            });
+        }
 
         private string GetTenantLogoUrl(int? tenantId)
         {

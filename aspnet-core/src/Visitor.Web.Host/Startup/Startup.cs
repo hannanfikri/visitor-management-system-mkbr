@@ -44,6 +44,10 @@ using Newtonsoft.Json.Serialization;
 using Owl.reCAPTCHA;
 using HealthChecksUISettings = HealthChecks.UI.Configuration.Settings;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
+using Microsoft.EntityFrameworkCore;
+using Visitor.Seed;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Visitor.Web.Startup
 {
@@ -62,6 +66,18 @@ namespace Visitor.Web.Startup
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            // Seed data into database
+            /*services.AddDbContext<VisitorDbContext>(options =>
+            {
+                options.UseSqlServer(DefaultCorsPolicyName);
+            });
+            services.AddTransient<SeedDataGenerator>();*/
+
+            services.AddDbContext<VisitorDbContext>(options =>
+            {
+                options.UseSqlServer(_appConfiguration.GetConnectionString("Default"));
+            });
+
             //MVC
             services.AddControllersWithViews(options =>
             {
@@ -270,6 +286,13 @@ namespace Visitor.Web.Startup
                 
                 app.ApplicationServices.GetRequiredService<IAbpAspNetCoreConfiguration>().EndpointConfiguration.ConfigureAllEndpoints(endpoints);
             });
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<VisitorDbContext>();
+                dbContext.Database.EnsureCreated();
+                dbContext.SaveChanges();
+            }
 
             if (bool.Parse(_appConfiguration["HealthChecks:HealthChecksEnabled"]))
             {

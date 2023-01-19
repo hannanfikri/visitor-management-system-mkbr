@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Abp;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Visitor.Configuration;
+using Visitor.Seed;
 using Visitor.Web;
 
 namespace Visitor.EntityFrameworkCore
@@ -12,6 +14,7 @@ namespace Visitor.EntityFrameworkCore
         public VisitorDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<VisitorDbContext>();
+            var seedDataGenerator = new SeedDataGenerator();
 
             /*
              You can provide an environmentName parameter to the AppConfigurations.Get method. 

@@ -32,5 +32,6 @@ namespace Visitor.Appointment
         public string CheckOutDateTime { get; set; }
         public string EmailOfficerToMeet { get; set; }
         public string PhoneNoOfficerToMeet { get; set; }
+        public string CancelDateTime { get; set; }
     }
 }

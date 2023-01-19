@@ -1,5 +1,5 @@
 ﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
-import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto} from '@shared/service-proxies/service-proxies';
+import { AppointmentsServiceProxy, AppointmentDto, CreateOrEditAppointmentDto, StatusType, GetAppointmentForViewDto} from '@shared/service-proxies/service-proxies';
 import { TokenService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditAppointmentModalComponent } from './create-or-edit-appointment_Today-modal.component';
@@ -9,7 +9,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { LazyLoadEvent } from 'primeng/api';
 import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
-import { filter as _filter } from 'lodash-es';
+import { filter as _filter, result } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
@@ -52,9 +52,9 @@ export class AppointmentsComponent extends AppComponentBase {
     maxAppDateTimeFilter: DateTime;
     minRegDateTimeFilter: DateTime;
     maxRegDateTimeFilter: DateTime;
-    statusFilter : any;
+    statusFilter: any;
     passNumberFilter = '';
-    appRefNo = "";
+    appRefNoFilter = "";
     emailOfficerToMeetFilter = "";
     phoneNoOfficerToMeetFilter = "";
 
@@ -117,12 +117,12 @@ export class AppointmentsComponent extends AppComponentBase {
                 this.minAppDateTimeFilter,
                 this.maxAppDateTimeFilter,
                 this.minRegDateTimeFilter,
-                this.maxRegDateTimeFilter,
+                this.maxRegDateTimeFilter,  
                 this.emailOfficerToMeetFilter,
                 this.phoneNoOfficerToMeetFilter,
                 this.statusFilter,
                 this.passNumberFilter,
-                this.appRefNo,
+                this.appRefNoFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -174,8 +174,30 @@ export class AppointmentsComponent extends AppComponentBase {
     {
         this._appointmentsServiceProxy.getAppointmentForEdit(appointmentId).subscribe((result) => 
             this.appointment = result.appointment);
-            
-        
-
+    }
+    isStatusRegistered(status:any): boolean {
+        if (status == StatusType.Registered){
+            return true;
+        }
+        else
+            return false;
+    }
+    isStatusIn(status:any): boolean {
+        if (status == StatusType.In)
+            return true;
+        else
+            return false;
+    }
+    isStatusOut(status:any): boolean {
+        if (status == StatusType.Out)
+            return true;
+        else
+            return false;
+    }
+    isStatusCancel(status:any): boolean {
+        if (status == StatusType.Cancel)
+            return true;
+        else
+            return false;
     }
 }

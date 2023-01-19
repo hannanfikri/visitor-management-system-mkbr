@@ -92,6 +92,18 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
         else
             return false;
     }
+    isStatusOverstayed(): boolean {
+        if (this.item.appointment.status == StatusType.Overstayed)
+            return true;
+        else
+            return false;
+    }
+    isStatusCancel(): boolean {
+        if (this.item.appointment.status == StatusType.Cancel)
+            return true;
+        else
+            return false;
+    }
 
     change_Status_Register_To_Out(): void {
         this.message.confirm('', this.l('AreYouSure'), (isConfirmed) => {
@@ -108,6 +120,33 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
                         this.modalSave.emit(null);
                         window.location.reload();
                         this.notify.info(this.l('CheckOutSuccessfully'));
+                    });
+
+            }
+        });
+    }
+    processCancelAppointment(item: GetAppointmentForViewDto): void {
+        this.item = item;
+        this._appointmentsServiceProxy.getAppointmentForEdit(item.appointment.id).subscribe((result) => {
+            this.appointment = result.appointment;
+        });
+        this.cancelAppointment();
+    }
+    cancelAppointment(): void {
+        this.message.confirm('', this.l('AreYouSureCancelAppointment'), (isConfirmed) => {
+            if (isConfirmed) {
+                this.saving = true;
+                this._appointmentsServiceProxy
+                    .cancelAppointment(this.appointment)
+                    .pipe(
+                        finalize(() => {
+                            this.saving = false;
+                        })
+                    )
+                    .subscribe((result) => {
+                        this.modalSave.emit(null);
+                        window.location.reload();
+                        this.notify.info(this.l('SuccessfullyCancelAppointment'));
                     });
 
             }

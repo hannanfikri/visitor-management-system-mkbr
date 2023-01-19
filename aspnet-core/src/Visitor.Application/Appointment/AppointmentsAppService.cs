@@ -201,7 +201,9 @@ namespace Visitor.Appointment
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
                                    o.EmailOfficerToMeet,
-                                   o.PhoneNoOfficerToMeet
+                                   o.PhoneNoOfficerToMeet,
+                                   o.CancelDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -237,6 +239,7 @@ namespace Visitor.Appointment
                         PassNumber=o.PassNumber,
                         CheckInDateTime = o.CheckInDateTime.ToString(" dd/MM hh:mm tt"),
                         CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
+                        CancelDateTime = o.CancelDateTime.ToString("dd/MM hh:mm tt"),
                         EmailOfficerToMeet = o.EmailOfficerToMeet,
                         PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
@@ -341,6 +344,7 @@ namespace Visitor.Appointment
                                    o.PassNumber,
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
+                                   o.CancelDateTime,
                                    o.EmailOfficerToMeet,
                                    o.PhoneNoOfficerToMeet
                                };
@@ -376,8 +380,9 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.PassNumber,
-                        CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        CheckInDateTime = o.CheckInDateTime.ToString("dd/MM hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
+                        CancelDateTime = o.CancelDateTime.ToString("dd/MM hh:mm tt"),
                         EmailOfficerToMeet = o.EmailOfficerToMeet,
                         PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
@@ -479,7 +484,9 @@ namespace Visitor.Appointment
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
                                    o.EmailOfficerToMeet,
-                                   o.PhoneNoOfficerToMeet
+                                   o.PhoneNoOfficerToMeet,
+                                   o.CancelDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -513,8 +520,9 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.PassNumber,
-                        CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        CheckInDateTime = o.CheckInDateTime.ToString("dd/MM hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
+                        CancelDateTime = o.CancelDateTime.ToString("dd/MM hh:mm tt"),
                         EmailOfficerToMeet = o.EmailOfficerToMeet,
                         PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
@@ -617,7 +625,9 @@ namespace Visitor.Appointment
                                    o.CheckInDateTime,
                                    o.CheckOutDateTime,
                                    o.EmailOfficerToMeet,
-                                   o.PhoneNoOfficerToMeet
+                                   o.PhoneNoOfficerToMeet,
+                                   o.CancelDateTime,
+
                                };
 
             var totalCount = await filteredAppointments.CountAsync();
@@ -651,8 +661,9 @@ namespace Visitor.Appointment
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
                         PassNumber = o.PassNumber,
-                        CheckInDateTime = o.CheckInDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-                        CheckOutDateTime = o.CheckOutDateTime.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                        CheckInDateTime = o.CheckInDateTime.ToString("dd/MM hh:mm tt"),
+                        CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
+                        CancelDateTime = o.CancelDateTime.ToString("dd/MM hh:mm tt"),
                         EmailOfficerToMeet = o.EmailOfficerToMeet,
                         PhoneNoOfficerToMeet = o.PhoneNoOfficerToMeet
                     }
@@ -1139,6 +1150,16 @@ namespace Visitor.Appointment
             var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.Out;
             appointment.CheckOutDateTime = now;
+
+        }
+        public async Task CancelAppointment(CreateOrEditAppointmentDto input)
+        {
+            DateTime now = DateTime.Now;
+            await Update(input);
+
+            var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
+            appointment.Status = StatusType.Cancel;
+            appointment.CancelDateTime = now;
 
         }
 

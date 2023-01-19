@@ -51,6 +51,7 @@ using Visitor.PurposeOfVisit.Dtos;
 using Visitor.Title.Dtos;
 using Visitor.Level.Dtos;
 using Visitor.Departments.Dtos;
+using Visitor.Appointment.ExpiredUrl;
 
 namespace Visitor
 {
@@ -82,6 +83,9 @@ namespace Visitor
             //Department
             configuration.CreateMap<CreateOrEditDepartmentDto, Departments.Department>().ReverseMap();
             configuration.CreateMap<DepartmentDto, Departments.Department>().ReverseMap();
+            //ExpiredUrl
+            configuration.CreateMap<CreateOrEditExpiredUrlDto, ExpiredUrlEnt>().ReverseMap();
+            configuration.CreateMap<ExpiredUrlDto, ExpiredUrlEnt>().ReverseMap();
 
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();

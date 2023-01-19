@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Visitor.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    partial class VisitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119062034_Add seed tower")]
+    partial class Addseedtower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1437,9 +1439,6 @@ namespace Visitor.Migrations
                     b.Property<string>("AppRefNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CancelDateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("CheckInDateTime")
                         .HasColumnType("datetime2");
 
@@ -1912,32 +1911,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("211b33a3-3e6c-4c48-a035-8487bf238cdd"),
-                            CompanyAddress = "No. 33, Jalan Rakyat, KL Sentral, 50740 Kuala Lumpur",
-                            CompanyEmail = "bankrakyat@bankrakyat.com",
-                            CompanyName = "Bank Rakyat",
-                            OfficePhoneNumber = "0123456789"
-                        },
-                        new
-                        {
-                            Id = new Guid("fc96341f-f3ff-40a0-aad2-8adf4a23c2b7"),
-                            CompanyAddress = "Lot 1327, Centre Point Commercial Centre, Jalan Melayu, 98007 Miri, Sarawak",
-                            CompanyEmail = "mecofurniture@yahoo.com",
-                            CompanyName = "Meco Furniture Trading Co.",
-                            OfficePhoneNumber = "085437705"
-                        },
-                        new
-                        {
-                            Id = new Guid("aad9dd05-41c5-4244-bbc7-91431f33d98c"),
-                            CompanyAddress = "No. 1, Blok C, Jalan Indah 2/6, Taman Indah, Batu 11, Cheras, 43200, Selangor, Darul Ehsan",
-                            CompanyEmail = "elaine@mieco.com",
-                            CompanyName = "Mieco",
-                            OfficePhoneNumber = "0390759991"
-                        });
                 });
 
             modelBuilder.Entity("Visitor.Departments.Department", b =>
@@ -1952,33 +1925,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3194773f-b3de-4195-b158-35f57144357b"),
-                            DepartmentName = "Information Security"
-                        },
-                        new
-                        {
-                            Id = new Guid("36cd3f01-4435-46fa-b193-789b4dc3983b"),
-                            DepartmentName = "Information Systems"
-                        },
-                        new
-                        {
-                            Id = new Guid("e7e26f53-f8a2-4bf2-94d4-33623c0942fb"),
-                            DepartmentName = "IT Administration"
-                        },
-                        new
-                        {
-                            Id = new Guid("a2e34eb4-f8b9-4628-8c7d-e8ea723bb1d2"),
-                            DepartmentName = "IT Solutions"
-                        },
-                        new
-                        {
-                            Id = new Guid("2347f472-2023-4500-86a5-a3455ded2eb5"),
-                            DepartmentName = "Network"
-                        });
                 });
 
             modelBuilder.Entity("Visitor.Friendships.Friendship", b =>
@@ -2043,198 +1989,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LevelAppointments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("05b7e1b8-9947-4f1b-9800-8391455c7aba"),
-                            LevelBankRakyat = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("0121dce2-6533-4fc5-8b02-43739a117e35"),
-                            LevelBankRakyat = "2"
-                        },
-                        new
-                        {
-                            Id = new Guid("c69fc78b-ca42-4576-9fc6-160ca31b7e99"),
-                            LevelBankRakyat = "3"
-                        },
-                        new
-                        {
-                            Id = new Guid("686250e2-030a-4db0-ac84-030ff66f2765"),
-                            LevelBankRakyat = "4"
-                        },
-                        new
-                        {
-                            Id = new Guid("93fe53b0-1f53-43bb-8a8c-95ada3511c44"),
-                            LevelBankRakyat = "5"
-                        },
-                        new
-                        {
-                            Id = new Guid("97080566-69b6-416f-b6b4-8ae15380ca84"),
-                            LevelBankRakyat = "6"
-                        },
-                        new
-                        {
-                            Id = new Guid("ac6b3790-1e9e-4c95-8d35-031a6573851f"),
-                            LevelBankRakyat = "7"
-                        },
-                        new
-                        {
-                            Id = new Guid("15b44837-5ecc-4a05-8566-12c15d39f97c"),
-                            LevelBankRakyat = "8"
-                        },
-                        new
-                        {
-                            Id = new Guid("044f1e53-5633-4106-ad98-c818016689fa"),
-                            LevelBankRakyat = "9"
-                        },
-                        new
-                        {
-                            Id = new Guid("e91d1a1f-4d98-4910-8e97-c81888935ea0"),
-                            LevelBankRakyat = "10"
-                        },
-                        new
-                        {
-                            Id = new Guid("e286ac41-9269-43a0-badb-fd17f9824a97"),
-                            LevelBankRakyat = "11"
-                        },
-                        new
-                        {
-                            Id = new Guid("d8a34681-7ee9-4f19-8f2b-abd1d62dc5b6"),
-                            LevelBankRakyat = "12"
-                        },
-                        new
-                        {
-                            Id = new Guid("c06f8af6-d8b7-4aa6-8984-6773d15de6bc"),
-                            LevelBankRakyat = "13"
-                        },
-                        new
-                        {
-                            Id = new Guid("7eebabff-ec74-43d3-a5e7-e32dd0cd5ac9"),
-                            LevelBankRakyat = "14"
-                        },
-                        new
-                        {
-                            Id = new Guid("b3d7abcd-a728-4c0d-9eb3-e2c8e2e3c2b1"),
-                            LevelBankRakyat = "15"
-                        },
-                        new
-                        {
-                            Id = new Guid("50ef3b84-23f7-4d2e-a113-8d66509033e6"),
-                            LevelBankRakyat = "16"
-                        },
-                        new
-                        {
-                            Id = new Guid("347d92f2-e20b-4513-9cf7-7f0116049a83"),
-                            LevelBankRakyat = "17"
-                        },
-                        new
-                        {
-                            Id = new Guid("04b80398-c720-47f7-8617-5d37190dd155"),
-                            LevelBankRakyat = "18"
-                        },
-                        new
-                        {
-                            Id = new Guid("380765a7-851b-4253-aa13-8e589e03a6bb"),
-                            LevelBankRakyat = "19"
-                        },
-                        new
-                        {
-                            Id = new Guid("6b633840-4de5-4dd2-ac24-53fd3f0299a4"),
-                            LevelBankRakyat = "20"
-                        },
-                        new
-                        {
-                            Id = new Guid("3d910523-6487-4fba-9a35-695825321ca3"),
-                            LevelBankRakyat = "21"
-                        },
-                        new
-                        {
-                            Id = new Guid("e0721018-64f6-467f-a018-77f01c2c10fe"),
-                            LevelBankRakyat = "22"
-                        },
-                        new
-                        {
-                            Id = new Guid("84547ee8-21b4-40a7-bbd1-babe99e19887"),
-                            LevelBankRakyat = "23"
-                        },
-                        new
-                        {
-                            Id = new Guid("49e90414-fab3-4a58-ab51-e1306101da03"),
-                            LevelBankRakyat = "24"
-                        },
-                        new
-                        {
-                            Id = new Guid("47d3c895-d849-4f82-92a1-c329fb265e51"),
-                            LevelBankRakyat = "25"
-                        },
-                        new
-                        {
-                            Id = new Guid("090a2267-9dbf-4891-ac82-66047a493da2"),
-                            LevelBankRakyat = "26"
-                        },
-                        new
-                        {
-                            Id = new Guid("9fe516f2-09ff-4a28-aae0-f9a218b93abe"),
-                            LevelBankRakyat = "27"
-                        },
-                        new
-                        {
-                            Id = new Guid("c058eb1a-323b-4f21-bd2e-85451b3f9dee"),
-                            LevelBankRakyat = "28"
-                        },
-                        new
-                        {
-                            Id = new Guid("d2847c23-f713-4ed9-aa17-a0b6108967d0"),
-                            LevelBankRakyat = "29"
-                        },
-                        new
-                        {
-                            Id = new Guid("f6de15d1-4f1b-4f3a-a70e-869a4f1bf98e"),
-                            LevelBankRakyat = "30"
-                        },
-                        new
-                        {
-                            Id = new Guid("175c138e-e503-4194-8343-b3a384f83935"),
-                            LevelBankRakyat = "31"
-                        },
-                        new
-                        {
-                            Id = new Guid("f2c96532-0a71-422c-971a-aefab56c5722"),
-                            LevelBankRakyat = "32"
-                        },
-                        new
-                        {
-                            Id = new Guid("d6d02912-84a0-4bb3-ab1d-a96ea6b4dfa5"),
-                            LevelBankRakyat = "33"
-                        },
-                        new
-                        {
-                            Id = new Guid("9d6e0740-1c61-4bdf-a871-cf653419efa3"),
-                            LevelBankRakyat = "34"
-                        },
-                        new
-                        {
-                            Id = new Guid("27812963-af4e-4a8c-9ede-e4a46524e2a2"),
-                            LevelBankRakyat = "35"
-                        },
-                        new
-                        {
-                            Id = new Guid("86283a67-6ce2-42ae-9011-00b248144e13"),
-                            LevelBankRakyat = "36"
-                        },
-                        new
-                        {
-                            Id = new Guid("c478c23a-9633-41b1-8b57-30823f31c75a"),
-                            LevelBankRakyat = "37"
-                        },
-                        new
-                        {
-                            Id = new Guid("7851e486-eb75-42ef-bf51-e8f27ded188b"),
-                            LevelBankRakyat = "38"
-                        });
                 });
 
             modelBuilder.Entity("Visitor.MultiTenancy.Accounting.Invoice", b =>
@@ -2475,73 +2229,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PurposeOfVisitAppointments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2dfc18e1-0fc1-4b18-83a8-b682d4b7dfd3"),
-                            PurposeOfVisitApp = "Interview"
-                        },
-                        new
-                        {
-                            Id = new Guid("7add69b6-32b8-49d9-a080-6ff133a63ad8"),
-                            PurposeOfVisitApp = "Installation"
-                        },
-                        new
-                        {
-                            Id = new Guid("dd047b80-3f21-4898-8cca-9af397fefb86"),
-                            PurposeOfVisitApp = "Event"
-                        },
-                        new
-                        {
-                            Id = new Guid("89cb8563-44ac-4eae-b3d7-403ef4bd952a"),
-                            PurposeOfVisitApp = "Event"
-                        },
-                        new
-                        {
-                            Id = new Guid("fca33933-902b-4846-92b5-7704a4c27303"),
-                            PurposeOfVisitApp = "Discussion"
-                        },
-                        new
-                        {
-                            Id = new Guid("bb4de330-2be1-4a21-b8a9-576544a1486e"),
-                            PurposeOfVisitApp = "Delivery"
-                        },
-                        new
-                        {
-                            Id = new Guid("b9c8cdfa-aa84-423f-9587-82d900a4ac0b"),
-                            PurposeOfVisitApp = "Admission"
-                        },
-                        new
-                        {
-                            Id = new Guid("6d315757-5fa0-4160-b69b-76b52a4c64af"),
-                            PurposeOfVisitApp = "Collect Cheque"
-                        },
-                        new
-                        {
-                            Id = new Guid("d799c225-f7a4-4472-aa7d-9b41c608afcf"),
-                            PurposeOfVisitApp = "Document Collection"
-                        },
-                        new
-                        {
-                            Id = new Guid("4a36bbf8-a7f0-47ae-80c2-b2751cc5ef00"),
-                            PurposeOfVisitApp = "Meeting"
-                        },
-                        new
-                        {
-                            Id = new Guid("6ea41212-4896-4422-a420-484ed8aa6517"),
-                            PurposeOfVisitApp = "Training"
-                        },
-                        new
-                        {
-                            Id = new Guid("f9d73081-344b-4cf4-a816-9a0a1d490a91"),
-                            PurposeOfVisitApp = "Vendor"
-                        },
-                        new
-                        {
-                            Id = new Guid("c7d4fcb8-0a8f-4db2-bcff-b1bb4c36b8f1"),
-                            PurposeOfVisitApp = "Visit"
-                        });
                 });
 
             modelBuilder.Entity("Visitor.Storage.BinaryObject", b =>
@@ -2580,43 +2267,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VisitorTitles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9cf3266e-cc60-4658-8445-26007541e506"),
-                            VisitorTitle = "Mrs"
-                        },
-                        new
-                        {
-                            Id = new Guid("1d023354-dd25-46fb-bd32-50db08110a26"),
-                            VisitorTitle = "Mr"
-                        },
-                        new
-                        {
-                            Id = new Guid("4016b884-e757-446e-af49-eb678de740c0"),
-                            VisitorTitle = "Ms"
-                        },
-                        new
-                        {
-                            Id = new Guid("4292d77b-d529-4797-bba9-39ec7f780b7b"),
-                            VisitorTitle = "Sir"
-                        },
-                        new
-                        {
-                            Id = new Guid("06fefa85-82c0-43b9-a029-3fa2feb12c13"),
-                            VisitorTitle = "Tan Sri"
-                        },
-                        new
-                        {
-                            Id = new Guid("a5ae3fd9-b377-461e-bdb0-b9a9927ae499"),
-                            VisitorTitle = "Puan Sri"
-                        },
-                        new
-                        {
-                            Id = new Guid("99f57da7-cdca-4a9a-a063-dc4f33cc269b"),
-                            VisitorTitle = "Dato Sri"
-                        });
                 });
 
             modelBuilder.Entity("Visitor.Tower.TowerEnt", b =>
@@ -2635,12 +2285,12 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b9b1547c-87a2-4638-bcbf-e930a85ab211"),
+                            Id = new Guid("39ec162d-ddf6-47a8-9e1e-ea7abac9cdd4"),
                             TowerBankRakyat = "Tower 1"
                         },
                         new
                         {
-                            Id = new Guid("3337cc54-122f-4347-b1dd-88861e13e042"),
+                            Id = new Guid("056c7b57-9c59-4fb3-b919-1d242a32f8af"),
                             TowerBankRakyat = "Tower 2"
                         });
                 });

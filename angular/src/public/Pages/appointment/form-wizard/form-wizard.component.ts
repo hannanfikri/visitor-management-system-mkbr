@@ -377,7 +377,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
     onChange(getValueTower) {
         this.Tower = getValueTower;
-        if (this.Tower == "1") {
+        if (this.Tower == "Tower 1") {
             this.appointment.companyName = "Bank Rakyat";
             this.arrayCompanyString.forEach((res) => {
                 if(res.companyName == "Bank Rakyat"){
@@ -385,7 +385,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                 }
             })
         }
-        else if(this.Tower == "2") {
+        else if(this.Tower == "Tower 2") {
             this.disabledOptionsDropdown = false;
         }
     }

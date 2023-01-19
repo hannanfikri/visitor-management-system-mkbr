@@ -203,18 +203,18 @@
                 <div class="modal-footer">
                     <div style="display: flex; flex-wrap: wrap;">
                         <div *ngIf="isStatusRegistered()" style="align-self: flex-start;">
-                            <button type="button" class="btn btn-light-danger" (click)="cancelAppointment()">
+                            <button type="button" style="margin-right: 10px;" class="btn btn-light-danger" (click)="cancelAppointment()">
                                 {{ l('Cancel') }}
                             </button>
                         </div>
                         <div *ngIf="isStatusRegistered()">
-                            <button type="button" class="btn btn-primary blue"
+                            <button type="button" style="margin-right: 10px;" class="btn btn-primary blue"
                                 (click)="checkIn.show(item.appointment.id)">
                                 {{ l('CheckIn') }}
                             </button>
                         </div>
                         <div *ngIf="isStatusIn()">
-                            <button type="button" class="btn btn-primary blue"
+                            <button type="button" style="margin-right: 10px;" class="btn btn-primary blue"
                                 (click)="change_Status_Register_To_Out()">
                                 {{ l('CheckOut') }}
                             </button>

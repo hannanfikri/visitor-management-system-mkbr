@@ -284,10 +284,10 @@
                             <div>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" id="uploadPicture" name="uploadPicture"
-                                            (change)="fileChangeEvent($event)" required /> <label
+                                        <input type="file" #uploadPictureInputLabel id="uploadPicture" name="uploadPicture"
+                                            (change)="fileChangeEvent($event)" required/> <label
                                             class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
-                                            <!-- {{ 'ChooseAFile' | localize }} --> </label>
+                                            <!-- {{ 'ChooseAFile' | localize }}--> </label> 
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +311,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <button type="reset" class="btn btn-light-danger font-weight-bold mr-2">
+                <button type="button" (click)="reset(appointmentForm)" class="btn btn-light-danger font-weight-bold mr-2">
                     <i class="
                     flaticon-exclamation-1"></i>
                     <span>{{ l('Reset') }}</span>

@@ -176,7 +176,7 @@
                         <div>
                             <input type="text" placeholder="Please enter the officer's email address"
                                 #Appointment_EmailOfficerToMeet="ngModel" id="Appointment_EmailOfficerToMeet" class="form-control"
-                                [(ngModel)]="appointment.emailOfficerToMeet" name="EmailOfficerToMeet" required />
+                                [(ngModel)]="appointment.emailOfficerToMeet" name="EmailOfficerToMeet" required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
                             <validation-messages [formCtrl]="Appointment_EmailOfficerToMeet"></validation-messages>
                         </div>
                     </div>
@@ -189,7 +189,8 @@
                             <input type="text" placeholder="Please enter the officer's phone number"
                                 #Appointment_PhoneNoOfficerToMeet="ngModel" id="Appointment_PhoneNoOfficerToMeet"
                                 class="form-control" [(ngModel)]="appointment.phoneNoOfficerToMeet" name="PhoneNoOfficerToMeet"
-                                required />
+                                required minlength="10" maxlength="11"
+                                pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]"/>
                             <validation-messages [formCtrl]="Appointment_PhoneNoOfficerToMeet"></validation-messages>
                         </div>
                     </div>

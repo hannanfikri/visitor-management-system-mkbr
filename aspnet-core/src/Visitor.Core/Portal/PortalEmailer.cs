@@ -44,63 +44,57 @@ namespace Visitor.core.Portal
             dateTimeInfo.AppendLine(L("AppDateTime")+":" + "<br>" );
             dateTimeInfo.AppendLine(appointment.AppDateTime.ToString("dddd, dd MMMM yyyy ") + " at " + appointment.AppDateTime.ToString("hh:mm tt"));
 
-            var emailTemplate = GetTitleAndSubTitle(null, appointment.AppRefNo, dateTimeInfo);
-            var mailMessage = new StringBuilder();
+            //email visitor
+            var emailTemplateVisitor = GetTitleAndSubTitle(null, appointment.AppRefNo, dateTimeInfo);
+            //email officer to meet
+            var emailTemplateOfficerToMeet = GetTitleAndSubTitle(null, appointment.AppRefNo, dateTimeInfo);
+            //context email
+            var VisitorDetails = new StringBuilder();
+            var AppointmentDetails = new StringBuilder();
+            var CancelDetails = new StringBuilder();
+            var Regard = new StringBuilder();
+            //cancel link
+            var surveyUrl = _configurationAccessor.Configuration["Survey:surveyUrl"] + "cancel?appointmentId=" + appointment.Id;
 
-            //new
-            var visitorInfo = new StringBuilder();
-            var appointmentInfo = new StringBuilder();
-            
+            //visitor
+            VisitorDetails.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
+            VisitorDetails.AppendLine(L("VisitorDetails") + ":" );
+            VisitorDetails.AppendLine("</td>");
+            VisitorDetails.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
+            VisitorDetails.AppendLine(L("VisitorFullName") + " : " + appointment.Title + " " + appointment.FullName + "<br>" + L("IC/Pas") + " : " + appointment.IdentityCard + "<br>" + L("PhoneNo") + " : " + appointment.PhoneNo + "<br>" + L("VisitorEmail") + " : " + appointment.Email);
+            VisitorDetails.AppendLine("</td>");
+            VisitorDetails.AppendLine("<br>");
 
-            /*var serviceInfo = new StringBuilder();
-            var timeInfo = new StringBuilder();
-            var bookingCheck = new StringBuilder();
-            var ServiceTranslationDto = service.Translations.FirstOrDefault();*/
+            //appointment
+            AppointmentDetails.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
+            AppointmentDetails.AppendLine(L("AppointmentDetails") + ":");
+            AppointmentDetails.AppendLine("</td>");
+            AppointmentDetails.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
+            AppointmentDetails.AppendLine(L("Tower") + " : " + appointment.Tower + "<br>" + L("Company") + " : " + appointment.CompanyName + "<br>" + L("Department") + " : " + appointment.Department + "<br>"
+            + L("Level") + " : " + appointment.Level + "<br>" + L("OfficerToMeet") + " : " + appointment.OfficerToMeet + "<br>" + L("EmailOfficerToMeet") + " : " + appointment.EmailOfficerToMeet
+            + "<br>" + L("PhoneNoOfficerToMeet") + " : " + appointment.PhoneNoOfficerToMeet + "<br>" + L("PurposeOfVisit") + " : " + appointment.PurposeOfVisit);
+            AppointmentDetails.AppendLine("</td>");
 
-            visitorInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            visitorInfo.AppendLine(L("VisitorDetails") + ":" );
-            visitorInfo.AppendLine("</td>");
+            //cancel appointment
+            CancelDetails.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
+            CancelDetails.AppendLine(L("CancelEmailBodyContent2"));
+            CancelDetails.AppendLine("<br>");
+            CancelDetails.AppendLine(String.Format("<a href='" + surveyUrl + "'>Cancel</a>"));
+            CancelDetails.AppendLine("<br><br>" + L("CancelEmailBodyContent3"));
+            CancelDetails.AppendLine("</td>");
 
-            visitorInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            visitorInfo.AppendLine(L("VisitorFullName") + " : " + appointment.Title + " " + appointment.FullName + "<br>" + L("IC/Pas") + " : " + appointment.IdentityCard + "<br>" + L("PhoneNo") + " : " + appointment.PhoneNo + "<br>" + L("VisitorEmail") + " : " + appointment.Email);
-            visitorInfo.AppendLine("</td>");
-
-
-            dateTimeInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            
-            dateTimeInfo.AppendLine("</td>");
-
-            dateTimeInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            dateTimeInfo.AppendLine(L("Date") + " : " + appointment.AppDateTime.ToString("dddd, dd MMMM yyyy " ) + "<br>" + L("Time") + " : " + appointment.AppDateTime.ToString("hh:mm tt"));
-            dateTimeInfo.AppendLine("</td>");
-
-            appointmentInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            appointmentInfo.AppendLine(L("AppointmentDetails") + ":");
-            appointmentInfo.AppendLine("</td>");
-
-            appointmentInfo.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            appointmentInfo.AppendLine(L("Tower") + " : " + appointment.Tower + "<br>" + L("Company") + " : " + appointment.CompanyName + "<br>" + L("Department") + " : " + appointment.Department + "<br>"
-            + L("Level") + " : " + appointment.Level + "<br>" + L("OfficerToMeet") + " : " + appointment.OfficerToMeet + "<br>" + L("PurposeOfVisit") + " : " + appointment.PurposeOfVisit);
-            appointmentInfo.AppendLine("</td>");
-
-
-            
-
-            
-
-           /* bookingCheck.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");
-            bookingCheck.AppendLine(L("CheckURL") + booking.BookingRefNo);
-            bookingCheck.AppendLine("</td>");
-
-            timeInfo.AppendLine(L("AppointmentTimeArrival"));*/
-
+            //Regard
+            Regard.AppendLine(L("Sincerely"));
+            Regard.AppendLine("<br>");
+            Regard.AppendLine(L("BankRakyat"));
 
             //From here on, you can implement your platform-dependent byte[]-to-image code 
 
             //e.g. Windows 10 - Full .NET Framework
 
 
-            await ReplaceBodyAndSend(appointment.Email, L("AppointmentDetails"), emailTemplate, mailMessage, visitorInfo,appointmentInfo, dateTimeInfo);
+            await ReplaceBodyAndSend(appointment.Email, L("AppointmentDetails"), emailTemplateVisitor, VisitorDetails, AppointmentDetails, CancelDetails , Regard);
+            await ReplaceBodyAndSend(appointment.EmailOfficerToMeet, L("AppointmentDetails"), emailTemplateOfficerToMeet, VisitorDetails, AppointmentDetails, CancelDetails, Regard);
 
         }
 
@@ -108,19 +102,24 @@ namespace Visitor.core.Portal
         {
             await CheckMailSettingsEmptyOrNull();
 
-            var surveyUrl = _configurationAccessor.Configuration["Survey:surveyUrl"] + "cancel?bookingId=" + appointment.Id ;
+            var dateTimeInfo = new StringBuilder();
+            dateTimeInfo.AppendLine(L("AppDateTime") + ":" + "<br>");
+            dateTimeInfo.AppendLine(appointment.AppDateTime.ToString("dddd, dd MMMM yyyy ") + " at " + appointment.AppDateTime.ToString("hh:mm tt"));
 
-            var emailTemplate = GetTitleAndSubTitleCancel(null, L("CancelEmailBodyTitle"), "");
+            var surveyUrl = _configurationAccessor.Configuration["Survey:surveyUrl"] + "cancel?appointmentId=" + appointment.Id ;
+
+           // var emailTemplate = GetTitleAndSubTitle(null, appointment.AppRefNo, dateTimeInfo);
+            var emailTemplate = GetTitleAndSubTitleCancel(null, appointment.AppRefNo, dateTimeInfo);
             var mailMessage = new StringBuilder();
 
-            mailMessage.AppendLine(L("CancelEmailIntro") + appointment.FullName);
+            mailMessage.AppendLine(L("CancelEmailIntro") + appointment.Title+" " + appointment.FullName);
             mailMessage.AppendLine("<br><br>");
-            mailMessage.AppendLine(L("CancelEmailBodyContent1") + appointment.AppDateTime.ToString("dd-MM-yyyy") + L("CancelEmailBodyContent1.1") + appointment.AppDateTime.ToString("hh: mm tt"));
+            mailMessage.AppendLine(L("CancelEmailBodyContent1") + appointment.AppDateTime.ToString("dd-MM-yyyy") + 
+                                   L("CancelEmailBodyContent1.1") + appointment.AppDateTime.ToString("hh: mm tt"));
             mailMessage.AppendLine("<br>");
             mailMessage.AppendLine(L("CancelEmailBodyContent2"));
             mailMessage.AppendLine("<br>");
             mailMessage.AppendLine(String.Format("<a href='" + surveyUrl + "'>Cancel</a>"));
-            //mailMessage.AppendLine("<ul><li>" + userList + "</li></ul>" + "<br>");
             mailMessage.AppendLine("<br><br>" + L("CancelEmailBodyContent3"));
             mailMessage.AppendLine("<br><br>");
             mailMessage.AppendLine(L("Sincerely"));
@@ -167,25 +166,21 @@ namespace Visitor.core.Portal
 
             return emailTemplate;
         }
-        private StringBuilder GetTitleAndSubTitleCancel(int? tenantId, string title, String dateTimeInfo)
+        private StringBuilder GetTitleAndSubTitleCancel(int? tenantId, string title, StringBuilder dateTimeInfo)
         {
-            var emailTemplate = new StringBuilder(_emailTemplateProvider.GetCancelAppointmentEmailTemplate(tenantId));
+            var emailTemplate = new StringBuilder(_emailTemplateProvider.GetAppointmentEmailTemplate(tenantId));
             emailTemplate.Replace("{EMAIL_TITLE}", title);
-            emailTemplate.Replace("{EMAIL_SUB_TITLE}", dateTimeInfo);
+            emailTemplate.Replace("{EMAIL_SUB_TITLE}", dateTimeInfo.ToString());
 
             return emailTemplate;
         }
-        private async Task ReplaceBodyAndSend(string emailAddress, string subject, StringBuilder emailTemplate, StringBuilder mailMessage,
-            StringBuilder visitorInfo, StringBuilder appointmentInfo, StringBuilder dateTimeInfo)
+        private async Task ReplaceBodyAndSend(string emailAddress, string subject, StringBuilder emailTemplate, 
+            StringBuilder VisitorDetails,StringBuilder AppointmentDetails,StringBuilder CancelDetails, StringBuilder Regard)
         {
-            emailTemplate.Replace("{EMAIL_BODY}", mailMessage.ToString());
-            emailTemplate.Replace("{VISITOR_INFO}", visitorInfo.ToString());
-            emailTemplate.Replace("{APPOINTMENT_INFO}", appointmentInfo.ToString());
-            emailTemplate.Replace("{DATETIME_INFO}", dateTimeInfo.ToString());
-           /* emailTemplate.Replace("{PERSONAL_INFO}", personalInfo.ToString());
-            emailTemplate.Replace("{ARRIVAL_INFO}", timeInfo.ToString());
-            emailTemplate.Replace("{CHECK_URL}", bookingCheck.ToString());*/
-
+            emailTemplate.Replace("{VISITOR_INFO}", VisitorDetails.ToString());
+            emailTemplate.Replace("{APPOINTMENT_INFO}", AppointmentDetails.ToString());
+            emailTemplate.Replace("{CANCEL_INFO}", CancelDetails.ToString());
+            emailTemplate.Replace("{REGARD_INFO}", Regard.ToString());
 
             await _emailSender.SendAsync(new MailMessage
             {
@@ -194,7 +189,7 @@ namespace Visitor.core.Portal
                 Body = emailTemplate.ToString(),
                 IsBodyHtml = true,
             });
-        }
+            }
         private async Task ReplaceBodyAndSendCancel(string emailAddress, string subject, StringBuilder emailTemplate, StringBuilder mailMessage)
         {
             emailTemplate.Replace("{EMAIL_BODY}", mailMessage.ToString());

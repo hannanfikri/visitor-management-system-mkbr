@@ -40,6 +40,8 @@ using Visitor.core.Portal;
 using Stripe;
 using Microsoft.Extensions.Logging;
 using Visitor.Appointments;
+using Visitor.Appointment.ExpiredUrl;
+using NPOI.SS.Formula.Functions;
 
 namespace Visitor.Portal
 {
@@ -58,6 +60,8 @@ namespace Visitor.Portal
         private const int MaxPictureBytes = 5242880; //5MB
 
         private readonly IPortalEmailer _portalEmailer;
+        private readonly IRepository<ExpiredUrlEnt, Guid> _expiredUrlRepository;
+        private readonly IExpiredUrlsAppService _expiredUrl;
 
         public PortalsAppService
 
@@ -71,7 +75,9 @@ namespace Visitor.Portal
             IUnitOfWorkManager unitOfWorkManager,
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
-            IPortalEmailer portalEmailer
+            IPortalEmailer portalEmailer,
+            IRepository<ExpiredUrlEnt,Guid> expiredUrlsRepository,
+            IExpiredUrlsAppService expiredUrl
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -85,6 +91,8 @@ namespace Visitor.Portal
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
             _portalEmailer = portalEmailer;
+            _expiredUrlRepository = expiredUrlsRepository;
+            _expiredUrl = expiredUrl;
         }
         public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input)
         {
@@ -205,39 +213,6 @@ namespace Visitor.Portal
 
             var appId = await _appointmentRepository.InsertAndGetIdAsync(appointment);
             return appId;
-
-            /*return _unitOfWorkManager.WithUnitOfWork(() =>
-            {
-                using (CurrentUnitOfWork.SetTenantId(message.TenantId))
-                {
-                    return _chatMessageRepository.InsertAndGetId(message);
-                }
-            });*/
-
-                /*await UpdateSlot(input.BranchSlotSettingId, input.AppointmentSlot);*/
-                /*var bookingDetail = await _bookingRepository.InsertAsync(booking);
-                var branch = await _lookup_branchRepository.GetAsync(input.BranchId.Value);*/
-
-                /*if (input.Email != null)
-                {
-                    try
-                    {
-                        await _portalEmailer.SendEmailDetailBookingAsync(ObjectMapper.Map<Booking>(bookingDetail), branch, service);
-                    }
-                    catch
-                    {
-                        //To do
-                    }
-                }
-
-                try
-                {
-                    await SendSms(input);
-                }
-                catch
-                {
-
-                }*/
 
         }
 
@@ -415,7 +390,7 @@ namespace Visitor.Portal
 
         }*/
 
-        /*public async Task<String> CancelAppointmet(Guid? appointmentId, string Item)
+        public async Task<String> CreateOrEditExpiredUrl(Guid? appointmentId, string Item)
         {
             //IdBooking = "c4579a27-5106-484e-9376-08d936e61aac";
             var lang = Thread.CurrentThread.CurrentCulture;
@@ -424,18 +399,19 @@ namespace Visitor.Portal
             var input = new CreateOrEditExpiredUrlDto
             {
                 UrlCreateDate = DateTime.Now,
-                UrlExpiredDate = DateTime.Now.AddMinutes(15),
-                BookingId = idAppointment,
-                Item = Item,
-                Status = StatusType.Cancel,
+                UrlExpiredDate = appointment.AppDateTime.AddMinutes(-30),
+                AppointmentId = appointmentId,
+                Item = "Cancel",
+                Status = "New",
             };
-            var checkExpired = await _expiredUrlRepository.FirstOrDefaultAsync(x => x.id == appointmentId);
+            var checkExpired = await _expiredUrlRepository.FirstOrDefaultAsync(x => x.AppointmentId == appointmentId && x.Item == Item);
             if (checkExpired?.Id != null)
             {
                 input.Id = checkExpired.Id;
             }
             await _expiredUrl.CreateOrEdit(input);
-            try
+            return "Success";
+            /*try
             {
                 if (Item == "Cancel")
                 {
@@ -454,9 +430,71 @@ namespace Visitor.Portal
                 Logger.Error("ERROR CancelAppointment");
                 Logger.Error(ex.Message);
                 return "Error";
+            }*/
+
+        }
+        public async Task<Boolean> CheckUrlExpiring(Guid? appointmentId, string Item)
+        {
+            bool urlCheck = false;
+            try
+            {
+                var expiredUrl = await _expiredUrlRepository.FirstOrDefaultAsync(x => x.AppointmentId == appointmentId && x.Item == Item);
+
+                if (expiredUrl?.Id != null)
+                {
+                    int result = DateTime.Compare(DateTime.Now, expiredUrl.UrlExpiredDate);
+                    if (result < 0 && expiredUrl.Status != "Click")
+                    {
+                        //not expired
+                        urlCheck = true;
+                    }
+                    else
+                    {
+                        //date expired
+                        urlCheck = false;
+                    }
+                }
+
+                //update link status
+                expiredUrl.Status = "Click";
+            }
+            catch (Exception ex)
+            {
+                //code for any other type of exception
+                Logger.Error("ERROR CancelAppointment");
+                Logger.Error(ex.Message);
+                return false;
+            }
+            return urlCheck;
+
+        }
+        public async Task<String> ConfirmCancelAppointment(string appointmentId)
+        {
+            try
+            {
+                DateTime now = DateTime.Now;
+                var appointment = await _appointmentRepository.GetAsync(Guid.Parse(appointmentId));
+                appointment.Status = StatusType.Cancel;
+                appointment.CancelDateTime = now;
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                //code for any other type of exception
+                Logger.Error("ERROR CancelAppointment");
+                Logger.Error(ex.Message);
+                return "Error";
             }
 
-        }*/
+        }
+        public async Task<GetAppointmentForEditOutput> GetAppointmentById(Guid appointmentId)
+        {
+            var appointment = await _appointmentRepository.FirstOrDefaultAsync(appointmentId);
+
+            var output = new GetAppointmentForEditOutput { Appointment = ObjectMapper.Map<CreateOrEditAppointmentDto>(appointment) };
+
+            return output;
+        }
     }
     
 }

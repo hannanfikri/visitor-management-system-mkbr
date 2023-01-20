@@ -35,6 +35,7 @@ import { AppBsModalModule } from '@shared/common/appBsModal/app-bs-modal.module'
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { LocaleMappingService } from '@shared/locale-mapping.service';
 import { FormWizardComponent } from './Pages/appointment/form-wizard/form-wizard.component';
+import { CancelComponent } from './Pages/appointment/cancel/cancel.component';
 import { CreateOrEditAppointmentDto, PortalsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ViewDetailsComponent } from './Pages/appointment/view-details/view-details.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -88,7 +89,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         PortalThemeComponent,
         PortalFooterComponent,
         PortalHeaderComponent,
-        PortalModalMessageComponent
+        PortalModalMessageComponent,
+        CancelComponent
 
     ],
     providers: [

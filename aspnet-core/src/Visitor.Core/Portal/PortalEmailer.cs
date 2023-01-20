@@ -54,7 +54,7 @@ namespace Visitor.core.Portal
             var CancelDetails = new StringBuilder();
             var Regard = new StringBuilder();
             //cancel link
-            var surveyUrl = _configurationAccessor.Configuration["Survey:surveyUrl"] + "cancel?appointmentId=" + appointment.Id;
+            var surveyUrl = _configurationAccessor.Configuration["Survey:surveyUrl"] + "cancel?appointmentId=" + appointment.Id + "&&Item=Cancel";
 
             //visitor
             VisitorDetails.AppendLine("<td style='border-bottom: 1px solid #dee2e6 ; color: #222; padding: 10px 0px;'>");

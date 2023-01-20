@@ -19,7 +19,6 @@ import { pluck } from 'rxjs/operators';
 import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layout-base.component';
 import { ConvertToArrayOfStringsService } from 'public/services/convert-to-array-of-strings.service'
 
-
 @Component({
     selector: 'app-form-wizard',
     templateUrl: './form-wizard.component.html',
@@ -334,12 +333,14 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                 this.arrayDepartmentString.push(result.department);
             })
         });
+        this.arrayDepartmentString.sort((a, b) => a.departmentName.localeCompare(b.departmentName));
 
         this.arrCompany.map((res) => {
             res.map((result) => {
                 this.arrayCompanyString.push(result.company);
             })
         });
+        this.arrayCompanyString.sort((a, b) => a.companyName.localeCompare(b.companyName));
 
         this.arrLevel.map((res) => {
             res.map((result) => {
@@ -347,23 +348,29 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
             })
         });
 
+        // this.arrayLevelString.sort((a, b) => a.levelBankRakyat.localeCompare(b.levelBankRakyat));
+
         this.arrTower.map((res) => {
             res.map((result) => {
                 this.arrayTowerString.push(result.tower);
             })
         });
+        this.arrayTowerString.sort((a, b) => a.towerBankRakyat.localeCompare(b.towerBankRakyat));
 
         this.arrPOV.map((res) => {
             res.map((result) => {
                 this.arrayPOVString.push(result.purposeOfVisit);
             })
         });
+        this.arrayPOVString.sort((a, b) => a.purposeOfVisitApp.localeCompare(b.purposeOfVisitApp));
 
         this.arrTitle.map((res) => {
             res.map((result) => {
                 this.arrayTitleString.push(result.title);
             })
         });
+        this.arrayTitleString.sort((a, b) => a.visitorTitle.localeCompare(b.visitorTitle));
+
     }
 
     ngOnInit(appointmentId?: string): void {

@@ -1,13 +1,13 @@
-.default-layout-page{
+.default-layout-page {
     margin: 30px;
     padding: 30px;
 }
 
-.card-header{
+.card-header {
     align-self: center;
 }
 
-.card-body div{
+.card-body div {
     align-items: center !important;
     justify-content: center !important;
     justify-items: center !important;
@@ -30,6 +30,22 @@
     font-weight: bold !important;
 }
 
-.bg-custom-1{
+.bg-custom-1 {
     background-color: #ffffff !important;
+}
+
+.container-random {
+    position: absolute;
+    width: 267px;
+    height: 240px;
+    left: 83px;
+    top: 217px;
+
+    background: #F17D12;
+}
+
+.referral-number {
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 300;
 }

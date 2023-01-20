@@ -2265,6 +2265,67 @@ export class AppointmentsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param appointmentId (optional) 
+     * @param item (optional) 
+     * @return Success
+     */
+    cancelAppointmet(appointmentId: string | undefined, item: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Appointments/CancelAppointmet?";
+        if (appointmentId === null)
+            throw new Error("The parameter 'appointmentId' cannot be null.");
+        else if (appointmentId !== undefined)
+            url_ += "appointmentId=" + encodeURIComponent("" + appointmentId) + "&";
+        if (item === null)
+            throw new Error("The parameter 'item' cannot be null.");
+        else if (item !== undefined)
+            url_ += "Item=" + encodeURIComponent("" + item) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCancelAppointmet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCancelAppointmet(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCancelAppointmet(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
 }
 
 @Injectable()
@@ -7475,6 +7536,350 @@ export class EditionServiceProxy {
 }
 
 @Injectable()
+export class ExpiredUrlsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maxUrlCreateDateFilter (optional) 
+     * @param minUrlCreateDateFilter (optional) 
+     * @param maxUrlExpiredDateFilter (optional) 
+     * @param minUrlExpiredDateFilter (optional) 
+     * @param itemFilter (optional) 
+     * @param appointmentFullNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, maxUrlCreateDateFilter: DateTime | undefined, minUrlCreateDateFilter: DateTime | undefined, maxUrlExpiredDateFilter: DateTime | undefined, minUrlExpiredDateFilter: DateTime | undefined, itemFilter: string | undefined, appointmentFullNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetExpiredUrlForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ExpiredUrls/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (maxUrlCreateDateFilter === null)
+            throw new Error("The parameter 'maxUrlCreateDateFilter' cannot be null.");
+        else if (maxUrlCreateDateFilter !== undefined)
+            url_ += "MaxUrlCreateDateFilter=" + encodeURIComponent(maxUrlCreateDateFilter ? "" + maxUrlCreateDateFilter.toJSON() : "") + "&";
+        if (minUrlCreateDateFilter === null)
+            throw new Error("The parameter 'minUrlCreateDateFilter' cannot be null.");
+        else if (minUrlCreateDateFilter !== undefined)
+            url_ += "MinUrlCreateDateFilter=" + encodeURIComponent(minUrlCreateDateFilter ? "" + minUrlCreateDateFilter.toJSON() : "") + "&";
+        if (maxUrlExpiredDateFilter === null)
+            throw new Error("The parameter 'maxUrlExpiredDateFilter' cannot be null.");
+        else if (maxUrlExpiredDateFilter !== undefined)
+            url_ += "MaxUrlExpiredDateFilter=" + encodeURIComponent(maxUrlExpiredDateFilter ? "" + maxUrlExpiredDateFilter.toJSON() : "") + "&";
+        if (minUrlExpiredDateFilter === null)
+            throw new Error("The parameter 'minUrlExpiredDateFilter' cannot be null.");
+        else if (minUrlExpiredDateFilter !== undefined)
+            url_ += "MinUrlExpiredDateFilter=" + encodeURIComponent(minUrlExpiredDateFilter ? "" + minUrlExpiredDateFilter.toJSON() : "") + "&";
+        if (itemFilter === null)
+            throw new Error("The parameter 'itemFilter' cannot be null.");
+        else if (itemFilter !== undefined)
+            url_ += "ItemFilter=" + encodeURIComponent("" + itemFilter) + "&";
+        if (appointmentFullNameFilter === null)
+            throw new Error("The parameter 'appointmentFullNameFilter' cannot be null.");
+        else if (appointmentFullNameFilter !== undefined)
+            url_ += "AppointmentFullNameFilter=" + encodeURIComponent("" + appointmentFullNameFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetExpiredUrlForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetExpiredUrlForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetExpiredUrlForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetExpiredUrlForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetExpiredUrlForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getExpiredUrlForEdit(id: string | undefined): Observable<GetExpiredUrlForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/ExpiredUrls/GetExpiredUrlForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExpiredUrlForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExpiredUrlForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetExpiredUrlForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetExpiredUrlForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetExpiredUrlForEdit(response: HttpResponseBase): Observable<GetExpiredUrlForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetExpiredUrlForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetExpiredUrlForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditExpiredUrlDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ExpiredUrls/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ExpiredUrls/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllAppointmentForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfExpiredUrlAppointmentLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/ExpiredUrls/GetAllAppointmentForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllAppointmentForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllAppointmentForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfExpiredUrlAppointmentLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfExpiredUrlAppointmentLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllAppointmentForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfExpiredUrlAppointmentLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfExpiredUrlAppointmentLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfExpiredUrlAppointmentLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class FriendshipServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -12347,6 +12752,240 @@ export class PortalsServiceProxy {
             }));
         }
         return _observableOf<GetDepartmentForViewDto[]>(<any>null);
+    }
+
+    /**
+     * @param appointmentId (optional) 
+     * @param item (optional) 
+     * @return Success
+     */
+    createOrEditExpiredUrl(appointmentId: string | undefined, item: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Portals/CreateOrEditExpiredUrl?";
+        if (appointmentId === null)
+            throw new Error("The parameter 'appointmentId' cannot be null.");
+        else if (appointmentId !== undefined)
+            url_ += "appointmentId=" + encodeURIComponent("" + appointmentId) + "&";
+        if (item === null)
+            throw new Error("The parameter 'item' cannot be null.");
+        else if (item !== undefined)
+            url_ += "Item=" + encodeURIComponent("" + item) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEditExpiredUrl(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEditExpiredUrl(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEditExpiredUrl(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param appointmentId (optional) 
+     * @param item (optional) 
+     * @return Success
+     */
+    checkUrlExpiring(appointmentId: string | undefined, item: string | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/Portals/CheckUrlExpiring?";
+        if (appointmentId === null)
+            throw new Error("The parameter 'appointmentId' cannot be null.");
+        else if (appointmentId !== undefined)
+            url_ += "appointmentId=" + encodeURIComponent("" + appointmentId) + "&";
+        if (item === null)
+            throw new Error("The parameter 'item' cannot be null.");
+        else if (item !== undefined)
+            url_ += "Item=" + encodeURIComponent("" + item) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckUrlExpiring(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckUrlExpiring(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckUrlExpiring(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param appointmentId (optional) 
+     * @return Success
+     */
+    confirmCancelAppointment(appointmentId: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Portals/ConfirmCancelAppointment?";
+        if (appointmentId === null)
+            throw new Error("The parameter 'appointmentId' cannot be null.");
+        else if (appointmentId !== undefined)
+            url_ += "appointmentId=" + encodeURIComponent("" + appointmentId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processConfirmCancelAppointment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processConfirmCancelAppointment(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processConfirmCancelAppointment(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param appointmentId (optional) 
+     * @return Success
+     */
+    getAppointmentById(appointmentId: string | undefined): Observable<GetAppointmentForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Portals/GetAppointmentById?";
+        if (appointmentId === null)
+            throw new Error("The parameter 'appointmentId' cannot be null.");
+        else if (appointmentId !== undefined)
+            url_ += "appointmentId=" + encodeURIComponent("" + appointmentId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppointmentById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppointmentById(<any>response_);
+                } catch (e) {
+                    return <Observable<GetAppointmentForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetAppointmentForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppointmentById(response: HttpResponseBase): Observable<GetAppointmentForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetAppointmentForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetAppointmentForEditOutput>(<any>null);
     }
 }
 
@@ -21347,6 +21986,62 @@ export interface ICreateOrEditDepartmentDto {
     id: string | undefined;
 }
 
+export class CreateOrEditExpiredUrlDto implements ICreateOrEditExpiredUrlDto {
+    urlCreateDate!: DateTime;
+    urlExpiredDate!: DateTime;
+    item!: string;
+    status!: string | undefined;
+    appointmentId!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditExpiredUrlDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.urlCreateDate = _data["urlCreateDate"] ? DateTime.fromISO(_data["urlCreateDate"].toString()) : <any>undefined;
+            this.urlExpiredDate = _data["urlExpiredDate"] ? DateTime.fromISO(_data["urlExpiredDate"].toString()) : <any>undefined;
+            this.item = _data["item"];
+            this.status = _data["status"];
+            this.appointmentId = _data["appointmentId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditExpiredUrlDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditExpiredUrlDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["urlCreateDate"] = this.urlCreateDate ? this.urlCreateDate.toString() : <any>undefined;
+        data["urlExpiredDate"] = this.urlExpiredDate ? this.urlExpiredDate.toString() : <any>undefined;
+        data["item"] = this.item;
+        data["status"] = this.status;
+        data["appointmentId"] = this.appointmentId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditExpiredUrlDto {
+    urlCreateDate: DateTime;
+    urlExpiredDate: DateTime;
+    item: string;
+    status: string | undefined;
+    appointmentId: string | undefined;
+    id: string | undefined;
+}
+
 export class CreateOrEditLevelDto implements ICreateOrEditLevelDto {
     levelBankRakyat!: string | undefined;
     id!: string | undefined;
@@ -23229,6 +23924,102 @@ export interface IEntityPropertyChangeDto {
     propertyTypeFullName: string | undefined;
     tenantId: number | undefined;
     id: number;
+}
+
+export class ExpiredUrlAppointmentLookupTableDto implements IExpiredUrlAppointmentLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: IExpiredUrlAppointmentLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ExpiredUrlAppointmentLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExpiredUrlAppointmentLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IExpiredUrlAppointmentLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
+export class ExpiredUrlDto implements IExpiredUrlDto {
+    urlCreateDate!: DateTime;
+    urlExpiredDate!: DateTime;
+    item!: string | undefined;
+    status!: string | undefined;
+    appointmentId!: string | undefined;
+    id!: string;
+
+    constructor(data?: IExpiredUrlDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.urlCreateDate = _data["urlCreateDate"] ? DateTime.fromISO(_data["urlCreateDate"].toString()) : <any>undefined;
+            this.urlExpiredDate = _data["urlExpiredDate"] ? DateTime.fromISO(_data["urlExpiredDate"].toString()) : <any>undefined;
+            this.item = _data["item"];
+            this.status = _data["status"];
+            this.appointmentId = _data["appointmentId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): ExpiredUrlDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExpiredUrlDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["urlCreateDate"] = this.urlCreateDate ? this.urlCreateDate.toString() : <any>undefined;
+        data["urlExpiredDate"] = this.urlExpiredDate ? this.urlExpiredDate.toString() : <any>undefined;
+        data["item"] = this.item;
+        data["status"] = this.status;
+        data["appointmentId"] = this.appointmentId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IExpiredUrlDto {
+    urlCreateDate: DateTime;
+    urlExpiredDate: DateTime;
+    item: string | undefined;
+    status: string | undefined;
+    appointmentId: string | undefined;
+    id: string;
 }
 
 export class ExpiringTenant implements IExpiringTenant {
@@ -25322,6 +26113,86 @@ export class GetEditionTenantStatisticsOutput implements IGetEditionTenantStatis
 
 export interface IGetEditionTenantStatisticsOutput {
     editionStatistics: TenantEdition[] | undefined;
+}
+
+export class GetExpiredUrlForEditOutput implements IGetExpiredUrlForEditOutput {
+    expiredUrl!: CreateOrEditExpiredUrlDto;
+    appointmentFullName!: string | undefined;
+
+    constructor(data?: IGetExpiredUrlForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.expiredUrl = _data["expiredUrl"] ? CreateOrEditExpiredUrlDto.fromJS(_data["expiredUrl"]) : <any>undefined;
+            this.appointmentFullName = _data["appointmentFullName"];
+        }
+    }
+
+    static fromJS(data: any): GetExpiredUrlForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetExpiredUrlForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expiredUrl"] = this.expiredUrl ? this.expiredUrl.toJSON() : <any>undefined;
+        data["appointmentFullName"] = this.appointmentFullName;
+        return data; 
+    }
+}
+
+export interface IGetExpiredUrlForEditOutput {
+    expiredUrl: CreateOrEditExpiredUrlDto;
+    appointmentFullName: string | undefined;
+}
+
+export class GetExpiredUrlForViewDto implements IGetExpiredUrlForViewDto {
+    expiredUrl!: ExpiredUrlDto;
+    appointmentFullName!: string | undefined;
+
+    constructor(data?: IGetExpiredUrlForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.expiredUrl = _data["expiredUrl"] ? ExpiredUrlDto.fromJS(_data["expiredUrl"]) : <any>undefined;
+            this.appointmentFullName = _data["appointmentFullName"];
+        }
+    }
+
+    static fromJS(data: any): GetExpiredUrlForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetExpiredUrlForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expiredUrl"] = this.expiredUrl ? this.expiredUrl.toJSON() : <any>undefined;
+        data["appointmentFullName"] = this.appointmentFullName;
+        return data; 
+    }
+}
+
+export interface IGetExpiredUrlForViewDto {
+    expiredUrl: ExpiredUrlDto;
+    appointmentFullName: string | undefined;
 }
 
 export class GetExpiringTenantsOutput implements IGetExpiringTenantsOutput {
@@ -29971,6 +30842,54 @@ export interface IPagedResultDtoOfEntityChangeListDto {
     items: EntityChangeListDto[] | undefined;
 }
 
+export class PagedResultDtoOfExpiredUrlAppointmentLookupTableDto implements IPagedResultDtoOfExpiredUrlAppointmentLookupTableDto {
+    totalCount!: number;
+    items!: ExpiredUrlAppointmentLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfExpiredUrlAppointmentLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ExpiredUrlAppointmentLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfExpiredUrlAppointmentLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfExpiredUrlAppointmentLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfExpiredUrlAppointmentLookupTableDto {
+    totalCount: number;
+    items: ExpiredUrlAppointmentLookupTableDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetAllSendAttemptsOutput implements IPagedResultDtoOfGetAllSendAttemptsOutput {
     totalCount!: number;
     items!: GetAllSendAttemptsOutput[] | undefined;
@@ -30209,6 +31128,54 @@ export class PagedResultDtoOfGetDepartmentForViewDto implements IPagedResultDtoO
 export interface IPagedResultDtoOfGetDepartmentForViewDto {
     totalCount: number;
     items: GetDepartmentForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetExpiredUrlForViewDto implements IPagedResultDtoOfGetExpiredUrlForViewDto {
+    totalCount!: number;
+    items!: GetExpiredUrlForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetExpiredUrlForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetExpiredUrlForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetExpiredUrlForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetExpiredUrlForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetExpiredUrlForViewDto {
+    totalCount: number;
+    items: GetExpiredUrlForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetLevelForViewDto implements IPagedResultDtoOfGetLevelForViewDto {

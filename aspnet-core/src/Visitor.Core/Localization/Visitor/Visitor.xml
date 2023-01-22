@@ -158,8 +158,10 @@
     <text name="CancelEmailBodyContent2">To cancel this appointment, please click below link.</text>
     <text name="CancelEmailBodyContent3">For your information, this link will expired before 30 minutes from appointment date and time and can only be used once.</text>
     <text name="CancelLinkExpiredTitle">Appointment Cancellation Link Expired</text>
+    <text name="AppointmentCancellation">We received your request to cancel an appointment at BANK RAKYAT </text>
     <text name="CancelLinkExpiredContent1">your appointment cancellation link has expired because you haven't used it. The appointment cancellation link expired every 15 minutes and can only be used once.</text>
     <text name="CancelLinkExpiredContent2">You may request new appointment cancellation by click the below button.</text>
+    <text name="AppointmentCancellationContent2">to proceed with your appointment cancellation please click the Cancel button below.</text>
     <text name="Sincerely">Sincerely,</text>
     <text name="BankRakyat">Bank Rakyat</text>
     <text name="SendEmailCancelAppointment">Please click on the link that has just been sent to your email account within 15 minutes and continue with the appointment cancellation.</text>

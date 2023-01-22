@@ -1,4 +1,4 @@
-<div class="default-layout-page">
+<div class="container mt-3 mb-3">
     <div class="card card-custom bg-custom-1">
         <div class="card-header">
             <div class="card-title">
@@ -6,49 +6,47 @@
             </div>
         </div>
         <div class="card-body align-items-center">
-            <div>
-                <div class="subtitle text-center">
-                    {{ l('Message1') }}
+            <div class="subtitle text-center">
+                {{ l('Message1') }}
+            </div>
+            <div class="lead">
+                <div class="title-data text-center pt-20 pb-10">
+                    {{ l('AppRefNo') }}
                 </div>
-                <div class="lead">
-                    <div class="title-data text-center pt-20 pb-10">
-                        {{ l('AppRefNo') }}
+            </div>
+            <div class="container-svg d-flex align-items-center">
+                <svg style="position: absolute;" width="271" height="221" viewBox="0 0 271 221" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M136.014 7.2245e-07C74.5618 0.00598955 19.3156 37.6592 3.08677 91.561C-11.2868 139.301 26.6681 183.698 72.7956 209.97C109.464 230.855 153.369 219.443 189.418 197.686C232.801 171.502 281.451 137.519 269.029 91.5351C254.363 37.2459 197.485 -0.00599 136.014 7.2245e-07Z"
+                        fill="#ED6706" />
+                </svg>
+
+                <svg style="position: absolute;" width="271" height="222" viewBox="0 0 271 222" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M134.986 7.25719e-07C196.438 0.00601665 251.684 37.8296 267.913 91.9753C282.287 139.931 244.332 184.53 198.204 210.921C161.536 231.899 117.631 220.436 81.582 198.581C38.1987 172.278 -10.4511 138.142 1.97142 91.9492C16.6374 37.4144 73.5147 -0.0060171 134.986 7.25719e-07Z"
+                        fill="#ED6706" />
+                </svg>
+
+                <svg style="position: absolute;" width="267" height="240" viewBox="0 0 267 240" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M125.847 7.13925e-05C165.797 0.0575632 191.622 36.0595 216.664 65.8799C241.91 95.943 275.621 128.474 264.984 165.688C254.553 202.185 208.012 211.822 171.102 225.292C139.722 236.744 107.156 246.365 75.8584 234.71C41.3335 221.853 10.4559 196.895 2.04134 162.336C-6.41148 127.62 12.7353 94.4018 34.6873 65.618C58.2781 34.6854 85.8593 -0.0574754 125.847 7.13925e-05Z"
+                        fill="#F17D12" />
+                    <text class="referral-number text-center pb-10 pt-0" x="50%" y="50%" text-anchor="middle"
+                        fill="black">#{{ item.appointment.appRefNo }}</text>
+                </svg>
+                <!-- <div class="lead">
+                    <div class="title-data text-center pb-10 pt-0">
+
                     </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <svg style="position: absolute;" width="271" height="221" viewBox="0 0 271 221" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M136.014 7.2245e-07C74.5618 0.00598955 19.3156 37.6592 3.08677 91.561C-11.2868 139.301 26.6681 183.698 72.7956 209.97C109.464 230.855 153.369 219.443 189.418 197.686C232.801 171.502 281.451 137.519 269.029 91.5351C254.363 37.2459 197.485 -0.00599 136.014 7.2245e-07Z"
-                            fill="#ED6706" />
-                    </svg>
-
-                    <svg style="position: absolute;" width="271" height="222" viewBox="0 0 271 222" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M134.986 7.25719e-07C196.438 0.00601665 251.684 37.8296 267.913 91.9753C282.287 139.931 244.332 184.53 198.204 210.921C161.536 231.899 117.631 220.436 81.582 198.581C38.1987 172.278 -10.4511 138.142 1.97142 91.9492C16.6374 37.4144 73.5147 -0.0060171 134.986 7.25719e-07Z"
-                            fill="#ED6706" />
-                    </svg>
-
-                    <svg style="position: absolute;" width="267" height="240" viewBox="0 0 267 240" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M125.847 7.13925e-05C165.797 0.0575632 191.622 36.0595 216.664 65.8799C241.91 95.943 275.621 128.474 264.984 165.688C254.553 202.185 208.012 211.822 171.102 225.292C139.722 236.744 107.156 246.365 75.8584 234.71C41.3335 221.853 10.4559 196.895 2.04134 162.336C-6.41148 127.62 12.7353 94.4018 34.6873 65.618C58.2781 34.6854 85.8593 -0.0574754 125.847 7.13925e-05Z"
-                            fill="#F17D12" />
-                        <text class="referral-number text-center pb-10 pt-0" x="50%" y="50%" text-anchor="middle"
-                            fill="black">#{{ item.appointment.appRefNo }}</text>
-                    </svg>
-                    <div class="lead">
-                        <div class="title-data text-center pb-10 pt-0">
-
-                        </div>
-                    </div>
-                </div>
+                </div> -->
             </div>
             <!-- <div class="subtitle text-center">
                 *This referral number has been sent to your e-mail
             </div> -->
-            <div>
+            <div class="d-flex-column">
                 <div class="title-data text-center p-5">
                     {{ l('AppDateTime') }} :
                 </div>

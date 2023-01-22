@@ -7,11 +7,12 @@
     align-self: center;
 }
 
-.card-body div {
-    align-items: center !important;
-    justify-content: center !important;
-    justify-items: center !important;
-}
+// .card-body div {
+//     display: flex;
+//     align-items: center !important;
+//     justify-content: center !important;
+//     justify-items: center !important;
+// }
 
 .subtitle {
     font-weight: lighter !important;
@@ -34,14 +35,12 @@
     background-color: #ffffff !important;
 }
 
-.container-random {
-    position: absolute;
-    width: 267px;
-    height: 240px;
-    left: 83px;
-    top: 217px;
-
-    background: #F17D12;
+.container-svg {
+    position: relative !important;
+    height: 300px;
+    width: 300px;
+    padding: 15px;
+    margin: 15px;
 }
 
 .referral-number {
@@ -49,3 +48,16 @@
     font-size: 1.25rem;
     font-weight: 300;
 }
+
+.card .card-body {
+    display: flex !important;
+    flex-direction: column;
+}
+
+//web view
+@media screen and (min-width: 1024px) {
+    
+}
+
+//mobile view
+@media screen and (max-device-width: 640px) {}

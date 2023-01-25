@@ -43,6 +43,7 @@ using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using Visitor.core.Portal;
+using Visitor.Appointment.ExpiredUrl;
 /*using StatusEnum = Visitor.Appointments.StatusEnum;*/
 
 namespace Visitor.Appointment
@@ -62,6 +63,8 @@ namespace Visitor.Appointment
         private const int MaxPictureBytes = 5242880; //5MB
 
         private readonly IPortalEmailer _portalEmailer;
+        private readonly IRepository<ExpiredUrlEnt, Guid> _expiredUrlRepository;
+        private readonly IExpiredUrlsAppService _expiredUrl;
 
 
         public AppointmentsAppService
@@ -76,7 +79,9 @@ namespace Visitor.Appointment
             ITempFileCacheManager tempFileCacheManager,
             IBinaryObjectManager binaryObjectManager,
             ProfileImageServiceFactory profileImageServiceFactory,
-            IPortalEmailer portalEmailer
+            IPortalEmailer portalEmailer,
+            IRepository<ExpiredUrlEnt, Guid> expiredUrlsRepository,
+            IExpiredUrlsAppService expiredUrl
             )
         {
             _appointmentRepository = appointmentRepository;
@@ -90,6 +95,8 @@ namespace Visitor.Appointment
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
             _portalEmailer = portalEmailer;
+            _expiredUrlRepository = expiredUrlsRepository;
+            _expiredUrl = expiredUrl;
 
 
 
@@ -1160,6 +1167,48 @@ namespace Visitor.Appointment
             var appointment = await _appointmentRepository.GetAsync((Guid)input.Id);
             appointment.Status = StatusType.Cancel;
             appointment.CancelDateTime = now;
+
+        }
+        public async Task<String> CancelAppointmet(Guid? appointmentId, string Item)
+        {
+            //IdBooking = "c4579a27-5106-484e-9376-08d936e61aac";
+            var lang = Thread.CurrentThread.CurrentCulture;
+            var timeNow = DateTime.Now;
+            var appointment = await _appointmentRepository.GetAsync((Guid)appointmentId);
+            var input = new CreateOrEditExpiredUrlDto
+            {
+                UrlCreateDate = DateTime.Now,
+                UrlExpiredDate = DateTime.Now.AddMinutes(15),
+                AppointmentId = appointmentId,
+                Item = Item,
+                Status = "New",
+            };
+            var checkExpired = await _expiredUrlRepository.FirstOrDefaultAsync(x => x.AppointmentId == appointmentId && x.Item == Item);
+            if (checkExpired?.Id != null)
+            {
+                input.Id = checkExpired.Id;
+            }
+            await _expiredUrl.CreateOrEdit(input);
+            try
+            {
+                if (Item == "Cancel")
+                {
+                    await _portalEmailer.SendCancelEmailAsync(appointment);
+                }
+                else
+                {
+                    //await _portalEmailer.SendRescheduleEmailAsync(appointment);
+                }
+
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                //code for any other type of exception
+                Logger.Error("ERROR CancelAppointment");
+                Logger.Error(ex.Message);
+                return "Error";
+            }
 
         }
 

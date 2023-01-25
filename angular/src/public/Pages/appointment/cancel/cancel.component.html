@@ -1,0 +1,62 @@
+<div class="container mt-3 mb-3">
+      <div class="card mb-5">
+          <div class="card-body">
+              <!-- Expired link for cancel-->
+              <div *ngIf="!isExpired && action == 'Cancel'">
+                <div class="row justify-content-center printArea" >
+                    <h3 style="color:Red;margin-top: 0.67em;margin-bottom:1.00em;">{{l("CancelLinkExpiredTitle")}}</h3>
+                    <br>
+  
+                  <p style="text-align:center" >{{l("AppointmentCancellationContent1")}} {{appointment.appointment.fullName}} {{l("CancelLinkExpiredContent1")}}
+                  <br>
+                  {{l("CancelLinkExpiredContent2")}} 
+                  </p>
+                  <!-- <br> -->
+                  
+                </div>
+                <div class="row d-flex flex-md-row-reverse flex-sm-column justify-content-center">
+                  <div class="p-2 bd-highlight text-sm-center hideForPrint">
+                      <!-- <button class="btn btn-outline-primary" >
+                          {{l('Home')}}
+                      </button> -->
+                      <button class="btn btn-outline-warning" (click)="cancelLink(appointment.appointment.id)">
+                          {{l('RequestCancel')}}
+                      </button>
+                  </div>
+              </div>
+            </div>     
+
+              <!-- Result Appointment for cancel-->
+              <div *ngIf="isExpired && action == 'Cancel'">
+                <div class="row justify-content-center printArea" >
+                    <h3 style="color:blue;margin-top: 0.67em;margin-bottom:1.00em;">{{l("AppointmentCancellation")}} </h3>
+                    <br>
+                  <p style="text-align:center" > {{ appointment.appointment.title + ' ' + appointment.appointment.fullName }} {{l("AppointmentCancellationContent2")}} 
+                  </p>
+                  <br>
+                </div>
+                <div class="row justify-content-center printArea" >
+                        
+                        <div class="col-md-4 border-bottom mb-5 pb-5 py-3 text-center">
+                            <div class="font-weight-bolder mb-3">{{l('AppRefNo')}}</div>
+                            <div class="line-height-x1">{{ appointment.appointment.appRefNo}}
+                            </div>
+                        </div>
+                
+                </div>
+                <div class="container" >
+                    <div class="p-2 bd-highlight text-sm-center hideForPrint">
+                        <!-- <button class="btn btn-outline-primary" >
+                            {{l('Home')}}
+                        </button> -->
+                        <button class="btn btn-outline-danger" (click)="cancelAppointment(appointment.appointment.id)">
+                            {{l('Cancel')}}
+                        </button>
+                    </div>
+                </div> 
+                </div>
+          </div>
+      </div>
+  </div>
+<!-- <app-appointment-reschedule #rescheduleModal (modalSave)="closeReschedule()"></app-appointment-reschedule>
+<app-portal-modal-message #portalModalMessage (modalSave)="redirectToNext()"></app-portal-modal-message> -->

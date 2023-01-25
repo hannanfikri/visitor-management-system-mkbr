@@ -64,8 +64,11 @@ export class ViewDetailsComponent extends AppComponentBase implements OnInit, Af
 
     ngOnInit(): void {
         // this.show(this.item);
+        this.showMainSpinner();
         this.appointmentId = this._passService.appointmentId;
         this.getAppointment(this.appointmentId);
+        this._portalAppService.createOrEditExpiredUrl(this.appointmentId, 'Cancel').subscribe(()=> 
+         this.hideMainSpinner());
     }
     ngAfterViewInit() { }
 

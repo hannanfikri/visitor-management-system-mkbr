@@ -13,6 +13,8 @@ using Visitor.MultiTenancy;
 using Visitor.MultiTenancy.Accounting;
 using Visitor.MultiTenancy.Payments;
 using Visitor.Storage;
+using Visitor.Appointment;
+using Visitor.Appointment.ExpiredUrl;
 using System.Linq.Dynamic.Core;
 using Visitor.Tower;
 using Visitor.Seed;
@@ -57,6 +59,7 @@ namespace Visitor.EntityFrameworkCore
 
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
         public virtual DbSet<BlacklistEnt> Blacklist { get; set; }
+        public virtual DbSet<ExpiredUrlEnt> ExpiredUrls { get; set; }
 
         public VisitorDbContext(DbContextOptions<VisitorDbContext> options)
             : base(options)

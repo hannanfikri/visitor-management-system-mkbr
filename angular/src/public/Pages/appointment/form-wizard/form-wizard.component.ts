@@ -282,6 +282,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
     }
 
     save(): void {
+        this.showMainSpinner();
 
         if (this.appointment.purposeOfVisit == "Other")
             this.appointment.purposeOfVisit = this.appointment.purposeOfVisit + " : " + this.desc;
@@ -300,6 +301,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                 this.modalSave.emit(null);
                 this._passService.appointmentId = result;
                 this.viewDetails();
+                this.hideMainSpinner();
             });
     }
 

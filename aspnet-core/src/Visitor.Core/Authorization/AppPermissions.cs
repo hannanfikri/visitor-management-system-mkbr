@@ -50,6 +50,13 @@
         public const string Pages_Departments_Edit = "Pages.Departments.Edit";
         public const string Pages_Departments_Delete = "Pages.Departments.Delete";
 
+        // PERMISSION FOR EXPIRED URL
+
+        public const string Pages_ExpiredUrls = "Pages.ExpiredUrls";
+        public const string Pages_ExpiredUrls_Create = "Pages.ExpiredUrls.Create";
+        public const string Pages_ExpiredUrls_Edit = "Pages.ExpiredUrls.Edit";
+        public const string Pages_ExpiredUrls_Delete = "Pages.ExpiredUrls.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";

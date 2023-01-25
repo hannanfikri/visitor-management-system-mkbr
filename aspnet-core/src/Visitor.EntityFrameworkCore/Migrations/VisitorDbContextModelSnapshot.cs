@@ -1520,6 +1520,57 @@ namespace Visitor.Migrations
                     b.ToTable("Appointments");
                 });
 
+            modelBuilder.Entity("Visitor.Appointment.ExpiredUrl.ExpiredUrlEnt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Item")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UrlCreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UrlExpiredDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("ExpiredUrls");
+                });
+
             modelBuilder.Entity("Visitor.Authorization.Delegation.UserDelegation", b =>
                 {
                     b.Property<long>("Id")
@@ -2858,6 +2909,15 @@ namespace Visitor.Migrations
                         .IsRequired();
 
                     b.Navigation("WebhookEvent");
+                });
+
+            modelBuilder.Entity("Visitor.Appointment.ExpiredUrl.ExpiredUrlEnt", b =>
+                {
+                    b.HasOne("Visitor.Appointment.AppointmentEnt", "AppointmentFk")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.Navigation("AppointmentFk");
                 });
 
             modelBuilder.Entity("Visitor.Authorization.Roles.Role", b =>

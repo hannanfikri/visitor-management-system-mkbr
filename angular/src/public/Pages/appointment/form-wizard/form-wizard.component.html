@@ -240,7 +240,7 @@
                                 <input type="text" placeholder="Please enter the officer's email address"
                                     #Appointment_EmailOfficerToMeet="ngModel" id="Appointment_EmailOfficerToMeet"
                                     class="form-control" [(ngModel)]="appointment.emailOfficerToMeet" name="EmailOfficerToMeet"
-                                    required />
+                                    required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
                                 <validation-messages [formCtrl]="Appointment_EmailOfficerToMeet"></validation-messages>
                             </div>
                         </div>
@@ -252,7 +252,8 @@
                                 <input type="text" placeholder="Please enter the officer's phone number"
                                     #Appointment_PhoneNoOfficerToMeet="ngModel" id="Appointment_PhoneNoOfficerToMeet"
                                     class="form-control" [(ngModel)]="appointment.phoneNoOfficerToMeet" name="PhoneNoOfficerToMeet"
-                                    required />
+                                    minlength="10" maxlength="11"
+                                    pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]|[0-9]" required />
                                 <validation-messages [formCtrl]="Appointment_PhoneNoOfficerToMeet"></validation-messages>
                             </div>
                         </div>
@@ -273,6 +274,7 @@
                                     [options]="arrayPOVString" [(ngModel)]="appointment.purposeOfVisit"
                                     name="PurposeOfVisit" [editable]="true" optionLabel="purposeOfVisitApp"
                                     optionValue="purposeOfVisitApp"></p-dropdown>
+                                    <span style="font-size:smaller;color:gray;"> *If there is none option above, please specify</span>
                             </div>
                         </div>
                         <div class="my-3">
@@ -282,10 +284,10 @@
                             <div>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" id="uploadPicture" name="uploadPicture"
-                                            (change)="fileChangeEvent($event)" required /> <label
+                                        <input type="file" #uploadPictureInputLabel id="uploadPicture" name="uploadPicture"
+                                            (change)="fileChangeEvent($event)" required/> <label
                                             class="custom-file-label" #uploadPictureInputLabel for="uploadPicture">
-                                            <!-- {{ 'ChooseAFile' | localize }} --> </label>
+                                            <!-- {{ 'ChooseAFile' | localize }}--> </label> 
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +311,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <button type="reset" class="btn btn-light-danger font-weight-bold mr-2">
+                <button type="button" (click)="reset(appointmentForm)" class="btn btn-light-danger font-weight-bold mr-2">
                     <i class="
                     flaticon-exclamation-1"></i>
                     <span>{{ l('Reset') }}</span>

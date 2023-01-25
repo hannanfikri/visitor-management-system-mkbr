@@ -48,6 +48,7 @@ using Visitor.Net.Emailing;
 using Visitor.Notifications;
 using Visitor.WebHooks;
 using Newtonsoft.Json;
+using Visitor.Seed;
 
 namespace Visitor
 {
@@ -132,6 +133,10 @@ namespace Visitor
             
             Configuration.Notifications.Notifiers.Add<SmsRealTimeNotifier>();
             Configuration.Notifications.Notifiers.Add<EmailRealTimeNotifier>();
+
+            // Seed data maintenance
+            /*Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
+            Configuration.ReplaceService<IDataSeeder, TowerSeeder>();*/
 
         }
 

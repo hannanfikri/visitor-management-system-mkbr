@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Visitor.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using Visitor.EntityFrameworkCore;
 namespace Visitor.Migrations
 {
     [DbContext(typeof(VisitorDbContext))]
-    partial class VisitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119075619_Add other seed data")]
+    partial class Addotherseeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1437,9 +1439,6 @@ namespace Visitor.Migrations
                     b.Property<string>("AppRefNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CancelDateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("CheckInDateTime")
                         .HasColumnType("datetime2");
 
@@ -1518,57 +1517,6 @@ namespace Visitor.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("Visitor.Appointment.ExpiredUrl.ExpiredUrlEnt", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AppointmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Item")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UrlCreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UrlExpiredDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.ToTable("ExpiredUrls");
                 });
 
             modelBuilder.Entity("Visitor.Authorization.Delegation.UserDelegation", b =>
@@ -2909,15 +2857,6 @@ namespace Visitor.Migrations
                         .IsRequired();
 
                     b.Navigation("WebhookEvent");
-                });
-
-            modelBuilder.Entity("Visitor.Appointment.ExpiredUrl.ExpiredUrlEnt", b =>
-                {
-                    b.HasOne("Visitor.Appointment.AppointmentEnt", "AppointmentFk")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId");
-
-                    b.Navigation("AppointmentFk");
                 });
 
             modelBuilder.Entity("Visitor.Authorization.Roles.Role", b =>

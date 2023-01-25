@@ -13,11 +13,5 @@ namespace Visitor.Departments
     public class Department : Entity<Guid>
     {
         public string DepartmentName { get; set; }
-
-        private Department() { }
-        public Department(string departmentName)
-        {
-            DepartmentName = departmentName;
-        }
     }
 }

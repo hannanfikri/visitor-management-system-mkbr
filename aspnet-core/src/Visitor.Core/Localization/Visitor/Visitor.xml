@@ -2,6 +2,9 @@
 <localizationDictionary culture="en">
   <texts>
 
+    <text name="FormResetWarningMessage">The form will be reset.</text>
+
+
     <text name="TermsConditions">Terms &#38; Conditions</text>
     <text name="Disclaimer">Disclaimer</text>
     <text name="PrivacyPolicy">Privacy Policy</text>

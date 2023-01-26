@@ -41,7 +41,7 @@ namespace Visitor.Authorization
             //Appointments
             var appointments = pages.CreateChildPermission(AppPermissions.Pages_Appointments, L("Appointments"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Create, L("CreateNewAppointment"));
-            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
+            //appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Delete, L("DeleteAppointment"));
 
             //Tower
@@ -73,10 +73,10 @@ namespace Visitor.Authorization
             departments.CreateChildPermission(AppPermissions.Pages_Departments_Delete, L("DeleteDepartments"));
 
             //ExpiredUrl
-            var expiredUrls = pages.CreateChildPermission(AppPermissions.Pages_ExpiredUrls, L("ExpiredUrls"));
+            /*var expiredUrls = pages.CreateChildPermission(AppPermissions.Pages_ExpiredUrls, L("ExpiredUrls"));
             expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Create, L("CreateNewExpiredUrl"));
             expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Edit, L("EditExpiredUrl"));
-            expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Delete, L("DeleteExpiredUrl"));
+            expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Delete, L("DeleteExpiredUrl"));*/
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 
             //Blacklist

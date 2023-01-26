@@ -90,7 +90,6 @@ export class ViewDetailsComponent extends AppComponentBase implements OnInit, Af
                     this.item.appointment = result.appointment;
                     this.item.appointment.creationTime;
                     this.reg = formatDate(this.item.appointment.creationTime.toISO(), 'dd/MM/yy, hh:mm a', this.locale,);
-                    this.reg;
                     // this.item.appointment.appRefNo = result.appointment.appRefNo;
                 }
             );

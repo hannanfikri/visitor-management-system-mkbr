@@ -49,15 +49,24 @@
     font-weight: 300;
 }
 
-.card .card-body {
-    display: flex !important;
-    flex-direction: column;
-}
+
 
 //web view
 @media screen and (min-width: 1024px) {
-    
+    .card .card-body .flexOuterData .flexInnerData {
+        flex-basis: 100%;
+        width: max-content;
+        flex-grow: 1;
+        .title-data{
+            text-align: end !important;
+            width: 235px;
+        }
+    }
 }
 
 //mobile view
-@media screen and (max-device-width: 640px) {}
+@media screen and (max-device-width: 640px) {
+    .card .card-body .flexOuterData .flexInnerData {
+        flex-direction: column;
+    }
+}

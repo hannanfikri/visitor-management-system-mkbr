@@ -1,4 +1,33 @@
-.container-url{
+.container-url {
   max-width: 540px;
   margin: 0 auto;
 }
+
+.message {
+  font-style: italic;
+}
+
+.messageImportant {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.containerMessage {
+  height: 166px;
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+//web view
+@media screen and (min-width: 1024px) {
+  .card {
+    // margin-top: 130px;
+    // margin-bottom: 130px;
+  }
+}
+
+//mobile view
+@media screen and (max-device-width: 640px) {}

@@ -73,10 +73,10 @@ namespace Visitor.Authorization
             departments.CreateChildPermission(AppPermissions.Pages_Departments_Delete, L("DeleteDepartments"));
 
             //ExpiredUrl
-            var expiredUrls = pages.CreateChildPermission(AppPermissions.Pages_ExpiredUrls, L("ExpiredUrls"));
+            /*var expiredUrls = pages.CreateChildPermission(AppPermissions.Pages_ExpiredUrls, L("ExpiredUrls"));
             expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Create, L("CreateNewExpiredUrl"));
             expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Edit, L("EditExpiredUrl"));
-            expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Delete, L("DeleteExpiredUrl"));
+            expiredUrls.CreateChildPermission(AppPermissions.Pages_ExpiredUrls_Delete, L("DeleteExpiredUrl"));*/
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 
             //Blacklist

@@ -695,7 +695,7 @@ namespace Visitor.Appointment
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Appointments_Edit)]
+        //[AbpAuthorize(AppPermissions.Pages_Appointments_Edit)]
         public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input)
         {
             var appointment = await _appointmentRepository.FirstOrDefaultAsync(input.Id);

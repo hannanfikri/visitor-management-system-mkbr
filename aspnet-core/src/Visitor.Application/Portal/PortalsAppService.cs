@@ -433,41 +433,7 @@ namespace Visitor.Portal
             }*/
 
         }
-        public async Task<Boolean> CheckUrlExpiring(Guid? appointmentId, string Item)
-        {
-            bool urlCheck = false;
-            try
-            {
-                var expiredUrl = await _expiredUrlRepository.FirstOrDefaultAsync(x => x.AppointmentId == appointmentId && x.Item == Item);
 
-                if (expiredUrl?.Id != null)
-                {
-                    int result = DateTime.Compare(DateTime.Now, expiredUrl.UrlExpiredDate);
-                    if (result < 0 && expiredUrl.Status != "Click")
-                    {
-                        //not expired
-                        urlCheck = true;
-                    }
-                    else
-                    {
-                        //date expired
-                        urlCheck = false;
-                    }
-                }
-
-                //update link status
-                expiredUrl.Status = "Click";
-            }
-            catch (Exception ex)
-            {
-                //code for any other type of exception
-                Logger.Error("ERROR CancelAppointment");
-                Logger.Error(ex.Message);
-                return false;
-            }
-            return urlCheck;
-
-        }
         public async Task<String> ConfirmCancelAppointment(string appointmentId)
         {
             try

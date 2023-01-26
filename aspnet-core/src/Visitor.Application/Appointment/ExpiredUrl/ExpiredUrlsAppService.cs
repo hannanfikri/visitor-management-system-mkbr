@@ -69,7 +69,7 @@ namespace Visitor.Appointment.ExpiredUrl
                     {
 
                         UrlCreateDate = o.UrlCreateDate,
-                        UrlExpiredDate = o.UrlExpiredDate,
+                        UrlExpiredDate = o.UrlExpiredDate.ToString("MM/dd/yyyy hh:mm:ss tt"),
                         Item = o.Item,
                         Id = o.Id,
                     },

@@ -2,14 +2,14 @@
       <div class="card mb-5">
           <div class="card-body">
               <!-- Expired link for cancel-->
-              <div *ngIf="!isExpired && action == 'Cancel'">
+              <div *ngIf="!isExpired ">
                 <div class="row justify-content-center printArea" >
                     <h3 style="color:Red;margin-top: 0.67em;margin-bottom:1.00em;">{{l("CancelLinkExpiredTitle")}}</h3>
                     <br>
   
-                  <p style="text-align:center" >{{l("AppointmentCancellationContent1")}} {{appointment.appointment.fullName}} {{l("CancelLinkExpiredContent1")}}
+                  <p style="text-align:center" >{{l("AppointmentCancellationContent1")}}  {{l("CancelLinkExpiredContent1")}}
                   <br>
-                  {{l("CancelLinkExpiredContent2")}} 
+                  {{l("test")}} 
                   </p>
                   <!-- <br> -->
                   
@@ -27,11 +27,11 @@
             </div>     
 
               <!-- Result Appointment for cancel-->
-              <div *ngIf="isExpired && action == 'Cancel'">
+              <div *ngIf="isExpired">
                 <div class="row justify-content-center printArea" >
                     <h3 style="color:blue;margin-top: 0.67em;margin-bottom:1.00em;">{{l("AppointmentCancellation")}} </h3>
                     <br>
-                  <p style="text-align:center" > {{ appointment.appointment.title + ' ' + appointment.appointment.fullName }} {{l("AppointmentCancellationContent2")}} 
+                  <p style="text-align:center" >  {{l("AppointmentCancellationContent2")}} 
                   </p>
                   <br>
                 </div>
@@ -39,7 +39,7 @@
                         
                         <div class="col-md-4 border-bottom mb-5 pb-5 py-3 text-center">
                             <div class="font-weight-bolder mb-3">{{l('AppRefNo')}}</div>
-                            <div class="line-height-x1">{{ appointment.appointment.appRefNo}}
+                            <div class="line-height-x1">
                             </div>
                         </div>
                 

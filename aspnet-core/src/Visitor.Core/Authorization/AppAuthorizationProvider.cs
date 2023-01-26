@@ -41,7 +41,7 @@ namespace Visitor.Authorization
             //Appointments
             var appointments = pages.CreateChildPermission(AppPermissions.Pages_Appointments, L("Appointments"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Create, L("CreateNewAppointment"));
-            //appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"));
             appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Delete, L("DeleteAppointment"));
 
             //Tower

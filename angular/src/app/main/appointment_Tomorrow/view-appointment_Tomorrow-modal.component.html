@@ -207,12 +207,19 @@
                                 {{ l('Cancel') }}
                             </button>
                         </div>
-                        <div *ngIf="isStatusRegistered()">
+                        <!-- <div *ngIf="isStatusRegistered()&& new Date(item.appointment.checkInDateTime) > currentDateTime">
                             <button type="button" style="margin-right: 10px;" class="btn btn-primary blue"
                                 (click)="checkIn.show(item.appointment.id)">
                                 {{ l('CheckIn') }}
                             </button>
+                        </div> -->
+                        <div *ngIf="isStatusRegistered() && parseDate(item.appointment.appDateTime) > currentDateTime">
+                            <button type="button" style="margin-right: 10px;" class="btn btn-primary blue" (click)="checkIn.show(item.appointment.id)">
+                                {{ l('CheckIn') }}
+                            </button>
                         </div>
+                        
+                        
                         <div *ngIf="isStatusIn()">
                             <button type="button" style="margin-right: 10px;" class="btn btn-primary blue"
                                 (click)="change_Status_Register_To_Out()">

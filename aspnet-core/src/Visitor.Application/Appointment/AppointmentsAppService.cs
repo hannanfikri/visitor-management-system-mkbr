@@ -124,11 +124,11 @@ namespace Visitor.Appointment
 
             if (input.MinAppDateTimeFilter != null)
             {
-                 minA = (DateTime)input.MinAppDateTimeFilter;
+                minA = (DateTime)input.MinAppDateTimeFilter;
             }
             if (input.MaxAppDateTimeFilter != null)
             {
-                 maxA = (DateTime)input.MaxAppDateTimeFilter;
+                maxA = (DateTime)input.MaxAppDateTimeFilter;
             }
             if (input.MinRegDateTimeFilter != null)
             {
@@ -139,10 +139,10 @@ namespace Visitor.Appointment
                 maxR = (DateTime)input.MaxRegDateTimeFilter;
             }
 
-            
+
             var todaysDate = DateTime.Today;
 
-            var statusEnumFilter = input.StatusFilter.HasValue 
+            var statusEnumFilter = input.StatusFilter.HasValue
                         ? (StatusType)input.StatusFilter
                         : default;
 
@@ -150,7 +150,7 @@ namespace Visitor.Appointment
 
             var filteredAppointments = _appointmentRepository.GetAll()
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FullName.Contains(input.Filter) || e.IdentityCard.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PassNumber.Contains(input.Filter) || e.OfficerToMeet.Contains(input.Filter) || e.AppRefNo.Contains(input.Filter))
-                        
+
 
 
 
@@ -163,7 +163,7 @@ namespace Visitor.Appointment
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompanyNameFilter), e => e.CompanyName == input.CompanyNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfficerToMeetFilter), e => e.OfficerToMeet == input.OfficerToMeetFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailOfficerToMeet), e => e.EmailOfficerToMeet == input.EmailOfficerToMeet)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNoOfficerToMeet== input.PhoneNoOfficerToMeet)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNoOfficerToMeet == input.PhoneNoOfficerToMeet)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PurposeOfVisitFilter), e => e.PurposeOfVisit == input.PurposeOfVisitFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentFilter), e => e.Department == input.DepartmentFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TowerFilter), e => e.Tower == input.TowerFilter)
@@ -173,10 +173,10 @@ namespace Visitor.Appointment
                         .WhereIf(input.MinRegDateTimeFilter != null, e => e.CreationTime.Date >= minR.Date)
                         .WhereIf(input.MaxRegDateTimeFilter != null, e => e.CreationTime.Date <= maxR.Date)
 
-                        .WhereIf(input.StatusFilter.HasValue , e => e.Status == statusEnumFilter)
+                        .WhereIf(input.StatusFilter.HasValue, e => e.Status == statusEnumFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LevelFilter), e => e.Level == input.LevelFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AppRefNoFilter), e => e.AppRefNo == input.AppRefNoFilter);
-                        //.WhereIf(input.AppDateTimeFilter != null, e => e.AppDateTime == input.AppDateTimeFilter );
+            //.WhereIf(input.AppDateTimeFilter != null, e => e.AppDateTime == input.AppDateTimeFilter );
 
 
 
@@ -243,7 +243,7 @@ namespace Visitor.Appointment
                         ImageId = o.ImageId,
                         //ImageId = image.Id,,
                         AppRefNo = o.AppRefNo,
-                        PassNumber=o.PassNumber,
+                        PassNumber = o.PassNumber,
                         CheckInDateTime = o.CheckInDateTime.ToString(" dd/MM hh:mm tt"),
                         CheckOutDateTime = o.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
                         CancelDateTime = o.CancelDateTime.ToString("dd/MM hh:mm tt"),
@@ -288,7 +288,7 @@ namespace Visitor.Appointment
 
             DateTime d1 = GetToday();
             var todaysDate = DateTime.Today;
-            
+
 
             var statusEnumFilter = input.StatusFilter.HasValue
                         ? (StatusType)input.StatusFilter
@@ -697,12 +697,41 @@ namespace Visitor.Appointment
         {
             var appointment = await _appointmentRepository.GetAsync(id);
 
-            var output = new GetAppointmentForViewDto { Appointment = ObjectMapper.Map<AppointmentDto>(appointment) };
+            // var output = new GetAppointmentForViewDto { Appointment = ObjectMapper.Map<AppointmentDto>(appointment) };
+
+            var output = new GetAppointmentForViewDto
+            {
+                Appointment = new AppointmentDto
+                {
+                    Id = appointment.Id,
+                    FullName = appointment.FullName,
+                    PhoneNo = appointment.PhoneNo,
+                    Email = appointment.Email,
+                    Title = appointment.Title,
+                    CompanyName = appointment.CompanyName,
+                    OfficerToMeet = appointment.OfficerToMeet,
+                    PurposeOfVisit = appointment.PurposeOfVisit,
+                    Department = appointment.Department,
+                    Tower = appointment.Tower,
+                    Level = appointment.Level,
+                    AppDateTime = appointment.AppDateTime.ToString("dd/MM/yy, hh:mm tt"),
+                    RegDateTime = appointment.CreationTime.ToString("dd/MM/yy, hh:mm tt"),
+                    Status = appointment.Status,
+                    ImageId = appointment.ImageId,
+                    AppRefNo = appointment.AppRefNo,
+                    PassNumber = appointment.PassNumber,
+                    CheckInDateTime = appointment.CheckInDateTime.ToString("dd/MM hh:mm tt"),
+                    CheckOutDateTime = appointment.CheckOutDateTime.ToString("dd/MM hh:mm tt"),
+                    CancelDateTime = appointment.CancelDateTime.ToString("dd/MM hh:mm tt"),
+                    EmailOfficerToMeet = appointment.EmailOfficerToMeet,
+                    PhoneNoOfficerToMeet = appointment.PhoneNoOfficerToMeet
+                }
+            };
 
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Appointments_Edit)]
+        /*[AbpAuthorize(AppPermissions.Pages_Appointments_Edit)]*/
         public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<Guid> input)
         {
             var appointment = await _appointmentRepository.FirstOrDefaultAsync(input.Id);
@@ -1114,7 +1143,7 @@ namespace Visitor.Appointment
         public async Task<byte[]> GetPictureByIdOrNull(Guid imageId)
         {
             var file = await _binaryObjectManager.GetOrNullAsync(imageId);
-            if ( file == null)
+            if (file == null)
             {
                 return null;
             }
@@ -1136,7 +1165,7 @@ namespace Visitor.Appointment
                 string base64 = Convert.ToBase64String(output.Bytes);
                 return base64;
             }
-            
+
         }
 
         public async Task<GetPictureOutput> GetPictureByAppointment(Guid appId)
@@ -1220,5 +1249,5 @@ namespace Visitor.Appointment
         }
 
     }
-    
+
 }

@@ -297,7 +297,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
                 pluck('result')
             )
             .subscribe((result) => {
-                this.notify.info(this.l('SavedSuccessfully'));
+                this.notify.info(this.l('AppointmentCreatedSuccessfully'));
                 this.modalSave.emit(null);
                 this._passService.appointmentId = result;
                 this.viewDetails();

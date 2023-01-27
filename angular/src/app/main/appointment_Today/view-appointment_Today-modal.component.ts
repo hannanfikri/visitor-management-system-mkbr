@@ -21,6 +21,12 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     active = false;
     saving = false;
 
+    currentDateTime = new Date();
+
+    parseDate(dateString: string): Date {
+        return new Date(Date.parse(dateString));
+    }
+
     imageUrl: any;
     imageBlob: any;
     imageReader = new FileReader();

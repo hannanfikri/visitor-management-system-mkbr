@@ -1,7 +1,7 @@
-<div class="container mt-3 mb-3">
+<div class="container mb-3">
     <!-- <div class="card card-custom bg-custom-2"> -->
     <form #appointmentForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
-        <div class="card card-custom bg-custom-1">
+        <div class="card card-shadow card-custom bg-custom-1">
             <div class="card-header border-1">
                 <div class="card-title">
                     <p class="text-center fs-1 fw-bolder">Create A New Appointment</p>
@@ -311,12 +311,12 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <button type="button" (click)="reset(appointmentForm)" class="btn btn-light-danger font-weight-bold mr-2">
+                <button type="button" (click)="reset(appointmentForm)" class="btn btn-danger font-weight-bold mr-2">
                     <i class="
                     flaticon-exclamation-1"></i>
                     <span>{{ l('Reset') }}</span>
                 </button>
-                <button type="submit" class="btn btn-light-primary blue font-weight-bold mr-2"
+                <button type="submit" class="btn btn-primary blue font-weight-bold mr-2"
                     [disabled]="!appointmentForm.form.valid || !Appointment_Email.valid" [buttonBusy]="saving"
                     [busyText]="l('SavingWithThreeDot')">
                     <i class="fa fa-save"></i>

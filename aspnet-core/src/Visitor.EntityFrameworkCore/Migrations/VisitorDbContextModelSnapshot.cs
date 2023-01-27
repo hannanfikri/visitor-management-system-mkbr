@@ -1967,7 +1967,7 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("211b33a3-3e6c-4c48-a035-8487bf238cdd"),
+                            Id = new Guid("50f8682c-94c3-48ff-970c-7cdf8a0ca252"),
                             CompanyAddress = "No. 33, Jalan Rakyat, KL Sentral, 50740 Kuala Lumpur",
                             CompanyEmail = "bankrakyat@bankrakyat.com",
                             CompanyName = "Bank Rakyat",
@@ -1975,7 +1975,7 @@ namespace Visitor.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fc96341f-f3ff-40a0-aad2-8adf4a23c2b7"),
+                            Id = new Guid("30174fff-fa19-4e66-95a8-0ec058fbaf90"),
                             CompanyAddress = "Lot 1327, Centre Point Commercial Centre, Jalan Melayu, 98007 Miri, Sarawak",
                             CompanyEmail = "mecofurniture@yahoo.com",
                             CompanyName = "Meco Furniture Trading Co.",
@@ -1983,7 +1983,7 @@ namespace Visitor.Migrations
                         },
                         new
                         {
-                            Id = new Guid("aad9dd05-41c5-4244-bbc7-91431f33d98c"),
+                            Id = new Guid("51bf608e-951d-4369-bc07-fc52ba231580"),
                             CompanyAddress = "No. 1, Blok C, Jalan Indah 2/6, Taman Indah, Batu 11, Cheras, 43200, Selangor, Darul Ehsan",
                             CompanyEmail = "elaine@mieco.com",
                             CompanyName = "Mieco",
@@ -2007,27 +2007,27 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3194773f-b3de-4195-b158-35f57144357b"),
+                            Id = new Guid("d49fc909-7216-4a34-89e2-856dfd8ce7a0"),
                             DepartmentName = "Information Security"
                         },
                         new
                         {
-                            Id = new Guid("36cd3f01-4435-46fa-b193-789b4dc3983b"),
+                            Id = new Guid("4bec01e5-1dbe-4820-b30f-7b4f2db93b67"),
                             DepartmentName = "Information Systems"
                         },
                         new
                         {
-                            Id = new Guid("e7e26f53-f8a2-4bf2-94d4-33623c0942fb"),
+                            Id = new Guid("aba3ffbe-4a0f-4433-8698-42daed30455a"),
                             DepartmentName = "IT Administration"
                         },
                         new
                         {
-                            Id = new Guid("a2e34eb4-f8b9-4628-8c7d-e8ea723bb1d2"),
+                            Id = new Guid("4e49f57f-e706-422f-a6b8-8f4cf35a678b"),
                             DepartmentName = "IT Solutions"
                         },
                         new
                         {
-                            Id = new Guid("2347f472-2023-4500-86a5-a3455ded2eb5"),
+                            Id = new Guid("b170d015-9595-4ad7-846e-29227384a2ce"),
                             DepartmentName = "Network"
                         });
                 });
@@ -2098,192 +2098,192 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("05b7e1b8-9947-4f1b-9800-8391455c7aba"),
+                            Id = new Guid("ee60bbb5-e184-4690-a8a2-e9270531185a"),
                             LevelBankRakyat = "1"
                         },
                         new
                         {
-                            Id = new Guid("0121dce2-6533-4fc5-8b02-43739a117e35"),
+                            Id = new Guid("95d85ea5-dfa3-4ddc-a1f2-74566d20da07"),
                             LevelBankRakyat = "2"
                         },
                         new
                         {
-                            Id = new Guid("c69fc78b-ca42-4576-9fc6-160ca31b7e99"),
+                            Id = new Guid("0f5f56f2-70cc-45d9-b805-4deca253f057"),
                             LevelBankRakyat = "3"
                         },
                         new
                         {
-                            Id = new Guid("686250e2-030a-4db0-ac84-030ff66f2765"),
+                            Id = new Guid("00494af5-313d-4f2c-8b88-4192bae622f8"),
                             LevelBankRakyat = "4"
                         },
                         new
                         {
-                            Id = new Guid("93fe53b0-1f53-43bb-8a8c-95ada3511c44"),
+                            Id = new Guid("ac2cf7a7-0e13-48f5-9b29-3a447df35ec8"),
                             LevelBankRakyat = "5"
                         },
                         new
                         {
-                            Id = new Guid("97080566-69b6-416f-b6b4-8ae15380ca84"),
+                            Id = new Guid("4d156299-735a-41de-83b7-dc24455a96cd"),
                             LevelBankRakyat = "6"
                         },
                         new
                         {
-                            Id = new Guid("ac6b3790-1e9e-4c95-8d35-031a6573851f"),
+                            Id = new Guid("1318449d-2b4d-481d-b35c-8dcd0bd589c9"),
                             LevelBankRakyat = "7"
                         },
                         new
                         {
-                            Id = new Guid("15b44837-5ecc-4a05-8566-12c15d39f97c"),
+                            Id = new Guid("70a80945-60df-4d19-86de-f5acfedd6ec9"),
                             LevelBankRakyat = "8"
                         },
                         new
                         {
-                            Id = new Guid("044f1e53-5633-4106-ad98-c818016689fa"),
+                            Id = new Guid("d0c78d76-3ffc-4ed3-aeac-1ebad7e7da02"),
                             LevelBankRakyat = "9"
                         },
                         new
                         {
-                            Id = new Guid("e91d1a1f-4d98-4910-8e97-c81888935ea0"),
+                            Id = new Guid("68b23c44-f51b-4406-ba8a-6707c2b9a4ba"),
                             LevelBankRakyat = "10"
                         },
                         new
                         {
-                            Id = new Guid("e286ac41-9269-43a0-badb-fd17f9824a97"),
+                            Id = new Guid("6a642479-34c7-4868-8372-585a40603b6a"),
                             LevelBankRakyat = "11"
                         },
                         new
                         {
-                            Id = new Guid("d8a34681-7ee9-4f19-8f2b-abd1d62dc5b6"),
+                            Id = new Guid("24887250-f3dc-4432-bfa2-e044b15a53da"),
                             LevelBankRakyat = "12"
                         },
                         new
                         {
-                            Id = new Guid("c06f8af6-d8b7-4aa6-8984-6773d15de6bc"),
+                            Id = new Guid("b6a13320-067f-4766-b9c7-476227604361"),
                             LevelBankRakyat = "13"
                         },
                         new
                         {
-                            Id = new Guid("7eebabff-ec74-43d3-a5e7-e32dd0cd5ac9"),
+                            Id = new Guid("ddbba679-522f-4d4f-b4ba-a6805dc5d59b"),
                             LevelBankRakyat = "14"
                         },
                         new
                         {
-                            Id = new Guid("b3d7abcd-a728-4c0d-9eb3-e2c8e2e3c2b1"),
+                            Id = new Guid("07b8048a-fe78-49a9-9c42-9f58d5e596cc"),
                             LevelBankRakyat = "15"
                         },
                         new
                         {
-                            Id = new Guid("50ef3b84-23f7-4d2e-a113-8d66509033e6"),
+                            Id = new Guid("ba639fc5-8ae5-4bd1-a7c0-a0ae3964a99a"),
                             LevelBankRakyat = "16"
                         },
                         new
                         {
-                            Id = new Guid("347d92f2-e20b-4513-9cf7-7f0116049a83"),
+                            Id = new Guid("b9ad43e6-8d85-482d-afca-66a5ff28978d"),
                             LevelBankRakyat = "17"
                         },
                         new
                         {
-                            Id = new Guid("04b80398-c720-47f7-8617-5d37190dd155"),
+                            Id = new Guid("eb0f4cdb-fe1e-441d-a8af-330dc818deb1"),
                             LevelBankRakyat = "18"
                         },
                         new
                         {
-                            Id = new Guid("380765a7-851b-4253-aa13-8e589e03a6bb"),
+                            Id = new Guid("58b8f321-6202-4d94-ab03-75399343656e"),
                             LevelBankRakyat = "19"
                         },
                         new
                         {
-                            Id = new Guid("6b633840-4de5-4dd2-ac24-53fd3f0299a4"),
+                            Id = new Guid("e7ee5c99-4ac5-4e6e-8a57-b04eeb474b75"),
                             LevelBankRakyat = "20"
                         },
                         new
                         {
-                            Id = new Guid("3d910523-6487-4fba-9a35-695825321ca3"),
+                            Id = new Guid("a1349b8b-fef5-4231-aef7-863e6dfa610f"),
                             LevelBankRakyat = "21"
                         },
                         new
                         {
-                            Id = new Guid("e0721018-64f6-467f-a018-77f01c2c10fe"),
+                            Id = new Guid("8dad1aa5-9bcd-44a9-8227-038dfaa91236"),
                             LevelBankRakyat = "22"
                         },
                         new
                         {
-                            Id = new Guid("84547ee8-21b4-40a7-bbd1-babe99e19887"),
+                            Id = new Guid("7bb9314b-bed4-4ac1-bfeb-e242a12a754d"),
                             LevelBankRakyat = "23"
                         },
                         new
                         {
-                            Id = new Guid("49e90414-fab3-4a58-ab51-e1306101da03"),
+                            Id = new Guid("c1eaef50-9fb4-4589-889f-23d5af9b0a24"),
                             LevelBankRakyat = "24"
                         },
                         new
                         {
-                            Id = new Guid("47d3c895-d849-4f82-92a1-c329fb265e51"),
+                            Id = new Guid("8ce24c43-09ad-4673-b6ff-1628834c35e0"),
                             LevelBankRakyat = "25"
                         },
                         new
                         {
-                            Id = new Guid("090a2267-9dbf-4891-ac82-66047a493da2"),
+                            Id = new Guid("fac8eba2-164f-4a1b-8cd8-94e430ddb835"),
                             LevelBankRakyat = "26"
                         },
                         new
                         {
-                            Id = new Guid("9fe516f2-09ff-4a28-aae0-f9a218b93abe"),
+                            Id = new Guid("30dea0dc-3d83-4a7a-9e8c-357c5f2342fd"),
                             LevelBankRakyat = "27"
                         },
                         new
                         {
-                            Id = new Guid("c058eb1a-323b-4f21-bd2e-85451b3f9dee"),
+                            Id = new Guid("28fc7287-468e-423d-8932-9f23430f9077"),
                             LevelBankRakyat = "28"
                         },
                         new
                         {
-                            Id = new Guid("d2847c23-f713-4ed9-aa17-a0b6108967d0"),
+                            Id = new Guid("283d06d7-9c82-49b0-a724-65ce3c2c3e6d"),
                             LevelBankRakyat = "29"
                         },
                         new
                         {
-                            Id = new Guid("f6de15d1-4f1b-4f3a-a70e-869a4f1bf98e"),
+                            Id = new Guid("55d7b140-213f-42d4-901b-2c92934fa2cc"),
                             LevelBankRakyat = "30"
                         },
                         new
                         {
-                            Id = new Guid("175c138e-e503-4194-8343-b3a384f83935"),
+                            Id = new Guid("a2b00d61-c991-4d23-b523-4501f01e91a0"),
                             LevelBankRakyat = "31"
                         },
                         new
                         {
-                            Id = new Guid("f2c96532-0a71-422c-971a-aefab56c5722"),
+                            Id = new Guid("6e67160a-b872-4905-b3c7-add630cdd64e"),
                             LevelBankRakyat = "32"
                         },
                         new
                         {
-                            Id = new Guid("d6d02912-84a0-4bb3-ab1d-a96ea6b4dfa5"),
+                            Id = new Guid("27fc39f4-a7f3-49a2-833c-9545a0d2fa48"),
                             LevelBankRakyat = "33"
                         },
                         new
                         {
-                            Id = new Guid("9d6e0740-1c61-4bdf-a871-cf653419efa3"),
+                            Id = new Guid("747313d2-55a8-4afa-a5f7-987f31ed8876"),
                             LevelBankRakyat = "34"
                         },
                         new
                         {
-                            Id = new Guid("27812963-af4e-4a8c-9ede-e4a46524e2a2"),
+                            Id = new Guid("532c7839-472e-4263-858b-7d5e0a03b9d4"),
                             LevelBankRakyat = "35"
                         },
                         new
                         {
-                            Id = new Guid("86283a67-6ce2-42ae-9011-00b248144e13"),
+                            Id = new Guid("3ebaa06d-034d-449e-b138-1af86829d465"),
                             LevelBankRakyat = "36"
                         },
                         new
                         {
-                            Id = new Guid("c478c23a-9633-41b1-8b57-30823f31c75a"),
+                            Id = new Guid("ddd5e2de-329c-4757-bab2-8dd663e613b6"),
                             LevelBankRakyat = "37"
                         },
                         new
                         {
-                            Id = new Guid("7851e486-eb75-42ef-bf51-e8f27ded188b"),
+                            Id = new Guid("89e7b33f-e3fb-4864-96d8-916d22616fb9"),
                             LevelBankRakyat = "38"
                         });
                 });
@@ -2530,67 +2530,67 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2dfc18e1-0fc1-4b18-83a8-b682d4b7dfd3"),
+                            Id = new Guid("b8a12cda-4509-4568-8e5b-2771504b9fa8"),
                             PurposeOfVisitApp = "Interview"
                         },
                         new
                         {
-                            Id = new Guid("7add69b6-32b8-49d9-a080-6ff133a63ad8"),
+                            Id = new Guid("582991a8-7b08-4925-9738-561e42fa90f1"),
                             PurposeOfVisitApp = "Installation"
                         },
                         new
                         {
-                            Id = new Guid("dd047b80-3f21-4898-8cca-9af397fefb86"),
+                            Id = new Guid("6931ae40-8dd2-40a0-bdc0-f8bd5d2b3ff5"),
                             PurposeOfVisitApp = "Event"
                         },
                         new
                         {
-                            Id = new Guid("89cb8563-44ac-4eae-b3d7-403ef4bd952a"),
+                            Id = new Guid("cee59b2c-bafe-41a5-879e-b1d25769c401"),
                             PurposeOfVisitApp = "Event"
                         },
                         new
                         {
-                            Id = new Guid("fca33933-902b-4846-92b5-7704a4c27303"),
+                            Id = new Guid("c15dd335-a0d1-415b-904a-13ca169c5cc8"),
                             PurposeOfVisitApp = "Discussion"
                         },
                         new
                         {
-                            Id = new Guid("bb4de330-2be1-4a21-b8a9-576544a1486e"),
+                            Id = new Guid("ceddc0ff-9289-41cc-b442-73521adee2ff"),
                             PurposeOfVisitApp = "Delivery"
                         },
                         new
                         {
-                            Id = new Guid("b9c8cdfa-aa84-423f-9587-82d900a4ac0b"),
+                            Id = new Guid("608603ed-3ff6-458b-aff4-1d1c63ee9872"),
                             PurposeOfVisitApp = "Admission"
                         },
                         new
                         {
-                            Id = new Guid("6d315757-5fa0-4160-b69b-76b52a4c64af"),
+                            Id = new Guid("67280c23-da7c-485e-905a-17e1b40315a3"),
                             PurposeOfVisitApp = "Collect Cheque"
                         },
                         new
                         {
-                            Id = new Guid("d799c225-f7a4-4472-aa7d-9b41c608afcf"),
+                            Id = new Guid("47e4179f-8f0b-4ee7-80f6-fe54039b3f3e"),
                             PurposeOfVisitApp = "Document Collection"
                         },
                         new
                         {
-                            Id = new Guid("4a36bbf8-a7f0-47ae-80c2-b2751cc5ef00"),
+                            Id = new Guid("466056b4-442d-47bf-b32b-265aecc75674"),
                             PurposeOfVisitApp = "Meeting"
                         },
                         new
                         {
-                            Id = new Guid("6ea41212-4896-4422-a420-484ed8aa6517"),
+                            Id = new Guid("b811e6b3-42fa-4dd4-90db-0f695ad45b0e"),
                             PurposeOfVisitApp = "Training"
                         },
                         new
                         {
-                            Id = new Guid("f9d73081-344b-4cf4-a816-9a0a1d490a91"),
+                            Id = new Guid("a29a4b65-b86a-40fc-99c7-d0918d846ddb"),
                             PurposeOfVisitApp = "Vendor"
                         },
                         new
                         {
-                            Id = new Guid("c7d4fcb8-0a8f-4db2-bcff-b1bb4c36b8f1"),
+                            Id = new Guid("964aa2b5-90b6-4f1b-9818-2239ee0eb2d0"),
                             PurposeOfVisitApp = "Visit"
                         });
                 });
@@ -2635,37 +2635,37 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9cf3266e-cc60-4658-8445-26007541e506"),
+                            Id = new Guid("0f1c0e81-0015-4d0e-8a45-991d03861c1f"),
                             VisitorTitle = "Mrs"
                         },
                         new
                         {
-                            Id = new Guid("1d023354-dd25-46fb-bd32-50db08110a26"),
+                            Id = new Guid("088f70fa-9623-4b13-ad4d-8f76e3c0a9ac"),
                             VisitorTitle = "Mr"
                         },
                         new
                         {
-                            Id = new Guid("4016b884-e757-446e-af49-eb678de740c0"),
+                            Id = new Guid("f773bba0-7a46-4411-a8ca-628302f41255"),
                             VisitorTitle = "Ms"
                         },
                         new
                         {
-                            Id = new Guid("4292d77b-d529-4797-bba9-39ec7f780b7b"),
+                            Id = new Guid("0290a633-b19a-4ac4-b176-ab45071f0f9a"),
                             VisitorTitle = "Sir"
                         },
                         new
                         {
-                            Id = new Guid("06fefa85-82c0-43b9-a029-3fa2feb12c13"),
+                            Id = new Guid("1955e435-e950-4a0f-bd42-480c53ce7b1d"),
                             VisitorTitle = "Tan Sri"
                         },
                         new
                         {
-                            Id = new Guid("a5ae3fd9-b377-461e-bdb0-b9a9927ae499"),
+                            Id = new Guid("2262ad66-01ac-4b84-80f7-2a9992a33fb2"),
                             VisitorTitle = "Puan Sri"
                         },
                         new
                         {
-                            Id = new Guid("99f57da7-cdca-4a9a-a063-dc4f33cc269b"),
+                            Id = new Guid("ce07e2e6-26a3-4e85-ad01-8d18f836c576"),
                             VisitorTitle = "Dato Sri"
                         });
                 });
@@ -2686,12 +2686,12 @@ namespace Visitor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b9b1547c-87a2-4638-bcbf-e930a85ab211"),
+                            Id = new Guid("593ed759-61d4-4ca9-8281-000c757bc5bc"),
                             TowerBankRakyat = "Tower 1"
                         },
                         new
                         {
-                            Id = new Guid("3337cc54-122f-4347-b1dd-88861e13e042"),
+                            Id = new Guid("e3e81c54-93c3-4ce5-8fa0-610e26e03876"),
                             TowerBankRakyat = "Tower 2"
                         });
                 });

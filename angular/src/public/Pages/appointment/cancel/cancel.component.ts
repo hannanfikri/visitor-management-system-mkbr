@@ -73,7 +73,7 @@ export class CancelComponent extends AppComponentBase implements OnInit {
       if (isConfirmed) {
         this._portalService.confirmCancelAppointment(appointmentId).subscribe(() => {
           this._router.navigate(['/']);
-          this.notify.success(this.l("SuccessfullyDeleted"));
+          this.notify.success(this.l("AppointmentCancelledSuccessfully"));
         });
       }
     });

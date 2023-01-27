@@ -3,8 +3,8 @@
   <texts>
 
     <text name="FormResetWarningMessage">The form will be reset.</text>
-
-
+    <text name="AppointmentCreatedSuccessfully">Appointment created successfully.</text>
+    <text name="AppointmentCancelledSuccessfully">Appointment cancelled successfully.</text>
     <text name="TermsConditions">Terms &#38; Conditions</text>
     <text name="Disclaimer">Disclaimer</text>
     <text name="PrivacyPolicy">Privacy Policy</text>
@@ -162,7 +162,7 @@
     <text name="CancelEmailBodyContent3">For your information, this link will expired before 30 minutes from appointment date and time and can only be used once.</text>
     <text name="CancelLinkExpiredTitle">Appointment Cancellation Link Expired</text>
     <text name="AppointmentCancellation">We received your request to cancel an appointment at BANK RAKYAT </text>
-    <text name="CancelLinkExpiredContent1">your appointment cancellation link has expired because you haven't used it. The appointment cancellation link expired every 15 minutes and can only be used once.</text>
+    <text name="CancelLinkExpiredContent1">your appointment cancellation link has expired. The appointment cancellation link expired 30 minutes before the appointment time.</text>
     <text name="CancelLinkExpiredContent2">You may request new appointment cancellation by click the below button.</text>
     <text name="AppointmentCancellationContent2">to proceed with your appointment cancellation please click the Cancel button below.</text>
     <text name="Sincerely">Sincerely,</text>

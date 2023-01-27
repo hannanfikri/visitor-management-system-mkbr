@@ -83,7 +83,8 @@
     <text name="Deletelevel">Delete level</text>
     <text name="Levels">Levels</text>
 
-    <text name="VisitorDetails">Visitor details</text>
+    <text name="VisitorRegistrationForm">Visitor Registration Form</text>
+    <text name="VisitorDetails">Visitor Details</text>
     <text name="IC"> Identity Card/Passport Number</text>
     <text name="Appointment">Appointment</text>
     <text name="Visitor.Appointment.Appointment">Appointment</text>

@@ -24,10 +24,13 @@
 //web view
 @media screen and (min-width: 1024px) {
   .card {
-    // margin-top: 130px;
-    // margin-bottom: 130px;
+    margin-top: 225px;
+    margin-bottom: 130px;
+    height: -webkit-calc(100% - (60px + 45px)) !important;
   }
 }
 
 //mobile view
-@media screen and (max-device-width: 640px) {}
+@media screen and (max-device-width: 640px) {
+  
+}

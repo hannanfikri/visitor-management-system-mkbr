@@ -2,8 +2,11 @@
     left: 0;
     background-color: #025ea7;
     align-content: center;
-
+    height: 65px;
     // padding: 0 12px;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
     .header-top {
         background-color: #025ea7;
     }
@@ -52,7 +55,10 @@
 
 #kt_header_mobile {
     background-color: #025ea7;
-
+    height: 65px;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
     .language-option {
         // .btn-language-option {
         //     background-color: #e86724;

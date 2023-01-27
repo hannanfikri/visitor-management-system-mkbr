@@ -350,7 +350,7 @@ export class FormWizardComponent extends AppComponentBase implements OnInit, Aft
             })
         });
 
-        // this.arrayLevelString.sort((a, b) => a.levelBankRakyat.localeCompare(b.levelBankRakyat));
+        this.arrayLevelString.sort((a, b) => a.levelBankRakyat.localeCompare(b.levelBankRakyat));
 
         this.arrTower.map((res) => {
             res.map((result) => {

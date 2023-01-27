@@ -130,7 +130,7 @@ h4 {
         flex: 1 1 auto;
         flex-direction: column;
 
-        .my-3 {
+        .my-3 + .mt-3 .mb-4 {
             display: flex;
             flex-direction: row;
             gap: 50px;
@@ -163,4 +163,13 @@ h4 {
 }
 
 //mobile view
-@media screen and (max-device-width: 640px) {}
+@media screen and (max-device-width: 640px) {
+    .side_normal{
+        .my-3 {
+            .form-label {
+                width: fit-content;
+                max-width: 290px;
+            }
+        }
+    }
+}

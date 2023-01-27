@@ -86,7 +86,7 @@ namespace Visitor.Appointment.ExpiredUrl
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ExpiredUrls_Edit)]
+       // [AbpAuthorize(AppPermissions.Pages_ExpiredUrls_Edit)]
         public async Task<GetExpiredUrlForEditOutput> GetExpiredUrlForEdit(EntityDto<Guid> input)
         {
             var expiredUrl = await _expiredUrlRepository.FirstOrDefaultAsync(input.Id);
@@ -131,13 +131,13 @@ namespace Visitor.Appointment.ExpiredUrl
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ExpiredUrls_Delete)]
+        //[AbpAuthorize(AppPermissions.Pages_ExpiredUrls_Delete)]
         public async Task Delete(EntityDto<Guid> input)
         {
             await _expiredUrlRepository.DeleteAsync(input.Id);
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ExpiredUrls)]
+        //[AbpAuthorize(AppPermissions.Pages_ExpiredUrls)]
         public async Task<PagedResultDto<ExpiredUrlAppointmentLookupTableDto>> GetAllAppointmentForLookupTable(GetAllForLookupTableInput input)
         {
             var query = _lookup_appointmentRepository.GetAll().WhereIf(

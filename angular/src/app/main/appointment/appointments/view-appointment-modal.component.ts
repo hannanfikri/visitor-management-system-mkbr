@@ -21,9 +21,13 @@ export class ViewAppointmentModalComponent extends AppComponentBase {
     
 
     currentDateTime = new Date();
-    parseDate(dateString: string) {
-        return new Date(dateString);
+
+    parseDate(dateString: string): Date {
+        return new Date(Date.parse(dateString));
     }
+
+
+    
     
 
     active = false;

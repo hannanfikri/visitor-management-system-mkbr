@@ -4,6 +4,7 @@
     {
         string GetDefaultTemplate(int? tenantId);
         string GetAppointmentEmailTemplate(int? tenantId);
+        string GetConfirmCancelEmailTemplate(int? tenantId);
         //string GetCancelAppointmentEmailTemplate(int? tenantId);
         string GetThanksEmailTemplate(int? tenantId);
     }

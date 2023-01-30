@@ -202,5 +202,64 @@ namespace Visitor.core.Portal
                 IsBodyHtml = true,
             });
         }
+        public async Task SendConfirmCancelEmailAsync(AppointmentEnt appointment)
+        {
+            DateTime DTNow = DateTime.Now;
+            await CheckMailSettingsEmptyOrNull();
+            var emailTemplate = GetTitleAndSubTitleConfirmCancel(null, appointment.AppRefNo);
+            var greeting = new StringBuilder();
+            var cancelInfo = new StringBuilder();
+            var regardInfo = new StringBuilder();
+
+            greeting.AppendLine(L("CancelEmailIntro") + appointment.Title + " " + appointment.FullName);
+
+            cancelInfo.AppendLine("<br>");
+            cancelInfo.AppendLine(L("CancelEmailBodyContent1") + DTNow.ToString("dd/MM/yyyy hh:mm:tt"));
+            cancelInfo.AppendLine("<br>");
+            cancelInfo.AppendLine(L("CancelEmailBodyContent1.2"));
+            cancelInfo.AppendLine("<br><br>");
+            cancelInfo.AppendLine(L("CancelEmailBodyContent1.3"));
+            cancelInfo.AppendLine("<br>");
+            cancelInfo.AppendLine(L("CancelEmailBodyContent1.4"));
+            cancelInfo.AppendLine("<br>");
+            cancelInfo.AppendLine(L("CancelEmailBodyContent1.5"));
+            cancelInfo.AppendLine("<br>");
+            cancelInfo.AppendLine(L("CancelEmailBodyContent1.6"));
+            cancelInfo.AppendLine("<br>");
+
+            //Regard
+            regardInfo.AppendLine("<br>");
+            regardInfo.AppendLine(L("Sincerely"));
+            regardInfo.AppendLine("<br>");
+            regardInfo.AppendLine(L("BankRakyat"));
+
+            //From here on, you can implement your platform-dependent byte[]-to-image code 
+
+            await ReplaceBodyAndSendCancel(appointment.Email, L("CancelEmailBodyTitle"), emailTemplate, greeting, cancelInfo, regardInfo);
+
+        }
+        private StringBuilder GetTitleAndSubTitleConfirmCancel(int? tenantId, string title)
+        {
+            var emailTemplate = new StringBuilder(_emailTemplateProvider.GetConfirmCancelEmailTemplate(tenantId));
+            emailTemplate.Replace("{EMAIL_TITLE}", title);
+
+            return emailTemplate;
+        }
+        private async Task ReplaceBodyAndSendCancel(
+            string emailAddress, string subject, StringBuilder emailTemplate,
+            StringBuilder greeting, StringBuilder cancelInfo, StringBuilder regardInfo)
+        {
+            emailTemplate.Replace("{GREETING}", greeting.ToString());
+            emailTemplate.Replace("{CANCEL_INFO}", cancelInfo.ToString());
+            emailTemplate.Replace("{REGARD_INFO}", regardInfo.ToString());
+
+            await _emailSender.SendAsync(new MailMessage
+            {
+                To = { emailAddress },
+                Subject = subject,
+                Body = emailTemplate.ToString(),
+                IsBodyHtml = true,
+            });
+        }
     }
 }

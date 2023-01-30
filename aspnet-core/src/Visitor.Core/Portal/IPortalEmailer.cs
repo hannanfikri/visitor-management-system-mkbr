@@ -11,6 +11,7 @@ namespace Visitor.core.Portal
     public interface IPortalEmailer
     {
         Task SendEmailDetailAppointmentAsync(AppointmentEnt appointment);
+        Task SendConfirmCancelEmailAsync(AppointmentEnt appointment);
         Task SendCancelEmailAsync(AppointmentEnt appointment);
     }
 }

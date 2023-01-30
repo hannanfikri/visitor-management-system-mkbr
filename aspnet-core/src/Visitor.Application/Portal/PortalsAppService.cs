@@ -442,6 +442,7 @@ namespace Visitor.Portal
                 var appointment = await _appointmentRepository.GetAsync(Guid.Parse(appointmentId));
                 appointment.Status = StatusType.Cancel;
                 appointment.CancelDateTime = now;
+                await _portalEmailer.SendConfirmCancelEmailAsync(ObjectMapper.Map<AppointmentEnt>(appointment));
                 return "Success";
             }
             catch (Exception ex)
@@ -452,8 +453,26 @@ namespace Visitor.Portal
                 return "Error";
             }
 
-        }
-        public async Task<GetAppointmentForEditOutput> GetAppointmentById(Guid appointmentId)
+        }/*
+        public async Task<String> test(string appointmentId)
+        {
+            try
+            {
+                DateTime now = DateTime.Now;
+                var appointment = await _appointmentRepository.GetAsync(Guid.Parse(appointmentId));
+                await _portalEmailer.SendConfirmCancelEmailAsync(ObjectMapper.Map<AppointmentEnt>(appointment));
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                //code for any other type of exception
+                Logger.Error("ERROR CancelAppointment");
+                Logger.Error(ex.Message);
+                return "Error";
+            }
+        }*/
+
+            public async Task<GetAppointmentForEditOutput> GetAppointmentById(Guid appointmentId)
         {
             var appointment = await _appointmentRepository.FirstOrDefaultAsync(appointmentId);
 

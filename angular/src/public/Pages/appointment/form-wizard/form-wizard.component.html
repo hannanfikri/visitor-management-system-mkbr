@@ -4,12 +4,12 @@
         <div class="card card-shadow card-custom bg-custom-1">
             <div class="card-header border-1">
                 <div class="card-title">
-                    <p class="text-center fs-1 fw-bolder">Create A New Appointment</p>
+                    <p class="text-center fs-1 fw-bolder">{{ l('VisitorRegistrationForm') }}</p>
                 </div>
             </div>
             <div class="card-body">
                 <div class="container-lg mt-3">
-                    <p class="text-center fs-2 fw-bold">Visitor Details</p>
+                    <p class="text-center fs-2 fw-bold">{{ l('VisitorDetails') }}</p>
                 </div>
                 <hr class="hr hr-blurry" />
                 <div class="d-flex flex-column p-2">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="container-lg mt-10">
-                        <p class="text-center fs-2 fw-bold">Appointment Details</p>
+                        <p class="text-center fs-2 fw-bold">{{ l('AppointmentDetails') }}</p>
                     </div>
                     <hr class="hr hr-blurry" />
 
@@ -257,7 +257,7 @@
                                 <validation-messages [formCtrl]="Appointment_PhoneNoOfficerToMeet"></validation-messages>
                             </div>
                         </div>
-                        <div class="my-3">
+                        <div class="mt-3 mb-4">
                             <label class="form-label" for="Appointment_PurposeOfVisit">{{ l('PurposeOfVisit') }}
                             </label>
                             <!-- <select #Appointment_PurposeOfVisit="ngModel" id="Appointment_PurposeOfVisit"

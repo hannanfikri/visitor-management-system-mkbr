@@ -43,7 +43,7 @@ export class CancelComponent extends AppComponentBase implements OnInit {
         this.appointment = result;
       });
     this._portalService.checkUrlExpiring(this.appointmentId, this.action).subscribe(res => {
-      this.isExpired = true;
+      this.isExpired = res;
       console.log(this.isExpired);
     });
   }

@@ -2,7 +2,7 @@ import { Component, Injector, OnInit, ViewChild, ViewEncapsulation } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { GetAppointmentForEditOutput, PortalsServiceProxy, AppointmentsServiceProxy , StatusType } from '@shared/service-proxies/service-proxies';
+import { GetAppointmentForEditOutput, PortalsServiceProxy, AppointmentsServiceProxy, StatusType } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-appointment-cancel',
@@ -43,7 +43,7 @@ export class CancelComponent extends AppComponentBase implements OnInit {
         this.appointment = result;
       });
     this._portalService.checkUrlExpiring(this.appointmentId, this.action).subscribe(res => {
-      this.isExpired = res;
+      this.isExpired = false;
       console.log(this.isExpired);
     });
   }
@@ -57,7 +57,7 @@ export class CancelComponent extends AppComponentBase implements OnInit {
       if (isConfirmed) {
         this._portalService.confirmCancelAppointment(appointmentId).subscribe(() => {
           this._router.navigate(['/']);
-          this.notify.success(this.l("SuccessfullyDeleted"));
+          this.notify.success(this.l("AppointmentCancelledSuccessfully"));
         });
       }
     });

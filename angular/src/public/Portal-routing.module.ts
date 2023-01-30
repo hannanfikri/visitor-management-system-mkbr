@@ -13,7 +13,6 @@ import { PortalComponent } from './Portal.component';
                 path: '',
                 component: PortalComponent,
                 children: [
-                    
                     { path: 'new', component: FormWizardComponent },
                     { path: 'appointment-details', component: ViewDetailsComponent },                    
                     { path: 'cancel', component: CancelComponent },

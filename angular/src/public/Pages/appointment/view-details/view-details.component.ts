@@ -19,7 +19,7 @@ import {  formatDate  } from '@angular/common';
 @Component({
     selector: 'app-view-details',
     templateUrl: './view-details.component.html',
-    styleUrls: ['./view-details.component.css']
+    styleUrls: ['./view-details.component.scss']
 })
 export class ViewDetailsComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
@@ -90,7 +90,6 @@ export class ViewDetailsComponent extends AppComponentBase implements OnInit, Af
                     this.item.appointment = result.appointment;
                     this.item.appointment.creationTime;
                     this.reg = formatDate(this.item.appointment.creationTime.toISO(), 'dd/MM/yy, hh:mm a', this.locale,);
-                    this.reg;
                     // this.item.appointment.appRefNo = result.appointment.appRefNo;
                 }
             );

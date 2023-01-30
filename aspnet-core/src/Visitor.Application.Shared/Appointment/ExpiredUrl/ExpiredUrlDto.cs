@@ -9,7 +9,7 @@ namespace Visitor.Appointment.ExpiredUrl
     {
         public DateTime UrlCreateDate { get; set; }
 
-        public DateTime UrlExpiredDate { get; set; }
+        public string UrlExpiredDate { get; set; }
 
         public string Item { get; set; }
 

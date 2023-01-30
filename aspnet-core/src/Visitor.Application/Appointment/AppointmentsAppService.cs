@@ -685,6 +685,13 @@ namespace Visitor.Appointment
             );
 
         }
+        public async Task<GetExpiredUrlForViewDto> CheckExpiredUrl(Guid? appointmentId, string Item)
+        {
+            var expiredUrl = await _expiredUrlRepository.FirstOrDefaultAsync(x => x.AppointmentId == appointmentId && x.Item == Item);
+            var output = new GetExpiredUrlForViewDto { ExpiredUrl = ObjectMapper.Map<ExpiredUrlDto>(expiredUrl) };
+
+            return output;
+        }
 
         public async Task<GetAppointmentForViewDto> GetAppointmentForView(Guid id)
         {

@@ -155,10 +155,12 @@
 
     <text name="CancelEmailBodyTitle">Bank Rakyat - Appointment Cancellation</text>
     <text name="CancelEmailIntro">Dear </text>
-    <text name="CancelEmailBodyContent1">We have received your appointment cancelation date </text>
-    <text name="CancelEmailBodyContent1.1">, on </text>
-    <text name="CancelEmailBodyContent1.2">, at our BANK RAKYAT </text>
-    <text name="CancelEmailBodyContent1.3"> branch. </text>
+    <text name="CancelEmailBodyContent1">We successfully canceled your appointment on </text>
+    <text name="CancelEmailBodyContent1.2">Thank you for letting us know, your flexibility is appreciated.</text>
+    <text name="CancelEmailBodyContent1.3">We understand, and appreciate your communication.</text>
+    <text name="CancelEmailBodyContent1.4">Thank you for being considerate.</text> 
+    <text name="CancelEmailBodyContent1.5">Appreciate the heads up, take care and have a great day!</text>
+    <text name="CancelEmailBodyContent1.6">Thanks for updating us. We hope to connect with you soon </text>
     <text name="CancelEmailBodyContent2">To cancel this appointment, please click below link.</text>
     <text name="CancelEmailBodyContent3">For your information, this link will expired before 30 minutes from appointment date and time and can only be used once.</text>
     <text name="CancelLinkExpiredTitle">Appointment Cancellation Link Expired</text>

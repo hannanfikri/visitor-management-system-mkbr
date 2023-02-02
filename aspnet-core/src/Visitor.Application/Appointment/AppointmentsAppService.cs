@@ -115,6 +115,8 @@ namespace Visitor.Appointment
         {
             return DateTime.Now.AddDays(-1).Date;
         }
+
+
         public async Task<PagedResultDto<GetAppointmentForViewDto>> GetAll(GetAllAppointmentsInput input)
         {
             DateTime minA = DateTime.Now;
